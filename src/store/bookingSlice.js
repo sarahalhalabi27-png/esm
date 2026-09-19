@@ -14,6 +14,7 @@ const bookingSlice = createSlice({
     status: SUBMIT_STATUS.IDLE,
     error: null,
   },
+  // لإعادة حالة الحجز للوضع الأساسي ومسح أي خطأ
   reducers: {
     resetBookingStatus: (state) => {
       state.status = SUBMIT_STATUS.IDLE;

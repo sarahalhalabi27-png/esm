@@ -45,7 +45,8 @@ const fleetSlice = createSlice({
       .addCase(fetchCarById.fulfilled, (state, action) => {
         state.carStatus = STATUS.SUCCEEDED;
         if (action.payload) {
-          state.carsById[action.meta.arg] = action.payload;
+          state.carsById[action.meta.arg] = action.payload; // Store the fetched car in the cache using its ID as the key.
+                                                           // This lets us reuse the car data later without making another API request.
         }
       })
       .addCase(fetchCarById.rejected, (state, action) => {
@@ -56,10 +57,13 @@ const fleetSlice = createSlice({
 });
 
 // ----- selectors -----
+// يجيب بيانات السيارة المطلوبة من Redux 
+// باستخدام الـ carId.
 export const selectFleetCategories = (state) => state.fleet.categories;
 export const selectFleetStatus = (state) => state.fleet.categoriesStatus;
 export const selectFeaturedCars = (state) =>
   state.fleet.categories.flatMap((category) => category.cars).slice(0, 3);
+// بعطيها الـ ID → بتحددلي السيارة المطلوبة → Redux بيعطيها الـ state → بتجيب السيارة من الكاش.   
 export const selectCarById = (carId) => (state) => state.fleet.carsById[carId];
 
 export default fleetSlice.reducer;
