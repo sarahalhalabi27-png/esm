@@ -20,7 +20,7 @@ export default function FleetPreviewGrid() {
   }, [status, dispatch]);
 
   return (
-    <section className="border-t border-white/5 font-display">
+    <section className="font-display mb-[80px]">
       <div className="w-[1350px] mx-auto">
         <SectionEyebrow className="font-display !font-semibold !text-[25px] !leading-[100%] !tracking-[0%] capitalize">
           Our Luxury Fleet

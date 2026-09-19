@@ -4,7 +4,7 @@ import { whyChooseUsItems } from "../../data/whyChooseUsData.js";
 
 export default function WhyChooseUsGrid() {
   return (
-    <section className="border-t border-white/5 bg-white/[0.015] font-display ">
+    <section className="font-display ">
       <div className="max-w-content mx-auto px-6 py-20">
         <SectionEyebrow>Why Choose ESM?</SectionEyebrow>
         <div className="grid sm:grid-cols-2 gap-x-16 gap-y-6 mt-8 max-w-3xl">

@@ -20,6 +20,9 @@ export default function LayeredGraphicStage({
             left: `${layer.left}%`,
             width: `${layer.width}%`,
             height: `${layer.height}%`,
+            // Inline objectFit (when set) overrides the object-contain class,
+            // e.g. "cover" to fill a box whose aspect differs from the source.
+            objectFit: layer.objectFit,
             opacity: layer.opacity ?? 1,
             zIndex: layer.zIndex ?? 0,
           }}

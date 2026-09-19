@@ -5,7 +5,7 @@ import CarLineArtIllustration from "../common/CarLineArtIllustration.jsx";
 
 export default function PromotionalOfferBanner() {
   return (
-    <section className="border-t border-white/5 font-display ">
+    <section className="font-display ">
       <div className="max-w-content mx-auto px-6 py-20 grid md:grid-cols-2 gap-10 items-center">
         <div>
           <SectionEyebrow>Our Special Offers For You</SectionEyebrow>

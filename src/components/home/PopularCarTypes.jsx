@@ -10,7 +10,7 @@ const popularTypes = [
 
 export default function PopularCarTypes() {
   return (
-    <section className="border-t border-white/5 font-display ">
+    <section className="font-display ">
       <div className="max-w-content mx-auto px-6 py-20">
         <SectionEyebrow>Most Popular Types Of Cars</SectionEyebrow>
         <p className="text-gray-400 text-sm mb-10">

@@ -56,14 +56,14 @@ export default function QuickBookingForm() {
   };
 
   return (
-    <section className="relative overflow-hidden border-t border-white/5 font-display">
+    <section className="relative overflow-hidden font-display min-h-[1098px]">
       {/* Background Images */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {/* Smoke 1 */}
         <img
           src={smoke}
           alt=""
-          className="absolute left-0 top-0 w-[1550px] h-[1098px]"
+          className="absolute left-0 top-0 w-[1440px] h-[1098px]"
           style={{ opacity: 0.3 }}
         />
 
@@ -89,13 +89,8 @@ export default function QuickBookingForm() {
         />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-content mx-auto px-6 py-20 grid md:grid-cols-2 gap-10 items-center">
-        {/* Left side */}
-        <div className="order-2 md:order-1"></div>
-
-        {/* Booking Form */}
-        <div className="order-1 md:order-2 w-[590px] h-[852px] rounded-[25px] bg-black/30 backdrop-blur-[18.5px] px-[45px] py-[45px] flex flex-col">
+      {/* Booking Form — positioned to match Figma (relative to the section's smoke) */}
+      <div className="absolute z-10 top-[225px] left-[765px] w-[590px] h-[852px] rounded-[25px] bg-black/30 backdrop-blur-[18.5px] px-[45px] py-[45px] flex flex-col">
           <h2 className="text-[24px] font-medium text-teal-accent text-center mb-[40px]">
             Book Your Luxury Car Now
           </h2>
@@ -163,7 +158,6 @@ export default function QuickBookingForm() {
               ) : null}
             </div>
           </form>
-        </div>
       </div>
     </section>
   );

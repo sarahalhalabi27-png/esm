@@ -4,7 +4,7 @@ import { limoServices } from "../../data/servicesData.js";
 
 export default function ServiceTimelineGrid() {
   return (
-    <section className="border-t border-white/5 bg-white/[0.015] font-display ">
+    <section className="font-display ">
       <div className="max-w-content mx-auto px-6 py-20">
         <div className="text-center max-w-2xl mx-auto mb-14">
           <SectionEyebrow>ESM Limo Services</SectionEyebrow>

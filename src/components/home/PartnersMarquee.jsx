@@ -3,7 +3,7 @@ import { partners } from "../../data/partnersData.js";
 
 export default function PartnersMarquee() {
   return (
-    <section className="border-t border-white/5 font-display">
+    <section className="font-display">
       <div className="max-w-content mx-auto px-6 py-16 text-center">
         <SectionEyebrow>Our Best Partners</SectionEyebrow>
         <div className="flex flex-wrap justify-center items-center gap-10 mt-6 opacity-80">

@@ -1,10 +1,10 @@
 export const trustHighlights = [
   "Luxury Airport Transfers",
-  "Corporate & Business Travel",
-  "VIP Chauffeur Services",
-  "Weddings & Special Events",
   "City Tours & Sightseeing",
-  "Safe & Reliable Rides",
+   "Corporate & Business Travel",
+    "Safe & Reliable Rides",
+  "VIP Chauffeur Services",
   "24/7 Customer Support",
+  "Weddings & Special Events",
   "Premium Limousine Service",
 ];
