@@ -1,5 +1,4 @@
-import SectionEyebrow from "../common/SectionEyebrow.jsx";
-import CarSilhouetteIcon from "../common/CarSilhouetteIcon.jsx";
+import carIcon from "../../assets/car.svg";
 
 const popularTypes = [
   { id: "mercedes-1", brand: "Mercedes", count: "15 Car" },
@@ -10,26 +9,82 @@ const popularTypes = [
 
 export default function PopularCarTypes() {
   return (
-    <section className="font-display ">
+    <section className="font-display">
       <div className="max-w-content mx-auto px-6 py-20">
-        <SectionEyebrow>Most Popular Types Of Cars</SectionEyebrow>
-        <p className="text-gray-400 text-sm mb-10">
+
+        {/* Section Title */}
+        <h2
+          className="
+            w-[367px]
+            h-[30px]
+            mx-auto
+            text-center
+            text-[25px]
+            font-semibold
+            leading-[100%]
+            tracking-[0%]
+            capitalize
+            text-[#24B9A5]
+          "
+        >
+          Most Popular Types Of Cars
+        </h2>
+
+        {/* Description */}
+        <p
+          className="
+            w-[828px]
+            h-[30px]
+            mx-auto
+            mt-[27px]
+            text-center
+            text-[25px]
+            font-medium
+            leading-[100%]
+            tracking-[0%]
+            capitalize
+            text-white
+          "
+        >
           Explore Our Luxurious Fleet Designed To Elevate Every Occasion:
         </p>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+
+        {/* Car Types — cards match Figma (257x172, teal gradient border) */}
+        <div className="flex justify-center gap-[40px] mt-[45px]">
           {popularTypes.map((type) => (
             <div
               key={type.id}
-              className="rounded-2xl border border-white/10 bg-white/[0.02] py-10 flex flex-col items-center gap-3"
+              className="relative w-[257px] h-[172px] rounded-[10px] flex flex-col items-center pt-[26px]"
             >
-              <CarSilhouetteIcon size={36} />
-              <div className="text-center text-sm">
-                <p>{type.brand}</p>
-                <p className="text-gray-500 text-xs">{type.count}</p>
-              </div>
+              {/* 1px teal gradient border (Figma) */}
+              <div
+                className="absolute inset-0 rounded-[10px] pointer-events-none"
+                style={{
+                  padding: "1px",
+                  background:
+                    "linear-gradient(360deg, rgba(36,185,165,0.8) 0%, rgba(23,148,135,0) 100%)",
+                  WebkitMask:
+                    "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                  WebkitMaskComposite: "xor",
+                  maskComposite: "exclude",
+                }}
+              />
+
+              <img
+  src={carIcon}
+  alt=""
+  className="w-[50px] h-[50px] object-contain"
+/>
+              <p className="mt-[16px] w-[98.68px] h-[31.77px] text-[22px] font-medium leading-[100%] capitalize text-white/[0.83] text-center">
+  {type.brand}
+</p>
+              <p className="mt-[4px] text-[20px] font-medium leading-[100%] capitalize text-teal-accent">
+                {type.count}
+              </p>
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );

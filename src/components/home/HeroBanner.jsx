@@ -15,16 +15,13 @@ const heroHighlights = [
 
 const { layers: heroIllustrationLayers, box: heroIllustrationBox } =
   buildLayerLayout([
-    // Coordinates taken directly from Figma (Desktop-51 frame).
     {
       src: building,
       alt: "",
       top: 71,
       left: 518,
       width: 922,
-      height: 836,
-      // Source PNG is square (1875x1875); "cover" fills the wider Figma box
-      // instead of letterboxing it (which made the skyline look narrow).
+      height: 760,
       objectFit: "cover",
       zIndex: 10,
     },
@@ -42,9 +39,9 @@ const { layers: heroIllustrationLayers, box: heroIllustrationBox } =
       src: blackCar,
       alt: "",
       top: 642,
-      left: 525,
-      width: 905,
-      height: 355,
+      left: 490,
+      width: 1000,
+      height: 335,
       objectFit: "cover",
       zIndex: 30,
     },
@@ -57,12 +54,12 @@ export default function HeroBanner() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 60% 50% at 75% 20%, rgba(63,224,176,0.10), transparent 70%)",
+            "radial-gradient(ellipse 80% 50% at 65% 40%, rgba(63,224,176,0.10), transparent 55%)",
         }}
       />
 
       <div
-        className="relative w-full pl-[51px] pr-[128px] pt-[195px] pb-24 mr-[128px]"
+        className="relative w-full pl-[50px] pr-[128px] pt-[195px] pb-24 mr-[128px]"
         style={{
           minHeight: heroIllustrationBox.top + heroIllustrationBox.height,
         }}
@@ -85,7 +82,7 @@ export default function HeroBanner() {
             Quickly Book Your Luxury Ride
           </PrimaryButton>
 
-          <ul className="w-[318px] h-[144px] space-y-4 mt-[30px]">
+          <ul className="w-[318px] h-[144px] space-y-5 mt-[30px]">
             {heroHighlights.map((item) => (
               <CheckListItem key={item}>{item}</CheckListItem>
             ))}
@@ -95,12 +92,14 @@ export default function HeroBanner() {
           className="absolute rounded-full pointer-events-none"
           style={{
             left: 772,
-            top: 601,
+            top: 501,
             width: 446,
-            height: 239,
+            height: 450,
             backgroundColor: "#24B9A5",
-            filter: "blur(180px)",
-            opacity: 0.6,
+            // Figma layer-blur 702.6 doesn't map 1:1 to CSS blur; these values
+            // reproduce Figma's subtle localized glow instead of a harsh wash.
+            filter: "blur(190px)",
+            opacity: 0.45,
             zIndex: 0,
           }}
         />

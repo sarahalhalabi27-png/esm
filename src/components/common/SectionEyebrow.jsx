@@ -1,6 +1,6 @@
 export default function SectionEyebrow({ children, className = "" }) {
   return (
-    <p className={`text-sm font-medium text-teal-accent mb-2 ${className}`}>
+    <p className={`text-sm font-semibold text-teal-accent mb-2 ${className}`}>
       {children}
     </p>
   );

@@ -9,7 +9,7 @@ export default function SiteHeader() {
 
   return (
     <header className="w-full bg-black sticky top-0 z-30">
-      <div className="flex items-start pl-[51px] pt-[41px] pb-[40px] pr-[135px] md:pr-[50px]">
+      <div className="flex items-start pl-[50px] pt-[41px] pb-[40px] pr-[135px] md:pr-[50px]">
         <NavLink to="/" className="flex items-center">
           <img src={logo} alt="ESM Limo" className="w-[83px] h-[25px]" />
         </NavLink>

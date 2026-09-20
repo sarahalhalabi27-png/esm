@@ -6,7 +6,7 @@ export default function PrimaryButton({
 }) {
   return (
     <button
-      className={`inline-flex items-center justify-center gap-2 bg-teal-accent text-[#04241a] transition-transform hover:scale-[1.02] ${className}`}
+      className={`inline-flex items-center justify-center gap-2 bg-teal-accent text-[#000000] transition-transform hover:scale-[1.02] ${className}`}
       {...rest}
     >
       {children}

@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import RatingStars from "../common/RatingStars.jsx";
 import smokeBg from "../../assets/smoke-bg.png";
 import lexus from "../../assets/lexus.png";
+import passengersIcon from "../../assets/passengers.svg";
+import luggageIcon from "../../assets/luggage.svg";
 
 export default function FleetShowcaseCard({ car }) {
   return (
@@ -9,11 +11,12 @@ export default function FleetShowcaseCard({ car }) {
       {/* Green background - Rectangle 10 */}
       <div className="absolute top-0 left-0 w-[416px] h-[319px] rounded-t-[10px] bg-[#24B9A4]/[0.20] z-0" />
 
-      {/* Smoke */}
+      {/* Smoke — rotated -90°; origin-top-left keeps the rotated box at
+          Figma's Top 5 / Left 30 so it spans down behind the Book Now button. */}
       <img
         src={smokeBg}
         alt=""
-        className="absolute top-[5px] left-[30px] w-[579px] h-[334px] -rotate-90 opacity-[0.14] z-0"
+        className="absolute top-[584px] left-[30px] w-[579px] h-[334px] max-w-none origin-top-left -rotate-90 opacity-[0.14] z-0"
       />
 
       {/* Black background - Rectangle 11 */}
@@ -54,88 +57,22 @@ export default function FleetShowcaseCard({ car }) {
         <div className="absolute top-[449px] left-[26px] w-[365px] flex items-center">
           {/* Passengers */}
           <div className="flex items-center font-normal text-[20px] leading-[100%] capitalize">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              className="w-[40px] h-[36px] shrink-0 mr-2"
-            >
-              <g
-                fill="none"
-                stroke="#24B9A5"
-                strokeWidth="36"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="188" cy="188" r="70" />
-
-                <path d="M 68 360 C 68 285, 120 270, 188 270 C 256 270, 308 285, 308 360 L 308 370" />
-
-                <path d="M 300 135 A 68 68 0 0 1 300 245" />
-
-                <path d="M 352 285 C 390 295, 412 315, 412 370" />
-              </g>
-            </svg>
+            <img
+              src={passengersIcon}
+              alt=""
+              className="w-[25px] h-[20px] shrink-0 mr-2"
+            />
 
             <span>{car.passengers} Passengers</span>
           </div>
 
           {/* Luggage */}
           <div className="ml-auto flex items-center font-normal text-[20px] leading-[100%] capitalize">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="90 90 340 330"
-              className="w-[20px] h-[18px] shrink-0 mr-2"
-            >
-              <rect
-                x="100"
-                y="160"
-                width="312"
-                height="240"
-                rx="30"
-                ry="30"
-                fill="none"
-                stroke="#24B9A5"
-                strokeWidth="24"
-              />
-
-              <rect
-                x="200"
-                y="100"
-                width="112"
-                height="112"
-                rx="20"
-                ry="20"
-                fill="none"
-                stroke="#24B9A5"
-                strokeWidth="24"
-              />
-
-              <rect
-                x="200"
-                y="200"
-                width="24"
-                height="200"
-                rx="10"
-                ry="10"
-                fill="none"
-                stroke="#24B9A5"
-                strokeWidth="24"
-              />
-
-              <rect
-                x="288"
-                y="200"
-                width="24"
-                height="200"
-                rx="10"
-                ry="10"
-                fill="none"
-                stroke="#24B9A5"
-                strokeWidth="24"
-              />
-
-              <path d="M 450 450 l 8 -8 l 8 8 l -8 8 z" fill="#c0c0c0" />
-            </svg>
+            <img
+              src={luggageIcon}
+              alt=""
+              className="w-[25px] h-[20px] shrink-0 mr-2"
+            />
 
             <span>{car.luggage} Luggage</span>
           </div>
@@ -146,13 +83,17 @@ export default function FleetShowcaseCard({ car }) {
           to={`/fleet/${car.id}`}
           className="absolute top-[513px] left-[24px] w-[367px] h-[41px] rounded-[10px]"
         >
-          {/* Rectangle 9 — التوهج التركوازي، بالخلف، منزّل لتحت جوا مساحة الزر */}
+          {/* Rectangle 9 — Turquoise glow behind the button */}
           <div
             className="absolute left-0 w-full rounded-[10px] z-0"
-            style={{ top: "12px", height: "17px", background: "#24B9A5" }}
+            style={{
+              top: "12px",
+              height: "17px",
+              background: "#24B9A5",
+            }}
           />
 
-          {/* Rectangle 10 — الزجاج الأسود، فوق، بيخلي التوهج يبين من تحته بس */}
+          {/* Rectangle 10 — Black glass over the glow */}
           <div
             className="absolute inset-0 rounded-[10px] z-[1]"
             style={{

@@ -30,6 +30,7 @@ const defaultValues = {
 export default function QuickBookingForm() {
   const dispatch = useDispatch();
   const status = useSelector(selectBookingStatus);
+
   const { control, handleSubmit, reset } = useForm({
     resolver: zodResolver(bookingSchema),
     defaultValues,
@@ -57,8 +58,10 @@ export default function QuickBookingForm() {
 
   return (
     <section className="relative overflow-hidden font-display min-h-[1098px]">
+
       {/* Background Images */}
       <div className="absolute inset-0 pointer-events-none z-0">
+
         {/* Smoke 1 */}
         <img
           src={smoke}
@@ -81,6 +84,7 @@ export default function QuickBookingForm() {
           alt=""
           className="absolute left-[30px] top-[492px] w-[646px] h-[585px]"
         />
+
         <img
           src={smoke}
           alt=""
@@ -89,17 +93,22 @@ export default function QuickBookingForm() {
         />
       </div>
 
-      {/* Booking Form — positioned to match Figma (relative to the section's smoke) */}
-      <div className="absolute z-10 top-[225px] left-[765px] w-[590px] h-[852px] rounded-[25px] bg-black/30 backdrop-blur-[18.5px] px-[45px] py-[45px] flex flex-col">
-          <h2 className="text-[24px] font-medium text-teal-accent text-center mb-[40px]">
+      {/* Booking Form — Figma Rectangle 8: #000000 30% + backdrop blur 18.5 */}
+      <div className="absolute z-10 top-[100px] left-[765px] w-[590px] h-[852px] rounded-[25px] bg-black/30 backdrop-blur-[18.5px] px-[45px] py-[45px] flex flex-col">
+
+        {/* Move all form content upward */}
+        <div className="relative -top-[90px]">
+
+          <h2 className="text-[25px] font-semibold text-teal-accent text-center mb-[80px]">
             Book Your Luxury Car Now
           </h2>
 
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-1 flex-col"
+            className="flex flex-col"
           >
-            <div className="flex flex-1 flex-col justify-between">
+            <div className="flex flex-col gap-[36px]">
+
               <ControlledField
                 control={control}
                 name="name"
@@ -129,6 +138,13 @@ export default function QuickBookingForm() {
 
               <ControlledField
                 control={control}
+                name="date"
+                as={DatePicker}
+                placeholder="Select Date"
+              />
+
+              <ControlledField
+                control={control}
                 name="time"
                 as={TimePicker}
                 placeholder="Select Time"
@@ -136,19 +152,24 @@ export default function QuickBookingForm() {
 
               <ControlledField
                 control={control}
-                name="date"
-                as={DatePicker}
-                placeholder="Select Date"
+                name="dropOffLocation"
+                as={TextField}
+                placeholder="Drop Off Location"
+                {...fieldProps}
               />
+
             </div>
 
-            <div className="mt-[40px] flex flex-col items-center gap-2">
+            <div className="mt-[140px] flex flex-col items-center gap-2">
+
               <OutlineButton
                 type="submit"
-                className="!w-[153px] !h-[62px] !rounded-[10px] !border-white !text-white"
+                className="!w-[153px] !h-[55px] !rounded-[10px] !border-white !text-white"
                 disabled={status === SUBMIT_STATUS.SUBMITTING}
               >
-                {status === SUBMIT_STATUS.SUBMITTING ? "Sending..." : "Send"}
+                {status === SUBMIT_STATUS.SUBMITTING
+                  ? "Sending..."
+                  : "Send"}
               </OutlineButton>
 
               {status === SUBMIT_STATUS.SUCCESS ? (
@@ -156,8 +177,11 @@ export default function QuickBookingForm() {
                   Thanks! We received your request.
                 </p>
               ) : null}
+
             </div>
           </form>
+
+        </div>
       </div>
     </section>
   );

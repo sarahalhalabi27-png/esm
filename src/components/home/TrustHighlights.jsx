@@ -5,13 +5,12 @@ import parking from "../../assets/parking.png";
 export default function TrustHighlights() {
   return (
     <section
-      className="relative w-[1380px] mx-auto h-[606px] bg-cover bg-center bg-fixed font-display"
+      className="relative w-[1340px] mx-auto h-[606px] bg-cover bg-center bg-fixed font-display"
       style={{ backgroundImage: `url(${parking})` }}
     >
-      {/* Dark Overlay - Figma #000000B2 */}
       <div className="absolute inset-0 bg-black/70" />
 
-      <div className="relative z-10 pl-[50px] pr-[50px] pt-[60px] text-left">
+      <div className="relative z-10 pt-[60px] px-[60px] text-left">
         <h2 className="w-[1045px] whitespace-nowrap text-[30px] font-semibold leading-[100%] tracking-[0.2em] text-teal-accent">
           Trusted & Best Limousine Service Across The UAE
         </h2>
@@ -22,11 +21,16 @@ export default function TrustHighlights() {
           Stylish Travel Experience Across Dubai, Abu Dhabi, And Beyond!
         </p>
 
-        <div className="w-full grid grid-cols-2 gap-x-16 gap-y-[62px] mt-[45px] -mr-[30px]">
-          {trustHighlights.map((item) => (
-            <CheckListItem key={item}>{item}</CheckListItem>
-          ))}
-        </div>
+      <div className="w-full grid grid-cols-2 gap-x-16 gap-y-[62px] mt-[45px]">
+  {trustHighlights.map((item, index) => (
+    <CheckListItem
+      key={item}
+      className={index % 2 !== 0 ? "translate-x-[200px]" : ""}
+    >
+      {item}
+    </CheckListItem>
+  ))}
+</div>
       </div>
     </section>
   );
