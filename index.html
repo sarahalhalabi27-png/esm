@@ -10,8 +10,17 @@
       rel="stylesheet"
     />
     <title>ESM | Luxury, Defined By Every Ride</title>
+    <script>
+      // Apply saved theme before paint to avoid a flash. Default: dark.
+      (function () {
+        try {
+          var t = localStorage.getItem("esm-theme");
+          if (t === "light") document.documentElement.setAttribute("data-theme", "light");
+        } catch (e) {}
+      })();
+    </script>
   </head>
-  <body class="bg-black">
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

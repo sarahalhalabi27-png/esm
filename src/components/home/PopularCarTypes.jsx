@@ -1,17 +1,16 @@
 import carIcon from "../../assets/car.svg";
 
 const popularTypes = [
-  { id: "mercedes-1", brand: "Mercedes", count: "15 Car" },
-  { id: "mercedes-2", brand: "Mercedes", count: "15 Car" },
-  { id: "mercedes-3", brand: "Mercedes", count: "15 Car" },
-  { id: "mercedes-4", brand: "Mercedes", count: "15 Car" },
+  { id: "mercedes-1", brand: "Mercedes", count: "15" },
+  { id: "mercedes-2", brand: "Mercedes", count: "15" },
+  { id: "mercedes-3", brand: "Mercedes", count: "15" },
+  { id: "mercedes-4", brand: "Mercedes", count: "15" },
 ];
 
 export default function PopularCarTypes() {
   return (
     <section className="font-display">
       <div className="max-w-content mx-auto px-6 py-20">
-
         {/* Section Title */}
         <h2
           className="
@@ -24,7 +23,7 @@ export default function PopularCarTypes() {
             leading-[100%]
             tracking-[0%]
             capitalize
-            text-[#24B9A5]
+            text-teal-accent
           "
         >
           Most Popular Types Of Cars
@@ -43,7 +42,7 @@ export default function PopularCarTypes() {
             leading-[100%]
             tracking-[0%]
             capitalize
-            text-white
+            text-fg
           "
         >
           Explore Our Luxurious Fleet Designed To Elevate Every Occasion:
@@ -75,12 +74,12 @@ export default function PopularCarTypes() {
   alt=""
   className="w-[50px] h-[50px] object-contain"
 />
-              <p className="mt-[16px] w-[98.68px] h-[31.77px] text-[22px] font-medium leading-[100%] capitalize text-white/[0.83] text-center">
-  {type.brand}
+   <p className="mt-[16px] w-[98.68px] h-[31.77px] text-[22px] font-medium leading-[100%] capitalize text-fg/[0.83] text-center">
+   {type.brand}
+   </p>
+             <p className="mt-[4px] text-[20px] font-medium leading-[100%] capitalize text-teal-accent">
+  {type.count} <span className="text-fg">Car</span>
 </p>
-              <p className="mt-[4px] text-[20px] font-medium leading-[100%] capitalize text-teal-accent">
-                {type.count}
-              </p>
             </div>
           ))}
         </div>

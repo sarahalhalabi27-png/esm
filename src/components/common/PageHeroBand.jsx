@@ -5,7 +5,7 @@ import CityLineArtIllustration from "./CityLineArtIllustration.jsx";
 export default function PageHeroBand({ children, className = "" }) {
   return (
     <div
-      className={`relative overflow-hidden border-b border-white/5 ${className}`}
+      className={`relative overflow-hidden border-b border-line/5 ${className}`}
     >
       <div
         className="absolute inset-0 pointer-events-none"

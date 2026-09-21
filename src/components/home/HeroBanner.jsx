@@ -74,7 +74,7 @@ export default function HeroBanner() {
             A Sophisticated Experience Befitting Your{" "}
             <span className="relative inline-block font-semibold text-teal-accent">
               Luxury Car
-              <span className="absolute left-0 bottom-[-8px] w-[281px] border-b border-white"></span>
+              <span className="absolute left-0 bottom-[-8px] w-[281px] border-b border-fg"></span>
             </span>
           </h1>
 

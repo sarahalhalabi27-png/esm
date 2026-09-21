@@ -4,9 +4,15 @@ export default {
   theme: {
     extend: {
       colors: {
+        // teal-accent is now theme-aware (bright teal in dark, dark teal in light)
         teal: {
-          accent: "#24B9A5",
+          accent: "rgb(var(--accent) / <alpha-value>)",
         },
+        page: "rgb(var(--page) / <alpha-value>)",
+        fg: "rgb(var(--fg) / <alpha-value>)",
+        muted: "rgb(var(--muted) / <alpha-value>)",
+        surface: "rgb(var(--surface) / <alpha-value>)",
+        line: "rgb(var(--line) / <alpha-value>)",
       },
       fontFamily: {
         display: ["Montserrat Alternates", "sans-serif"],

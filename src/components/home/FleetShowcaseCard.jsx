@@ -20,7 +20,7 @@ export default function FleetShowcaseCard({ car }) {
       />
 
       {/* Black background - Rectangle 11 */}
-      <div className="absolute inset-[0.5px] rounded-[9.5px] bg-black/[0.14] backdrop-blur-[39.3px] z-[1]" />
+      <div className="absolute inset-[0.5px] rounded-[9.5px] bg-page/[0.14] backdrop-blur-[39.3px] z-[1]" />
 
       {/* Card Content */}
       <div className="relative z-10 w-full h-full">
@@ -51,7 +51,7 @@ export default function FleetShowcaseCard({ car }) {
         </p>
 
         {/* Divider */}
-        <div className="absolute top-[433px] left-[26px] w-[365px] h-0 border-t-[0.5px] border-white" />
+        <div className="absolute top-[433px] left-[26px] w-[365px] h-0 border-t-[0.5px] border-line" />
 
         {/* Passengers + Luggage */}
         <div className="absolute top-[449px] left-[26px] w-[365px] flex items-center">

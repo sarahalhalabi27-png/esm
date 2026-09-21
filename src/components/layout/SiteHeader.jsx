@@ -2,13 +2,14 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { navigationLinks } from "../../data/navigationLinks.js";
+import ThemeToggle from "../common/ThemeToggle.jsx";
 import logo from "../../assets/logo.png";
 
 export default function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="w-full bg-black sticky top-0 z-30">
+    <header className="w-full bg-page sticky top-0 z-30">
       <div className="flex items-start pl-[50px] pt-[41px] pb-[40px] pr-[135px] md:pr-[50px]">
         <NavLink to="/" className="flex items-center">
           <img src={logo} alt="ESM Limo" className="w-[83px] h-[25px]" />
@@ -24,7 +25,7 @@ export default function SiteHeader() {
                 `transition-colors capitalize ${
                   isActive
                     ? "text-teal-accent"
-                    : "text-gray-300 hover:text-white"
+                    : "text-fg/80 hover:text-fg"
                 }`
               }
             >
@@ -33,8 +34,10 @@ export default function SiteHeader() {
           ))}
         </nav>
 
+        <ThemeToggle className="ml-auto self-center shrink-0" />
+
         <button
-          className="md:hidden text-gray-300"
+          className="md:hidden text-fg/80 ml-4"
           onClick={() => setIsMenuOpen((open) => !open)}
           aria-label="Toggle navigation menu"
         >
@@ -51,7 +54,7 @@ export default function SiteHeader() {
               end={link.path === "/"}
               onClick={() => setIsMenuOpen(false)}
               className={({ isActive }) =>
-                isActive ? "text-teal-accent" : "text-gray-300"
+                isActive ? "text-teal-accent" : "text-fg/80"
               }
             >
               {link.label}

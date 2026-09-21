@@ -47,7 +47,7 @@ export default function TextField({
             top-0
             z-10
             cursor-pointer
-            text-white
+            text-fg
             font-display
             font-semibold
             text-[22px]
@@ -73,19 +73,19 @@ export default function TextField({
           w-full
           bg-transparent
           border-b
-          border-white/15
+          border-line/15
           focus:border-teal-accent
           outline-none
           py-2
           text-sm
-          text-white
-          placeholder:text-white
+          text-fg
+          placeholder:text-fg
           transition-colors
 
           ${
             isDateOrTime && !value && !isFocused
               ? "[&::-webkit-datetime-edit]:text-transparent"
-              : "[&::-webkit-datetime-edit]:text-white"
+              : "[&::-webkit-datetime-edit]:text-fg"
           }
 
           ${inputClassName}

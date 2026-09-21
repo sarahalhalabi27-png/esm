@@ -18,31 +18,31 @@ const socialIcons = {
 
 export default function SiteFooter() {
   return (
-    <footer className="border-t border-white/5 font-display">
+    <footer className="border-t border-line/10 font-display">
       <div className="max-w-content mx-auto px-6 pt-16 pb-10">
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-10 mb-14">
           <div>
             <h4 className="text-sm font-medium text-teal-accent mb-4">
               Explore
             </h4>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <ul className="space-y-2 text-sm text-muted">
               <li>
-                <NavLink to="/" className="hover:text-white">
+                <NavLink to="/" className="hover:text-fg">
                   Overview
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/services" className="hover:text-white">
+                <NavLink to="/services" className="hover:text-fg">
                   Services
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/about" className="hover:text-white">
+                <NavLink to="/about" className="hover:text-fg">
                   About Us
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/fleet" className="hover:text-white">
+                <NavLink to="/fleet" className="hover:text-fg">
                   Our Car
                 </NavLink>
               </li>
@@ -52,7 +52,7 @@ export default function SiteFooter() {
             <h4 className="text-sm font-medium text-teal-accent mb-4">
               Quick Contact
             </h4>
-            <ul className="space-y-3 text-sm text-gray-400">
+            <ul className="space-y-3 text-sm text-muted">
               <li className="flex items-center gap-2">
                 <Phone size={14} /> {companyInfo.phone}
               </li>
@@ -71,7 +71,7 @@ export default function SiteFooter() {
             <h4 className="text-sm font-medium text-teal-accent mb-4">
               Quick Links
             </h4>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <ul className="space-y-2 text-sm text-muted">
               <li>Terms Of Services</li>
               <li>Privacy Policy</li>
               <li>Disclaimer</li>
@@ -82,7 +82,7 @@ export default function SiteFooter() {
             <h4 className="text-sm font-medium text-teal-accent mb-4">
               Follow Us
             </h4>
-            <div className="flex gap-4 text-gray-400">
+            <div className="flex gap-4 text-muted">
               {companyInfo.socials.map((social) => {
                 const Icon = socialIcons[social.id];
                 return (
@@ -99,11 +99,11 @@ export default function SiteFooter() {
             </div>
           </div>
         </div>
-        <div className="text-center border-t border-white/5 pt-8">
+        <div className="text-center border-t border-line/10 pt-8">
           <p className="text-lg font-semibold text-teal-accent">
             {companyInfo.name}
           </p>
-          <p className="text-xs text-gray-500 mt-1">{companyInfo.tagline}</p>
+          <p className="text-xs text-muted mt-1">{companyInfo.tagline}</p>
         </div>
       </div>
     </footer>

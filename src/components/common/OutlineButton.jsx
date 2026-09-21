@@ -17,8 +17,8 @@ export default function OutlineButton({
   capitalize
   rounded-[10px]
   border-[0.5px]
-  border-white
-  bg-[#000000B2]
+  border-line
+  bg-page/70
   backdrop-blur-[30px]
   transition-colors
   ${className}

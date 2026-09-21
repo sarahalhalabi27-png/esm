@@ -2,11 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Theme tokens — RGB triples so Tailwind's rgb(var() / <alpha>) works.
+   Dark is the default; light is applied via <html data-theme="light">. */
+:root {
+  --page: 0 0 0; /* page background */
+  --fg: 255 255 255; /* primary text */
+  --muted: 156 163 175; /* secondary text (gray-400) */
+  --accent: 36 185 165; /* teal accent #24B9A5 */
+  --surface: 255 255 255; /* card/overlay tint base (used with low alpha) */
+  --line: 255 255 255; /* border base (used with low alpha) */
+}
+
+:root[data-theme="light"] {
+  --page: 255 255 255;
+  --fg: 0 0 0; /* black */
+  --muted: 107 114 128; /* gray-500 */
+  --accent: 7 46 42; /* dark teal #072E2A */
+  --surface: 0 0 0;
+  --line: 0 0 0;
+}
+
+/* Swap assets per theme (e.g. dark vs light icon images). */
+.light-only {
+  display: none;
+}
+:root[data-theme="light"] .dark-only {
+  display: none;
+}
+:root[data-theme="light"] .light-only {
+  display: inline-block;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: rgb(var(--page));
+  color: rgb(var(--fg));
 }

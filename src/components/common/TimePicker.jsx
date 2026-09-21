@@ -35,9 +35,9 @@ export default function TimePicker({
           text-left
           bg-transparent
           border-b
-          border-white
+          border-line
           py-2
-          text-white
+          text-fg
           font-display
           font-semibold
           text-[22px]
@@ -50,20 +50,20 @@ export default function TimePicker({
 
       {/* Custom Modal */}
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-page/50">
           <div
             className="
               w-[320px]
               rounded-[20px]
-              bg-black
+              bg-page
               border
-              border-white/20
+              border-line/20
               p-[25px]
               shadow-2xl
               font-display
             "
           >
-            <h3 className="text-white text-[22px] font-semibold mb-6 text-center">
+            <h3 className="text-fg text-[22px] font-semibold mb-6 text-center">
               Select Time
             </h3>
 
@@ -94,7 +94,7 @@ export default function TimePicker({
                 })}
               </select>
 
-              <span className="text-white text-[24px]">:</span>
+              <span className="text-fg text-[24px]">:</span>
 
               {/* Minutes */}
               <select
@@ -151,8 +151,8 @@ export default function TimePicker({
                   h-[45px]
                   rounded-[8px]
                   border
-                  border-white
-                  text-white
+                  border-line
+                  text-fg
                   font-semibold
                 "
               >

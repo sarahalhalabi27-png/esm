@@ -8,15 +8,15 @@ export default function SelectField({
   return (
     <label className={`block ${className}`}>
       {label ? (
-        <span className="block text-xs text-gray-400 mb-1">{label}</span>
+        <span className="block text-xs text-muted mb-1">{label}</span>
       ) : null}
       <select
         name={name}
-        className="w-full bg-black border-b border-white/15 focus:border-teal-accent outline-none py-2 text-sm text-white transition-colors"
+        className="w-full bg-page border-b border-line/15 focus:border-teal-accent outline-none py-2 text-sm text-fg transition-colors"
         {...rest}
       >
         {options.map((option) => (
-          <option key={option.value} value={option.value} className="bg-black">
+          <option key={option.value} value={option.value} className="bg-page">
             {option.label}
           </option>
         ))}
