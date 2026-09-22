@@ -6,104 +6,146 @@ import {
   MapPin,
   Instagram,
   Facebook,
+  Linkedin,
   Twitter,
 } from "lucide-react";
+
 import { companyInfo } from "../../data/companyInfo.js";
+import whiteLogo from "../../assets/white_logo.png";
+import darkLogo from "../../assets/logo.png";
+import cityArt from "../../assets/building.png";
 
 const socialIcons = {
   instagram: Instagram,
   facebook: Facebook,
+  linkedin: Linkedin,
   twitter: Twitter,
 };
 
+const headingClass =
+  "whitespace-nowrap font-['Montserrat_Alternates'] font-semibold text-[25px] leading-[100%] tracking-[0%] capitalize text-teal-accent mb-[40px]";
+const itemClass =
+  "flex items-center gap-2 whitespace-nowrap font-['Montserrat_Alternates'] font-normal text-[20px] leading-[100%] tracking-[0%] capitalize text-fg";
+
 export default function SiteFooter() {
   return (
-    <footer className="border-t border-line/10 font-display">
-      <div className="max-w-content mx-auto px-6 pt-16 pb-10">
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-10 mb-14">
-          <div>
-            <h4 className="text-sm font-medium text-teal-accent mb-4">
-              Explore
-            </h4>
-            <ul className="space-y-2 text-sm text-muted">
-              <li>
-                <NavLink to="/" className="hover:text-fg">
-                  Overview
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/services" className="hover:text-fg">
-                  Services
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/about" className="hover:text-fg">
-                  About Us
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/fleet" className="hover:text-fg">
-                  Our Car
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-sm font-medium text-teal-accent mb-4">
-              Quick Contact
-            </h4>
-            <ul className="space-y-3 text-sm text-muted">
-              <li className="flex items-center gap-2">
-                <Phone size={14} /> {companyInfo.phone}
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail size={14} /> {companyInfo.email}
-              </li>
-              <li className="flex items-center gap-2">
-                <Clock size={14} /> {companyInfo.hours}
-              </li>
-              <li className="flex items-center gap-2">
-                <MapPin size={14} /> {companyInfo.address}
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-sm font-medium text-teal-accent mb-4">
-              Quick Links
-            </h4>
-            <ul className="space-y-2 text-sm text-muted">
-              <li>Terms Of Services</li>
-              <li>Privacy Policy</li>
-              <li>Disclaimer</li>
-              <li>FAQ</li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-sm font-medium text-teal-accent mb-4">
-              Follow Us
-            </h4>
-            <div className="flex gap-4 text-muted">
-              {companyInfo.socials.map((social) => {
-                const Icon = socialIcons[social.id];
-                return (
-                  <a
-                    key={social.id}
-                    href={social.url}
-                    aria-label={social.id}
-                    className="hover:text-teal-accent"
-                  >
-                    <Icon size={18} />
-                  </a>
-                );
-              })}
+    <footer className="relative overflow-visible w-[calc(100%-100px)] mx-[50px] mb-[-40px] mt-[55px] -translate-x-[10px] font-display">
+ 
+      <div
+      className="pointer-events-none absolute left-[1280px] top-[458px] w-[60px] h-[100px] bg-[#24B9A5] opacity-50 blur-[90px] z-[5]"
+    />
+      <img
+  src={cityArt}
+  alt=""
+  className="pointer-events-none absolute left-[732px] top-10 w-[640px] h-[542px] object-cover opacity-20 z-0 scale-[1.4]"
+/>
+
+      <div className="relative z-10 -translate-y-[30px]">
+        {/* Logo + tagline */}
+        <div className="flex flex-col items-center pt-8">
+          <img
+            src={whiteLogo}
+            alt="ESM Limo"
+            className="dark-only w-[161px] h-[53px] object-contain"
+          />
+          <img
+            src={darkLogo}
+            alt="ESM Limo"
+            className="light-only w-[161px] h-[53px] object-contain"
+          />
+
+          <p className="mt-[14px] w-[312px] h-[24px] text-center font-['Montserrat_Alternates'] font-normal text-[20px] leading-[100%] tracking-[0%] capitalize text-teal-accent">
+            Luxury, Defined by Every Ride.
+          </p>
+
+          <div className="w-[314px] h-0 border-t border-fg mt-[8px]" />
+        </div>
+
+        {/* Columns */}
+        <div className="max-w-content mx-auto px-6 pt-0 mt-[137px] pb-10">
+          <div className="flex justify-between mb-14">
+            {/* Explore */}
+            <div>
+              <h4 className={headingClass}>Explore</h4>
+              <ul className="space-y-[32px]">
+                <li>
+                  <NavLink to="/" className={itemClass}>
+                    Overview
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/services" className={itemClass}>
+                    Services
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/about" className={itemClass}>
+                    About Us
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/fleet" className={itemClass}>
+                    Our Car
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
+
+            {/* Quick Contact */}
+            <div className="">
+              <h4 className={headingClass}>Quick Contact</h4>
+              <ul className="space-y-[32px]">
+                <li className={itemClass}>
+                  <Phone size={18} className="text-teal-accent shrink-0" />
+                  {companyInfo.phone}
+                </li>
+                <li className={itemClass}>
+                  <Mail size={18} className="text-teal-accent shrink-0" />
+                  {companyInfo.email}
+                </li>
+                <li className={itemClass}>
+                  <Clock size={18} className="text-teal-accent shrink-0" />
+                  {companyInfo.hours}
+                </li>
+                <li className={itemClass}>
+                  <MapPin size={18} className="text-teal-accent shrink-0" />
+                  UAE , Dubai Al Qouz 3 ,St 12
+                </li>
+              </ul>
+            </div>
+
+            {/* Quick Links */}
+            <div className="">
+              <h4 className={headingClass}>Quick Links</h4>
+              <ul className="space-y-[32px]">
+                <li className={itemClass}>Terms Of Services</li>
+                <li className={itemClass}>Privacy Policy</li>
+                <li className={itemClass}>Disclaimer</li>
+                <li className={itemClass}>FAQ</li>
+              </ul>
+            </div>
+
+            {/* Follow Us */}
+            <div className="">
+              <h4 className={headingClass}>Follow Us</h4>
+              <div className="flex gap-6 text-fg">
+                {companyInfo.socials.map((social) => {
+                  const Icon = socialIcons[social.id];
+                  if (!Icon) return null;
+                  return (
+                    <a
+                      key={social.id}
+                      href={social.url}
+                      aria-label={social.id}
+                      className="hover:text-teal-accent transition-colors"
+                    >
+                      <Icon size={22} />
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="text-center border-t border-line/10 pt-8">
-          <p className="text-lg font-semibold text-teal-accent">
-            {companyInfo.name}
-          </p>
-          <p className="text-xs text-muted mt-1">{companyInfo.tagline}</p>
         </div>
       </div>
     </footer>

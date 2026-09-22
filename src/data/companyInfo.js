@@ -9,6 +9,7 @@ export const companyInfo = {
   socials: [
     { id: "instagram", url: "#" },
     { id: "facebook", url: "#" },
+    { id: "linkedin", url: "#" },
     { id: "twitter", url: "#" },
   ],
 };
