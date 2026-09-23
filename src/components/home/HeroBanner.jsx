@@ -1,3 +1,6 @@
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import PrimaryButton from "../common/PrimaryButton.jsx";
 import CheckListItem from "../common/CheckListItem.jsx";
 import LayeredGraphicStage from "../common/LayeredGraphicStage.jsx";
@@ -5,6 +8,8 @@ import { buildLayerLayout } from "../../utils/layerLayout.js";
 import smoke from "../../assets/smoke.png";
 import blackCar from "../../assets/black-car.png";
 import building from "../../assets/building.png";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const heroHighlights = [
   "Specialized Expertise",
@@ -48,6 +53,27 @@ const { layers: heroIllustrationLayers, box: heroIllustrationBox } =
   ]);
 
 export default function HeroBanner() {
+  const highlightsListRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(highlightsListRef.current.children, {
+        opacity: 0,
+        x: -24,
+        duration: 1,
+        stagger: 0.3,
+        delay: 0.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: highlightsListRef.current,
+          start: "top 85%",
+          toggleActions: "restart none restart none",
+        },
+      });
+    });
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section className="relative overflow-hidden font-display -mt-[37px]">
       <div
@@ -82,7 +108,10 @@ export default function HeroBanner() {
             Quickly Book Your Luxury Ride
           </PrimaryButton>
 
-          <ul className="w-[318px] h-[144px] space-y-5 mt-[30px]">
+          <ul
+            ref={highlightsListRef}
+            className="w-[318px] h-[144px] space-y-5 mt-[30px]"
+          >
             {heroHighlights.map((item) => (
               <CheckListItem key={item}>{item}</CheckListItem>
             ))}

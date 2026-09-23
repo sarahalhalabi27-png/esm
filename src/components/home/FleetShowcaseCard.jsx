@@ -7,7 +7,7 @@ import luggageIcon from "../../assets/luggage.svg";
 
 export default function FleetShowcaseCard({ car }) {
   return (
-    <div className="relative w-[416px] h-[575px] rounded-[10px] overflow-hidden font-display">
+    <div className="relative w-[416px] h-[575px] rounded-[10px] overflow-hidden font-display transition-transform duration-300 ease-out hover:scale-105 hover:z-30">
       {/* Green background - Rectangle 10 */}
       <div className="absolute top-0 left-0 w-[416px] h-[319px] rounded-t-[10px] bg-[#24B9A4]/[0.20] z-0" />
 

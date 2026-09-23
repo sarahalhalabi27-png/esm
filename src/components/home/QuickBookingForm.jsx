@@ -62,20 +62,26 @@ return (
     {/* Background Images */}
     <div className="absolute inset-0 pointer-events-none z-0">
 
-      {/* Smoke — 3 layers per Figma (section-relative, X offset derived from
-          layer 1 matching the section's own 1440x1098 box) */}
+      {/* Car */}
+      <img
+        src={Car}
+        alt=""
+        className="absolute left-[-150px] top-[150px] w-[1000px] h-[585px]"
+      />
+
       <img
         src={smoke}
         alt=""
         className="absolute object-cover"
-        style={{ top: 0, left: 0, width: 1440, height: 800, opacity: 0.3 }}
+        style={{ top: 0, left: 0, width: 1440, height: 1098, opacity: 0.15 }}
       />
+
       <img
         src={smoke}
         alt=""
         className="absolute object-cover"
         style={{
-          top: 64,
+          top: 480,
           left: 0,
           width: 765,
           height: 594,
@@ -83,12 +89,13 @@ return (
           transform: "rotate(180deg)",
         }}
       />
+
       <img
         src={smoke}
         alt=""
         className="absolute object-cover"
         style={{
-          top: 264,
+          top: 480,
           left: 709,
           width: 675,
           height: 594,
@@ -97,12 +104,7 @@ return (
         }}
       />
 
-      {/* Car */}
-      <img
-        src={Car}
-        alt=""
-        className="absolute left-[-150px] top-[150px] w-[1000px] h-[585px]"
-      />
+     
 
     </div>
 
@@ -176,15 +178,15 @@ return (
 
           <div className="mt-[45px] flex flex-col items-center gap-2">
 
-            <OutlineButton
-              type="submit"
-              className="!w-[153px] !h-[55px] !rounded-[10px] !border-line !text-fg"
-              disabled={status === SUBMIT_STATUS.SUBMITTING}
-            >
-              {status === SUBMIT_STATUS.SUBMITTING
-                ? "Sending..."
-                : "Send"}
-            </OutlineButton>
+           <OutlineButton
+  type="submit"
+  className="!w-[153px] !h-[55px] !rounded-[10px] !border-line !text-fg !font-['Montserrat_Alternates'] !font-semibold !text-[22px] !leading-[100%] !tracking-[0%] !capitalize"
+  disabled={status === SUBMIT_STATUS.SUBMITTING}
+>
+  {status === SUBMIT_STATUS.SUBMITTING
+    ? "Sending..."
+    : "Send"}
+</OutlineButton>
 
             {status === SUBMIT_STATUS.SUCCESS ? (
               <p className="text-xs text-teal-accent">

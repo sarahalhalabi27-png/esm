@@ -22,7 +22,7 @@ export default function PromotionalOfferBanner() {
 
           <button
   type="button"
-  className="relative w-[300px] h-[50px] rounded-[10px] font-display text-white"
+  className="relative w-[300px] h-[50px] rounded-[10px] font-display text-white transition-transform hover:scale-[1.02]"
   style={{ background: "#072E2A" }}
 >
   <span className="absolute left-[0px] top-[13px] w-[232px] h-[24px] flex items-center justify-center font-normal text-[20px] leading-[100%] tracking-[0%] capitalize">

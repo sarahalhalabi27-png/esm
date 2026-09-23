@@ -50,7 +50,7 @@ export default function FleetPreviewGrid() {
         <div className="flex justify-end mt-[63px]">
           <Link
             to="/fleet"
-            className="inline-flex w-[300px] h-[50px] rounded-[10px] items-center justify-center"
+            className="inline-flex w-[300px] h-[50px] rounded-[10px] items-center justify-center transition-transform hover:scale-[1.02]"
             style={{ background: "#072E2A" }}
           >
             <span className="font-display font-medium text-[20px] leading-[100%] text-white">

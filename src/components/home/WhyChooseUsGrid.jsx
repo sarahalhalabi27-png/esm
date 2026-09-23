@@ -1,11 +1,36 @@
+import { useEffect, useRef } from "react";
 import { Check } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionEyebrow from "../common/SectionEyebrow.jsx";
 import { whyChooseUsItems } from "../../data/whyChooseUsData.js";
 import pattern1 from "../../assets/pattern1.png";
 import whyChooseUs from "../../assets/why_choose_us.png";
 import CheckListItem from "../common/CheckListItem.jsx";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function WhyChooseUsGrid() {
+  const gridRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(gridRef.current.children, {
+        opacity: 0,
+        x: (i) => (i % 2 === 0 ? 80 : -80),
+        duration: 1.3,
+        stagger: 0.3,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: "top 85%",
+          toggleActions: "restart none restart none",
+        },
+      });
+    }, gridRef);
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section className="relative overflow-hidden font-display min-h-[959px]">
 
@@ -29,7 +54,10 @@ export default function WhyChooseUsGrid() {
         <SectionEyebrow className="!text-[25px] !font-semibold !leading-[100%] !text-teal-accent">
           Why Choose ESM?
         </SectionEyebrow>
-        <div className="grid sm:grid-cols-2 gap-x-[200px] gap-y-[94px] mt-[70px] max-w-3xl">
+        <div
+          ref={gridRef}
+          className="grid sm:grid-cols-2 gap-x-[200px] gap-y-[94px] mt-[70px] max-w-3xl"
+        >
           {whyChooseUsItems.map((item, index) => (
   <div
     key={item.title}
