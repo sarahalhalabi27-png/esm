@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import FloatingLabel from "./FloatingLabel.jsx";
 
 export default function TextField({
   label,
@@ -18,6 +19,7 @@ export default function TextField({
 
   const isDateOrTime = type === "date" || type === "time";
   const showCustomPlaceholder = isDateOrTime && !value && !isFocused;
+  const isFloating = isFocused || !!value;
 
   function handlePlaceholderClick() {
     setIsFocused(true);
@@ -37,6 +39,11 @@ export default function TextField({
 
   return (
     <label className={`block relative ${className}`}>
+      {/* Floating label for regular text fields */}
+      {!isDateOrTime && placeholder && (
+        <FloatingLabel text={placeholder} active={isFloating} />
+      )}
+
       {/* Custom placeholder */}
       {showCustomPlaceholder && (
         <span
@@ -68,7 +75,7 @@ export default function TextField({
         onChange={onChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        placeholder={!isDateOrTime ? placeholder : undefined}
+        placeholder={undefined}
         className={`
           w-full
           bg-transparent

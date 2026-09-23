@@ -1,4 +1,5 @@
 import { useState } from "react";
+import FloatingLabel from "./FloatingLabel.jsx";
 
 export default function DatePicker({
   value,
@@ -52,14 +53,18 @@ export default function DatePicker({
     setIsOpen(false);
   }
 
+  const isFloating = isOpen || !!value;
+
   return (
     <div className="relative">
       {/* Field */}
+      <FloatingLabel text={placeholder} active={isFloating} />
       <button
         type="button"
         onClick={() => setIsOpen(true)}
         className="
           w-full
+          min-h-[42px]
           text-left
           bg-transparent
           border-b
@@ -73,7 +78,7 @@ export default function DatePicker({
           capitalize
         "
       >
-        {value || placeholder}
+        {value}
       </button>
       {/* Modal */}
       {isOpen && (

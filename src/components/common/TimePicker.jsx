@@ -1,4 +1,5 @@
 import { useState } from "react";
+import FloatingLabel from "./FloatingLabel.jsx";
 
 export default function TimePicker({
   value,
@@ -24,14 +25,18 @@ export default function TimePicker({
     setIsOpen(false);
   }
 
+  const isFloating = isOpen || !!value;
+
   return (
     <div className="relative">
       {/* Field */}
+      <FloatingLabel text={placeholder} active={isFloating} />
       <button
         type="button"
         onClick={() => setIsOpen(true)}
         className="
           w-full
+          min-h-[42px]
           text-left
           bg-transparent
           border-b
@@ -45,7 +50,7 @@ export default function TimePicker({
           capitalize
         "
       >
-        {value || placeholder}
+        {value}
       </button>
 
       {/* Custom Modal */}

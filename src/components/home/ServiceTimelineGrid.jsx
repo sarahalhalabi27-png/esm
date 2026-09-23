@@ -11,10 +11,11 @@ function PositionedService({ service }) {
   const { layout } = service;
   return (
     <>
+      {/* Dark mode: original white/gray line art, unchanged */}
       <img
         src={service.illustration}
         alt={service.title}
-        className="absolute object-contain"
+        className="dark-only absolute object-contain"
         style={{
           top: layout.image.top,
           left: layout.image.left,
@@ -22,8 +23,30 @@ function PositionedService({ service }) {
           height: layout.image.height,
         }}
       />
+      {/* Light mode: same artwork recolored via mask so it's visible on a
+          white background (the source SVGs are white/gray line art). */}
+      <div
+        role="img"
+        aria-label={service.title}
+        className="light-only absolute"
+        style={{
+          top: layout.image.top,
+          left: layout.image.left,
+          width: layout.image.width,
+          height: layout.image.height,
+          WebkitMaskImage: `url(${service.illustration})`,
+          maskImage: `url(${service.illustration})`,
+          WebkitMaskSize: "contain",
+          maskSize: "contain",
+          WebkitMaskRepeat: "no-repeat",
+          maskRepeat: "no-repeat",
+          WebkitMaskPosition: "center",
+          maskPosition: "center",
+          background: "rgb(var(--muted))",
+        }}
+      />
       <p
-        className="absolute font-semibold text-center capitalize text-white"
+        className="absolute font-semibold text-center capitalize text-fg"
         style={{
           top: layout.title.top,
           left: layout.title.left,
@@ -37,7 +60,7 @@ function PositionedService({ service }) {
         {service.title}
       </p>
       <p
-        className="absolute font-normal capitalize text-white"
+        className="absolute font-normal capitalize text-fg"
         style={{
           top: layout.description.top,
           left: layout.description.left,
@@ -136,7 +159,7 @@ export default function ServiceTimelineGrid() {
 </div>
       </div>
 
-      {/* Curved teal connector line */}
+      {/* Curved teal connector line — same in both themes */}
       <svg
         className="absolute pointer-events-none"
         style={{
@@ -178,7 +201,8 @@ export default function ServiceTimelineGrid() {
         <PositionedService key={service.id} service={service} />
       ))}
 
-      {/* Traveler: glow + ring + dot, all animated together along the path on scroll */}
+      {/* Traveler: glow + ring + dot, all animated together along the path on
+          scroll — same in both themes */}
       <div
         ref={travelerRef}
         className="absolute top-0 left-0 pointer-events-none"
