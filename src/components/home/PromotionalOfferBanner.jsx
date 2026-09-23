@@ -21,13 +21,38 @@ export default function PromotionalOfferBanner() {
           </p>
 
           <button
-            type="button"
-            className="inline-flex items-center justify-center gap-2 w-[300px] h-[50px] rounded-[10px] font-display font-medium text-[18px] leading-[100%] tracking-[0%] capitalize text-white"
-            style={{ background: "#072E2A" }}
-          >
-            Claim Discount
-            <ArrowRight size={14} />
-          </button>
+  type="button"
+  className="relative w-[300px] h-[50px] rounded-[10px] font-display text-white"
+  style={{ background: "#072E2A" }}
+>
+  <span className="absolute left-[0px] top-[13px] w-[232px] h-[24px] flex items-center justify-center font-normal text-[20px] leading-[100%] tracking-[0%] capitalize">
+    Claim Discount
+  </span>
+
+  <svg
+  className="absolute left-[243px] top-[20px]"
+  width="25"
+  height="14"
+  viewBox="0 0 25 14"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M1 7L24 7"
+    stroke="white"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  />
+  <path
+    d="M17 1L24 7L17 13"
+    stroke="white"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  />
+</svg>
+</button>
         </div>
 
         {/* Offer car + smoke */}

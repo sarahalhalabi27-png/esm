@@ -65,7 +65,7 @@ export default function HeroBanner() {
         }}
       >
         {/* Left Content */}
-        <div className="relative z-10 w-[565px]">
+        <div className="relative z-10 w-[565px] -translate-y-[130px]">
           <p className="text-[25px] font-normal leading-[100%] tracking-[0%] capitalize mb-[26px]">
             Specialized Services For Luxury Cars
           </p>

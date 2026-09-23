@@ -1,14 +1,17 @@
-import CarLineArtIllustration from "../common/CarLineArtIllustration.jsx";
-
 export default function ServiceTimelineCard({ service, flip = false }) {
+  const { layout } = service;
+
   return (
-    <div
-      className={`rounded-2xl border border-line/10 bg-surface/[0.02] p-6 flex items-center gap-5 ${flip ? "sm:mt-10" : ""}`}
-    >
-      <CarLineArtIllustration className="w-28 h-16 shrink-0" flip={flip} />
+    <div className={`flex items-center gap-6 ${flip ? "sm:mt-10" : ""}`}>
+      <img
+        src={service.illustration}
+        alt={service.title}
+        className={layout ? "object-contain shrink-0" : "w-48 h-32 object-contain shrink-0"}
+        style={layout ? { width: layout.width, height: layout.height } : undefined}
+      />
       <div>
-        <p className="font-medium text-sm mb-1">{service.title}</p>
-        <p className="text-xs text-muted">{service.description}</p>
+        <p className="font-semibold text-base mb-1 text-fg">{service.title}</p>
+        <p className="text-sm text-muted">{service.description}</p>
       </div>
     </div>
   );
