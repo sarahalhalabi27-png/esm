@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Responsive images: never let an image overflow its container. On desktop
+   most images are narrower than their section so this is a no-op; on small
+   screens it caps them to the available width instead of overflowing. */
+img {
+  max-width: 100%;
+}
+
 /* Theme tokens — RGB triples so Tailwind's rgb(var() / <alpha>) works.
    Dark is the default; light is applied via <html data-theme="light">. */
 :root {
@@ -91,4 +98,14 @@ body {
      without changing the (intentionally fixed-width) desktop layout, and —
      unlike `hidden` — it does not break the sticky header. */
   overflow-x: clip;
+}
+/* Remove browser autofill background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px rgb(var(--page)) inset !important;
+  -webkit-text-fill-color: rgb(var(--fg)) !important;
+  caret-color: rgb(var(--fg));
+  transition: background-color 9999s ease-in-out 0s;
 }
