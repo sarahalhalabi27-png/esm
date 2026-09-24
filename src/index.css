@@ -35,9 +35,9 @@
   display: inline-block;
 }
 
-/* "Luxury Car" shimmer: a bright streak swept across teal text by GSAP
-   (animating background-position). Base color is the theme accent, so it
-   reads as solid teal at rest and flips with light/dark. */
+/* "Luxury Car" shimmer: a bright streak repeatedly swept across the teal
+   text (CSS animation of background-position). Base color is the theme
+   accent, so it reads as solid teal at rest and flips with light/dark. */
 .luxury-shine {
   background-image: linear-gradient(
     110deg,
@@ -53,16 +53,19 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  /* Sweep the streak across once, then rest on solid teal (fill: both). */
-  animation: luxury-sweep 2.5s ease-in-out 1.1s 1 both;
+  /* Sweep the streak across, hold on solid teal, then repeat. */
+  animation: luxury-sweep 5s ease-in-out 1.1s infinite;
 }
 
 @keyframes luxury-sweep {
-  from {
-    background-position: -120% 0;
+  0% {
+    background-position: -120% 0; /* streak off-screen left */
   }
-  to {
-    background-position: 120% 0;
+  35% {
+    background-position: 120% 0; /* streak has swept across */
+  }
+  100% {
+    background-position: 120% 0; /* rest on solid teal, then loop */
   }
 }
 

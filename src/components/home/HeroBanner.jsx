@@ -22,7 +22,7 @@ const heroHighlights = [
 // fold without scrolling, while staying centered in its original position.
 const HERO_ILLUSTRATION_SCALE = 0.7;
 // Nudge the illustration vertically (negative = raise it up).
-const HERO_ILLUSTRATION_OFFSET_Y = -60;
+const HERO_ILLUSTRATION_OFFSET_Y = -150;
 
 const { layers: heroIllustrationLayers, box: heroIllustrationBox } =
   buildLayerLayout([
@@ -119,7 +119,7 @@ export default function HeroBanner() {
 
           <ul
             ref={highlightsListRef}
-            className="w-[318px] h-[144px] space-y-5 mt-[30px]"
+            className="w-[318px] h-[144px] space-y-5 -mt-[10px]"
           >
             {heroHighlights.map((item) => (
               <CheckListItem key={item}>{item}</CheckListItem>
