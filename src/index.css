@@ -11,6 +11,7 @@
   --accent: 36 185 165; /* teal accent #24B9A5 */
   --surface: 255 255 255; /* card/overlay tint base (used with low alpha) */
   --line: 255 255 255; /* border base (used with low alpha) */
+  --shine: 230 255 250; /* bright streak for the Luxury Car shimmer */
 }
 
 :root[data-theme="light"] {
@@ -20,6 +21,7 @@
   --accent: 7 46 42; /* dark teal #072E2A */
   --surface: 0 0 0;
   --line: 0 0 0;
+  --shine: 45 150 130; /* lighter teal so the dark text stays readable */
 }
 
 /* Swap assets per theme (e.g. dark vs light icon images). */
@@ -31,6 +33,47 @@
 }
 :root[data-theme="light"] .light-only {
   display: inline-block;
+}
+
+/* "Luxury Car" shimmer: a bright streak swept across teal text by GSAP
+   (animating background-position). Base color is the theme accent, so it
+   reads as solid teal at rest and flips with light/dark. */
+.luxury-shine {
+  background-image: linear-gradient(
+    110deg,
+    rgb(var(--accent)) 0%,
+    rgb(var(--accent)) 42%,
+    rgb(var(--shine)) 50%,
+    rgb(var(--accent)) 58%,
+    rgb(var(--accent)) 100%
+  );
+  background-size: 250% 100%;
+  background-position: 120% 0; /* streak parked off-screen → solid teal at rest */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  /* Sweep the streak across once, then rest on solid teal (fill: both). */
+  animation: luxury-sweep 2.5s ease-in-out 1.1s 1 both;
+}
+
+@keyframes luxury-sweep {
+  from {
+    background-position: -120% 0;
+  }
+  to {
+    background-position: 120% 0;
+  }
+}
+
+/* Respect users who prefer less motion: solid teal, no gradient, no sweep. */
+@media (prefers-reduced-motion: reduce) {
+  .luxury-shine {
+    background-image: none;
+    animation: none;
+    -webkit-text-fill-color: rgb(var(--accent));
+    color: rgb(var(--accent));
+  }
 }
 
 html {

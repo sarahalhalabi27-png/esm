@@ -98,7 +98,7 @@ export default function HeroBanner() {
 
           <h1 className="w-[565px] text-[50px] font-normal leading-[61px] tracking-[0%] capitalize mb-[45px]">
             A Sophisticated Experience Befitting Your{" "}
-            <span className="relative inline-block font-semibold text-teal-accent">
+            <span className="luxury-shine relative inline-block font-semibold">
               Luxury Car
               <span className="absolute left-0 bottom-[-8px] w-[281px] border-b border-fg"></span>
             </span>
