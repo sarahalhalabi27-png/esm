@@ -80,9 +80,15 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
   background-color: rgb(var(--page));
   color: rgb(var(--fg));
+  /* Phase 0 responsive guard: fixed-width sections wider than a small screen
+     would otherwise cause horizontal scrolling. `clip` removes that overflow
+     without changing the (intentionally fixed-width) desktop layout, and —
+     unlike `hidden` — it does not break the sticky header. */
+  overflow-x: clip;
 }
