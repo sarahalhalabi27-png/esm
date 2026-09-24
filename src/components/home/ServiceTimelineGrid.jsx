@@ -130,8 +130,8 @@ export default function ServiceTimelineGrid() {
   return (
     <section
       ref={sectionRef}
-      className="font-display relative"
-      style={{ minHeight: sectionMinHeight }}
+      className="font-display relative xl:min-h-[var(--svc-min)]"
+      style={{ "--svc-min": `${sectionMinHeight}px` }}
     >
       <div className="max-w-content mx-auto px-6 py-20">
       <div className="text-center mb-14">
@@ -160,9 +160,50 @@ export default function ServiceTimelineGrid() {
 </div>
       </div>
 
-      {/* Curved teal connector line — same in both themes */}
-      <svg
-        className="absolute pointer-events-none"
+      {/* Mobile: simple stacked services (the positioned desktop layout below
+          is hidden on small screens). */}
+      <div className="xl:hidden max-w-content mx-auto px-6 pb-16 flex flex-col gap-12">
+        {positionedServices.map((service) => (
+          <div
+            key={service.id}
+            className="flex flex-col items-center text-center gap-4"
+          >
+            <img
+              src={service.illustration}
+              alt=""
+              className="dark-only w-40 h-auto object-contain"
+            />
+            <div
+              role="img"
+              aria-label={service.title}
+              className="light-only w-40 h-40"
+              style={{
+                WebkitMaskImage: `url(${service.illustration})`,
+                maskImage: `url(${service.illustration})`,
+                WebkitMaskSize: "contain",
+                maskSize: "contain",
+                WebkitMaskRepeat: "no-repeat",
+                maskRepeat: "no-repeat",
+                WebkitMaskPosition: "center",
+                maskPosition: "center",
+                background: "rgb(var(--muted))",
+              }}
+            />
+            <h3 className="text-xl font-semibold capitalize text-fg">
+              {service.title}
+            </h3>
+            <p className="capitalize text-fg/90 max-w-xs">
+              {service.description}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop: exact Figma-positioned layout with connector + traveler */}
+      <div className="hidden xl:block">
+        {/* Curved teal connector line — same in both themes */}
+        <svg
+          className="absolute pointer-events-none"
         style={{
           top: CONNECTOR.line.top,
           left: CONNECTOR.line.left,
@@ -240,6 +281,7 @@ export default function ServiceTimelineGrid() {
             }}
           />
         </div>
+      </div>
       </div>
     </section>
   );
