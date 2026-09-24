@@ -18,6 +18,10 @@ const heroHighlights = [
   "Ongoing Support",
 ];
 
+// Shrink the building + car illustration so it fits above the fold without
+// scrolling, while staying anchored to its current top-right position.
+const HERO_ILLUSTRATION_SCALE = 0.82;
+
 const { layers: heroIllustrationLayers, box: heroIllustrationBox } =
   buildLayerLayout([
     {
@@ -87,7 +91,9 @@ export default function HeroBanner() {
       <div
         className="relative w-full pl-[50px] pr-[128px] pt-[195px] pb-24 mr-[128px]"
         style={{
-          minHeight: heroIllustrationBox.top + heroIllustrationBox.height,
+          minHeight:
+            (heroIllustrationBox.top + heroIllustrationBox.height) *
+            HERO_ILLUSTRATION_SCALE,
         }}
       >
         {/* Left Content */}
@@ -142,6 +148,10 @@ export default function HeroBanner() {
             top: 0,
             width: heroIllustrationBox.width,
             height: heroIllustrationBox.height,
+            // Scale down toward the top-right so the whole building + car fits
+            // above the fold while keeping its current anchor position.
+            transform: `scale(${HERO_ILLUSTRATION_SCALE})`,
+            transformOrigin: "top right",
             zIndex: 0,
           }}
         />
