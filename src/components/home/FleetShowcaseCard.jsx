@@ -25,7 +25,7 @@ export default function FleetShowcaseCard({ car }) {
       {/* Card Content */}
       <div className="relative z-10 w-full h-full">
         {/* Car Image */}
-        <div className="absolute top-[58px] left-[10px] w-[392px] h-[203px]">
+        <div className="absolute top-[58px] left-[10px] w-[392px] max-w-[calc(100%-20px)] h-[203px]">
           <img
             src={car.image || lexus}
             alt={car.name}

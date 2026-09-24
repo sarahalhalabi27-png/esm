@@ -54,19 +54,19 @@ export default function PromotionalOfferBanner() {
         </div>
 
         {/* Offer car + smoke */}
-        <div className="relative flex justify-end translate-x-[-160px]">
-          {/* Smoke */}
+        <div className="relative flex justify-center md:justify-end md:translate-x-[-160px]">
+          {/* Smoke (decorative) */}
           <img
             src={smoke1}
             alt=""
-            className="absolute w-[587px] h-[392px] object-contain opacity-[0.66] z-0 translate-x-[200px] translate-y-[20px]"
+            className="hidden md:block absolute w-[587px] h-[392px] object-contain opacity-[0.66] z-0 translate-x-[200px] translate-y-[20px]"
           />
 
           {/* Car */}
           <img
             src={offerCar}
             alt="Luxury limousine"
-            className="relative z-10 w-[450px] h-[276px] object-contain"
+            className="relative z-10 w-full max-w-[450px] h-auto object-contain"
           />
         </div>
       </div>
