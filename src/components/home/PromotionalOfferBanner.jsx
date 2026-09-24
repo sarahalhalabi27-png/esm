@@ -13,7 +13,7 @@ export default function PromotionalOfferBanner() {
             Enjoy 10% Off Your Next Ride!
           </h2>
 
-          <p className="text-fg font-['Montserrat_Alternates'] font-normal text-[20px] leading-[130%] tracking-[0%] capitalize w-[703px] h-[48px] mb-6">
+          <p className="text-fg font-['Montserrat_Alternates'] font-normal text-[20px] leading-[130%] tracking-[0%] capitalize w-full max-w-[703px] min-h-[48px] mb-6">
             Book Your Luxury Limousine Today And Save 10% On Premium Chauffeur
             Services Across The UAE.
           </p>

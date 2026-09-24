@@ -139,8 +139,9 @@ export default function ServiceTimelineGrid() {
 
   <p
     className="
-      w-[1350px]
-      h-[72px]
+      w-full
+      max-w-[1350px]
+      min-h-[72px]
       ml-[0px]
       mt-[30px]
       text-[22px]

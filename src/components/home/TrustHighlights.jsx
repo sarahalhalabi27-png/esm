@@ -22,7 +22,7 @@ export default function TrustHighlights() {
       <div className="light-only absolute inset-0 bg-page/30 z-[1]" />
 
       <div className="relative z-10 pt-[60px] px-[60px] text-left">
-        <SectionEyebrow className="w-[1045px] whitespace-nowrap text-[30px] leading-[100%] tracking-[0.2em]">
+        <SectionEyebrow className="w-full max-w-[1045px] text-2xl md:text-[30px] leading-[110%] md:leading-[100%] tracking-[0.2em]">
           Trusted & Best Limousine Service Across The UAE
         </SectionEyebrow>
 

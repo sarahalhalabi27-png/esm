@@ -32,8 +32,9 @@ export default function PopularCarTypes() {
         {/* Description */}
         <p
           className="
-            w-[828px]
-            h-[30px]
+            w-full
+            max-w-[828px]
+            min-h-[30px]
             mx-auto
             mt-[27px]
             text-center

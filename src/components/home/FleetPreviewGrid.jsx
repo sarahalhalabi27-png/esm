@@ -27,8 +27,9 @@ export default function FleetPreviewGrid() {
         </SectionEyebrow>
         <p
           className="
-    w-[824px]
-    h-[54px]
+    w-full
+    max-w-[824px]
+    min-h-[54px]
     font-medium
     text-[22px]
     leading-[27 px]

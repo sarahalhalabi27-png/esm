@@ -105,7 +105,7 @@ export default function HeroBanner() {
             Specialized Services For Luxury Cars
           </p>
 
-          <h1 className="w-[565px] text-[50px] font-normal leading-[61px] tracking-[0%] capitalize mb-[45px]">
+          <h1 className="w-[565px] max-w-full text-[32px] md:text-[50px] font-normal leading-[40px] md:leading-[61px] tracking-[0%] capitalize mb-[45px]">
             A Sophisticated Experience Befitting Your{" "}
             <span className="luxury-shine relative inline-block font-semibold">
               Luxury Car
@@ -119,7 +119,7 @@ export default function HeroBanner() {
 
           <ul
             ref={highlightsListRef}
-            className="w-[318px] h-[144px] space-y-5 -mt-[10px]"
+            className="w-[318px] h-[144px] space-y-5 mt-[30px]"
           >
             {heroHighlights.map((item) => (
               <CheckListItem key={item}>{item}</CheckListItem>
