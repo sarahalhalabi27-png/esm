@@ -15,8 +15,8 @@ import {
   selectBookingStatus,
 } from "../../store/bookingSlice.js";
 import { SUBMIT_STATUS } from "../../store/constants.js";
-import Car from "../../assets/car2.png";
-import smoke from "../../assets/smoke-bg.png";
+// Background car/smoke images are currently commented out below; re-add
+// `import Car from "../../assets/car2.png"` and the smoke import when restoring them.
 
 const defaultValues = {
   name: "",
@@ -57,13 +57,22 @@ export default function QuickBookingForm() {
   };
 
 return (
-  <section className="relative overflow-hidden font-display min-h-[1098px] -mt-[500px]">
+  <section className="relative overflow-hidden font-display -mt-[-20px] py-10 min-h-0 xl:py-0 xl:min-h-[1098px]">
 
-    {/* Background Images */}
-    <div className="absolute inset-0 pointer-events-none z-0">
+    {/* Background Images — faded in from the top so the smoke/tint doesn't
+        get hard-clipped at the section edge (which showed as a black seam). */}
+    <div
+      className="absolute inset-0 pointer-events-none z-0"
+      style={{
+        WebkitMaskImage:
+          "linear-gradient(to bottom, transparent 0, black 200px, black calc(100% - 200px), transparent 100%)",
+        maskImage:
+          "linear-gradient(to bottom, transparent 0, black 200px, black calc(100% - 200px), transparent 100%)",
+      }}
+    >
 
       {/* Car */}
-      <img
+      {/* <img
         src={Car}
         alt=""
         className="absolute left-[-150px] top-[150px] w-[1000px] h-[585px]"
@@ -73,7 +82,7 @@ return (
         src={smoke}
         alt=""
         className="absolute object-cover"
-        style={{ top: 0, left: 0, width: 1440, height: 1098, opacity: 0.15 }}
+        style={{ top: -1000, left: 0, width: 1440, height: 2398, opacity: 0.15 }}
       />
 
       <img
@@ -98,18 +107,18 @@ return (
           top: 480,
           left: 709,
           width: 675,
-          height: 594,
+          height: 294,
           opacity: 0.14,
           transform: "rotate(180deg)",
         }}
-      />
+      /> */}
 
      
 
     </div>
 
     {/* Booking Form */}
-<div className="absolute z-10 top-0 left-[760px] w-[520px] rounded-[25px] bg-[#0000004D] backdrop-blur-[20px] px-[40px] pt-[40px] pb-[40px] flex flex-col">
+<div className="relative z-10 mx-auto w-[92%] max-w-[520px] rounded-[25px] bg-[#0000004D] backdrop-blur-[20px] px-6 pt-[40px] pb-[40px] flex flex-col xl:absolute xl:top-0 xl:left-[760px] xl:mx-0 xl:w-[520px] xl:px-[40px]">
 
       <div className="relative">
 
