@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "../../i18n.js";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { navigationLinks } from "../../data/navigationLinks.js";
@@ -7,6 +9,15 @@ import logo from "../../assets/logo.png";
 
 export default function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { i18n: currentI18n } = useTranslation();
+  const toggleLanguage = () => {
+  const nextLanguage = currentI18n.language === "en" ? "ar" : "en";
+
+  currentI18n.changeLanguage(nextLanguage);
+
+  document.documentElement.dir = nextLanguage === "ar" ? "rtl" : "ltr";
+  document.documentElement.lang = nextLanguage;
+};
 
   return (
     <header className="w-full bg-page sticky top-0 z-30">
@@ -36,13 +47,13 @@ export default function SiteHeader() {
 
         <ThemeToggle className="ml-auto self-center shrink-0" />
 
-        <button
-          className="md:hidden text-fg/80 ml-4"
-          onClick={() => setIsMenuOpen((open) => !open)}
-          aria-label="Toggle navigation menu"
-        >
-          {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+       <button
+  type="button"
+  onClick={toggleLanguage}
+  className="ml-5 self-center shrink-0 text-fg/80 hover:text-fg transition-colors font-display text-[18px]"
+>
+  {currentI18n.language === "en" ? "AR" : "EN"}
+</button>
       </div>
 
       {/* Mobile: dim overlay + right-side sidebar drawer */}

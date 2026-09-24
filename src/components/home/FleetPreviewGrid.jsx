@@ -36,6 +36,7 @@ export default function FleetPreviewGrid() {
     tracking-[0%]
     capitalize
     mb-20
+      pt-[20px]
   "
         >
           Luxury Cars Carefully Selected To Embody The Highest Levels Of Quality

@@ -58,7 +58,15 @@ export default function QuickBookingForm() {
 
 return (
   <section className="relative overflow-hidden font-display -mt-[-20px] py-10 min-h-0 xl:py-0 xl:min-h-[1098px]">
-
+<video
+  className="absolute top-0 left-0 w-full h-auto z-0 scale-[1.1] origin-right"
+  src="/booking-video.mp4"
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="auto"
+/>
     {/* Background Images — faded in from the top so the smoke/tint doesn't
         get hard-clipped at the section edge (which showed as a black seam). */}
     <div
@@ -70,6 +78,7 @@ return (
           "linear-gradient(to bottom, transparent 0, black 200px, black calc(100% - 200px), transparent 100%)",
       }}
     >
+      
 
       {/* Car */}
       {/* <img
@@ -116,9 +125,10 @@ return (
      
 
     </div>
+{/* Experimental Video - Left of Booking Form */}
 
     {/* Booking Form */}
-<div className="relative z-10 mx-auto w-[92%] max-w-[520px] rounded-[25px] bg-[#0000004D] backdrop-blur-[20px] px-6 pt-[40px] pb-[40px] flex flex-col xl:absolute xl:top-0 xl:left-[760px] xl:mx-0 xl:w-[520px] xl:px-[40px]">
+{/* <div className="relative z-10 mx-auto w-[92%] max-w-[520px] rounded-[25px] bg-[#0000004D] backdrop-blur-[20px] px-6 pt-[40px] pb-[40px] flex flex-col xl:absolute xl:top-0 xl:left-[760px] xl:mx-0 xl:w-[520px] xl:px-[40px]">
 
       <div className="relative">
 
@@ -208,7 +218,7 @@ return (
         </form>
 
       </div>
-    </div>
+    </div> */}
 
   </section>
 );

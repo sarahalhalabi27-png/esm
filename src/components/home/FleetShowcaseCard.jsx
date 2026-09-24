@@ -112,16 +112,8 @@ export default function FleetShowcaseCard({ car }) {
 
       {/* Gradient border - always on top */}
       <div
-        className="absolute inset-0 rounded-[10px] pointer-events-none z-20"
-        style={{
-          padding: "0.5px",
-          background: "linear-gradient(180deg, #797979 0%, #FFFFFF 100%)",
-          WebkitMask:
-            "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-          WebkitMaskComposite: "xor",
-          maskComposite: "exclude",
-        }}
-      />
+  className="absolute inset-0 rounded-[10px] pointer-events-none z-20 border-[0.5px] border-white"
+/>
     </div>
   );
 }

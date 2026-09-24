@@ -18,7 +18,8 @@ img {
   --accent: 36 185 165; /* teal accent #24B9A5 */
   --surface: 255 255 255; /* card/overlay tint base (used with low alpha) */
   --line: 255 255 255; /* border base (used with low alpha) */
-  --shine: 230 255 250; /* bright streak for the Luxury Car shimmer */
+  --shine: 230 255 250;
+  --booking-glow: 36 185 165; /* bright streak for the Luxury Car shimmer */
 }
 
 :root[data-theme="light"] {
@@ -28,7 +29,8 @@ img {
   --accent: 7 46 42; /* dark teal #072E2A */
   --surface: 0 0 0;
   --line: 0 0 0;
-  --shine: 45 150 130; /* lighter teal so the dark text stays readable */
+  --shine: 45 150 130;
+  --booking-glow: 7 46 42; /* lighter teal so the dark text stays readable */
 }
 
 /* Swap assets per theme (e.g. dark vs light icon images). */
