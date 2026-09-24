@@ -57,7 +57,7 @@ export default function QuickBookingForm() {
   };
 
 return (
-  <section className="relative overflow-hidden font-display min-h-[1098px] -mt-[300px]">
+  <section className="relative overflow-hidden font-display min-h-[1098px] -mt-[500px]">
 
     {/* Background Images */}
     <div className="absolute inset-0 pointer-events-none z-0">
