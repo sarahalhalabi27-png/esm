@@ -91,9 +91,10 @@ export default function HeroBanner() {
       <div
         className="relative w-full pl-[50px] pr-[128px] pt-[195px] pb-24 mr-[128px]"
         style={{
+          // Tall enough to contain the whole scaled illustration (centered
+          // vertically) so overflow-hidden never clips the car at the bottom.
           minHeight:
-            (heroIllustrationBox.top + heroIllustrationBox.height) *
-            HERO_ILLUSTRATION_SCALE,
+            (heroIllustrationBox.height * (1 + HERO_ILLUSTRATION_SCALE)) / 2,
         }}
       >
         {/* Left Content */}
@@ -148,11 +149,11 @@ export default function HeroBanner() {
             top: 0,
             width: heroIllustrationBox.width,
             height: heroIllustrationBox.height,
-            // Scale down toward the center so the whole building + car fits
-            // above the fold: the top gains clearance (building not clipped)
-            // and it stays horizontally centered in place (no rightward drift).
+            // Scale down anchored at the buildings' own centre (~65% across,
+            // vertically centred): keeps the buildings in their original spot,
+            // gives the tops clearance, and lifts the car fully into view.
             transform: `scale(${HERO_ILLUSTRATION_SCALE})`,
-            transformOrigin: "center",
+            transformOrigin: "65% center",
             zIndex: 0,
           }}
         />
