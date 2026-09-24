@@ -48,24 +48,23 @@
     rgb(var(--accent)) 100%
   );
   background-size: 250% 100%;
-  background-position: 120% 0; /* streak parked off-screen → solid teal at rest */
+  background-position: 160% 0; /* streak parked off-screen → solid teal at rest */
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  /* Sweep the streak across, hold on solid teal, then repeat. */
-  animation: luxury-sweep 3s ease-in-out 1s infinite;
+  /* One continuous, constant-speed glide from the "Car" side to the "Luxury"
+     side; the streak is off-screen at both ends, so the loop is seamless and
+     leaves a natural pause between passes. */
+  animation: luxury-sweep 4.5s linear 1s infinite;
 }
 
 @keyframes luxury-sweep {
   0% {
-    background-position: 120% 0; /* streak off-screen right (starts over "Car") */
-  }
-  70% {
-    background-position: -120% 0; /* swept leftward across to "Luxury" */
+    background-position: 160% 0; /* off-screen right, past "Car" */
   }
   100% {
-    background-position: -120% 0; /* rest on solid teal, then loop */
+    background-position: -160% 0; /* off-screen left, past "Luxury" */
   }
 }
 
