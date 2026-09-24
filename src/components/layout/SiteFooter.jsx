@@ -23,22 +23,21 @@ const socialIcons = {
 };
 
 const headingClass =
-  "whitespace-nowrap font-['Montserrat_Alternates'] font-semibold text-[25px] leading-[100%] tracking-[0%] capitalize text-teal-accent mb-[40px]";
+  "md:whitespace-nowrap font-['Montserrat_Alternates'] font-semibold text-xl md:text-[25px] leading-[100%] tracking-[0%] capitalize text-teal-accent mb-6 md:mb-[40px]";
 const itemClass =
-  "flex items-center gap-2 whitespace-nowrap font-['Montserrat_Alternates'] font-normal text-[20px] leading-[100%] tracking-[0%] capitalize text-fg";
+  "flex items-center gap-2 md:whitespace-nowrap font-['Montserrat_Alternates'] font-normal text-base md:text-[20px] leading-[120%] md:leading-[100%] tracking-[0%] capitalize text-fg";
 
 export default function SiteFooter() {
   return (
-    <footer className="relative overflow-visible w-[calc(100%-100px)] mx-[50px] mb-[-40px] mt-[55px] -translate-x-[10px] font-display">
- 
+    <footer className="relative overflow-visible w-full px-6 mb-[-40px] mt-[55px] font-display md:w-[calc(100%-100px)] md:mx-[50px] md:px-0 md:-translate-x-[10px]">
       <div
-      className="pointer-events-none absolute left-[1280px] top-[458px] w-[60px] h-[100px] bg-[#24B9A5] opacity-50 blur-[90px] z-[5]"
-    />
+        className="hidden md:block pointer-events-none absolute left-[1280px] top-[458px] w-[60px] h-[100px] bg-[#24B9A5] opacity-50 blur-[90px] z-[5]"
+      />
       <img
-  src={cityArt}
-  alt=""
-  className="pointer-events-none absolute left-[732px] top-10 w-[640px] h-[542px] object-cover opacity-20 z-0 scale-[1.4]"
-/>
+        src={cityArt}
+        alt=""
+        className="hidden md:block pointer-events-none absolute left-[732px] top-10 w-[640px] h-[542px] object-cover opacity-20 z-0 scale-[1.4]"
+      />
 
       <div className="relative z-10 -translate-y-[30px]">
         {/* Logo + tagline */}
@@ -54,16 +53,16 @@ export default function SiteFooter() {
             className="light-only w-[161px] h-[53px] object-contain"
           />
 
-          <p className="mt-[14px] w-[312px] h-[24px] text-center font-['Montserrat_Alternates'] font-normal text-[20px] leading-[100%] tracking-[0%] capitalize text-teal-accent">
+          <p className="mt-[14px] w-full max-w-[312px] text-center font-['Montserrat_Alternates'] font-normal text-lg md:text-[20px] leading-[120%] md:leading-[100%] tracking-[0%] capitalize text-teal-accent">
             Luxury, Defined by Every Ride.
           </p>
 
-          <div className="w-[314px] h-0 border-t border-fg mt-[8px]" />
+          <div className="w-full max-w-[314px] h-0 border-t border-fg mt-[8px]" />
         </div>
 
         {/* Columns */}
-        <div className="max-w-content mx-auto px-6 pt-0 mt-[137px] pb-10">
-          <div className="flex justify-between mb-14">
+        <div className="max-w-content mx-auto px-6 pt-0 mt-16 md:mt-[137px] pb-10">
+          <div className="grid grid-cols-2 gap-y-10 md:flex md:justify-between mb-14">
             {/* Explore */}
             <div>
               <h4 className={headingClass}>Explore</h4>
