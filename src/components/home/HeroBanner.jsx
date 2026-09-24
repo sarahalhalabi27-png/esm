@@ -21,6 +21,8 @@ const heroHighlights = [
 // Shrink the building + car illustration so the whole thing fits above the
 // fold without scrolling, while staying centered in its original position.
 const HERO_ILLUSTRATION_SCALE = 0.7;
+// Nudge the illustration vertically (negative = raise it up).
+const HERO_ILLUSTRATION_OFFSET_Y = -60;
 
 const { layers: heroIllustrationLayers, box: heroIllustrationBox } =
   buildLayerLayout([
@@ -144,9 +146,8 @@ export default function HeroBanner() {
           style={{
             position: "absolute",
             left: heroIllustrationBox.left,
-            // Pull the illustration flush under the (black) header so it hugs
-            // the nav with no black gap, matching the Overview page in Figma.
-            top: 0,
+            // Vertical placement (negative raises it toward the nav).
+            top: HERO_ILLUSTRATION_OFFSET_Y,
             width: heroIllustrationBox.width,
             height: heroIllustrationBox.height,
             // Scale down anchored at the buildings' own centre (~65% across,
