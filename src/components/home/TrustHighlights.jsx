@@ -6,7 +6,7 @@ import parkingLight from "../../assets/parking_light.jpg";
 
 export default function TrustHighlights() {
   return (
-    <section className="relative overflow-hidden w-full max-w-[1340px] mx-auto h-[606px] font-display">
+    <section className="relative overflow-hidden w-full max-w-[1340px] mx-auto md:h-[606px] font-display">
       {/* Background swaps with the theme; bg-fixed keeps the parallax effect */}
       <div
         className="dark-only absolute inset-0 bg-cover bg-center bg-fixed z-0"
@@ -21,23 +21,23 @@ export default function TrustHighlights() {
       <div className="dark-only absolute inset-0 bg-page/70 z-[1]" />
       <div className="light-only absolute inset-0 bg-page/30 z-[1]" />
 
-      <div className="relative z-10 pt-[60px] px-[60px] text-left">
+      <div className="relative z-10 pt-10 md:pt-[60px] px-6 md:px-[60px] pb-12 md:pb-0 text-left">
         <SectionEyebrow className="w-full max-w-[1045px] text-2xl md:text-[30px] leading-[110%] md:leading-[100%] tracking-[0.2em]">
           Trusted & Best Limousine Service Across The UAE
         </SectionEyebrow>
 
-        <p className="w-full text-[25px] font-medium leading-[30px] text-fg mt-[38px]">
+        <p className="w-full text-base md:text-[25px] font-medium leading-relaxed md:leading-[30px] text-fg mt-[38px]">
           Experience Luxury Limousine Service In The UAE With Our Reliable
           Airport Transfers, Corporate Travel, And VIP Chauffeur Service. Our
           Professional Chauffeurs And Premium Fleet Ensure A Comfortable And
           Stylish Travel Experience Across Dubai, Abu Dhabi, And Beyond!
         </p>
 
-        <div className="w-full grid grid-cols-2 gap-x-16 gap-y-[62px] mt-[45px]">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-4 md:gap-y-[62px] mt-[45px]">
           {trustHighlights.map((item, index) => (
             <CheckListItem
               key={item}
-              className={index % 2 !== 0 ? "translate-x-[200px]" : ""}
+              className={index % 2 !== 0 ? "md:translate-x-[200px]" : ""}
             >
               {item}
             </CheckListItem>

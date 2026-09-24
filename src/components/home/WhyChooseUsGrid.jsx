@@ -31,7 +31,7 @@ export default function WhyChooseUsGrid() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden font-display min-h-[959px]">
+    <section className="relative overflow-hidden font-display md:min-h-[959px]">
 
       {/* Pattern Background */}
       <img
@@ -40,11 +40,11 @@ export default function WhyChooseUsGrid() {
         className="absolute left-0 top-[-90px] w-[1438px] h-[959px] object-fill pointer-events-none z-0"
       />
 
-      {/* Why Choose Us Car */}
+      {/* Why Choose Us Car — hidden on small screens (it sits far off-canvas) */}
       <img
         src={whyChooseUs}
         alt=""
-        className="absolute left-[993px] top-[140px] w-[447px] h-[703px] object-fill pointer-events-none z-10"
+        className="hidden xl:block absolute left-[993px] top-[140px] w-[447px] h-[703px] object-fill pointer-events-none z-10"
       />
 
       {/* Content */}
@@ -55,26 +55,20 @@ export default function WhyChooseUsGrid() {
         </SectionEyebrow>
         <div
           ref={gridRef}
-          className="grid sm:grid-cols-2 gap-x-[200px] gap-y-[94px] mt-[70px] max-w-3xl"
+          className="grid grid-cols-1 md:grid-cols-2 gap-x-[200px] gap-y-8 md:gap-y-[94px] mt-[70px] max-w-3xl"
         >
           {whyChooseUsItems.map((item, index) => (
   <div
     key={item.title}
-    className={
-      index === 2
-        ? "ml-[87px]"
-        : index === 3
-        ? "ml-[87px]"
-        : ""
-    }
+    className={index === 2 || index === 3 ? "md:ml-[87px]" : ""}
   >
   <CheckListItem className="!gap-[18px] !font-medium">
-  <span className="whitespace-nowrap">
+  <span className="md:whitespace-nowrap">
     {item.title}
   </span>
 </CheckListItem>
 
-    <p className="ml-[44px] mt-[12px] whitespace-nowrap text-[22px] font-medium leading-[100%] capitalize text-fg">
+    <p className="ml-[44px] mt-[12px] md:whitespace-nowrap text-lg md:text-[22px] font-medium leading-snug md:leading-[100%] capitalize text-fg">
       {item.description}
     </p>
   </div>
