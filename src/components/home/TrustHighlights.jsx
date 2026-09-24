@@ -6,7 +6,7 @@ import parkingLight from "../../assets/parking_light.jpg";
 
 export default function TrustHighlights() {
   return (
-    <section className="relative overflow-hidden w-[1340px] mx-auto h-[606px] font-display">
+    <section className="relative overflow-hidden w-full max-w-[1340px] mx-auto h-[606px] font-display">
       {/* Background swaps with the theme; bg-fixed keeps the parallax effect */}
       <div
         className="dark-only absolute inset-0 bg-cover bg-center bg-fixed z-0"

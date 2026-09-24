@@ -30,7 +30,7 @@ export default function PartnersMarquee() {
 
   return (
     <section className="font-display">
-      <div className="w-[1341px] h-[75px] ml-[50px] -mt-[30px] flex items-center">
+      <div className="w-full max-w-[1341px] h-[75px] ml-[50px] -mt-[30px] flex items-center">
         {/* Section Title */}
         <SectionEyebrow
           className="

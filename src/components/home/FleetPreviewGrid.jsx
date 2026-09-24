@@ -21,7 +21,7 @@ export default function FleetPreviewGrid() {
 
   return (
     <section className="font-display mb-[80px]">
-      <div className="w-[1340px] mx-auto">
+      <div className="w-full max-w-[1340px] mx-auto">
         <SectionEyebrow className="font-display !font-semibold !text-[25px] !leading-[100%] !tracking-[0%] capitalize">
           Our Luxury Fleet
         </SectionEyebrow>

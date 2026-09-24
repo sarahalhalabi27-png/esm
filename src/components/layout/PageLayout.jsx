@@ -4,9 +4,10 @@ import SiteFooter from "./SiteFooter.jsx";
 export default function PageLayout({ children }) {
   return (
     <div className="min-h-screen bg-page text-fg font-display">
-      {/* Fixed 1440px design frame (matches Figma). Centered on wider screens.
-          Responsiveness is intentionally deferred until all pages are done. */}
-      <div className="w-[1440px] mx-auto overflow-hidden">
+      {/* 1440px design frame (matches Figma), centered on wider screens.
+          w-full lets it shrink below 1440 on smaller screens (responsive
+          phase 1) while staying pixel-identical on desktop. */}
+      <div className="w-full max-w-[1440px] mx-auto overflow-hidden">
         <SiteHeader />
         <main>{children}</main>
         <SiteFooter />
