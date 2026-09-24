@@ -45,23 +45,46 @@ export default function SiteHeader() {
         </button>
       </div>
 
-      {isMenuOpen && (
-        <nav className="md:hidden flex flex-col gap-4 px-6 pb-5 text-sm font-display">
-          {navigationLinks.map((link) => (
-            <NavLink
-              key={link.path}
-              to={link.path}
-              end={link.path === "/"}
-              onClick={() => setIsMenuOpen(false)}
-              className={({ isActive }) =>
-                isActive ? "text-teal-accent" : "text-fg/80"
-              }
-            >
-              {link.label}
-            </NavLink>
-          ))}
-        </nav>
-      )}
+      {/* Mobile: dim overlay + right-side sidebar drawer */}
+      <div
+        className={`md:hidden fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 ${
+          isMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+        onClick={() => setIsMenuOpen(false)}
+        aria-hidden="true"
+      />
+      <nav
+        className={`md:hidden fixed top-0 right-0 z-50 h-full w-64 max-w-[80%] bg-page shadow-2xl flex flex-col gap-6 px-6 pt-6 pb-8 text-lg font-display transition-transform duration-300 ${
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        {/* Sidebar top row: theme toggle + close button */}
+        <div className="flex items-center justify-between mb-2">
+          <ThemeToggle />
+          <button
+            className="text-fg/80"
+            onClick={() => setIsMenuOpen(false)}
+            aria-label="Close navigation menu"
+          >
+            <X size={24} />
+          </button>
+        </div>
+        {navigationLinks.map((link) => (
+          <NavLink
+            key={link.path}
+            to={link.path}
+            end={link.path === "/"}
+            onClick={() => setIsMenuOpen(false)}
+            className={({ isActive }) =>
+              `transition-colors ${
+                isActive ? "text-teal-accent" : "text-fg/80 hover:text-fg"
+              }`
+            }
+          >
+            {link.label}
+          </NavLink>
+        ))}
+      </nav>
     </header>
   );
 }
