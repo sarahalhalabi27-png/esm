@@ -91,17 +91,18 @@ export default function HeroBanner() {
       />
 
       <div
-        className="relative w-full pl-[50px] pr-[128px] pt-[195px] pb-24 mr-[128px]"
+        className="relative w-full px-6 pt-28 pb-16 xl:pl-[50px] xl:pr-[128px] xl:pt-[195px] xl:pb-24 xl:mr-[128px] xl:min-h-[var(--hero-min)]"
         style={{
-          // Tall enough to contain the whole scaled illustration (centered
-          // vertically) so overflow-hidden never clips the car at the bottom.
-          minHeight:
-            (heroIllustrationBox.height * (1 + HERO_ILLUSTRATION_SCALE)) / 2,
+          // Desktop-only: tall enough to contain the whole scaled illustration
+          // (centered vertically) so overflow-hidden never clips the car.
+          "--hero-min": `${
+            (heroIllustrationBox.height * (1 + HERO_ILLUSTRATION_SCALE)) / 2
+          }px`,
         }}
       >
         {/* Left Content */}
-        <div className="relative z-10 w-[565px] -translate-y-[130px]">
-          <p className="text-[25px] font-normal leading-[100%] tracking-[0%] capitalize mb-[26px]">
+        <div className="relative z-10 w-full max-w-[565px] xl:w-[565px] xl:-translate-y-[130px]">
+          <p className="text-lg md:text-[25px] font-normal leading-[100%] tracking-[0%] capitalize mb-[26px]">
             Specialized Services For Luxury Cars
           </p>
 
@@ -109,17 +110,17 @@ export default function HeroBanner() {
             A Sophisticated Experience Befitting Your{" "}
             <span className="luxury-shine relative inline-block font-semibold">
               Luxury Car
-              <span className="absolute left-0 bottom-[-8px] w-[281px] border-b border-fg"></span>
+              <span className="absolute left-0 bottom-[-8px] w-full border-b border-fg"></span>
             </span>
           </h1>
 
-          <PrimaryButton className="w-[365px] h-[50px] rounded-[10px] text-[20px] font-normal leading-[100%] tracking-[0%] capitalize font-display mb-[47px]">
+          <PrimaryButton className="w-full max-w-[365px] h-[50px] rounded-[10px] text-[18px] md:text-[20px] font-normal leading-[100%] tracking-[0%] capitalize font-display mb-[47px]">
             Quickly Book Your Luxury Ride
           </PrimaryButton>
 
           <ul
             ref={highlightsListRef}
-            className="w-[318px] h-[144px] space-y-5 mt-[30px]"
+            className="w-full max-w-[318px] xl:h-[144px] space-y-5 mt-[30px]"
           >
             {heroHighlights.map((item) => (
               <CheckListItem key={item}>{item}</CheckListItem>
@@ -127,7 +128,7 @@ export default function HeroBanner() {
           </ul>
         </div>
         <div
-          className="absolute rounded-full pointer-events-none"
+          className="hidden xl:block absolute rounded-full pointer-events-none"
           style={{
             left: 772,
             top: 501,
@@ -143,6 +144,7 @@ export default function HeroBanner() {
         />
         <LayeredGraphicStage
           layers={heroIllustrationLayers}
+          className="hidden xl:block"
           style={{
             position: "absolute",
             left: heroIllustrationBox.left,
