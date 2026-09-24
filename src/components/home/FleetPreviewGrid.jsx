@@ -41,9 +41,9 @@ export default function FleetPreviewGrid() {
           Luxury Cars Carefully Selected To Embody The Highest Levels Of Quality
           And Sophistication.
         </p>
-        <div className="flex justify-center gap-[51px]">
+        <div className="flex flex-wrap lg:flex-nowrap justify-center gap-[51px]">
           {featuredCars.map((car) => (
-            <div key={car.id} className="shrink-0">
+            <div key={car.id} className="lg:shrink-0 max-w-full">
               <FleetShowcaseCard car={car} />
             </div>
           ))}

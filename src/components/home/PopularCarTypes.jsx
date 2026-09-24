@@ -50,7 +50,7 @@ export default function PopularCarTypes() {
         </p>
 
         {/* Car Types — cards match Figma (257x172, teal gradient border) */}
-        <div className="flex justify-center gap-[40px] mt-[45px]">
+        <div className="flex flex-wrap justify-center gap-[40px] mt-[45px]">
           {popularTypes.map((type) => (
             <div
               key={type.id}
