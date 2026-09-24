@@ -1,5 +1,3 @@
-import { ArrowRight } from "lucide-react";
-
 import SectionEyebrow from "../common/SectionEyebrow.jsx";
 import offerCar from "../../assets/offer_car.png";
 import smoke1 from "../../assets/smoke1.png";

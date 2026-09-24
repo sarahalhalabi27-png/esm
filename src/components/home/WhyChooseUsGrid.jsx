@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { Check } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionEyebrow from "../common/SectionEyebrow.jsx";
