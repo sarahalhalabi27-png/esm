@@ -31,12 +31,12 @@ export default function SiteFooter() {
   return (
     <footer className="relative overflow-visible w-full px-6 mb-[-40px] mt-[55px] font-display md:w-[calc(100%-100px)] md:mx-[50px] md:px-0 md:-translate-x-[10px]">
       <div
-        className="hidden md:block pointer-events-none absolute left-[1280px] top-[458px] w-[60px] h-[100px] bg-[#24B9A5] opacity-50 blur-[90px] z-[5]"
+        className="hidden lg:block pointer-events-none absolute left-[1280px] top-[458px] w-[60px] h-[100px] bg-[#24B9A5] opacity-50 blur-[90px] z-[5]"
       />
       <img
         src={cityArt}
         alt=""
-        className="hidden md:block pointer-events-none absolute left-[732px] top-10 w-[640px] h-[542px] object-cover opacity-20 z-0 scale-[1.4]"
+        className="hidden lg:block pointer-events-none absolute left-[732px] top-10 w-[640px] h-[542px] object-cover opacity-20 z-0 scale-[1.4]"
       />
 
       <div className="relative z-10 -translate-y-[30px]">
