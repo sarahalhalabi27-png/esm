@@ -37,7 +37,7 @@ export default function TimePicker({
         className="
           w-full
           min-h-[42px]
-          text-left
+          text-start
           bg-transparent
           border-b
           border-line

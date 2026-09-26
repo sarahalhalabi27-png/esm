@@ -93,7 +93,7 @@ export default function HeroBanner() {
       />
 
       <div
-        className="relative w-full px-6 pt-28 pb-16 xl:pl-[50px] xl:pr-[128px] xl:pt-[195px] xl:pb-24 xl:mr-[128px] xl:min-h-[var(--hero-min)]"
+        className="relative w-full px-6 pt-28 pb-16 xl:ps-[50px] xl:pe-[128px] xl:pt-[195px] xl:pb-24 xl:me-[128px] xl:min-h-[var(--hero-min)]"
         style={{
           // Desktop-only: tall enough to contain the whole scaled illustration
           // (centered vertically) so overflow-hidden never clips the car.

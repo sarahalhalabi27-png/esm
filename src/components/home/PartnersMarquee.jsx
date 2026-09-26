@@ -30,7 +30,7 @@ export default function PartnersMarquee() {
 
   return (
     <section className="font-display">
-      <div className="w-full max-w-[1341px] h-[75px] px-6 md:px-0 md:ml-[50px] md:-mt-[30px] flex items-center">
+      <div className="w-full max-w-[1341px] h-[75px] px-6 md:px-0 md:ms-[50px] md:-mt-[30px] flex items-center">
         {/* Section Title */}
         <SectionEyebrow
           className="
@@ -51,7 +51,7 @@ export default function PartnersMarquee() {
         </SectionEyebrow>
 
         {/* Partners — looping marquee */}
-        <div className="relative overflow-hidden ml-6 md:ml-[154px] flex-1">
+        <div className="relative overflow-hidden ms-6 md:ms-[154px] flex-1">
           <div
             ref={trackRef}
             className="flex items-center gap-[152px] opacity-80 w-max"

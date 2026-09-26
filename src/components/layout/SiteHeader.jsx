@@ -18,12 +18,12 @@ export default function SiteHeader() {
 
   return (
     <header className="w-full bg-page sticky top-0 z-30">
-      <div className="flex items-start pl-6 lg:pl-[50px] pt-[41px] pb-[40px] pr-6 lg:pr-[50px]">
+      <div className="flex items-start ps-6 lg:ps-[50px] pt-[41px] pb-[40px] pe-6 lg:pe-[50px]">
         <NavLink to="/" className="flex items-center">
           <img src={logo} alt="ESM Limo" className="w-[83px] h-[25px]" />
         </NavLink>
 
-        <nav className="hidden lg:flex items-center gap-[51px] ml-[157px] text-[25px] font-normal leading-[100%] tracking-[0%] capitalize font-display">
+        <nav className="hidden lg:flex items-center gap-[51px] ms-[157px] text-[25px] font-normal leading-[100%] tracking-[0%] capitalize font-display">
           {navigationLinks.map((link) => (
             <NavLink
               key={link.path}
@@ -42,12 +42,12 @@ export default function SiteHeader() {
           ))}
         </nav>
 
-        <ThemeToggle className="ml-auto self-center shrink-0" />
+        <ThemeToggle className="ms-auto self-center shrink-0" />
 
         <button
           type="button"
           onClick={toggleLanguage}
-          className="ml-5 self-center shrink-0 text-fg/80 hover:text-fg transition-colors font-display text-[18px]"
+          className="ms-5 self-center shrink-0 text-fg/80 hover:text-fg transition-colors font-display text-[18px]"
         >
           {currentI18n.language === "en" ? "AR" : "EN"}
         </button>
@@ -55,7 +55,7 @@ export default function SiteHeader() {
         {/* Mobile menu trigger (opens the right-side sidebar) */}
         <button
           type="button"
-          className="lg:hidden self-center shrink-0 text-fg/80 ml-4"
+          className="lg:hidden self-center shrink-0 text-fg/80 ms-4"
           onClick={() => setIsMenuOpen((open) => !open)}
           aria-label="Toggle navigation menu"
         >

@@ -60,7 +60,7 @@ export default function WhyChooseUsGrid() {
           {whyChooseUsItems.map((item, index) => (
   <div
     key={item.title}
-    className={index === 2 || index === 3 ? "md:ml-[87px]" : ""}
+    className={index === 2 || index === 3 ? "md:ms-[87px]" : ""}
   >
   <CheckListItem className="!gap-[18px] !font-medium">
   <span className="md:whitespace-nowrap">
@@ -68,7 +68,7 @@ export default function WhyChooseUsGrid() {
   </span>
 </CheckListItem>
 
-    <p className="ml-[44px] mt-[12px] md:whitespace-nowrap text-lg md:text-[22px] font-medium leading-snug md:leading-[100%] capitalize text-fg">
+    <p className="ms-[44px] mt-[12px] md:whitespace-nowrap text-lg md:text-[22px] font-medium leading-snug md:leading-[100%] capitalize text-fg">
       {item.description}
     </p>
   </div>

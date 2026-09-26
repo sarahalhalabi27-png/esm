@@ -1,6 +1,6 @@
 export default function CompanyTimelineItem({ item, isLast }) {
   return (
-    <div className="relative pl-10 pb-10">
+    <div className="relative ps-10 pb-10">
       {!isLast ? (
         <span className="absolute left-[7px] top-3 bottom-0 w-px bg-white/15" />
       ) : null}

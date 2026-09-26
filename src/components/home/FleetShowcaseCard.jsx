@@ -60,18 +60,18 @@ export default function FleetShowcaseCard({ car }) {
             <img
               src={passengersIcon}
               alt=""
-              className="w-[25px] h-[20px] shrink-0 mr-2"
+              className="w-[25px] h-[20px] shrink-0 me-2"
             />
 
             <span>{car.passengers} Passengers</span>
           </div>
 
           {/* Luggage */}
-          <div className="ml-auto flex items-center font-normal text-[20px] leading-[100%] capitalize">
+          <div className="ms-auto flex items-center font-normal text-[20px] leading-[100%] capitalize">
             <img
               src={luggageIcon}
               alt=""
-              className="w-[25px] h-[20px] shrink-0 mr-2"
+              className="w-[25px] h-[20px] shrink-0 me-2"
             />
 
             <span>{car.luggage} Luggage</span>

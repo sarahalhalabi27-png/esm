@@ -142,7 +142,7 @@ export default function ServiceTimelineGrid() {
       w-full
       max-w-[1350px]
       min-h-[72px]
-      ml-[0px]
+      ms-[0px]
       mt-[30px]
       text-[22px]
       font-medium
