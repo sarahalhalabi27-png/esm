@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import FloatingLabel from "./FloatingLabel.jsx";
 
 export default function TextField({
@@ -14,6 +15,9 @@ export default function TextField({
   onChange,
   ...rest
 }) {
+  const { i18n } = useTranslation();
+  const isRTL = i18n.dir() === "rtl";
+
   const inputRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -41,16 +45,20 @@ export default function TextField({
     <label className={`block relative ${className}`}>
       {/* Floating label for regular text fields */}
       {!isDateOrTime && placeholder && (
-        <FloatingLabel text={placeholder} active={isFloating} />
+        <FloatingLabel
+          text={placeholder}
+          active={isFloating}
+          className={isRTL ? "text-right" : "text-left"}
+        />
       )}
 
-      {/* Custom placeholder */}
+      {/* Custom placeholder for date/time fields */}
       {showCustomPlaceholder && (
         <span
           onClick={handlePlaceholderClick}
-          className="
+          className={`
             absolute
-            left-0
+            ${isRTL ? "right-0" : "left-0"}
             top-0
             z-10
             cursor-pointer
@@ -60,7 +68,8 @@ export default function TextField({
             text-[22px]
             leading-[100%]
             capitalize
-          "
+            ${isRTL ? "text-right" : "text-left"}
+          `}
         >
           {placeholder}
         </span>
@@ -76,6 +85,7 @@ export default function TextField({
         onFocus={handleFocus}
         onBlur={handleBlur}
         placeholder={undefined}
+        dir={isRTL ? "rtl" : "ltr"}
         className={`
           w-full
           bg-transparent
@@ -88,6 +98,7 @@ export default function TextField({
           text-fg
           placeholder:text-fg
           transition-colors
+          ${isRTL ? "text-right" : "text-left"}
 
           ${
             isDateOrTime && !value && !isFocused

@@ -1,3 +1,16 @@
+@font-face {
+  font-family: "29LT Bukra";
+  src: url("./assets/fonts/29LT Bukra.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  /* Bukra's glyphs run ~10% larger than Montserrat Alternates at the same
+     font-size (letter body 59 vs x-height 53, tall strokes 81 vs 74, per
+     100px). Scaling the face itself makes Arabic headings/body match the
+     English sizes everywhere without touching any component's text-[…]. */
+  size-adjust: 90%;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,6 +25,8 @@ img {
 /* Theme tokens — RGB triples so Tailwind's rgb(var() / <alpha>) works.
    Dark is the default; light is applied via <html data-theme="light">. */
 :root {
+  --font-display: "Montserrat Alternates";
+
   --page: 0 0 0; /* page background */
   --fg: 255 255 255; /* primary text */
   --muted: 156 163 175; /* secondary text (gray-400) */
@@ -20,6 +35,16 @@ img {
   --line: 255 255 255; /* border base (used with low alpha) */
   --shine: 230 255 250;
   --booking-glow: 36 185 165; /* bright streak for the Luxury Car shimmer */
+}
+
+/* Arabic font */
+html[dir="rtl"] {
+  --font-display: "29LT Bukra";
+}
+
+/* English font */
+html[dir="ltr"] {
+  --font-display: "Montserrat Alternates";
 }
 
 :root[data-theme="light"] {
@@ -31,6 +56,19 @@ img {
   --line: 0 0 0;
   --shine: 45 150 130;
   --booking-glow: 7 46 42; /* lighter teal so the dark text stays readable */
+}
+
+/* Content sitting on a surface that stays dark in both themes (e.g. the
+   booking card over its video): in light mode, re-scope the tokens inside it
+   so text, underlines, labels, the Send button and the date/time pickers
+   render white-on-dark instead of black-on-dark. Dark mode is unaffected. */
+:root[data-theme="light"] .on-dark-surface {
+  --page: 0 0 0;
+  --fg: 255 255 255;
+  --muted: 209 213 219;
+  --surface: 255 255 255;
+  --line: 255 255 255;
+  --accent: 255 255 255;
 }
 
 /* Swap assets per theme (e.g. dark vs light icon images). */
@@ -95,12 +133,17 @@ html {
 body {
   background-color: rgb(var(--page));
   color: rgb(var(--fg));
+
+  /* Use the selected display font globally */
+  font-family: var(--font-display);
+
   /* Phase 0 responsive guard: fixed-width sections wider than a small screen
      would otherwise cause horizontal scrolling. `clip` removes that overflow
      without changing the (intentionally fixed-width) desktop layout, and —
      unlike `hidden` — it does not break the sticky header. */
   overflow-x: clip;
 }
+
 /* Remove browser autofill background */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -110,4 +153,104 @@ input:-webkit-autofill:active {
   -webkit-text-fill-color: rgb(var(--fg)) !important;
   caret-color: rgb(var(--fg));
   transition: background-color 9999s ease-in-out 0s;
+}
+/* Mobile horizontal carousels (home Fleet + Popular Cars rows).
+   Base: below md the row stops wrapping and scrolls sideways inside its own
+   box — the negative inline margin bleeds it to the screen edges, scrolling
+   is contained to the row (never the page), and the page gutter is kept as
+   inline padding. Unlayered + inside a max-width query so it overrides the
+   row's own flex-wrap/justify utilities on phones only; desktop untouched.
+   Pick a feel with a modifier:
+     --snap  : Card Snap Carousel — one centred card, neighbours peek on both
+               sides, hard snap one card per swipe, off-centre cards recede.
+     --shelf : Scroll Shelf — start-aligned browsing, soft (proximity) snap,
+               a larger slice of the next card, a fade on the far edge and a
+               static "shelf" line the cards glide over. */
+@media (max-width: 767.98px) {
+  .mobile-carousel {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    margin-inline: -1.5rem;
+    padding-inline: 1.5rem;
+    scroll-padding-inline: 1.5rem;
+  }
+  .mobile-carousel::-webkit-scrollbar {
+    display: none;
+  }
+  .mobile-carousel > * {
+    flex-shrink: 0;
+  }
+
+  /* --- Card Snap Carousel --------------------------------------------- */
+  .mobile-carousel--snap {
+    /* Card width lives here; the card reads it via var(--snap-card-w). */
+    --snap-card-w: min(78vw, 320px);
+    scroll-snap-type: x mandatory;
+    /* Side padding that lets the first/last card sit centred too
+       (50% = parent content box; +1.5rem = the bled gutter). */
+    padding-inline: calc(50% + 1.5rem - var(--snap-card-w) / 2);
+    scroll-padding-inline: 0;
+  }
+  .mobile-carousel--snap > * {
+    scroll-snap-align: center;
+    scroll-snap-stop: always; /* one card per swipe, even on a fast flick */
+  }
+
+  /* --- Scroll Shelf ---------------------------------------------------- */
+  .mobile-carousel--shelf {
+    scroll-snap-type: x proximity;
+    padding-bottom: 1.25rem;
+    /* The shelf: painted on the scroller's own background, so it stays put
+       while the cards slide over it. */
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgb(var(--accent) / 0.45) 20%,
+        rgb(var(--accent) / 0.45) 80%,
+        transparent
+      )
+      bottom / 100% 1px no-repeat;
+    /* Soften the far edge so the half-visible card reads as "more this way". */
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+  }
+  [dir="rtl"] .mobile-carousel--shelf {
+    -webkit-mask-image: linear-gradient(to left, #000 calc(100% - 2.5rem), transparent);
+    mask-image: linear-gradient(to left, #000 calc(100% - 2.5rem), transparent);
+  }
+  .mobile-carousel--shelf > * {
+    scroll-snap-align: start;
+  }
+
+  /* Snap carousel focus effect: the centred card is full size, neighbours
+     ease back as they move off-centre. Driven by scroll position itself
+     (scroll-driven animations) — no JS, no scroll listeners. Browsers
+     without support simply show all cards at full size. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .mobile-carousel--snap > * {
+        animation: snap-card-focus linear both;
+        animation-timeline: view(inline);
+      }
+    }
+  }
+}
+
+@keyframes snap-card-focus {
+  0%,
+  100% {
+    transform: scale(0.93);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

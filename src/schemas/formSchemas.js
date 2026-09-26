@@ -1,63 +1,87 @@
 import { z } from "zod";
 
 // Shared field rules
-const lettersOnly = z
-  .string()
-  .trim()
-  .min(1, "Name is required")
-  .regex(/^[A-Za-z؀-ۿ\s'-]+$/, "Letters only");
 
-const digitsOnly = z
-  .string()
-  .regex(/^\d*$/, "Numbers only")
-  .optional()
-  .or(z.literal(""));
+const createLettersOnly = (t) =>
+  z
+    .string()
+    .trim()
+    .min(1, t("validation.nameRequired"))
+    .regex(/^[A-Za-z؀-ۿ\s'-]+$/, t("validation.lettersOnly"));
 
-const requiredEmail = z
-  .string()
-  .min(1, "Email is required")
-  .pipe(z.email("Enter a valid email"));
+const createDigitsOnly = (t) =>
+  z
+    .string()
+    .regex(/^\d*$/, t("validation.numbersOnly"))
+    .optional()
+    .or(z.literal(""));
 
-const optionalUrl = z.union([z.literal(""), z.url("Enter a valid URL")]);
+const createRequiredEmail = (t) =>
+  z
+    .string()
+    .min(1, t("validation.emailRequired"))
+    .pipe(z.email(t("validation.invalidEmail")));
+
+const createOptionalUrl = (t) =>
+  z.union([z.literal(""), z.url(t("validation.invalidUrl"))]);
 
 // Home quick-booking form
-export const bookingSchema = z.object({
-  name: lettersOnly,
-  phone: z.string().min(1, "Phone is required").regex(/^\d+$/, "Numbers only"),
-  location: z.string().optional().or(z.literal("")),
-  time: z.string().optional().or(z.literal("")),
-  date: z.string().optional().or(z.literal("")),
-  dropOffLocation: z.string().optional().or(z.literal("")),
-});
+
+export const bookingSchema = (t) =>
+  z.object({
+    name: createLettersOnly(t),
+
+    phone: z
+      .string()
+      .min(1, t("validation.phoneRequired"))
+      .regex(/^\d+$/, t("validation.numbersOnly")),
+
+    location: z.string().optional().or(z.literal("")),
+    time: z.string().optional().or(z.literal("")),
+    date: z.string().optional().or(z.literal("")),
+    dropOffLocation: z.string().optional().or(z.literal("")),
+  });
 
 // Car-details reservation form
-export const reservationSchema = z.object({
-  firstName: lettersOnly,
-  lastName: lettersOnly,
-  email: requiredEmail,
-  phone: digitsOnly,
-  bookingDuration: z.enum(["hourly", "daily", "weekly", "monthly"]),
-  pickUpDate: z.string().optional().or(z.literal("")),
-  pickUpTime: z.string().optional().or(z.literal("")),
-  dropOffDate: z.string().optional().or(z.literal("")),
-  dropOffTime: z.string().optional().or(z.literal("")),
-  message: z.string().optional().or(z.literal("")),
-});
+
+export const reservationSchema = (t) =>
+  z.object({
+    firstName: createLettersOnly(t),
+    lastName: createLettersOnly(t),
+    email: createRequiredEmail(t),
+    phone: createDigitsOnly(t),
+    bookingDuration: z.enum(["hourly", "daily", "weekly", "monthly"]),
+    pickUpDate: z.string().optional().or(z.literal("")),
+    pickUpTime: z.string().optional().or(z.literal("")),
+    dropOffDate: z.string().optional().or(z.literal("")),
+    dropOffTime: z.string().optional().or(z.literal("")),
+    message: z.string().optional().or(z.literal("")),
+  });
 
 // Contact page form
-export const contactSchema = z.object({
-  fullName: lettersOnly,
-  subject: z.string().optional().or(z.literal("")),
-  phone: digitsOnly,
-  email: requiredEmail,
-  message: z.string().trim().min(1, "Message is required"),
-});
+
+export const contactSchema = (t) =>
+  z.object({
+    fullName: createLettersOnly(t),
+    subject: z.string().optional().or(z.literal("")),
+    phone: createDigitsOnly(t),
+    email: createRequiredEmail(t),
+    message: z
+      .string()
+      .trim()
+      .min(1, t("validation.messageRequired")),
+  });
 
 // Blog comment form
-export const commentSchema = z.object({
-  name: lettersOnly,
-  email: requiredEmail,
-  website: optionalUrl,
-  comment: z.string().trim().min(1, "Comment is required"),
-  rememberMe: z.boolean().optional(),
-});
+
+export const commentSchema = (t) =>
+  z.object({
+    name: createLettersOnly(t),
+    email: createRequiredEmail(t),
+    website: createOptionalUrl(t),
+    comment: z
+      .string()
+      .trim()
+      .min(1, t("validation.commentRequired")),
+    rememberMe: z.boolean().optional(),
+  });

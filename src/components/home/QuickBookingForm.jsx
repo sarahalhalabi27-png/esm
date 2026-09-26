@@ -1,4 +1,6 @@
+
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,6 +17,7 @@ import {
   selectBookingStatus,
 } from "../../store/bookingSlice.js";
 import { SUBMIT_STATUS } from "../../store/constants.js";
+
 // Background car/smoke images are currently commented out below; re-add
 // `import Car from "../../assets/car2.png"` and the smoke import when restoring them.
 
@@ -28,11 +31,12 @@ const defaultValues = {
 };
 
 export default function QuickBookingForm() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const status = useSelector(selectBookingStatus);
 
   const { control, handleSubmit, reset } = useForm({
-    resolver: zodResolver(bookingSchema),
+    resolver: zodResolver(bookingSchema(t)),
     defaultValues,
   });
 
@@ -53,173 +57,170 @@ export default function QuickBookingForm() {
   const fieldProps = {
     labelClassName: "!text-fg text-[16px] font-medium mb-2",
     inputClassName:
-      "!border-line/50 !font-display !font-semibold !text-[20px] !leading-[100%] !tracking-[0%] capitalize placeholder:text-fg",
+      "!border-line/50 !font-display !font-semibold !text-[20px] max-md:!text-[17px] max-md:min-h-[44px] !leading-[100%] !tracking-[0%] capitalize placeholder:text-fg",
   };
 
-return (
-  <section className="relative overflow-hidden font-display -mt-[-20px] py-10 min-h-0 xl:py-0 xl:min-h-[1098px]">
-<video
-  className="absolute top-0 left-0 w-full h-auto z-0 scale-[1.1] origin-right"
-  src="/booking-video.mp4"
-  autoPlay
-  muted
-  loop
-  playsInline
-  preload="auto"
-/>
-    {/* Background Images — faded in from the top so the smoke/tint doesn't
-        get hard-clipped at the section edge (which showed as a black seam). */}
-    <div
-      className="absolute inset-0 pointer-events-none z-0"
-      style={{
-        WebkitMaskImage:
-          "linear-gradient(to bottom, transparent 0, black 200px, black calc(100% - 200px), transparent 100%)",
-        maskImage:
-          "linear-gradient(to bottom, transparent 0, black 200px, black calc(100% - 200px), transparent 100%)",
-      }}
-    >
-      
-
-      {/* Car */}
-      {/* <img
-        src={Car}
-        alt=""
-        className="absolute left-[-150px] top-[150px] w-[1000px] h-[585px]"
+  return (
+    <section className="relative overflow-hidden font-display -mt-[-20px] py-10 min-h-0 max-md:pt-2 max-md:pb-12 xl:py-0 xl:min-h-[1098px]">
+      <video
+        className="absolute top-0 left-0 w-full h-auto z-0 scale-[1.1] origin-right max-md:h-full max-md:object-cover max-md:scale-100"
+        src="/booking-video.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
       />
 
-      <img
-        src={smoke}
-        alt=""
-        className="absolute object-cover"
-        style={{ top: -1000, left: 0, width: 1440, height: 2398, opacity: 0.15 }}
-      />
-
-      <img
-        src={smoke}
-        alt=""
-        className="absolute object-cover"
+      {/* Background Images — faded in from the top so the smoke/tint doesn't
+          get hard-clipped at the section edge (which showed as a black seam). */}
+      <div
+        className="absolute inset-0 pointer-events-none z-0"
         style={{
-          top: 480,
-          left: 0,
-          width: 765,
-          height: 594,
-          opacity: 0.14,
-          transform: "rotate(180deg)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent 0, black 200px, black calc(100% - 200px), transparent 100%)",
+          maskImage:
+            "linear-gradient(to bottom, transparent 0, black 200px, black calc(100% - 200px), transparent 100%)",
         }}
-      />
+      >
 
-      <img
-        src={smoke}
-        alt=""
-        className="absolute object-cover"
-        style={{
-          top: 480,
-          left: 709,
-          width: 675,
-          height: 294,
-          opacity: 0.14,
-          transform: "rotate(180deg)",
-        }}
-      /> */}
+        {/* Car */}
+        {/* <img
+          src={Car}
+          alt=""
+          className="absolute left-[-150px] top-[150px] w-[1000px] h-[585px]"
+        />
 
-     
+        <img
+          src={smoke}
+          alt=""
+          className="absolute object-cover"
+          style={{ top: -1000, left: 0, width: 1440, height: 2398, opacity: 0.15 }}
+        />
 
-    </div>
-{/* Experimental Video - Left of Booking Form */}
+        <img
+          src={smoke}
+          alt=""
+          className="absolute object-cover"
+          style={{
+            top: 480,
+            left: 0,
+            width: 765,
+            height: 594,
+            opacity: 0.14,
+            transform: "rotate(180deg)",
+          }}
+        />
 
-    {/* Booking Form */}
-{/* <div className="relative z-10 mx-auto w-[92%] max-w-[520px] rounded-[25px] bg-[#0000004D] backdrop-blur-[20px] px-6 pt-[40px] pb-[40px] flex flex-col xl:absolute xl:top-0 xl:left-[760px] xl:mx-0 xl:w-[520px] xl:px-[40px]">
-
-      <div className="relative">
-
-       
-
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col"
-        >
-           <h2 className="text-[25px] font-semibold text-teal-accent text-center mb-[32px]">
-          Book Your Luxury Car Now
-        </h2>
-
-          <div className="flex flex-col gap-[36px]">
-
-            <ControlledField
-              control={control}
-              name="name"
-              as={TextField}
-              transform={sanitizeName}
-              placeholder="Name"
-              {...fieldProps}
-            />
-
-            <ControlledField
-              control={control}
-              name="phone"
-              as={TextField}
-              transform={sanitizePhone}
-              type="tel"
-              placeholder="Phone"
-              {...fieldProps}
-            />
-
-            <ControlledField
-              control={control}
-              name="location"
-              as={TextField}
-              placeholder="Choose Location"
-              {...fieldProps}
-            />
-
-            <ControlledField
-              control={control}
-              name="date"
-              as={DatePicker}
-              placeholder="Select Date"
-            />
-
-            <ControlledField
-              control={control}
-              name="time"
-              as={TimePicker}
-              placeholder="Select Time"
-            />
-
-            <ControlledField
-              control={control}
-              name="dropOffLocation"
-              as={TextField}
-              placeholder="Drop Off Location"
-              {...fieldProps}
-            />
-
-          </div>
-
-          <div className="mt-[45px] flex flex-col items-center gap-2">
-
-           <OutlineButton
-  type="submit"
-  className="!w-[153px] !h-[55px] !rounded-[10px] !border-line !text-fg !font-['Montserrat_Alternates'] !font-semibold !text-[22px] !leading-[100%] !tracking-[0%] !capitalize"
-  disabled={status === SUBMIT_STATUS.SUBMITTING}
->
-  {status === SUBMIT_STATUS.SUBMITTING
-    ? "Sending..."
-    : "Send"}
-</OutlineButton>
-
-            {status === SUBMIT_STATUS.SUCCESS ? (
-              <p className="text-xs text-teal-accent">
-                Thanks! We received your request.
-              </p>
-            ) : null}
-
-          </div>
-
-        </form>
+        <img
+          src={smoke}
+          alt=""
+          className="absolute object-cover"
+          style={{
+            top: 480,
+            left: 709,
+            width: 675,
+            height: 294,
+            opacity: 0.14,
+            transform: "rotate(180deg)",
+          }}
+        /> */}
 
       </div>
-    </div> */}
 
-  </section>
-);
+      {/* Experimental Video - Left of Booking Form */}
+
+      {/* Booking Form */}
+      <div className="on-dark-surface relative z-10 mx-auto w-[92%] max-w-[520px] max-md:w-[calc(100%-2rem)] max-md:rounded-[20px] max-md:px-5 max-md:pt-8 max-md:pb-8 rounded-[25px] bg-[#0000004D] backdrop-blur-[20px] px-6 pt-[40px] pb-[40px] flex flex-col xl:absolute xl:top-0 xl:left-[760px] xl:mx-0 xl:w-[520px] xl:px-[40px]">
+
+        <div className="relative">
+
+          <form 
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col"
+          >
+            <h2 className="text-[25px] font-semibold text-teal-accent text-center mb-[32px] max-md:text-[21px] max-md:leading-snug max-md:mb-10">
+              {t("booking.title")}
+            </h2>
+
+            <div className="flex flex-col gap-[36px] max-md:gap-[34px]">
+
+              <ControlledField
+                control={control}
+                name="name"
+                as={TextField}
+                transform={sanitizeName}
+                placeholder={t("booking.name")}
+                {...fieldProps}
+              />
+
+              <ControlledField
+                control={control}
+                name="phone"
+                as={TextField}
+                transform={sanitizePhone}
+                type="tel"
+                placeholder={t("booking.phone")}
+                {...fieldProps}
+              />
+
+              <ControlledField
+                control={control}
+                name="location"
+                as={TextField}
+                placeholder={t("booking.location")}
+                {...fieldProps}
+              />
+
+              <ControlledField
+                control={control}
+                name="date"
+                as={DatePicker}
+                placeholder={t("booking.date")}
+              />
+
+              <ControlledField
+                control={control}
+                name="time"
+                as={TimePicker}
+                placeholder={t("booking.time")}
+              />
+
+              <ControlledField
+                control={control}
+                name="dropOffLocation"
+                as={TextField}
+                placeholder={t("booking.dropOffLocation")}
+                {...fieldProps}
+              />
+
+            </div>
+
+            <div className="mt-[45px] max-md:mt-9 flex flex-col items-center gap-2">
+
+              <OutlineButton
+                type="submit"
+                className="!w-[153px] !h-[55px] !rounded-[10px] !border-line !text-fg !font-display !font-semibold !text-[22px] !leading-[100%] !tracking-[0%] !capitalize"
+                disabled={status === SUBMIT_STATUS.SUBMITTING}
+              >
+                {status === SUBMIT_STATUS.SUBMITTING
+                  ? t("booking.sending")
+                  : t("booking.send")}
+              </OutlineButton>
+
+              {status === SUBMIT_STATUS.SUCCESS ? (
+                <p className="text-xs text-teal-accent">
+                  {t("booking.success")}
+                </p>
+              ) : null}
+
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </section>
+  );
 }

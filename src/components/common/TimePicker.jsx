@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import FloatingLabel from "./FloatingLabel.jsx";
 
 export default function TimePicker({
@@ -6,6 +7,9 @@ export default function TimePicker({
   onChange,
   placeholder = "Select Time",
 }) {
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.dir() === "rtl";
+
   const [isOpen, setIsOpen] = useState(false);
 
   const [hour, setHour] = useState("08");
@@ -28,13 +32,17 @@ export default function TimePicker({
   const isFloating = isOpen || !!value;
 
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      dir={isRTL ? "rtl" : "ltr"}
+    >
       {/* Field */}
       <FloatingLabel text={placeholder} active={isFloating} />
+
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="
+        className={`
           w-full
           min-h-[42px]
           text-start
@@ -46,19 +54,26 @@ export default function TimePicker({
           font-display
           font-semibold
           text-[22px]
+          max-md:text-[17px]
           leading-[100%]
           capitalize
-        "
+          ${isRTL ? "text-right" : "text-left"}
+        `}
       >
         {value}
       </button>
 
       {/* Custom Modal */}
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-page/50">
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-page/50 max-md:px-2"
+          dir={isRTL ? "rtl" : "ltr"}
+        >
           <div
             className="
               w-[320px]
+              max-w-full
+              max-md:p-5
               rounded-[20px]
               bg-page
               border
@@ -69,10 +84,10 @@ export default function TimePicker({
             "
           >
             <h3 className="text-fg text-[22px] font-semibold mb-6 text-center">
-              Select Time
+              {t("booking.selectTime")}
             </h3>
 
-            <div className="flex justify-center items-center gap-3">
+            <div className="flex justify-center items-center gap-3 max-md:gap-2">
               {/* Hours */}
               <select
                 value={hour}
@@ -80,6 +95,8 @@ export default function TimePicker({
                 className="
                   w-[75px]
                   h-[55px]
+                  max-md:min-w-0
+                  max-md:h-[48px]
                   bg-white
                   text-black
                   text-[20px]
@@ -108,6 +125,8 @@ export default function TimePicker({
                 className="
                   w-[75px]
                   h-[55px]
+                  max-md:min-w-0
+                  max-md:h-[48px]
                   bg-white
                   text-black
                   text-[20px]
@@ -134,6 +153,8 @@ export default function TimePicker({
                 className="
                   w-[75px]
                   h-[55px]
+                  max-md:min-w-0
+                  max-md:h-[48px]
                   bg-white
                   text-black
                   text-[20px]
@@ -142,17 +163,24 @@ export default function TimePicker({
                   outline-none
                 "
               >
-                <option value="AM">AM</option>
-                <option value="PM">PM</option>
+                <option value="AM">
+                  {isRTL ? "ص" : "AM"}
+                </option>
+
+                <option value="PM">
+                  {isRTL ? "م" : "PM"}
+                </option>
               </select>
             </div>
 
-            <div className="flex justify-center gap-4 mt-7">
+            <div className="flex justify-center gap-4 mt-7 max-md:gap-3">
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
                 className="
                   w-[110px]
+                  max-md:flex-1
+                  max-md:w-auto
                   h-[45px]
                   rounded-[8px]
                   border
@@ -161,7 +189,7 @@ export default function TimePicker({
                   font-semibold
                 "
               >
-                Cancel
+                {t("booking.cancel")}
               </button>
 
               <button
@@ -169,6 +197,8 @@ export default function TimePicker({
                 onClick={handleConfirm}
                 className="
                   w-[110px]
+                  max-md:flex-1
+                  max-md:w-auto
                   h-[45px]
                   rounded-[8px]
                   bg-teal-accent
@@ -176,7 +206,7 @@ export default function TimePicker({
                   font-semibold
                 "
               >
-                Done
+                {t("booking.done")}
               </button>
             </div>
           </div>

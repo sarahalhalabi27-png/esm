@@ -25,7 +25,11 @@ const HERO_ILLUSTRATION_SCALE = 0.7;
 // Nudge the illustration vertically (negative = raise it up).
 const HERO_ILLUSTRATION_OFFSET_Y = -150;
 
-const { layers: heroIllustrationLayers, box: heroIllustrationBox } =
+const {
+  layers: heroIllustrationLayers,
+  box: heroIllustrationBox,
+  aspectRatio: heroIllustrationAspect,
+} =
   buildLayerLayout([
     {
       src: building,
@@ -60,7 +64,9 @@ const { layers: heroIllustrationLayers, box: heroIllustrationBox } =
   ]);
 
 export default function HeroBanner() {
-  const { t } = useTranslation();
+const { t, i18n } = useTranslation();
+
+const isRTL = i18n.dir() === "rtl";
   const highlightsListRef = useRef(null);
 
   useEffect(() => {
@@ -83,7 +89,7 @@ export default function HeroBanner() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden font-display -mt-[37px]">
+    <section className="relative overflow-hidden font-display -mt-[37px] max-md:mt-0">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -93,7 +99,7 @@ export default function HeroBanner() {
       />
 
       <div
-        className="relative w-full px-6 pt-28 pb-16 xl:ps-[50px] xl:pe-[128px] xl:pt-[195px] xl:pb-24 xl:me-[128px] xl:min-h-[var(--hero-min)]"
+        className="relative w-full px-6 pt-28 pb-16 max-md:pt-8 max-md:pb-6 xl:ps-[50px] xl:pe-[128px] xl:pt-[195px] xl:pb-24 xl:me-[128px] xl:min-h-[var(--hero-min)]"
         style={{
           // Desktop-only: tall enough to contain the whole scaled illustration
           // (centered vertically) so overflow-hidden never clips the car.
@@ -104,11 +110,11 @@ export default function HeroBanner() {
       >
         {/* Left Content */}
         <div className="relative z-10 w-full max-w-[565px] xl:w-[565px] xl:-translate-y-[130px]">
-          <p className="text-lg md:text-[25px] font-normal leading-[100%] tracking-[0%] capitalize mb-[26px]">
+          <p className="text-lg md:text-[25px] font-normal leading-[100%] tracking-[0%] capitalize mb-[26px] max-md:text-base max-md:mb-4">
             {t("hero.eyebrow")}
           </p>
 
-          <h1 className="w-[565px] max-w-full text-[32px] md:text-[50px] font-normal leading-[40px] md:leading-[61px] tracking-[0%] capitalize mb-[45px]">
+          <h1 className="w-[565px] max-w-full text-[32px] md:text-[50px] font-normal leading-[40px] md:leading-[61px] tracking-[0%] capitalize mb-[45px] max-md:text-[clamp(26px,8.2vw,36px)] max-md:leading-[1.3] max-md:mb-8">
             {t("hero.headingBefore")}{" "}
             <span className="luxury-shine relative inline-block font-semibold">
               {t("hero.headingAccent")}
@@ -116,16 +122,18 @@ export default function HeroBanner() {
             </span>
           </h1>
 
-          <PrimaryButton className="w-full max-w-[365px] h-[50px] rounded-[10px] text-[18px] md:text-[20px] font-normal leading-[100%] tracking-[0%] capitalize font-display mb-[47px]">
+          <PrimaryButton className="w-full max-w-[365px] h-[50px] rounded-[10px] text-[18px] md:text-[20px] font-normal leading-[100%] tracking-[0%] capitalize font-display mb-[47px] max-md:mb-7 max-md:h-[48px] max-md:px-3 max-md:text-[clamp(14px,4.4vw,17px)]">
             {t("hero.book")}
           </PrimaryButton>
 
           <ul
             ref={highlightsListRef}
-            className="w-full max-w-[318px] xl:h-[144px] space-y-5 mt-[30px]"
+            className="w-full max-w-[318px] xl:h-[144px] space-y-5 mt-[30px] max-md:mt-0 max-md:space-y-3"
           >
             {heroHighlightKeys.map((key) => (
-              <CheckListItem key={key}>{t(key)}</CheckListItem>
+              <CheckListItem key={key} className="max-md:!text-base">
+                {t(key)}
+              </CheckListItem>
             ))}
           </ul>
         </div>
@@ -144,24 +152,44 @@ export default function HeroBanner() {
             zIndex: 0,
           }}
         />
+        {/* Below xl: the same building + car + smoke composition, in flow under
+            the copy and bled to the screen edges, scaled by its aspect ratio
+            (never wider than the screen). The desktop instance is below. */}
         <LayeredGraphicStage
           layers={heroIllustrationLayers}
-          className="hidden xl:block"
-          style={{
-            position: "absolute",
-            left: heroIllustrationBox.left,
-            // Vertical placement (negative raises it toward the nav).
-            top: HERO_ILLUSTRATION_OFFSET_Y,
-            width: heroIllustrationBox.width,
-            height: heroIllustrationBox.height,
-            // Scale down anchored at the buildings' own centre (~65% across,
-            // vertically centred): keeps the buildings in their original spot,
-            // gives the tops clearance, and lifts the car fully into view.
-            transform: `scale(${HERO_ILLUSTRATION_SCALE})`,
-            transformOrigin: "65% center",
-            zIndex: 0,
-          }}
+          aspectRatio={heroIllustrationAspect}
+          className="xl:hidden -mx-6 mt-4 md:mt-10"
+          style={{ width: "calc(100% + 3rem)", maxWidth: "none" }}
         />
+       <LayeredGraphicStage
+  layers={heroIllustrationLayers}
+  className="hidden xl:block"
+  style={{
+    position: "absolute",
+
+    ...(isRTL
+      ? {
+          // Arabic → images on the LEFT
+          left:  -400,
+          right: "auto",
+        }
+      : {
+          // English → images on the RIGHT
+          left: "auto",
+          right: 0,
+        }),
+
+    top: HERO_ILLUSTRATION_OFFSET_Y,
+
+    width: heroIllustrationBox.width,
+    height: heroIllustrationBox.height,
+
+    transform: `scale(${HERO_ILLUSTRATION_SCALE})`,
+    transformOrigin: "65% center",
+
+    zIndex: 0,
+  }}
+/>
       </div>
     </section>
   );

@@ -7,14 +7,17 @@
     "blog": "Blog",
     "contact": "Contact Us"
   },
+
   "common": {
     "bookNow": "Book Now",
     "reviews": "Reviews",
     "perHour": "Per Hour",
     "passengers": "Passengers",
     "luggage": "Luggage",
-    "car": "Car"
+    "car": "Car",
+    "currency": "AED"
   },
+
   "hero": {
     "eyebrow": "Specialized Services For Luxury Cars",
     "headingBefore": "A Sophisticated Experience Befitting Your",
@@ -27,12 +30,14 @@
       "support": "Ongoing Support"
     }
   },
+
   "home": {
     "fleet": {
       "eyebrow": "Our Luxury Fleet",
       "description": "Luxury Cars Carefully Selected To Embody The Highest Levels Of Quality And Sophistication.",
       "cta": "Explore Our Fleet"
     },
+
     "trust": {
       "eyebrow": "Trusted & Best Limousine Service Across The UAE",
       "description": "Experience Luxury Limousine Service In The UAE With Our Reliable Airport Transfers, Corporate Travel, And VIP Chauffeur Service. Our Professional Chauffeurs And Premium Fleet Ensure A Comfortable And Stylish Travel Experience Across Dubai, Abu Dhabi, And Beyond!",
@@ -47,9 +52,37 @@
         "Premium Limousine Service"
       ]
     },
-    "whyChoose": {
-      "eyebrow": "Why Choose ESM?"
+
+   "whyChoose": {
+  "eyebrow": "Why Choose ESM?",
+  "items": {
+    "competitive-rates": {
+      "title": "Competitive Rates",
+      "description": "Value Aligned With Excellence."
     },
+    "discreet-service": {
+      "title": "Discreet Service",
+      "description": "Privacy And Professionalism Guaranteed."
+    },
+    "exceptional-comfort": {
+      "title": "Exceptional Comfort",
+      "description": "Travel Redefined In Elegance."
+    },
+    "seamless-reservations": {
+      "title": "Seamless Reservations",
+      "description": "Simple, Fast, Reliable."
+    },
+    "flexible-cancellation": {
+      "title": "Flexible Cancellation",
+      "description": "Plans Change — We Adapt."
+    },
+    "around-the-clock-service": {
+      "title": "Around-The-Clock Service",
+      "description": "At Your Service, Anytime."
+    }
+  }
+},
+
     "services": {
       "eyebrow": "ESM Limo Services",
       "description": "ESM Limo Offers Premium Transportation Solutions Tailored To Meet Your Every Need. From Luxury Rides To Professional Chauffeur Services, We Ensure A Seamless And Stylish Travel Experience Across The UAE.",
@@ -72,19 +105,55 @@
         }
       }
     },
+
     "promo": {
       "eyebrow": "Our Special Offers For You",
       "heading": "Enjoy 10% Off Your Next Ride!",
       "description": "Book Your Luxury Limousine Today And Save 10% On Premium Chauffeur Services Across The UAE.",
       "cta": "Claim Discount"
     },
+
     "partners": {
       "eyebrow": "Our Best Partners"
     },
+
     "popular": {
-      "heading": "Most Popular Types Of Cars"
+      "heading": "Most Popular Types Of Cars",
+      "description": "Explore Our Luxurious Fleet Designed To Elevate Every Occasion:"
     }
   },
+
+  "booking": {
+    "title": "Book Your Luxury Car Now",
+    "name": "Name",
+    "phone": "Phone",
+    "location": "Choose Location",
+    "date": "Select Date",
+    "time": "Select Time",
+    "dropOffLocation": "Drop Off Location",
+    "send": "Send",
+    "sending": "Sending...",
+    "success": "Thanks! We received your request.",
+    "selectDate": "Select Date",
+"cancel": "Cancel",
+"done": "Done",
+"selectTime": "Select Time",
+"months": {
+  "january": "January",
+  "february": "February",
+  "march": "March",
+  "april": "April",
+  "may": "May",
+  "june": "June",
+  "july": "July",
+  "august": "August",
+  "september": "September",
+  "october": "October",
+  "november": "November",
+  "december": "December"
+}
+  },
+
   "footer": {
     "tagline": "Luxury, Defined by Every Ride.",
     "explore": "Explore",
@@ -101,5 +170,16 @@
     "faq": "FAQ",
     "hours": "Mon-Sat 09:00-23:00",
     "address": "UAE, Dubai Al Qouz 3, St 12"
-  }
+  },
+  "validation": {
+  "nameRequired": "Name is required",
+  "lettersOnly": "Letters only",
+  "phoneRequired": "Phone is required",
+  "numbersOnly": "Numbers only",
+  "emailRequired": "Email is required",
+  "invalidEmail": "Enter a valid email",
+  "invalidUrl": "Enter a valid URL",
+  "messageRequired": "Message is required",
+  "commentRequired": "Comment is required"
+}
 }

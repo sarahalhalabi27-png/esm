@@ -13,7 +13,8 @@
     "perHour": "لكل ساعة",
     "passengers": "راكب",
     "luggage": "حقيبة",
-    "car": "سيارة"
+    "car": "سيارة",
+    "currency": "د.إ"
   },
   "hero": {
     "eyebrow": "خدمات متخصّصة للسيارات الفاخرة",
@@ -47,9 +48,35 @@
         "خدمة ليموزين متميّزة"
       ]
     },
-    "whyChoose": {
-      "eyebrow": "لماذا تختار ESM؟"
+   "whyChoose": {
+  "eyebrow": "لماذا تختار ESM؟",
+  "items": {
+    "competitive-rates": {
+      "title": "أسعار تنافسية",
+      "description": "قيمة تتماشى مع التميز."
     },
+    "discreet-service": {
+      "title": "خدمة متكتمة",
+      "description": "خصوصية واحترافية مضمونة."
+    },
+    "exceptional-comfort": {
+      "title": "راحة استثنائية",
+      "description": "تجربة سفر بإطلالة من الأناقة."
+    },
+    "seamless-reservations": {
+      "title": "حجوزات سلسة",
+      "description": "بسيطة، سريعة وموثوقة."
+    },
+    "flexible-cancellation": {
+      "title": "إلغاء مرن",
+      "description": "الخطط تتغير — ونحن نتكيف."
+    },
+    "around-the-clock-service": {
+      "title": "خدمة على مدار الساعة",
+      "description": "في خدمتك في أي وقت."
+    }
+  }
+},
     "services": {
       "eyebrow": "خدمات ESM ليمو",
       "description": "توفّر ESM ليمو حلول نقل فاخرة مصمّمة لتلبية كل احتياجاتك. من الرحلات الفاخرة إلى خدمات السائق المحترف، نضمن تجربة سفر سلسة وأنيقة عبر الإمارات.",
@@ -82,9 +109,41 @@
       "eyebrow": "أفضل شركائنا"
     },
     "popular": {
-      "heading": "أكثر أنواع السيارات شيوعاً"
+      "heading": "أكثر أنواع السيارات شيوعاً",
+      "description": "استكشف أسطولنا الفاخر المصمم للارتقاء بكل مناسبة:"
     }
   },
+ "booking": {
+  "title": "احجز سيارتك الفاخرة الآن",
+  "name": "الاسم",
+  "phone": "رقم الهاتف",
+  "location": "اختر موقع الانطلاق",
+  "date": "اختر التاريخ",
+  "time": "اختر الوقت",
+  "dropOffLocation": "موقع الوصول",
+  "send": "إرسال",
+  "sending": "جارٍ الإرسال...",
+  "success": "شكرًا! تم استلام طلبك.",
+  "selectDate": "اختر التاريخ",
+  "selectTime": "اختر الوقت",
+  "cancel": "إلغاء",
+  "done": "تم",
+
+  "months": {
+    "january": "يناير",
+    "february": "فبراير",
+    "march": "مارس",
+    "april": "أبريل",
+    "may": "مايو",
+    "june": "يونيو",
+    "july": "يوليو",
+    "august": "أغسطس",
+    "september": "سبتمبر",
+    "october": "أكتوبر",
+    "november": "نوفمبر",
+    "december": "ديسمبر"
+  }
+},
   "footer": {
     "tagline": "الفخامة، تتجلّى في كلّ رحلة.",
     "explore": "استكشف",
@@ -101,5 +160,16 @@
     "faq": "الأسئلة الشائعة",
     "hours": "الإثنين - السبت، 09:00 - 23:00",
     "address": "الإمارات، دبي، القوز 3، شارع 12"
-  }
+  },
+  "validation": {
+  "nameRequired": "الاسم مطلوب",
+  "lettersOnly": "يسمح بالأحرف فقط",
+  "phoneRequired": "رقم الهاتف مطلوب",
+  "numbersOnly": "يسمح بالأرقام فقط",
+  "emailRequired": "البريد الإلكتروني مطلوب",
+  "invalidEmail": "أدخل بريدًا إلكترونيًا صالحًا",
+  "invalidUrl": "أدخل رابطًا صالحًا",
+  "messageRequired": "الرسالة مطلوبة",
+  "commentRequired": "التعليق مطلوب"
+}
 }
