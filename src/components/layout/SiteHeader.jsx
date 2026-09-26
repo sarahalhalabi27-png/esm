@@ -11,13 +11,10 @@ export default function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t, i18n: currentI18n } = useTranslation();
   const toggleLanguage = () => {
-  const nextLanguage = currentI18n.language === "en" ? "ar" : "en";
-
-  currentI18n.changeLanguage(nextLanguage);
-
-  document.documentElement.dir = nextLanguage === "ar" ? "rtl" : "ltr";
-  document.documentElement.lang = nextLanguage;
-};
+    // i18n.js listens for languageChanged and syncs <html> dir/lang + storage.
+    const nextLanguage = currentI18n.language === "en" ? "ar" : "en";
+    currentI18n.changeLanguage(nextLanguage);
+  };
 
   return (
     <header className="w-full bg-page sticky top-0 z-30">
