@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import SectionEyebrow from "../common/SectionEyebrow.jsx";
 import CheckListItem from "../common/CheckListItem.jsx";
-import { trustHighlights } from "../../data/trustHighlightsData.js";
 import parking from "../../assets/parking.png";
 import parkingLight from "../../assets/parking_light.jpg";
 
@@ -33,7 +32,7 @@ export default function TrustHighlights() {
         </p>
 
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-4 md:gap-y-[62px] mt-[45px]">
-          {trustHighlights.map((item, index) => (
+          {t("home.trust.items", { returnObjects: true }).map((item, index) => (
             <CheckListItem
               key={item}
               className={index % 2 !== 0 ? "md:translate-x-[200px]" : ""}

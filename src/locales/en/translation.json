@@ -7,6 +7,14 @@
     "blog": "Blog",
     "contact": "Contact Us"
   },
+  "common": {
+    "bookNow": "Book Now",
+    "reviews": "Reviews",
+    "perHour": "Per Hour",
+    "passengers": "Passengers",
+    "luggage": "Luggage",
+    "car": "Car"
+  },
   "hero": {
     "eyebrow": "Specialized Services For Luxury Cars",
     "headingBefore": "A Sophisticated Experience Befitting Your",
@@ -27,14 +35,42 @@
     },
     "trust": {
       "eyebrow": "Trusted & Best Limousine Service Across The UAE",
-      "description": "Experience Luxury Limousine Service In The UAE With Our Reliable Airport Transfers, Corporate Travel, And VIP Chauffeur Service. Our Professional Chauffeurs And Premium Fleet Ensure A Comfortable And Stylish Travel Experience Across Dubai, Abu Dhabi, And Beyond!"
+      "description": "Experience Luxury Limousine Service In The UAE With Our Reliable Airport Transfers, Corporate Travel, And VIP Chauffeur Service. Our Professional Chauffeurs And Premium Fleet Ensure A Comfortable And Stylish Travel Experience Across Dubai, Abu Dhabi, And Beyond!",
+      "items": [
+        "Luxury Airport Transfers",
+        "City Tours & Sightseeing",
+        "Corporate & Business Travel",
+        "Safe & Reliable Rides",
+        "VIP Chauffeur Services",
+        "24/7 Customer Support",
+        "Weddings & Special Events",
+        "Premium Limousine Service"
+      ]
     },
     "whyChoose": {
       "eyebrow": "Why Choose ESM?"
     },
     "services": {
       "eyebrow": "ESM Limo Services",
-      "description": "ESM Limo Offers Premium Transportation Solutions Tailored To Meet Your Every Need. From Luxury Rides To Professional Chauffeur Services, We Ensure A Seamless And Stylish Travel Experience Across The UAE."
+      "description": "ESM Limo Offers Premium Transportation Solutions Tailored To Meet Your Every Need. From Luxury Rides To Professional Chauffeur Services, We Ensure A Seamless And Stylish Travel Experience Across The UAE.",
+      "items": {
+        "corporate-services": {
+          "title": "Corporate Services",
+          "description": "Reliable Rides For Professionals."
+        },
+        "city-tours": {
+          "title": "City Tours",
+          "description": "Explore In Comfort And Style."
+        },
+        "event-transport": {
+          "title": "Event Transport",
+          "description": "Luxury For Special Occasions."
+        },
+        "airport-transfer": {
+          "title": "Airport Transfer",
+          "description": "Punctual And Hassle-Free Travel."
+        }
+      }
     },
     "promo": {
       "eyebrow": "Our Special Offers For You",
@@ -62,6 +98,8 @@
     "terms": "Terms Of Services",
     "privacy": "Privacy Policy",
     "disclaimer": "Disclaimer",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "hours": "Mon-Sat 09:00-23:00",
+    "address": "UAE, Dubai Al Qouz 3, St 12"
   }
 }

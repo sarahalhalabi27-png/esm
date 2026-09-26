@@ -9,13 +9,16 @@ import { limoServices } from "../../data/servicesData.js";
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
 function PositionedService({ service }) {
+  const { t } = useTranslation();
   const { layout } = service;
+  const title = t(`home.services.items.${service.id}.title`);
+  const description = t(`home.services.items.${service.id}.description`);
   return (
     <>
       {/* Dark mode: original white/gray line art, unchanged */}
       <img
         src={service.illustration}
-        alt={service.title}
+        alt={title}
         className="dark-only absolute object-contain"
         style={{
           top: layout.image.top,
@@ -28,7 +31,7 @@ function PositionedService({ service }) {
           white background (the source SVGs are white/gray line art). */}
       <div
         role="img"
-        aria-label={service.title}
+        aria-label={title}
         className="light-only absolute"
         style={{
           top: layout.image.top,
@@ -58,7 +61,7 @@ function PositionedService({ service }) {
           fontWeight: 600,
         }}
       >
-        {service.title}
+        {title}
       </p>
       <p
         className="absolute font-normal capitalize text-fg"
@@ -72,7 +75,7 @@ function PositionedService({ service }) {
           fontWeight: 400,
         }}
       >
-        {service.description}
+        {description}
       </p>
     </>
   );
@@ -175,7 +178,7 @@ export default function ServiceTimelineGrid() {
             />
             <div
               role="img"
-              aria-label={service.title}
+              aria-label={t(`home.services.items.${service.id}.title`)}
               className="light-only w-40 h-40"
               style={{
                 WebkitMaskImage: `url(${service.illustration})`,
@@ -190,10 +193,10 @@ export default function ServiceTimelineGrid() {
               }}
             />
             <h3 className="text-xl font-semibold capitalize text-fg">
-              {service.title}
+              {t(`home.services.items.${service.id}.title`)}
             </h3>
             <p className="capitalize text-fg/90 max-w-xs">
-              {service.description}
+              {t(`home.services.items.${service.id}.description`)}
             </p>
           </div>
         ))}

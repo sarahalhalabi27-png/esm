@@ -46,7 +46,7 @@ export default function WhyChooseUsGrid() {
       <img
         src={whyChooseUs}
         alt=""
-        className="hidden xl:block absolute left-[993px] top-[140px] w-[447px] h-[703px] object-fill pointer-events-none z-10"
+        className="hidden xl:block absolute start-[993px] top-[140px] w-[447px] h-[703px] object-fill pointer-events-none z-10"
       />
 
       {/* Content */}

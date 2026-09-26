@@ -81,7 +81,7 @@ export default function PopularCarTypes() {
    {type.brand}
    </p>
              <p className="mt-[4px] text-[20px] font-medium leading-[100%] capitalize text-teal-accent">
-  {type.count} <span className="text-fg">Car</span>
+  {type.count} <span className="text-fg">{t("common.car")}</span>
 </p>
             </div>
           ))}

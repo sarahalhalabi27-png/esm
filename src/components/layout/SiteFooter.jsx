@@ -106,11 +106,11 @@ export default function SiteFooter() {
                 </li>
                 <li className={itemClass}>
                   <Clock size={18} className="text-teal-accent shrink-0" />
-                  {companyInfo.hours}
+                  {t("footer.hours")}
                 </li>
                 <li className={itemClass}>
                   <MapPin size={18} className="text-teal-accent shrink-0" />
-                  UAE , Dubai Al Qouz 3 ,St 12
+                  {t("footer.address")}
                 </li>
               </ul>
             </div>
