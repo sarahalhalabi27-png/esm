@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   Phone,
   Mail,
@@ -28,6 +29,7 @@ const itemClass =
   "flex items-center gap-2 md:whitespace-nowrap font-['Montserrat_Alternates'] font-normal text-base md:text-[20px] leading-[120%] md:leading-[100%] tracking-[0%] capitalize text-fg";
 
 export default function SiteFooter() {
+  const { t } = useTranslation();
   return (
     <footer className="relative overflow-visible w-full px-6 mb-[-40px] mt-[55px] font-display md:w-[calc(100%-100px)] md:mx-[50px] md:px-0 md:-translate-x-[10px]">
       <div
@@ -54,7 +56,7 @@ export default function SiteFooter() {
           />
 
           <p className="mt-[14px] w-full max-w-[312px] text-center font-['Montserrat_Alternates'] font-normal text-lg md:text-[20px] leading-[120%] md:leading-[100%] tracking-[0%] capitalize text-teal-accent">
-            Luxury, Defined by Every Ride.
+            {t("footer.tagline")}
           </p>
 
           <div className="w-full max-w-[314px] h-0 border-t border-fg mt-[8px]" />
@@ -65,26 +67,26 @@ export default function SiteFooter() {
           <div className="grid grid-cols-2 gap-y-10 md:flex md:justify-between mb-14">
             {/* Explore */}
             <div>
-              <h4 className={headingClass}>Explore</h4>
+              <h4 className={headingClass}>{t("footer.explore")}</h4>
               <ul className="space-y-[32px]">
                 <li>
                   <NavLink to="/" className={itemClass}>
-                    Overview
+                    {t("footer.overview")}
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="/services" className={itemClass}>
-                    Services
+                    {t("footer.services")}
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="/about" className={itemClass}>
-                    About Us
+                    {t("footer.about")}
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="/fleet" className={itemClass}>
-                    Our Car
+                    {t("footer.ourCar")}
                   </NavLink>
                 </li>
               </ul>
@@ -92,7 +94,7 @@ export default function SiteFooter() {
 
             {/* Quick Contact */}
             <div className="">
-              <h4 className={headingClass}>Quick Contact</h4>
+              <h4 className={headingClass}>{t("footer.quickContact")}</h4>
               <ul className="space-y-[32px]">
                 <li className={itemClass}>
                   <Phone size={18} className="text-teal-accent shrink-0" />
@@ -115,18 +117,18 @@ export default function SiteFooter() {
 
             {/* Quick Links */}
             <div className="">
-              <h4 className={headingClass}>Quick Links</h4>
+              <h4 className={headingClass}>{t("footer.quickLinks")}</h4>
               <ul className="space-y-[32px]">
-                <li className={itemClass}>Terms Of Services</li>
-                <li className={itemClass}>Privacy Policy</li>
-                <li className={itemClass}>Disclaimer</li>
-                <li className={itemClass}>FAQ</li>
+                <li className={itemClass}>{t("footer.terms")}</li>
+                <li className={itemClass}>{t("footer.privacy")}</li>
+                <li className={itemClass}>{t("footer.disclaimer")}</li>
+                <li className={itemClass}>{t("footer.faq")}</li>
               </ul>
             </div>
 
             {/* Follow Us */}
             <div className="">
-              <h4 className={headingClass}>Follow Us</h4>
+              <h4 className={headingClass}>{t("footer.followUs")}</h4>
               <div className="flex gap-6 text-fg">
                 {companyInfo.socials.map((social) => {
                   const Icon = socialIcons[social.id];

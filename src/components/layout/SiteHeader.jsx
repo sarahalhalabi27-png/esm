@@ -9,7 +9,7 @@ import logo from "../../assets/logo.png";
 
 export default function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { i18n: currentI18n } = useTranslation();
+  const { t, i18n: currentI18n } = useTranslation();
   const toggleLanguage = () => {
   const nextLanguage = currentI18n.language === "en" ? "ar" : "en";
 
@@ -40,7 +40,7 @@ export default function SiteHeader() {
                 }`
               }
             >
-              {link.label}
+              {t(link.tKey)}
             </NavLink>
           ))}
         </nav>
@@ -102,7 +102,7 @@ export default function SiteHeader() {
               }`
             }
           >
-            {link.label}
+            {t(link.tKey)}
           </NavLink>
         ))}
       </nav>

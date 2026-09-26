@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import PrimaryButton from "../common/PrimaryButton.jsx";
@@ -11,11 +12,11 @@ import building from "../../assets/building.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const heroHighlights = [
-  "Specialized Expertise",
-  "International Standards",
-  "Pickup And Delivery Service",
-  "Ongoing Support",
+const heroHighlightKeys = [
+  "hero.highlights.expertise",
+  "hero.highlights.standards",
+  "hero.highlights.pickup",
+  "hero.highlights.support",
 ];
 
 // Shrink the building + car illustration so the whole thing fits above the
@@ -59,6 +60,7 @@ const { layers: heroIllustrationLayers, box: heroIllustrationBox } =
   ]);
 
 export default function HeroBanner() {
+  const { t } = useTranslation();
   const highlightsListRef = useRef(null);
 
   useEffect(() => {
@@ -103,27 +105,27 @@ export default function HeroBanner() {
         {/* Left Content */}
         <div className="relative z-10 w-full max-w-[565px] xl:w-[565px] xl:-translate-y-[130px]">
           <p className="text-lg md:text-[25px] font-normal leading-[100%] tracking-[0%] capitalize mb-[26px]">
-            Specialized Services For Luxury Cars
+            {t("hero.eyebrow")}
           </p>
 
           <h1 className="w-[565px] max-w-full text-[32px] md:text-[50px] font-normal leading-[40px] md:leading-[61px] tracking-[0%] capitalize mb-[45px]">
-            A Sophisticated Experience Befitting Your{" "}
+            {t("hero.headingBefore")}{" "}
             <span className="luxury-shine relative inline-block font-semibold">
-              Luxury Car
+              {t("hero.headingAccent")}
               <span className="absolute left-0 bottom-[-8px] w-full border-b border-fg"></span>
             </span>
           </h1>
 
           <PrimaryButton className="w-full max-w-[365px] h-[50px] rounded-[10px] text-[18px] md:text-[20px] font-normal leading-[100%] tracking-[0%] capitalize font-display mb-[47px]">
-            Quickly Book Your Luxury Ride
+            {t("hero.book")}
           </PrimaryButton>
 
           <ul
             ref={highlightsListRef}
             className="w-full max-w-[318px] xl:h-[144px] space-y-5 mt-[30px]"
           >
-            {heroHighlights.map((item) => (
-              <CheckListItem key={item}>{item}</CheckListItem>
+            {heroHighlightKeys.map((key) => (
+              <CheckListItem key={key}>{t(key)}</CheckListItem>
             ))}
           </ul>
         </div>

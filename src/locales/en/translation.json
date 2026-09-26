@@ -1,15 +1,37 @@
 {
   "nav": {
-    "home": "Home",
+    "overview": "Overview",
     "services": "Services",
-    "about": "About",
-    "fleet": "Fleet",
+    "about": "About Us",
+    "fleet": "Our Fleet",
     "blog": "Blog",
-    "contact": "Contact"
+    "contact": "Contact Us"
   },
   "hero": {
-    "title": "Luxury Cars",
-    "description": "Luxury Cars Carefully Selected To Embody The Highest Levels Of Quality And Sophistication.",
-    "book": "Quickly Book Your Luxury Ride"
+    "eyebrow": "Specialized Services For Luxury Cars",
+    "headingBefore": "A Sophisticated Experience Befitting Your",
+    "headingAccent": "Luxury Car",
+    "book": "Quickly Book Your Luxury Ride",
+    "highlights": {
+      "expertise": "Specialized Expertise",
+      "standards": "International Standards",
+      "pickup": "Pickup And Delivery Service",
+      "support": "Ongoing Support"
+    }
+  },
+  "footer": {
+    "tagline": "Luxury, Defined by Every Ride.",
+    "explore": "Explore",
+    "quickContact": "Quick Contact",
+    "quickLinks": "Quick Links",
+    "followUs": "Follow Us",
+    "overview": "Overview",
+    "services": "Services",
+    "about": "About Us",
+    "ourCar": "Our Car",
+    "terms": "Terms Of Services",
+    "privacy": "Privacy Policy",
+    "disclaimer": "Disclaimer",
+    "faq": "FAQ"
   }
 }
