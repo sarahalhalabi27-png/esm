@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
@@ -87,6 +88,7 @@ const CONNECTOR = {
 };
 
 export default function ServiceTimelineGrid() {
+  const { t } = useTranslation();
   const sectionRef = useRef(null);
   const pathRef = useRef(null);
   const travelerRef = useRef(null);
@@ -135,7 +137,7 @@ export default function ServiceTimelineGrid() {
     >
       <div className="max-w-content mx-auto px-6 py-20">
       <div className="text-center mb-14">
-  <SectionEyebrow>ESM Limo Services</SectionEyebrow>
+  <SectionEyebrow>{t("home.services.eyebrow")}</SectionEyebrow>
 
   <p
     className="
@@ -153,9 +155,7 @@ export default function ServiceTimelineGrid() {
       text-fg
     "
   >
-    ESM Limo Offers Premium Transportation Solutions Tailored To Meet Your
-    Every Need. From Luxury Rides To Professional Chauffeur Services, We
-    Ensure A Seamless And Stylish Travel Experience Across The UAE.
+    {t("home.services.description")}
   </p>
 </div>
       </div>

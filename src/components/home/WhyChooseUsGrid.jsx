@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionEyebrow from "../common/SectionEyebrow.jsx";
@@ -10,6 +11,7 @@ import CheckListItem from "../common/CheckListItem.jsx";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function WhyChooseUsGrid() {
+  const { t } = useTranslation();
   const gridRef = useRef(null);
 
   useEffect(() => {
@@ -51,7 +53,7 @@ export default function WhyChooseUsGrid() {
       <div className="relative z-20 max-w-content mx-auto px-6 py-20">
 
         <SectionEyebrow className="!text-[25px] !font-semibold !leading-[100%] !text-teal-accent">
-          Why Choose ESM?
+          {t("home.whyChoose.eyebrow")}
         </SectionEyebrow>
         <div
           ref={gridRef}

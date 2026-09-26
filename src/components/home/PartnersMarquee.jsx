@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 import SectionEyebrow from "../common/SectionEyebrow.jsx";
 import uberLogo from "../../assets/uber.png";
@@ -12,6 +13,7 @@ const partners = [
 ];
 
 export default function PartnersMarquee() {
+  const { t } = useTranslation();
   const trackRef = useRef(null);
 
   useEffect(() => {
@@ -47,7 +49,7 @@ export default function PartnersMarquee() {
             mb-0
           "
         >
-          Our Best Partners
+          {t("home.partners.eyebrow")}
         </SectionEyebrow>
 
         {/* Partners — looping marquee */}

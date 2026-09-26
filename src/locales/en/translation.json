@@ -19,6 +19,36 @@
       "support": "Ongoing Support"
     }
   },
+  "home": {
+    "fleet": {
+      "eyebrow": "Our Luxury Fleet",
+      "description": "Luxury Cars Carefully Selected To Embody The Highest Levels Of Quality And Sophistication.",
+      "cta": "Explore Our Fleet"
+    },
+    "trust": {
+      "eyebrow": "Trusted & Best Limousine Service Across The UAE",
+      "description": "Experience Luxury Limousine Service In The UAE With Our Reliable Airport Transfers, Corporate Travel, And VIP Chauffeur Service. Our Professional Chauffeurs And Premium Fleet Ensure A Comfortable And Stylish Travel Experience Across Dubai, Abu Dhabi, And Beyond!"
+    },
+    "whyChoose": {
+      "eyebrow": "Why Choose ESM?"
+    },
+    "services": {
+      "eyebrow": "ESM Limo Services",
+      "description": "ESM Limo Offers Premium Transportation Solutions Tailored To Meet Your Every Need. From Luxury Rides To Professional Chauffeur Services, We Ensure A Seamless And Stylish Travel Experience Across The UAE."
+    },
+    "promo": {
+      "eyebrow": "Our Special Offers For You",
+      "heading": "Enjoy 10% Off Your Next Ride!",
+      "description": "Book Your Luxury Limousine Today And Save 10% On Premium Chauffeur Services Across The UAE.",
+      "cta": "Claim Discount"
+    },
+    "partners": {
+      "eyebrow": "Our Best Partners"
+    },
+    "popular": {
+      "heading": "Most Popular Types Of Cars"
+    }
+  },
   "footer": {
     "tagline": "Luxury, Defined by Every Ride.",
     "explore": "Explore",

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import SectionEyebrow from "../common/SectionEyebrow.jsx";
@@ -11,6 +12,7 @@ import {
 import { STATUS } from "../../store/constants.js";
 
 export default function FleetPreviewGrid() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const featuredCars = useSelector(selectFeaturedCars);
   const status = useSelector(selectFleetStatus);
@@ -23,7 +25,7 @@ export default function FleetPreviewGrid() {
     <section className="font-display mb-[80px]">
       <div className="w-full max-w-[1340px] mx-auto">
         <SectionEyebrow className="font-display !font-semibold !text-[25px] !leading-[100%] !tracking-[0%] capitalize">
-          Our Luxury Fleet
+          {t("home.fleet.eyebrow")}
         </SectionEyebrow>
         <p
           className="
@@ -39,8 +41,7 @@ export default function FleetPreviewGrid() {
       pt-[20px]
   "
         >
-          Luxury Cars Carefully Selected To Embody The Highest Levels Of Quality
-          And Sophistication.
+          {t("home.fleet.description")}
         </p>
         <div className="flex flex-wrap lg:flex-nowrap justify-center gap-[51px]">
           {featuredCars.map((car) => (
@@ -56,7 +57,7 @@ export default function FleetPreviewGrid() {
             style={{ background: "#072E2A" }}
           >
             <span className="font-display font-medium text-[20px] leading-[100%] text-white">
-              Explore Our Fleet
+              {t("home.fleet.cta")}
             </span>
           </Link>
         </div>

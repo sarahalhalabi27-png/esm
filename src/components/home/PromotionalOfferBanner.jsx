@@ -1,21 +1,22 @@
+import { useTranslation } from "react-i18next";
 import SectionEyebrow from "../common/SectionEyebrow.jsx";
 import offerCar from "../../assets/offer_car.png";
 import smoke1 from "../../assets/smoke1.png";
 
 export default function PromotionalOfferBanner() {
+  const { t } = useTranslation();
   return (
     <section className="font-display">
       <div className="max-w-content mx-auto px-6 py-20 grid md:grid-cols-2 gap-10 items-center">
         <div>
-          <SectionEyebrow>Our Special Offers For You</SectionEyebrow>
+          <SectionEyebrow>{t("home.promo.eyebrow")}</SectionEyebrow>
 
           <h2 className="text-2xl font-semibold mt-[40px] mb-[11px]">
-            Enjoy 10% Off Your Next Ride!
+            {t("home.promo.heading")}
           </h2>
 
           <p className="text-fg font-['Montserrat_Alternates'] font-normal text-[20px] leading-[130%] tracking-[0%] capitalize w-full max-w-[703px] min-h-[48px] mb-6">
-            Book Your Luxury Limousine Today And Save 10% On Premium Chauffeur
-            Services Across The UAE.
+            {t("home.promo.description")}
           </p>
 
           <button
@@ -24,7 +25,7 @@ export default function PromotionalOfferBanner() {
   style={{ background: "#072E2A" }}
 >
   <span className="absolute left-[0px] top-[13px] w-[232px] h-[24px] flex items-center justify-center font-normal text-[20px] leading-[100%] tracking-[0%] capitalize">
-    Claim Discount
+    {t("home.promo.cta")}
   </span>
 
   <svg

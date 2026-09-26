@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import carIcon from "../../assets/car.svg";
 
 const popularTypes = [
@@ -8,14 +9,15 @@ const popularTypes = [
 ];
 
 export default function PopularCarTypes() {
+  const { t } = useTranslation();
   return (
     <section className="font-display">
       <div className="max-w-content mx-auto px-6 py-20">
         {/* Section Title */}
         <h2
           className="
-            w-[367px]
-            h-[30px]
+            w-full
+            max-w-[367px]
             mx-auto
             text-center
             text-[25px]
@@ -26,7 +28,7 @@ export default function PopularCarTypes() {
             text-teal-accent
           "
         >
-          Most Popular Types Of Cars
+          {t("home.popular.heading")}
         </h2>
 
         {/* Description */}
