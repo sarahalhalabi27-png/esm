@@ -11,9 +11,7 @@ import PromotionalOfferBanner from "../components/home/PromotionalOfferBanner.js
 
 export default function OverviewPage() {
   return (
-    <PageLayout>
-      <HeroBanner />
-      <QuickBookingForm />
+    <PageLayout top={<HeroBanner />} bleed={<QuickBookingForm />}>
       <FleetPreviewGrid />
       <TrustHighlights />
       <PopularCarTypes />

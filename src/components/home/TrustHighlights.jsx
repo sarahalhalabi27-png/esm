@@ -4,8 +4,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionEyebrow from "../common/SectionEyebrow.jsx";
 import CheckListItem from "../common/CheckListItem.jsx";
-import parking from "../../assets/parking.png";
-import parkingLight from "../../assets/parking_light.jpg";
+import parking from "../../assets/trust/parking.png";
+import parkingLight from "../../assets/trust/parking_light.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 

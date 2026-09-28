@@ -8,6 +8,99 @@ import { limoServices } from "../../data/servicesData.js";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
+// Box for a light-scene image: the full scene box, or a frame (% of it).
+function frameStyle(frame) {
+  if (!frame) return { inset: 0, width: "100%", height: "100%" };
+  return {
+    left: `${frame.left}%`,
+    top: `${frame.top}%`,
+    width: `${frame.width}%`,
+    height: `${frame.height}%`,
+  };
+}
+
+// Light-mode illustration. Scenes with their own light art show the base
+// image, with the colored version on top faded in while the connector ring is
+// over the scene (see updateSceneColors); the rest use the muted silhouette.
+function LightScene({ service, label, className = "", style }) {
+  if (!service.lightIllustration) {
+    return (
+      <div
+        role="img"
+        aria-label={label}
+        className={`light-only ${className}`}
+        style={{
+          ...style,
+          WebkitMaskImage: `url(${service.illustration})`,
+          maskImage: `url(${service.illustration})`,
+          WebkitMaskSize: "contain",
+          maskSize: "contain",
+          WebkitMaskRepeat: "no-repeat",
+          maskRepeat: "no-repeat",
+          WebkitMaskPosition: "center",
+          maskPosition: "center",
+          background: "rgb(var(--muted))",
+        }}
+      />
+    );
+  }
+
+  return (
+    <div
+      role="img"
+      aria-label={label}
+      data-light-scene
+      className={`light-only ${className}`}
+      style={style}
+    >
+      {/* lightBaseFrame / lightColoredFrame (optional, % of the scene box)
+          align an export whose canvas differs from the scene's. */}
+      <img
+        src={service.lightIllustration}
+        alt=""
+        data-scene-base
+        className="absolute max-w-none object-contain transition-opacity ease-out"
+        style={frameStyle(service.lightBaseFrame)}
+      />
+      <img
+        src={service.lightColoredIllustration}
+        alt=""
+        data-scene-color
+        className="absolute max-w-none object-contain opacity-0 transition-opacity ease-out"
+        style={frameStyle(service.lightColoredFrame)}
+      />
+    </div>
+  );
+}
+
+// Crossfade each light scene to its colored version while the traveler
+// (ring) center is inside the scene's box: a gentle fade in, and a quick
+// fade back to the base once the ring moves on.
+const SCENE_FADE_IN_MS = 600;
+const SCENE_FADE_OUT_MS = 150;
+
+function updateSceneColors(root, traveler) {
+  if (!root || !traveler) return;
+  const t = traveler.getBoundingClientRect();
+  const x = t.left + t.width / 2;
+  const y = t.top + t.height / 2;
+  root.querySelectorAll("[data-light-scene]").forEach((scene) => {
+    const r = scene.getBoundingClientRect();
+    const over = x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+    const base = scene.querySelector("[data-scene-base]");
+    const colored = scene.querySelector("[data-scene-color]");
+    const duration = `${over ? SCENE_FADE_IN_MS : SCENE_FADE_OUT_MS}ms`;
+    if (colored) {
+      colored.style.transitionDuration = duration;
+      colored.style.opacity = over ? "1" : "0";
+    }
+    if (base) {
+      base.style.transitionDuration = duration;
+      base.style.opacity = over ? "0" : "1";
+    }
+  });
+}
+
 function PositionedService({ service }) {
   const { t, i18n } = useTranslation();
   const { layout } = service;
@@ -31,24 +124,15 @@ function PositionedService({ service }) {
         }}
       />
 
-      <div
-        role="img"
-        aria-label={title}
-        className="light-only absolute"
+      <LightScene
+        service={service}
+        label={title}
+        className="absolute"
         style={{
           top: layout.image.top,
           left: layout.image.left,
           width: layout.image.width,
           height: layout.image.height,
-          WebkitMaskImage: `url(${service.illustration})`,
-          maskImage: `url(${service.illustration})`,
-          WebkitMaskSize: "contain",
-          maskSize: "contain",
-          WebkitMaskRepeat: "no-repeat",
-          maskRepeat: "no-repeat",
-          WebkitMaskPosition: "center",
-          maskPosition: "center",
-          background: "rgb(var(--muted))",
         }}
       />
 
@@ -63,7 +147,7 @@ function PositionedService({ service }) {
   }}
 >
   <p
-    className="font-semibold capitalize text-fg"
+    className="font-semibold capitalize text-fg [[data-theme=light]_&]:text-[#072E2A]"
     style={{
       margin: 0,
       height: 30,
@@ -154,8 +238,9 @@ function ConnectorTraveler({ travelerRef, glow, ring, dot, className = "" }) {
       className={`absolute top-0 left-0 pointer-events-none ${className}`}
       style={{ width: glow.size, height: glow.size }}
     >
+      {/* Glow: dark mode only */}
       <div
-        className="absolute inset-0 rounded-full"
+        className="dark-only absolute inset-0 rounded-full"
         style={{
           background:
             "radial-gradient(circle, rgba(36,185,165,0.65) 0%, rgba(36,185,165,0.35) 35%, rgba(7,46,42,0.9) 60%, rgba(7,46,42,0) 78%)",
@@ -181,7 +266,8 @@ function ConnectorTraveler({ travelerRef, glow, ring, dot, className = "" }) {
             left: "50%",
             top: "50%",
             transform: "translate(-50%, -50%)",
-            background: "#24B9A5",
+            // #24B9A5 in dark mode, #072E2A in light mode
+            background: "rgb(var(--accent))",
           }}
         />
       </div>
@@ -220,6 +306,8 @@ export default function ServiceTimelineGrid() {
     // Desktop (unchanged): the traveler rides the Figma connector across the
     // whole section.
     mm.add("(min-width: 1280px)", () => {
+      const syncColors = () =>
+        updateSceneColors(sectionRef.current, travelerRef.current);
       gsap.to(travelerRef.current, {
         motionPath: {
           path: pathRef.current,
@@ -228,13 +316,18 @@ export default function ServiceTimelineGrid() {
           autoRotate: false,
         },
         ease: "none",
+        onUpdate: syncColors,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
           end: "bottom bottom",
           scrub: 1.5,
+          // At progress 0 the ring already sits on the first scene, and no
+          // update fires until scrolling starts — sync on (re)measure too.
+          onRefresh: syncColors,
         },
       });
+      syncColors();
     });
 
     // Below xl: the path is measured from the real layout (it runs through
@@ -266,13 +359,16 @@ export default function ServiceTimelineGrid() {
             autoRotate: false,
           },
           ease: "none",
+          onUpdate: () => updateSceneColors(listEl, mobileTravelerRef.current),
           scrollTrigger: {
             trigger: listEl,
             start: "top 65%",
             end: "bottom 55%",
             scrub: 1.5,
+            onRefresh: () => updateSceneColors(listEl, mobileTravelerRef.current),
           },
         });
+        updateSceneColors(listEl, mobileTravelerRef.current);
       };
 
       let buildTimer;
@@ -311,7 +407,7 @@ export default function ServiceTimelineGrid() {
   return (
     <section
       ref={sectionRef}
-      className="font-display relative xl:min-h-[var(--svc-min)]"
+      className="font-display relative mt-10 max-md:mt-6 xl:min-h-[var(--svc-min)]"
       style={{ "--svc-min": `${sectionMinHeight}px` }}
     >
       <div className="max-w-content mx-auto px-6 py-20 max-md:pt-14 max-md:pb-0">
@@ -355,7 +451,12 @@ export default function ServiceTimelineGrid() {
             aria-hidden="true"
             style={{ filter: "blur(0.7px)" }}
           >
-            <path ref={mobilePathRef} stroke="#24B9A5" strokeWidth="1.3" />
+            <path
+              ref={mobilePathRef}
+              stroke="#24B9A5"
+              strokeWidth="1.3"
+              className="[[data-theme=light]_&]:stroke-[#072E2A]"
+            />
           </svg>
 
           {positionedServices.map((service, index) => {
@@ -371,21 +472,10 @@ export default function ServiceTimelineGrid() {
                     alt=""
                     className="dark-only w-full h-auto object-contain"
                   />
-                  <div
-                    role="img"
-                    aria-label={t(`home.services.items.${service.id}.title`)}
-                    className="light-only w-full aspect-[3/2]"
-                    style={{
-                      WebkitMaskImage: `url(${service.illustration})`,
-                      maskImage: `url(${service.illustration})`,
-                      WebkitMaskSize: "contain",
-                      maskSize: "contain",
-                      WebkitMaskRepeat: "no-repeat",
-                      maskRepeat: "no-repeat",
-                      WebkitMaskPosition: "center",
-                      maskPosition: "center",
-                      background: "rgb(var(--muted))",
-                    }}
+                  <LightScene
+                    service={service}
+                    label={t(`home.services.items.${service.id}.title`)}
+                    className="relative w-full aspect-[3/2]"
                   />
                 </div>
                 <div className={flipped ? "order-1 text-end" : "text-start"}>
@@ -430,6 +520,7 @@ export default function ServiceTimelineGrid() {
             ref={pathRef}
             d="M6.45312 6.44489C472.953 -16.5549 767.451 87.4453 742.951 290.445C709.332 569.006 50.0369 349.309 6.45312 587.945C-34.5488 812.445 330.451 981.445 749.951 888.445"
             stroke="#24B9A5"
+            className="[[data-theme=light]_&]:stroke-[#072E2A]"
           />
         </g>
         <defs>

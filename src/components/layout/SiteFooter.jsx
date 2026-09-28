@@ -12,8 +12,7 @@ import {
 } from "lucide-react";
 
 import { companyInfo } from "../../data/companyInfo.js";
-import whiteLogo from "../../assets/white_logo.png";
-import darkLogo from "../../assets/logo.png";
+import BrandLogo from "../common/BrandLogo.jsx";
 import cityArt from "../../assets/building.png";
 
 const socialIcons = {
@@ -45,16 +44,7 @@ export default function SiteFooter() {
       <div className="relative z-10 -translate-y-[30px]">
         {/* Logo + tagline */}
         <div className="flex flex-col items-center pt-8">
-          <img
-            src={whiteLogo}
-            alt="ESM Limo"
-            className="dark-only w-[161px] h-[53px] object-contain"
-          />
-          <img
-            src={darkLogo}
-            alt="ESM Limo"
-            className="light-only w-[161px] h-[53px] object-contain"
-          />
+          <BrandLogo className="w-[161px] text-white [[data-theme=light]_&]:text-[#006D5D]" />
 
           <p className="mt-[14px] w-full max-w-[312px] text-center font-normal text-lg md:text-[20px] leading-[120%] md:leading-[100%] tracking-[0%] capitalize text-teal-accent">
   {t("footer.tagline")}

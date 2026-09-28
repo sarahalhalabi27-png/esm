@@ -2,9 +2,9 @@ import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 import SectionEyebrow from "../common/SectionEyebrow.jsx";
-import uberLogo from "../../assets/uber.png";
-import boltLogo from "../../assets/bolt.png";
-import yangoLogo from "../../assets/yango.png";
+import uberLogo from "../../assets/partners/uber.png";
+import boltLogo from "../../assets/partners/bolt.png";
+import yangoLogo from "../../assets/partners/yango.png";
 
 const partners = [
   { src: uberLogo, alt: "Uber", className: "w-[127px] h-[51px]" },
@@ -31,7 +31,7 @@ export default function PartnersMarquee() {
   }, []);
 
   return (
-    <section className="font-display max-md:py-10">
+    <section className="font-display -mt-[130px] max-md:py-10">
       {/* Phones: heading centered above a full-width marquee (instead of a
           squeezed side-by-side row); the GSAP loop itself is unchanged. */}
       <div className="w-full max-w-[1341px] h-[75px] px-6 md:px-0 md:ms-[50px] md:-mt-[30px] flex items-center max-md:h-auto max-md:flex-col max-md:gap-7">

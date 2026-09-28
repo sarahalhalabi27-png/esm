@@ -6,8 +6,8 @@ import PrimaryButton from "../common/PrimaryButton.jsx";
 import CheckListItem from "../common/CheckListItem.jsx";
 import LayeredGraphicStage from "../common/LayeredGraphicStage.jsx";
 import { buildLayerLayout } from "../../utils/layerLayout.js";
-import smoke from "../../assets/smoke.png";
-import blackCar from "../../assets/black-car.png";
+import smoke from "../../assets/hero/smoke.png";
+import blackCar from "../../assets/hero/black-car.png";
 import building from "../../assets/building.png";
 
 gsap.registerPlugin(ScrollTrigger);

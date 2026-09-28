@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import SectionEyebrow from "../common/SectionEyebrow.jsx";
-import offerCar from "../../assets/offer_car.png";
-import smoke1 from "../../assets/smoke1.png";
+import offerCar from "../../assets/promo/offer_car.png";
+import smoke1 from "../../assets/promo/smoke1.png";
 
 export default function PromotionalOfferBanner() {
   const { t, i18n } = useTranslation();

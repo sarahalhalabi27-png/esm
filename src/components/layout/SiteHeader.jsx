@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { navigationLinks } from "../../data/navigationLinks.js";
 import ThemeToggle from "../common/ThemeToggle.jsx";
-import logo from "../../assets/logo.png";
+import BrandLogo from "../common/BrandLogo.jsx";
 
 export default function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,7 +20,7 @@ export default function SiteHeader() {
     <header className="w-full bg-page sticky top-0 z-30">
       <div className="flex items-start ps-6 lg:ps-[50px] pt-[41px] pb-[40px] max-md:py-5 pe-6 lg:pe-[50px]">
         <NavLink to="/" className="flex items-center">
-          <img src={logo} alt="ESM Limo" className="w-[83px] h-[25px]" />
+          <BrandLogo className="w-[83px] text-[#00BFA8] [[data-theme=light]_&]:text-[#006D5D]" />
         </NavLink>
 
         <nav className="hidden lg:flex items-center gap-[51px] ms-[157px] text-[25px] font-normal leading-[100%] tracking-[0%] capitalize font-display">

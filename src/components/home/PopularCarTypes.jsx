@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import carIcon from "../../assets/car.svg";
+import carIcon from "../../assets/popular-cars/car.svg";
 
 const popularTypes = [
   { id: "mercedes-1", brand: "Mercedes", count: "15" },
@@ -82,24 +82,24 @@ export default function PopularCarTypes() {
             >
               {/* 1px accent gradient border (bright teal in dark mode,
                   #072E2A in light mode) */}
-              <div
-                className="absolute inset-0 rounded-[10px] pointer-events-none"
-                style={{
-                  padding: "1px",
-                  background:
-                    "linear-gradient(360deg, rgb(var(--accent) / 0.8) 0%, rgb(var(--accent) / 0) 100%)",
-                  WebkitMask:
-                    "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-                  WebkitMaskComposite: "xor",
-                  maskComposite: "exclude",
-                }}
-              />
+         <div
+  className="absolute inset-0 rounded-[10px] pointer-events-none"
+  style={{
+    padding: "1px",
+    background:
+      "linear-gradient(360deg, rgba(7, 46, 42, 0.8) 0%, rgba(23, 148, 135, 0) 100%)",
+    WebkitMask:
+      "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+    WebkitMaskComposite: "xor",
+    maskComposite: "exclude",
+  }}
+/>
 
               {/* Car icon painted with the theme accent through the SVG as a
                   mask, so it follows light/dark like the text around it. */}
               <span
                 aria-hidden="true"
-                className="block w-[50px] h-[50px]"
+               className="block w-[50px] h-[50px] scale-[1.8]"
                 style={{
                   WebkitMaskImage: `url(${carIcon})`,
                   maskImage: `url(${carIcon})`,
@@ -114,20 +114,21 @@ export default function PopularCarTypes() {
               />
 
               <p
-                className="
-                  mt-[16px]
-                  w-[98.68px]
-                  h-[31.77px]
-                  text-[22px]
-                  font-medium
-                  leading-[100%]
-                  capitalize
-                  text-fg/[0.83]
-                  text-center
-                "
-              >
-                {type.brand}
-              </p>
+  className="
+    mt-[16px]
+    w-[98.68px]
+    h-[31.77px]
+    text-[22px]
+    font-medium
+    leading-[100%]
+    capitalize
+    text-fg/[0.83]
+    [[data-theme=light]_&]:text-black
+    text-center
+  "
+>
+  {type.brand}
+</p>
 
               <p
                 className="

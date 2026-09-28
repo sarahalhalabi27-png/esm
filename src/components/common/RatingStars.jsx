@@ -1,19 +1,19 @@
-import { Star } from "lucide-react";
+import starsIcon from "../../assets/our-luxury-fleet/stars.svg";
 
+// The stars strip (97x17) used as a mask and filled with the theme accent:
+// #24B9A5 in dark mode, #072E2A in light mode.
 export default function RatingStars({ rating = 0, size = 12 }) {
   return (
     <span
-      className="flex items-center gap-0.5 text-teal-accent"
+      role="img"
       aria-label={`${rating} out of 5 stars`}
-    >
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Star
-          key={i}
-          size={size}
-          fill={i < rating ? "currentColor" : "none"}
-          stroke="currentColor"
-        />
-      ))}
-    </span>
+      className="block shrink-0 bg-teal-accent"
+      style={{
+        width: (size * 97) / 17,
+        height: size,
+        WebkitMask: `url(${starsIcon}) center / contain no-repeat`,
+        mask: `url(${starsIcon}) center / contain no-repeat`,
+      }}
+    />
   );
 }

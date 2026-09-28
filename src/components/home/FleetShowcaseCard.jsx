@@ -1,10 +1,31 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import RatingStars from "../common/RatingStars.jsx";
-import smokeBg from "../../assets/smoke-bg.png";
-import lexus from "../../assets/lexus.png";
-import passengersIcon from "../../assets/passengers.svg";
-import luggageIcon from "../../assets/luggage.svg";
+import smokeBg from "../../assets/our-luxury-fleet/smoke-bg.png";
+import lexus from "../../assets/our-luxury-fleet/lexus.png";
+import passengersIcon from "../../assets/our-luxury-fleet/passenger.svg";
+import luggageIcon from "../../assets/our-luxury-fleet/luggage.svg";
+
+const specIconClass =
+  "w-[25px] h-[20px] shrink-0 me-2 max-md:w-[20px] max-md:h-[16px] max-md:me-1.5";
+
+// Teal SVG as-is in dark mode; in light mode the same outline (2px strokes)
+// is used as a mask and filled #072E2A.
+function SpecIcon({ src }) {
+  return (
+    <>
+      <img src={src} alt="" className={`dark-only ${specIconClass}`} />
+      <span
+        aria-hidden="true"
+        className={`light-only bg-[#072E2A] ${specIconClass}`}
+        style={{
+          WebkitMask: `url(${src}) center / contain no-repeat`,
+          mask: `url(${src}) center / contain no-repeat`,
+        }}
+      />
+    </>
+  );
+}
 
 export default function FleetShowcaseCard({ car }) {
   const { t } = useTranslation();
@@ -68,22 +89,14 @@ export default function FleetShowcaseCard({ car }) {
         <div className="absolute top-[449px] start-[26px] w-[365px] flex items-center max-md:top-[370px] max-md:start-[20px] max-md:end-[20px] max-md:w-auto max-md:gap-2 max-md:whitespace-nowrap">
           {/* Passengers */}
           <div className="flex items-center font-normal text-[20px] max-md:text-[clamp(12px,3.7vw,16px)] leading-[100%] capitalize">
-            <img
-              src={passengersIcon}
-              alt=""
-              className="w-[25px] h-[20px] shrink-0 me-2 max-md:w-[20px] max-md:h-[16px] max-md:me-1.5"
-            />
+            <SpecIcon src={passengersIcon} />
 
             <span>{car.passengers} {t("common.passengers")}</span>
           </div>
 
           {/* Luggage */}
           <div className="ms-auto flex items-center font-normal text-[20px] max-md:text-[clamp(12px,3.7vw,16px)] leading-[100%] capitalize">
-            <img
-              src={luggageIcon}
-              alt=""
-              className="w-[25px] h-[20px] shrink-0 me-2 max-md:w-[20px] max-md:h-[16px] max-md:me-1.5"
-            />
+            <SpecIcon src={luggageIcon} />
 
             <span>{car.luggage} {t("common.luggage")}</span>
           </div>

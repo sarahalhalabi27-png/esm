@@ -1,12 +1,16 @@
+
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionEyebrow from "../common/SectionEyebrow.jsx";
 import { whyChooseUsItems } from "../../data/whyChooseUsData.js";
-import pattern1 from "../../assets/pattern1.png";
-import whyChooseUs from "../../assets/why_choose_us.png";
+import pattern1 from "../../assets/why-choose-us/pattern1.png";
+import whyChooseUs from "../../assets/why-choose-us/why_choose_us.png";
 import CheckListItem from "../common/CheckListItem.jsx";
+import lightBackground from "../../assets/why-choose-us/background.svg";
+import lightLines from "../../assets/why-choose-us/lines.svg";
+import whyChooseUsLight from "../../assets/why-choose-us/why_choose_us_light.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,27 +44,58 @@ export default function WhyChooseUsGrid() {
       dir={isRTL ? "rtl" : "ltr"}
       className="relative overflow-hidden font-display md:min-h-[959px]"
     >
-      {/* Pattern Background. Phones: same composition as desktop — it fills
-          the section behind the list. It is sized 120% of the section height
-          (shifted up 9%) so the image's transparent top/bottom edges fall
-          outside and the leather spans every item, including the last one;
-          scaled by height so the hexagons keep their proportions, anchored
-          to the solid leather side. */}
+      {/* Dark Mode Pattern */}
       <img
         src={pattern1}
         alt=""
-        className="absolute left-0 top-[-90px] w-[1438px] h-[959px] object-fill pointer-events-none z-0 max-md:top-[-9%] max-md:w-full max-md:h-[120%] max-md:max-w-none max-md:object-cover max-md:object-left"
+        className="dark-only absolute left-0 top-[-90px] w-[1438px] h-[959px] object-fill pointer-events-none z-0 max-md:top-[-9%] max-md:w-full max-md:h-[120%] max-md:max-w-none max-md:object-cover max-md:object-left"
       />
 
-      {/* Why Choose Us Car */}
+      {/* Light Mode Artwork */}
+      <div className="light-only absolute left-0 top-0 w-[1440px] h-[706px] overflow-hidden pointer-events-none z-0">
+        {/* Light Background */}
+        <img
+          src={lightBackground}
+          alt=""
+          className="absolute left-0 top-0 w-[1440px] h-[706px]"
+        />
+
+        {/* Light Lines */}
+        <img
+          src={lightLines}
+          alt=""
+          className="absolute left-0 top-0 w-[1440px] h-[706.47px]"
+        />
+
+        {/* Car Glow */}
+        <div
+          className="absolute left-[963px] top-[585px] w-[560px] h-[129px] rounded-full"
+          style={{
+            background: "rgba(0, 0, 0, 0.88)",
+            filter: "blur(50.2px)",
+          }}
+        />
+
+        {/* Light Mode Car */}
+        <img
+          src={whyChooseUsLight}
+          alt=""
+          className="absolute left-[1018px] top-[184px] w-[422px] h-[493px] object-fill z-10"
+          style={{
+            transform: isRTL ? "scaleX(-1)" : "none",
+          }}
+        />
+      </div>
+
+      {/* Dark Mode Car */}
       <img
-  src={whyChooseUs}
-  alt=""
-  className="hidden xl:block absolute start-[993px] top-[140px] w-[447px] h-[703px] object-fill pointer-events-none z-10 max-md:block max-md:start-auto max-md:-end-[6vw] max-md:inset-y-0 max-md:my-auto max-md:w-[44vw] max-md:h-auto"
-  style={{
-    transform: isRTL ? "scaleX(-1)" : "none",
-  }}
-/>
+        src={whyChooseUs}
+        alt=""
+        className="dark-only absolute start-[993px] top-[140px] w-[447px] h-[703px] object-fill pointer-events-none z-10 max-md:block max-md:start-auto max-md:-end-[6vw] max-md:inset-y-0 max-md:my-auto max-md:w-[44vw] max-md:h-auto"
+        style={{
+          transform: isRTL ? "scaleX(-1)" : "none",
+        }}
+      />
 
       {/* Content */}
       <div className="relative z-20 max-w-content mx-auto px-6 py-20 max-md:pt-12 max-md:pb-12">
