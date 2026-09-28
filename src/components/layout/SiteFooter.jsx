@@ -14,6 +14,7 @@ import {
 import { companyInfo } from "../../data/companyInfo.js";
 import BrandLogo from "../common/BrandLogo.jsx";
 import cityArt from "../../assets/building.png";
+import cityArtLight from "../../assets/footer/building-light.webp";
 
 const socialIcons = {
   instagram: Instagram,
@@ -35,11 +36,20 @@ export default function SiteFooter() {
       <div
         className="hidden lg:block pointer-events-none absolute left-[1280px] top-[458px] w-[60px] h-[100px] bg-[#24B9A5] opacity-50 blur-[90px] z-[5]"
       />
-      <img
-        src={cityArt}
-        alt=""
-        className="hidden lg:block pointer-events-none absolute left-[732px] top-10 w-[640px] h-[542px] object-cover opacity-20 z-0 scale-[1.4]"
-      />
+      {/* City art (lg+ only). The wrapper does the hiding: .light-only would
+          otherwise override `hidden` on phones in light mode. */}
+      <div className="hidden lg:block">
+        <img
+          src={cityArt}
+          alt=""
+          className="dark-only pointer-events-none absolute left-[732px] top-10 w-[640px] h-[542px] object-cover opacity-20 z-0 scale-[1.4]"
+        />
+        <img
+          src={cityArtLight}
+          alt=""
+          className="light-only pointer-events-none absolute left-[732px] top-10 w-[600px] h-[542px] object-contain z-0 scale-[1.4]"
+        />
+      </div>
 
       <div className="relative z-10 -translate-y-[30px]">
         {/* Logo + tagline */}

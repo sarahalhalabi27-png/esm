@@ -22,7 +22,7 @@ export default function FleetPreviewGrid() {
   }, [status, dispatch]);
 
   return (
-    <section className="font-display mb-[80px] max-md:mb-14">
+    <section className="font-display mt-[100px] mb-[80px] max-md:mt-6 max-md:mb-14">
       <div className="w-full max-w-[1340px] mx-auto max-md:px-6">
         <SectionEyebrow className="font-display !font-semibold !text-[25px] max-md:!text-[22px] !leading-[100%] !tracking-[0%] capitalize">
           {t("home.fleet.eyebrow")}

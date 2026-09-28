@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -20,6 +20,23 @@ import { SUBMIT_STATUS } from "../../store/constants.js";
 // Background car/smoke images are currently commented out below; re-add
 // `import Car from "../../assets/car2.png"` and the smoke import when restoring them.
 
+// Follows the <html data-theme> attribute (set by ThemeToggle), so the booking
+// video can switch source with the theme and only one video is downloaded.
+function useIsLightTheme() {
+  const read = () =>
+    document.documentElement.getAttribute("data-theme") === "light";
+  const [isLight, setIsLight] = useState(read);
+  useEffect(() => {
+    const observer = new MutationObserver(() => setIsLight(read()));
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+    return () => observer.disconnect();
+  }, []);
+  return isLight;
+}
+
 const defaultValues = {
   name: "",
   phone: "",
@@ -33,6 +50,8 @@ export default function QuickBookingForm() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const status = useSelector(selectBookingStatus);
+  const isLightTheme = useIsLightTheme();
+  const videoSrc = isLightTheme ? "/booking-video-light.mp4" : "/booking-video.mp4";
 
   const { control, handleSubmit, reset } = useForm({
     resolver: zodResolver(bookingSchema(t)),
@@ -61,15 +80,30 @@ export default function QuickBookingForm() {
 
   return (
     <section className="relative overflow-hidden font-display -mt-[-20px]">
-      <video
-        className="absolute top-0 left-0 w-full h-auto z-0 scale-[1.1] origin-right max-md:h-full max-md:object-cover max-md:scale-100"
-        src="/booking-video.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-      />
+      {/* The video (dark or light version, per theme) fades out at the
+          section's top and bottom edges — mask on this section-sized box, so it
+          also covers where the video is clipped — blending into the page
+          background around it. */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none [--video-fade:160px] max-md:[--video-fade:60px]"
+        style={{
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent 0, #000 var(--video-fade), #000 calc(100% - var(--video-fade)), transparent 100%)",
+          maskImage:
+            "linear-gradient(to bottom, transparent 0, #000 var(--video-fade), #000 calc(100% - var(--video-fade)), transparent 100%)",
+        }}
+      >
+        <video
+          key={videoSrc}
+          className="absolute top-0 left-0 w-full h-auto z-0 max-md:h-full max-md:object-cover"
+          src={videoSrc}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        />
+      </div>
 
       {/* The section (and its video) spans the full screen width; the form
           keeps its place inside a centered 1440px box. */}

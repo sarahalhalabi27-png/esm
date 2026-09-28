@@ -231,11 +231,14 @@ function buildMobileConnectorPath(listEl) {
 }
 
 // Glow + ring + dot that rides a connector path on scroll (both themes).
+// Light mode hides the connector line and this traveler visually
+// (`invisible`, not display:none): they keep their layout and motion, since
+// the traveler's position still decides which scene gets coloured.
 function ConnectorTraveler({ travelerRef, glow, ring, dot, className = "" }) {
   return (
     <div
       ref={travelerRef}
-      className={`absolute top-0 left-0 pointer-events-none ${className}`}
+      className={`absolute top-0 left-0 pointer-events-none [[data-theme=light]_&]:invisible ${className}`}
       style={{ width: glow.size, height: glow.size }}
     >
       {/* Glow: dark mode only */}
@@ -446,7 +449,7 @@ export default function ServiceTimelineGrid() {
       <div className="xl:hidden max-w-content mx-auto px-6 pb-16">
         <div ref={mobileListRef} className="relative flex flex-col gap-14 md:gap-20">
           <svg
-            className="absolute inset-0 w-full h-full overflow-visible pointer-events-none"
+            className="absolute inset-0 w-full h-full overflow-visible pointer-events-none [[data-theme=light]_&]:invisible"
             fill="none"
             aria-hidden="true"
             style={{ filter: "blur(0.7px)" }}
@@ -504,7 +507,7 @@ export default function ServiceTimelineGrid() {
       <div className="hidden xl:block">
         {/* Curved teal connector line — same in both themes */}
         <svg
-          className="absolute pointer-events-none"
+          className="absolute pointer-events-none [[data-theme=light]_&]:invisible"
         style={{
           top: CONNECTOR.line.top,
           left: CONNECTOR.line.left,

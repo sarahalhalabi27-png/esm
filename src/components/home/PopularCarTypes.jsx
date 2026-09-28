@@ -1,5 +1,10 @@
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import carIcon from "../../assets/popular-cars/car.svg";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const popularTypes = [
   { id: "mercedes-1", brand: "Mercedes", count: "15" },
@@ -11,6 +16,30 @@ const popularTypes = [
 export default function PopularCarTypes() {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.dir() === "rtl";
+  const cardsRef = useRef(null);
+
+  // When the row scrolls into view, each card's car icon slides in from the
+  // left to its place and brakes with a small overshoot,
+  // one card after another. The card clips it (overflow-hidden) so it never
+  // shows over the neighbouring card. Skipped for reduced motion.
+  useEffect(() => {
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      gsap.from(cardsRef.current.querySelectorAll("[data-car-icon]"), {
+        x: -220,
+        opacity: 0,
+        duration: 0.9,
+        stagger: 0.2,
+        ease: "back.out(1.6)",
+        scrollTrigger: {
+          trigger: cardsRef.current,
+          start: "top 85%",
+          toggleActions: "restart none restart none",
+        },
+      });
+    });
+    return () => mm.revert();
+  }, []);
 
   return (
     <section
@@ -63,7 +92,7 @@ export default function PopularCarTypes() {
 
         {/* Car Types */}
         {/* Phones: Scroll Shelf (see .mobile-carousel--shelf in index.css). */}
-        <div className="mobile-carousel mobile-carousel--shelf flex flex-wrap justify-center gap-[40px] mt-[45px] max-md:gap-4 max-md:mt-8">
+        <div ref={cardsRef} className="mobile-carousel mobile-carousel--shelf flex flex-wrap justify-center gap-[40px] mt-[45px] max-md:gap-4 max-md:mt-8">
           {popularTypes.map((type) => (
             <div
               key={type.id}
@@ -74,6 +103,7 @@ export default function PopularCarTypes() {
                 max-md:w-[58vw]
                 max-md:max-w-[240px]
                 rounded-[10px]
+                overflow-hidden
                 flex
                 flex-col
                 items-center
@@ -99,6 +129,7 @@ export default function PopularCarTypes() {
                   mask, so it follows light/dark like the text around it. */}
               <span
                 aria-hidden="true"
+                data-car-icon
                className="block w-[50px] h-[50px] scale-[1.8]"
                 style={{
                   WebkitMaskImage: `url(${carIcon})`,

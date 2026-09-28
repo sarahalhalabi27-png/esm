@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import SectionEyebrow from "../common/SectionEyebrow.jsx";
-import offerCar from "../../assets/promo/offer_car.png";
-import smoke1 from "../../assets/promo/smoke1.png";
+import offerCar from "../../assets/promo/offer_car.webp";
+import smoke1 from "../../assets/promo/smoke1.webp";
 
 export default function PromotionalOfferBanner() {
   const { t, i18n } = useTranslation();
@@ -77,15 +77,27 @@ export default function PromotionalOfferBanner() {
       {/* Offer car + smoke */}
 <div
   className={`relative flex justify-center md:justify-end max-md:[grid-area:car] max-md:self-center ${
-    isRTL ? "md:ms-[120px]" : "md:-ms-[160px]"
+    // English: pulled left so the smoke trailing behind the car (to its
+    // right) stays inside the section instead of being cut at the edge.
+    isRTL ? "md:ms-[120px]" : "md:-ms-[160px] xl:-translate-x-[190px]"
   }`}
 >
   {/* Smoke: desktop keeps its original sideways offset; phones center it
-      behind the smaller car. */}
+      behind the smaller car. The image is a very faint teal (alpha ≤ 33%), so
+      light mode runs it through #promo-smoke-light: recolored dark teal with
+      its density tripled, so it reads on the white page. */}
+  <svg width="0" height="0" className="absolute" aria-hidden="true">
+    <filter id="promo-smoke-light" colorInterpolationFilters="sRGB">
+      <feColorMatrix
+        type="matrix"
+        values="0 0 0 0 0.18  0 0 0 0 0.43  0 0 0 0 0.40  0 0 0 3 0"
+      />
+    </filter>
+  </svg>
   <img
   src={smoke1}
   alt=""
-  className={`absolute w-[587px] h-[392px] object-contain opacity-[0.66] z-0 max-md:max-w-none max-md:w-[190%] max-md:h-auto max-md:left-1/2 max-md:top-1/2 max-md:-translate-x-1/2 max-md:-translate-y-1/2 ${
+  className={`absolute w-[587px] h-[392px] object-contain opacity-[0.66] z-0 [[data-theme=light]_&]:opacity-100 [[data-theme=light]_&]:[filter:url(#promo-smoke-light)] max-md:max-w-none max-md:w-[190%] max-md:h-auto max-md:left-1/2 max-md:top-1/2 max-md:-translate-x-1/2 max-md:-translate-y-1/2 ${
     isRTL ? "md:translate-x-[100px]" : "md:translate-x-[200px]"
   }`}
 />

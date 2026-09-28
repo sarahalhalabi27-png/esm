@@ -6,8 +6,8 @@ import PrimaryButton from "../common/PrimaryButton.jsx";
 import CheckListItem from "../common/CheckListItem.jsx";
 import LayeredGraphicStage from "../common/LayeredGraphicStage.jsx";
 import { buildLayerLayout } from "../../utils/layerLayout.js";
-import smoke from "../../assets/hero/smoke.png";
-import blackCar from "../../assets/hero/black-car.png";
+import smoke from "../../assets/hero/smoke.webp";
+import blackCar from "../../assets/hero/black-car.webp";
 import building from "../../assets/building.png";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -89,7 +89,10 @@ const isRTL = i18n.dir() === "rtl";
   }, []);
 
   return (
-    <section className="relative overflow-hidden font-display -mt-[37px] max-md:mt-0">
+    <section className="relative overflow-hidden font-display -mt-[37px] max-md:mt-0 xl:[-webkit-mask-image:linear-gradient(to_bottom,#000_calc(100%_-_140px),transparent)] xl:[mask-image:linear-gradient(to_bottom,#000_calc(100%_-_140px),transparent)]">
+      {/* xl: the bottom 140px fade out (mask above), so the big blurred teal
+          glow isn't cut into a hard line where the hero meets the booking
+          video below. */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{

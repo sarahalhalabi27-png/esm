@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import RatingStars from "../common/RatingStars.jsx";
-import smokeBg from "../../assets/our-luxury-fleet/smoke-bg.png";
-import lexus from "../../assets/our-luxury-fleet/lexus.png";
+import smokeBg from "../../assets/our-luxury-fleet/smoke-bg.webp";
+import lexus from "../../assets/our-luxury-fleet/lexus.webp";
 import passengersIcon from "../../assets/our-luxury-fleet/passenger.svg";
 import luggageIcon from "../../assets/our-luxury-fleet/luggage.svg";
 

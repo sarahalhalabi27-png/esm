@@ -4,8 +4,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionEyebrow from "../common/SectionEyebrow.jsx";
 import CheckListItem from "../common/CheckListItem.jsx";
-import parking from "../../assets/trust/parking.png";
-import parkingLight from "../../assets/trust/parking_light.jpg";
+import parking from "../../assets/trust/parking.webp";
+import parkingLight from "../../assets/trust/parking_light.webp";
+import parkingMobile from "../../assets/trust/parking-mobile.webp";
+import parkingLightMobile from "../../assets/trust/parking-light-mobile.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,18 +51,21 @@ export default function TrustHighlights() {
       {/* Background swaps with the theme. Desktop: bg-fixed gives the
           "photo stays put" parallax. Phones: the wrapper becomes a
           viewport-tall layer that GSAP keeps pinned to the viewport (above),
-          so the effect is the same everywhere. */}
+          so the effect is the same everywhere — with portrait versions of the
+          photo on phones, so the whole scene fills the screen. The images are
+          CSS variables picked per breakpoint, so each device downloads only
+          the one it shows. */}
       <div
         ref={backgroundRef}
         className="absolute inset-0 z-0 max-md:bottom-auto max-md:h-[100lvh] max-md:will-change-transform"
       >
         <div
-          className="dark-only absolute inset-0 bg-cover bg-center bg-fixed max-md:bg-scroll max-md:bg-[position:58%_center]"
-          style={{ backgroundImage: `url(${parking})` }}
+          className="dark-only absolute inset-0 bg-cover bg-center bg-fixed bg-[image:var(--bg-wide)] max-md:bg-scroll max-md:bg-[image:var(--bg-tall)]"
+          style={{ "--bg-wide": `url(${parking})`, "--bg-tall": `url(${parkingMobile})` }}
         />
         <div
-          className="light-only absolute inset-0 bg-cover bg-center bg-fixed max-md:bg-scroll max-md:bg-[position:58%_center]"
-          style={{ backgroundImage: `url(${parkingLight})` }}
+          className="light-only absolute inset-0 bg-cover bg-center bg-fixed bg-[image:var(--bg-wide)] max-md:bg-scroll max-md:bg-[image:var(--bg-tall)]"
+          style={{ "--bg-wide": `url(${parkingLight})`, "--bg-tall": `url(${parkingLightMobile})` }}
         />
       </div>
 

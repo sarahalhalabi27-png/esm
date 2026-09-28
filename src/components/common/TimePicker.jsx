@@ -71,35 +71,35 @@ export default function TimePicker({
         >
           <div
             className="
-              w-[320px]
+              w-[260px]
               max-w-full
-              max-md:p-5
-              rounded-[20px]
+              max-md:p-4
+              rounded-[16px]
               bg-page
               border
               border-line/20
-              p-[25px]
+              p-[18px]
               shadow-2xl
               font-display
             "
           >
-            <h3 className="text-fg text-[22px] font-semibold mb-6 text-center">
+            <h3 className="text-fg text-[18px] font-semibold mb-4 text-center">
               {t("booking.selectTime")}
             </h3>
 
-            <div className="flex justify-center items-center gap-3 max-md:gap-2">
+            <div className="flex justify-center items-center gap-2 max-md:gap-1.5">
               {/* Hours */}
               <select
                 value={hour}
                 onChange={(e) => setHour(e.target.value)}
                 className="
-                  w-[75px]
-                  h-[55px]
+                  w-[60px]
+                  h-[42px]
                   max-md:min-w-0
-                  max-md:h-[48px]
+                  max-md:h-[44px]
                   bg-white
                   text-black
-                  text-[20px]
+                  text-[16px]
                   text-center
                   rounded-[8px]
                   outline-none
@@ -116,20 +116,20 @@ export default function TimePicker({
                 })}
               </select>
 
-              <span className="text-fg text-[24px]">:</span>
+              <span className="text-fg text-[20px]">:</span>
 
               {/* Minutes */}
               <select
                 value={minute}
                 onChange={(e) => setMinute(e.target.value)}
                 className="
-                  w-[75px]
-                  h-[55px]
+                  w-[60px]
+                  h-[42px]
                   max-md:min-w-0
-                  max-md:h-[48px]
+                  max-md:h-[44px]
                   bg-white
                   text-black
-                  text-[20px]
+                  text-[16px]
                   text-center
                   rounded-[8px]
                   outline-none
@@ -151,13 +151,13 @@ export default function TimePicker({
                 value={period}
                 onChange={(e) => setPeriod(e.target.value)}
                 className="
-                  w-[75px]
-                  h-[55px]
+                  w-[60px]
+                  h-[42px]
                   max-md:min-w-0
-                  max-md:h-[48px]
+                  max-md:h-[44px]
                   bg-white
                   text-black
-                  text-[20px]
+                  text-[16px]
                   text-center
                   rounded-[8px]
                   outline-none
@@ -173,15 +173,15 @@ export default function TimePicker({
               </select>
             </div>
 
-            <div className="flex justify-center gap-4 mt-7 max-md:gap-3">
+            <div className="flex justify-center gap-4 mt-5 max-md:gap-3">
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
                 className="
-                  w-[110px]
+                  w-[90px]
                   max-md:flex-1
                   max-md:w-auto
-                  h-[45px]
+                  h-[38px] text-[14px]
                   rounded-[8px]
                   border
                   border-line
@@ -196,10 +196,10 @@ export default function TimePicker({
                 type="button"
                 onClick={handleConfirm}
                 className="
-                  w-[110px]
+                  w-[90px]
                   max-md:flex-1
                   max-md:w-auto
-                  h-[45px]
+                  h-[38px] text-[14px]
                   rounded-[8px]
                   bg-teal-accent
                   text-black

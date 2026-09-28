@@ -13,25 +13,28 @@ const partners = [
 ];
 
 export default function PartnersMarquee() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.dir() === "rtl";
   const trackRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Track holds the logo set twice back-to-back; looping it exactly
-      // halfway (xPercent -50) and jumping back makes the loop seamless.
+      // halfway and jumping back makes the loop seamless. In RTL the track is
+      // anchored to the right edge, so it must travel right (+50): moving left
+      // slid the logos out of view, leaving an empty strip before the jump.
       gsap.to(trackRef.current, {
-        xPercent: -50,
+        xPercent: isRTL ? 50 : -50,
         duration: 15,
         ease: "none",
         repeat: -1,
       });
     });
     return () => ctx.revert();
-  }, []);
+  }, [isRTL]);
 
   return (
-    <section className="font-display -mt-[130px] max-md:py-10">
+    <section className="font-display -mt-[90px] md:[[data-theme=light]_&]:-mt-[130px] max-md:mt-0 max-md:py-10">
       {/* Phones: heading centered above a full-width marquee (instead of a
           squeezed side-by-side row); the GSAP loop itself is unchanged. */}
       <div className="w-full max-w-[1341px] h-[75px] px-6 md:px-0 md:ms-[50px] md:-mt-[30px] flex items-center max-md:h-auto max-md:flex-col max-md:gap-7">

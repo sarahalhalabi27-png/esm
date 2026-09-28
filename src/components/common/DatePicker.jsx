@@ -102,35 +102,35 @@ export default function DatePicker({
         >
           <div
             className="
-              w-[380px]
+              w-[310px]
               max-w-full
-              max-md:p-5
-              rounded-[20px]
+              max-md:p-4
+              rounded-[16px]
               bg-page
               border
               border-line/20
-              p-[25px]
+              p-[18px]
               shadow-2xl
               font-display
             "
           >
-            <h3 className="text-fg text-[22px] font-semibold mb-6 text-center">
+            <h3 className="text-fg text-[18px] font-semibold mb-4 text-center">
               {t("booking.selectDate")}
             </h3>
 
-            <div className="flex justify-center items-center gap-3 max-md:gap-2">
+            <div className="flex justify-center items-center gap-2 max-md:gap-1.5">
               {/* Month */}
               <select
                 value={month}
                 onChange={(e) => setMonth(e.target.value)}
                 className="
-                  w-[125px]
-                  h-[55px]
+                  w-[105px]
+                  h-[42px]
                   max-md:min-w-0
-                  max-md:h-[48px]
+                  max-md:h-[44px]
                   bg-white
                   text-black
-                  text-[16px]
+                  text-[14px]
                   text-center
                   rounded-[8px]
                   outline-none
@@ -148,13 +148,13 @@ export default function DatePicker({
                 value={day}
                 onChange={(e) => setDay(e.target.value)}
                 className="
-                  w-[75px]
-                  h-[55px]
+                  w-[60px]
+                  h-[42px]
                   max-md:min-w-0
-                  max-md:h-[48px]
+                  max-md:h-[44px]
                   bg-white
                   text-black
-                  text-[20px]
+                  text-[16px]
                   text-center
                   rounded-[8px]
                   outline-none
@@ -172,13 +172,13 @@ export default function DatePicker({
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
                 className="
-                  w-[95px]
-                  h-[55px]
+                  w-[78px]
+                  h-[42px]
                   max-md:min-w-0
-                  max-md:h-[48px]
+                  max-md:h-[44px]
                   bg-white
                   text-black
-                  text-[18px]
+                  text-[15px]
                   text-center
                   rounded-[8px]
                   outline-none
@@ -192,15 +192,15 @@ export default function DatePicker({
               </select>
             </div>
 
-            <div className="flex justify-center gap-4 mt-7 max-md:gap-3">
+            <div className="flex justify-center gap-4 mt-5 max-md:gap-3">
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
                 className="
-                  w-[110px]
+                  w-[90px]
                   max-md:flex-1
                   max-md:w-auto
-                  h-[45px]
+                  h-[38px] text-[14px]
                   rounded-[8px]
                   border
                   border-line
@@ -215,10 +215,10 @@ export default function DatePicker({
                 type="button"
                 onClick={handleConfirm}
                 className="
-                  w-[110px]
+                  w-[90px]
                   max-md:flex-1
                   max-md:w-auto
-                  h-[45px]
+                  h-[38px] text-[14px]
                   rounded-[8px]
                   bg-teal-accent
                   text-black

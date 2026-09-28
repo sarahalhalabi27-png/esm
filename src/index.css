@@ -1,13 +1,33 @@
+/* 29LT Bukra — one file per weight (Regular 400, Medium 500, Bold 700), so
+   font-normal / font-medium / font-semibold+ each get their real weight
+   (font-semibold 600 resolves to Bold). Bukra's glyphs run ~10% larger than
+   Montserrat Alternates at the same font-size (letter body 59 vs x-height 53,
+   tall strokes 81 vs 74, per 100px); size-adjust makes Arabic headings/body
+   match the English sizes everywhere without touching any text-[…]. */
+@font-face {
+  font-family: "29LT Bukra";
+  src: url("./assets/fonts/29LT Bukra Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 90%;
+}
+
+@font-face {
+  font-family: "29LT Bukra";
+  src: url("./assets/fonts/29LT Bukra Md.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 90%;
+}
+
 @font-face {
   font-family: "29LT Bukra";
   src: url("./assets/fonts/29LT Bukra.ttf") format("truetype");
-  font-weight: 100 900;
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
-  /* Bukra's glyphs run ~10% larger than Montserrat Alternates at the same
-     font-size (letter body 59 vs x-height 53, tall strokes 81 vs 74, per
-     100px). Scaling the face itself makes Arabic headings/body match the
-     English sizes everywhere without touching any component's text-[…]. */
   size-adjust: 90%;
 }
 
@@ -24,8 +44,11 @@ img {
 
 /* Theme tokens — RGB triples so Tailwind's rgb(var() / <alpha>) works.
    Dark is the default; light is applied via <html data-theme="light">. */
+/* "Inter" is loaded as a capital-"E"-only subset (index.html), so putting it
+   first swaps just that letter to Inter; every other glyph falls back to the
+   display font. */
 :root {
-  --font-display: "Montserrat Alternates";
+  --font-display: "Inter", "Montserrat Alternates";
 
   --page: 0 0 0; /* page background */
   --fg: 255 255 255; /* primary text */
@@ -39,12 +62,12 @@ img {
 
 /* Arabic font */
 html[dir="rtl"] {
-  --font-display: "29LT Bukra";
+  --font-display: "Inter", "29LT Bukra";
 }
 
 /* English font */
 html[dir="ltr"] {
-  --font-display: "Montserrat Alternates";
+  --font-display: "Inter", "Montserrat Alternates";
 }
 
 :root[data-theme="light"] {
@@ -243,14 +266,15 @@ input:-webkit-autofill:active {
   }
 }
 
+/* Scale only — no opacity: an opacity < 1 on the card makes it the backdrop
+   root for its backdrop-blur, so the blur picks up the card's own teal top
+   layer and the off-centre cards looked washed-out/light while scrolling. */
 @keyframes snap-card-focus {
   0%,
   100% {
-    transform: scale(0.93);
-    opacity: 0.55;
+    transform: scale(0.92);
   }
   50% {
     transform: scale(1);
-    opacity: 1;
   }
 }
