@@ -1,7 +1,7 @@
 import { Controller } from "react-hook-form";
 
 // Bridges react-hook-form to the project's controlled field components
-// (TextField, SelectField, TextAreaField, DatePicker, TimePicker), and
+// (TextField, TextAreaField, DatePicker, TimePicker, ...), and
 // renders the validation error beneath the field when present.
 //
 // `transform` optionally sanitizes each keystroke before it reaches the form
