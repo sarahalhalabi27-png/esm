@@ -1,6 +1,13 @@
 import { useTranslation } from "react-i18next";
 
-export default function FloatingLabel({ text, active }) {
+// `inactiveClassName` / `activeClassName` override the resting (in-field) and
+// floated styles for forms with their own type scale (e.g. Car Details).
+export default function FloatingLabel({
+  text,
+  active,
+  inactiveClassName = "top-2 text-[20px] max-md:text-[17px] font-semibold text-fg",
+  activeClassName = "-top-6 text-base text-teal-accent",
+}) {
   const { i18n } = useTranslation();
   const isRTL = i18n.dir() === "rtl";
 
@@ -17,11 +24,7 @@ export default function FloatingLabel({ text, active }) {
         duration-500
         ease-out
         ${isRTL ? "text-right" : "text-left"}
-        ${
-          active
-            ? "-top-6 text-base text-teal-accent"
-            : "top-2 text-[20px] max-md:text-[17px] font-semibold text-fg"
-        }
+        ${active ? activeClassName : inactiveClassName}
       `}
     >
       {text}

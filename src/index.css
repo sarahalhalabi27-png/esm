@@ -167,15 +167,17 @@ body {
   overflow-x: clip;
 }
 
-/* Remove browser autofill background */
+/* Remove browser autofill background. Chrome's autofill colour is held off
+   by an endless background-color transition, so the field stays transparent
+   over whatever it sits on (painting it with the page colour instead showed
+   as a black patch on tinted surfaces, e.g. the Car Details form). */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 1000px rgb(var(--page)) inset !important;
   -webkit-text-fill-color: rgb(var(--fg)) !important;
   caret-color: rgb(var(--fg));
-  transition: background-color 9999s ease-in-out 0s;
+  transition: background-color 600000s ease-in-out 0s;
 }
 /* Mobile horizontal carousels (home Fleet + Popular Cars rows).
    Base: below md the row stops wrapping and scrolls sideways inside its own

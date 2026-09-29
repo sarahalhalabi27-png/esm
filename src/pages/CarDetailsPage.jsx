@@ -1,38 +1,47 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import PageLayout from "../components/layout/PageLayout.jsx";
 import CarDetailsHero from "../components/carDetails/CarDetailsHero.jsx";
 import CarFeatureList from "../components/carDetails/CarFeatureList.jsx";
 import CarInteriorGallery from "../components/carDetails/CarInteriorGallery.jsx";
 import CarReservationForm from "../components/carDetails/CarReservationForm.jsx";
-import { carDetailsFallback } from "../data/carDetailsData.js";
 import { fetchCarById, selectCarById } from "../store/fleetSlice.js";
 import { STATUS } from "../store/constants.js";
 
+// Opened from a car on Our Fleet or a "Book Now" on the home page
+// (/fleet/:carId).
 export default function CarDetailsPage() {
+  const { t } = useTranslation();
   const { carId } = useParams();
   const dispatch = useDispatch();
-  const rawCar = useSelector(selectCarById(carId));
+  // undefined = not fetched yet, null = no car with this id.
+  const car = useSelector(selectCarById(carId));
   const carStatus = useSelector((state) => state.fleet.carStatus);
 
   useEffect(() => {
-    if (!rawCar) dispatch(fetchCarById(carId));
-  }, [carId, rawCar, dispatch]);
-
-  // Merge the fetched car over the shared fallback so missing fields stay filled.
-  // Once the request settles with no match, fall back to the placeholder details.
-  const car = rawCar
-    ? { ...carDetailsFallback, ...rawCar }
-    : carStatus === STATUS.SUCCEEDED || carStatus === STATUS.FAILED
-      ? carDetailsFallback
-      : null;
+    if (car === undefined) dispatch(fetchCarById(carId));
+  }, [carId, car, dispatch]);
 
   if (!car) {
+    const notFound = car === null || carStatus === STATUS.FAILED;
     return (
       <PageLayout>
-        <div className="max-w-content mx-auto px-6 py-24 text-center text-gray-500">
-          Loading car...
+        <div className="font-display px-6 py-32 text-center text-fg/70">
+          {notFound ? (
+            <>
+              <p className="text-xl">{t("carDetails.notFound")}</p>
+              <Link
+                to="/fleet"
+                className="inline-block mt-6 text-teal-accent underline underline-offset-4"
+              >
+                {t("carDetails.backToFleet")}
+              </Link>
+            </>
+          ) : (
+            <p>{t("carDetails.loading")}</p>
+          )}
         </div>
       </PageLayout>
     );

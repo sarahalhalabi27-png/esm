@@ -10,6 +10,8 @@ export default function TextField({
   required,
   className = "",
   inputClassName = "",
+  floatingLabelClassName,
+  floatingLabelActiveClassName,
   placeholder,
   value,
   onChange,
@@ -48,6 +50,8 @@ export default function TextField({
         <FloatingLabel
           text={placeholder}
           active={isFloating}
+          inactiveClassName={floatingLabelClassName}
+          activeClassName={floatingLabelActiveClassName}
           className={isRTL ? "text-right" : "text-left"}
         />
       )}

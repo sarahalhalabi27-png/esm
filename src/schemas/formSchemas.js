@@ -49,8 +49,14 @@ export const reservationSchema = (t) =>
     firstName: createLettersOnly(t),
     lastName: createLettersOnly(t),
     email: createRequiredEmail(t),
-    phone: createDigitsOnly(t),
-    bookingDuration: z.enum(["hourly", "daily", "weekly", "monthly"]),
+    // Required, as on the home booking form: it's how we confirm the ride.
+    phone: z
+      .string()
+      .min(1, t("validation.phoneRequired"))
+      .regex(/^\d+$/, t("validation.numbersOnly")),
+    bookingDuration: z.enum(["hourly", "daily", "weekly", "monthly"], {
+      message: t("validation.durationRequired"),
+    }),
     pickUpDate: z.string().optional().or(z.literal("")),
     pickUpTime: z.string().optional().or(z.literal("")),
     dropOffDate: z.string().optional().or(z.literal("")),
@@ -66,10 +72,7 @@ export const contactSchema = (t) =>
     subject: z.string().optional().or(z.literal("")),
     phone: createDigitsOnly(t),
     email: createRequiredEmail(t),
-    message: z
-      .string()
-      .trim()
-      .min(1, t("validation.messageRequired")),
+    message: z.string().trim().min(1, t("validation.messageRequired")),
   });
 
 // Blog comment form
@@ -79,9 +82,6 @@ export const commentSchema = (t) =>
     name: createLettersOnly(t),
     email: createRequiredEmail(t),
     website: createOptionalUrl(t),
-    comment: z
-      .string()
-      .trim()
-      .min(1, t("validation.commentRequired")),
+    comment: z.string().trim().min(1, t("validation.commentRequired")),
     rememberMe: z.boolean().optional(),
   });

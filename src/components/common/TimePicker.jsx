@@ -6,6 +6,8 @@ export default function TimePicker({
   value,
   onChange,
   placeholder = "Select Time",
+  floatingLabelClassName,
+  fieldClassName = "",
 }) {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.dir() === "rtl";
@@ -32,12 +34,13 @@ export default function TimePicker({
   const isFloating = isOpen || !!value;
 
   return (
-    <div
-      className="relative"
-      dir={isRTL ? "rtl" : "ltr"}
-    >
+    <div className="relative" dir={isRTL ? "rtl" : "ltr"}>
       {/* Field */}
-      <FloatingLabel text={placeholder} active={isFloating} />
+      <FloatingLabel
+        text={placeholder}
+        active={isFloating}
+        inactiveClassName={floatingLabelClassName}
+      />
 
       <button
         type="button"
@@ -58,6 +61,7 @@ export default function TimePicker({
           leading-[100%]
           capitalize
           ${isRTL ? "text-right" : "text-left"}
+          ${fieldClassName}
         `}
       >
         {value}
@@ -99,6 +103,8 @@ export default function TimePicker({
                   max-md:h-[44px]
                   bg-white
                   text-black
+                  border
+                  border-black
                   text-[16px]
                   text-center
                   rounded-[8px]
@@ -129,6 +135,8 @@ export default function TimePicker({
                   max-md:h-[44px]
                   bg-white
                   text-black
+                  border
+                  border-black
                   text-[16px]
                   text-center
                   rounded-[8px]
@@ -157,19 +165,17 @@ export default function TimePicker({
                   max-md:h-[44px]
                   bg-white
                   text-black
+                  border
+                  border-black
                   text-[16px]
                   text-center
                   rounded-[8px]
                   outline-none
                 "
               >
-                <option value="AM">
-                  {isRTL ? "ص" : "AM"}
-                </option>
+                <option value="AM">{isRTL ? "ص" : "AM"}</option>
 
-                <option value="PM">
-                  {isRTL ? "م" : "PM"}
-                </option>
+                <option value="PM">{isRTL ? "م" : "PM"}</option>
               </select>
             </div>
 
@@ -202,7 +208,9 @@ export default function TimePicker({
                   h-[38px] text-[14px]
                   rounded-[8px]
                   bg-teal-accent
-                  text-black
+                  text-page
+                  border
+                  border-black
                   font-semibold
                 "
               >

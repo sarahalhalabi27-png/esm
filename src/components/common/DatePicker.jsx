@@ -6,6 +6,8 @@ export default function DatePicker({
   value,
   onChange,
   placeholder = "Select Date",
+  floatingLabelClassName,
+  fieldClassName = "",
 }) {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.dir() === "rtl";
@@ -60,14 +62,12 @@ export default function DatePicker({
   const isFloating = isOpen || !!value;
 
   return (
-    <div
-      className="relative"
-      dir={isRTL ? "rtl" : "ltr"}
-    >
+    <div className="relative" dir={isRTL ? "rtl" : "ltr"}>
       {/* Field */}
       <FloatingLabel
         text={placeholder}
         active={isFloating}
+        inactiveClassName={floatingLabelClassName}
       />
 
       <button
@@ -89,6 +89,7 @@ export default function DatePicker({
           leading-[100%]
           capitalize
           ${isRTL ? "text-right" : "text-left"}
+          ${fieldClassName}
         `}
       >
         {value}
@@ -130,6 +131,8 @@ export default function DatePicker({
                   max-md:h-[44px]
                   bg-white
                   text-black
+                  border
+                  border-black
                   text-[14px]
                   text-center
                   rounded-[8px]
@@ -154,6 +157,8 @@ export default function DatePicker({
                   max-md:h-[44px]
                   bg-white
                   text-black
+                  border
+                  border-black
                   text-[16px]
                   text-center
                   rounded-[8px]
@@ -178,6 +183,8 @@ export default function DatePicker({
                   max-md:h-[44px]
                   bg-white
                   text-black
+                  border
+                  border-black
                   text-[15px]
                   text-center
                   rounded-[8px]
@@ -221,7 +228,9 @@ export default function DatePicker({
                   h-[38px] text-[14px]
                   rounded-[8px]
                   bg-teal-accent
-                  text-black
+                  text-page
+                  border
+                  border-black
                   font-semibold
                 "
               >

@@ -1,0 +1,151 @@
+import { useEffect, useId, useRef, useState } from "react";
+import { ChevronDown } from "lucide-react";
+import FloatingLabel from "../common/FloatingLabel.jsx";
+
+// Booking-duration picker for the reservation form: an underlined field like
+// the others, opening a custom list (a native <select> list can't be styled).
+// Figma (1440 frame, from the field's 1198-wide row):
+// - list right under the field's line and as wide as the field (Figma: 1195,
+//   3px in; widened on review so the Your Fleet label beneath doesn't peek
+//   out past its edge); bottom corners 15px, hairline white/60% border,
+//   #0000007D background (made opaque, see below);
+// - items 1160 x 28 at Figma's spot (19px in from the list's edge, 25.33px
+//   down; the padding here is 1px less: browsers draw the hairline as 1px),
+//   12px apart, each with a hairline white/60% separator; the name (Medium
+//   18px, 22px line) at the item's top.
+// Light mode: white list with a soft shadow, #072E2A/20% border and
+// separators, the highlighted item on a teal/10% wash.
+// Keyboard: Enter/Space/↓ opens; ↑/↓ move, Enter/Space picks, Esc/Tab close.
+// Used through ControlledField: `onChange` receives the picked value.
+export default function DurationSelect({
+  value,
+  onChange,
+  onBlur,
+  name,
+  placeholder,
+  options,
+  fieldClassName = "",
+  floatingLabelClassName,
+}) {
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(-1);
+  const rootRef = useRef(null);
+  const listId = useId();
+  const selected = options.find((option) => option.value === value);
+
+  const close = () => {
+    setOpen(false);
+    onBlur?.();
+  };
+
+  const openList = () => {
+    setActive(Math.max(0, options.indexOf(selected)));
+    setOpen(true);
+  };
+
+  const pick = (option) => {
+    onChange(option.value);
+    close();
+  };
+
+  // Close when clicking anywhere else.
+  useEffect(() => {
+    if (!open) return;
+    const onPointerDown = (event) => {
+      if (!rootRef.current?.contains(event.target)) close();
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+    // close only depends on onBlur, which is stable for a mounted field
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+
+  const onKeyDown = (event) => {
+    if (!open) {
+      if (["Enter", " ", "ArrowDown", "ArrowUp"].includes(event.key)) {
+        event.preventDefault();
+        openList();
+      }
+      return;
+    }
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      event.preventDefault();
+      const step = event.key === "ArrowDown" ? 1 : -1;
+      setActive((index) => (index + step + options.length) % options.length);
+    } else if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      if (options[active]) pick(options[active]);
+    } else if (event.key === "Escape" || event.key === "Tab") {
+      close();
+    }
+  };
+
+  return (
+    <div ref={rootRef} className="relative">
+      <FloatingLabel
+        text={placeholder}
+        active={open || !!value}
+        inactiveClassName={floatingLabelClassName}
+      />
+      <button
+        type="button"
+        name={name}
+        role="combobox"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={listId}
+        aria-label={placeholder}
+        onClick={() => (open ? close() : openList())}
+        onKeyDown={onKeyDown}
+        className={`w-full text-start pe-8 bg-transparent outline-none text-fg capitalize transition-colors ${fieldClassName}`}
+      >
+        {selected?.label ?? ""}
+      </button>
+      <ChevronDown
+        size={20}
+        strokeWidth={1.5}
+        aria-hidden="true"
+        className={`absolute end-0 top-[13.5px] -translate-y-1/2 pointer-events-none text-fg transition-transform ${
+          open ? "rotate-180" : ""
+        }`}
+      />
+
+      {open && (
+        <ul
+          id={listId}
+          role="listbox"
+          aria-label={placeholder}
+          className="absolute z-30 flex flex-col gap-[12px] top-full start-0 end-0 ps-[18px] pe-[18px] pt-[24.33px] pb-[13.67px] rounded-b-[15px] border-[0.1px] border-white/60 shadow-xl [[data-theme=light]_&]:border-[#072E2A]/20 [[data-theme=light]_&]:!bg-white [[data-theme=light]_&]:!bg-none [[data-theme=light]_&]:shadow-[0_10px_24px_rgba(7,46,42,0.12)]"
+          // Figma's #0000007D over the card's look (page colour + teal/10%),
+          // made opaque so the fields underneath don't show through.
+          style={{
+            background:
+              "linear-gradient(#0000007D, #0000007D), linear-gradient(rgb(36 185 165 / 0.1), rgb(36 185 165 / 0.1)), rgb(var(--page))",
+          }}
+        >
+          {options.map((option, index) => {
+            const isSelected = option.value === value;
+            return (
+              <li
+                key={option.value}
+                role="option"
+                aria-selected={isSelected}
+                // Keep focus on the field while picking with the mouse.
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={() => pick(option)}
+                onMouseEnter={() => setActive(index)}
+                className={`flex items-start h-[28px] border-b-[0.1px] border-white/60 [[data-theme=light]_&]:border-[#072E2A]/20 cursor-pointer font-display font-medium text-[18px] leading-[22px] capitalize transition-colors ${
+                  index === active || isSelected
+                    ? "text-teal-accent [[data-theme=light]_&]:bg-[#24B9A5]/10 [[data-theme=light]_&]:-mx-[6px] [[data-theme=light]_&]:px-[6px]"
+                    : "text-fg"
+                }`}
+              >
+                {option.label}
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  );
+}

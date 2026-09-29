@@ -154,6 +154,65 @@
 }
   },
 
+  "fleetPage": {
+    "title": "Our Luxury Fleet",
+    "eyebrow": "Fleet Collection",
+    "categories": {
+      "suv-class": "SUV Class",
+      "first-class": "First Class"
+    },
+    "next": "Show more {{category}} cars"
+  },
+
+  "carDetails": {
+    "loading": "Loading car...",
+    "notFound": "We couldn't find this car.",
+    "backToFleet": "Back To Our Fleet",
+    "descriptionTitle": "Description About <accent>{{car}}</accent>",
+    "description": "Rent A Car With A Driver In Dubai And Enjoy A Hassle-Free Journey! Let Our Professional Drivers Navigate The City's Traffic While You Relax And Take In The Breathtaking Sights. Whether You're Exploring Dubai In A Luxury Car, You Can Sit Back, Unwind, And Experience The City In Luxury. Dubai Stands As One Of The World's Most Prestigious Travel Destinations, Offering Unmatched Elegance And Comfort. Book Your Ride Today For A Stress-Free, First-Class Travel Experience!",
+    "featuresTitle": "Car <accent>Features</accent>",
+    "features": {
+      "wifi": "WiFi Access",
+      "petrol": "Petrol",
+      "hybrid": "Hybrid",
+      "electric": "Electric",
+      "model": "Model {{year}}",
+      "passengers": "{{count}} Passengers",
+      "luggage": "{{count}} Luggage",
+      "climate": "Climate Control"
+    },
+    "interiorTitle": "Car <accent>Interior</accent>",
+    "gallery": {
+      "label": "{{car}} interior photos",
+      "open": "View interior photo {{index}}",
+      "close": "Close",
+      "previous": "Previous photo",
+      "next": "Next photo"
+    },
+    "interiorAlt": "{{car}} interior, photo {{index}}",
+    "form": {
+      "title": "Reserve Your Luxury Ride Today!",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone",
+      "bookingDuration": "Booking Duration",
+      "durations": {
+        "hourly": "Hourly",
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "monthly": "Monthly"
+      },
+      "carModel": "Your Fleet",
+      "pickUpDate": "Pick Up Date",
+      "pickUpTime": "Pick Up Time",
+      "dropOffDate": "Drop Off Date",
+      "dropOffTime": "Drop Off Time",
+      "message": "Message",
+      "submit": "Post Comment"
+    }
+  },
+
   "footer": {
     "tagline": "Luxury, Defined by Every Ride.",
     "explore": "Explore",
@@ -172,6 +231,7 @@
     "address": "UAE, Dubai Al Qouz 3, St 12"
   },
   "validation": {
+  "durationRequired": "Please choose a booking duration",
   "nameRequired": "Name is required",
   "lettersOnly": "Letters only",
   "phoneRequired": "Phone is required",
