@@ -12,8 +12,12 @@ export async function getBlogPosts() {
 
 export async function getBlogPostById(postId) {
   // return apiRequest(`/blog-posts/${postId}`);
-  return Promise.resolve({
-    ...blogPostDetailFallback,
-    ...findBlogPostById(postId),
-  });
+  const post = findBlogPostById(postId);
+  // The list entry overrides the shared detail content; translations merge
+  // per language so e.g. the Arabic sections survive the list's Arabic title.
+  const translations = { ...blogPostDetailFallback.translations };
+  for (const [lang, fields] of Object.entries(post.translations ?? {})) {
+    translations[lang] = { ...translations[lang], ...fields };
+  }
+  return Promise.resolve({ ...blogPostDetailFallback, ...post, translations });
 }

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import PageLayout from "../components/layout/PageLayout.jsx";
 import BlogPostHero from "../components/blog/BlogPostHero.jsx";
 import BlogPostContent from "../components/blog/BlogPostContent.jsx";
@@ -8,6 +9,7 @@ import CommentForm from "../components/blog/CommentForm.jsx";
 import { fetchBlogPostById, selectBlogPostById } from "../store/blogSlice.js";
 
 export default function BlogPostPage() {
+  const { t } = useTranslation();
   const { postId } = useParams();
   const dispatch = useDispatch();
   const post = useSelector(selectBlogPostById(postId));
@@ -19,8 +21,8 @@ export default function BlogPostPage() {
   if (!post) {
     return (
       <PageLayout>
-        <div className="max-w-content mx-auto px-6 py-24 text-center text-gray-500">
-          Loading post...
+        <div className="font-display max-w-content mx-auto px-6 py-24 text-center text-fg/60">
+          {t("blogPost.loading")}
         </div>
       </PageLayout>
     );

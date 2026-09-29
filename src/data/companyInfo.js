@@ -5,7 +5,8 @@ export const companyInfo = {
   secondaryPhone: "+971 43 356 521",
   email: "Esm@Gmail.Com",
   hours: "Mon-Sat 09:00-23:00",
-  address: "UAE, Dubai Al Qouz 3, St 12, Hasson 04 Al8hel Building",
+  address: "UAE, Dubai Al Qouz 3, St 12, Hassan Ali AliBhai Building",
+  whatsapp: "+971 52 506 5120",
   socials: [
     { id: "instagram", url: "#" },
     { id: "facebook", url: "#" },

@@ -213,6 +213,53 @@
     }
   },
 
+  "blogPage": {
+    "heroTitle": "ESM Limo Blog",
+    "eyebrow": "Latest Car News",
+    "description": "Keep Track Of The Latest Car News And Rental Tips. Our Blog Provides Updates On Popular Models, Special Promotions, And Insider Insights For A Seamless Rental Experience.",
+    "learnMore": "learn more",
+    "readPost": "Read: {{title}}"
+  },
+
+  "blogPost": {
+    "loading": "Loading post...",
+    "comment": {
+      "title": "Leave A Reply",
+      "name": "Name",
+      "email": "Email",
+      "website": "Website",
+      "comment": "Comment",
+      "remember": "Save My Name, Email, And Website In This Browser For The Next Time I Comment.",
+      "submit": "Post Comment",
+      "posting": "Posting...",
+      "success": "Thanks! Your comment was posted."
+    }
+  },
+
+  "contactPage": {
+    "heroTitle": "Contact ESM Limo",
+    "headingLine1": "Get In Touch With <accent>ESM</accent>",
+    "headingLine2": "And Let Us <accent>Take Care</accent> Of Your Journey.",
+    "intro": "Have A Question Or Need Assistance? Our Team Is Always Ready To Provide You With A Seamless Luxury Transportation Experience.",
+    "keepClose": "Keep Close",
+    "address": "Dubai Al Qouz 3, St 12, Hassan Ali AliBhai Building",
+    "addressLabel": "Our address",
+    "landlineLabel": "Customer service",
+    "phoneLabel": "Call us",
+    "whatsappLabel": "Chat on WhatsApp",
+    "mapTitle": "ESM Limo location on the map",
+    "form": {
+      "fullName": "Full Name :",
+      "subject": "Subject :",
+      "phone": "Phone Number :",
+      "email": "Email Address :",
+      "message": "Message :",
+      "submit": "Contact Us",
+      "sending": "Sending...",
+      "success": "Message sent. We'll be in touch soon."
+    }
+  },
+
   "footer": {
     "tagline": "Luxury, Defined by Every Ride.",
     "explore": "Explore",

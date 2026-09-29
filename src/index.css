@@ -31,6 +31,39 @@
   size-adjust: 90%;
 }
 
+/* Inter, capital "E" only (unicode-range U+45): listed first in
+   --font-display so every capital E renders in Inter and everything else
+   falls through to the display font. Defined here (Google Fonts' "text=E"
+   subset files) rather than via a <link>, so the E can be matched to
+   Montserrat Alternates' capitals:
+   - size-adjust 97%: Inter's E stands ~3% taller at the same font-size
+     (cap height 73 vs 70-72 per 100px);
+   - weight: Inter's E is also heavier at the same weight (+27% ink at 400,
+     +13% at 500, +3% at 600), so regular text (400) gets Inter's 300 file
+     (then within ~10%); 500 and up use the variable file at their own
+     weight (within ~6%). */
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.gstatic.com/l/font?kit=UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuOKfMZ1zjPA&skey=c491285d6722e4fa&v=v20")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+45;
+  size-adjust: 97%;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.gstatic.com/l/font?kit=UcC73FwrK3iLTeHuS_nVMrMxCp50SjIq14D_NA&skey=c491285d6722e4fa&v=v20")
+    format("woff2");
+  font-weight: 500 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+45;
+  size-adjust: 97%;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -44,7 +77,7 @@ img {
 
 /* Theme tokens — RGB triples so Tailwind's rgb(var() / <alpha>) works.
    Dark is the default; light is applied via <html data-theme="light">. */
-/* "Inter" is loaded as a capital-"E"-only subset (index.html), so putting it
+/* "Inter" is a capital-"E"-only face (declared above), so putting it
    first swaps just that letter to Inter; every other glyph falls back to the
    display font. */
 :root {

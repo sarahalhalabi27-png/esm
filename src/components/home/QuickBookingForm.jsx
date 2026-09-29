@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -16,26 +16,10 @@ import {
   selectBookingStatus,
 } from "../../store/bookingSlice.js";
 import { SUBMIT_STATUS } from "../../store/constants.js";
+import useIsLightTheme from "../../hooks/useIsLightTheme.js";
 
 // Background car/smoke images are currently commented out below; re-add
 // `import Car from "../../assets/car2.png"` and the smoke import when restoring them.
-
-// Follows the <html data-theme> attribute (set by ThemeToggle), so the booking
-// video can switch source with the theme and only one video is downloaded.
-function useIsLightTheme() {
-  const read = () =>
-    document.documentElement.getAttribute("data-theme") === "light";
-  const [isLight, setIsLight] = useState(read);
-  useEffect(() => {
-    const observer = new MutationObserver(() => setIsLight(read()));
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
-    return () => observer.disconnect();
-  }, []);
-  return isLight;
-}
 
 const defaultValues = {
   name: "",
