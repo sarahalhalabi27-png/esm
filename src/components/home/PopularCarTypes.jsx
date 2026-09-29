@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import carIcon from "../../assets/popular-cars/car.svg";
+import { MOTION_OK } from "../../utils/motion.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,7 +25,7 @@ export default function PopularCarTypes() {
   // shows over the neighbouring card. Skipped for reduced motion.
   useEffect(() => {
     const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
+    mm.add(MOTION_OK, () => {
       gsap.from(cardsRef.current.querySelectorAll("[data-car-icon]"), {
         x: -220,
         opacity: 0,

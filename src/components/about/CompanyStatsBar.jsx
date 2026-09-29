@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { companyStats } from "../../data/aboutTimelineData.js";
+import { MOTION_OK } from "../../utils/motion.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,7 +45,7 @@ export default function CompanyStatsBar() {
 
   useEffect(() => {
     const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
+    mm.add(MOTION_OK, () => {
       rowRef.current
         .querySelectorAll("[data-odometer-value]")
         .forEach((value) => {

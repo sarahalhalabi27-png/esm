@@ -14,6 +14,7 @@ import passengersIcon from "../../assets/car-details/passengers.svg";
 import luggageIcon from "../../assets/car-details/luggages.svg";
 import climateIcon from "../../assets/car-details/climate.svg";
 import electricIcon from "../../assets/car-details/electric.svg";
+import { MOTION_OK } from "../../utils/motion.js";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -35,7 +36,7 @@ function useDescriptionReveal(car, isRtl) {
     const mountedAt = performance.now();
     const mm = gsap.matchMedia();
 
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
+    mm.add(MOTION_OK, () => {
       const [heading, badge] = row.children;
       const priceEl = badge.querySelector("[data-price]");
       const direction = isRtl ? -1 : 1;
@@ -129,7 +130,7 @@ function useFeaturesReveal(car, isRtl) {
     const mountedAt = performance.now();
     const mm = gsap.matchMedia();
 
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
+    mm.add(MOTION_OK, () => {
       const heading = block.querySelector("h2");
       const items = [...block.querySelectorAll("li")];
       const icons = items.map((item) => item.querySelector("[data-icon]"));

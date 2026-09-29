@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import FleetCarCard from "./FleetCarCard.jsx";
+import { MOTION_OK, prefersReducedMotion } from "../../utils/motion.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,7 +13,6 @@ gsap.registerPlugin(ScrollTrigger);
 // towards the next category.
 // Set to false to drop it (the page then renders as-is).
 const SCROLL_REVEAL = true;
-const SCROLL_REVEAL_QUERY = "(prefers-reduced-motion: no-preference)";
 
 // One step of the Fleet Collection timeline (Figma 1440 frame): the trunk
 // line on the start edge curves into a glowing dot before the category name,
@@ -51,7 +51,7 @@ export default function FleetCategorySection({ category, isLast }) {
   useEffect(() => {
     if (!SCROLL_REVEAL) return;
     const mm = gsap.matchMedia();
-    mm.add(SCROLL_REVEAL_QUERY, () => {
+    mm.add(MOTION_OK, () => {
       const section = sectionRef.current;
       const direction = i18n.dir() === "rtl" ? -1 : 1;
 
@@ -119,7 +119,7 @@ export default function FleetCategorySection({ category, isLast }) {
     const target =
       direction * (wrapping ? 0 : Math.min(current + step, maxScroll));
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (prefersReducedMotion()) {
       row.scrollLeft = target;
       return;
     }

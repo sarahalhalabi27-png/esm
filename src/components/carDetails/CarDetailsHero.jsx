@@ -3,10 +3,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HorizonArc from "../common/HorizonArc.jsx";
 import defaultCar from "../../assets/our-luxury-fleet/lexus.webp";
+import { MOTION_OK } from "../../utils/motion.js";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const MOTION_OK = "(prefers-reduced-motion: no-preference)";
 
 // Figma (1440 frame): the car's name, letter-spaced, centered over the car;
 // the car (740 wide) stands on the curved teal horizon, with a soft teal glow

@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CompanyTimelineItem from "./CompanyTimelineItem.jsx";
 import { companyTimeline } from "../../data/aboutTimelineData.js";
+import { MOTION_OK } from "../../utils/motion.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,7 +25,7 @@ export default function CompanyTimeline() {
   // reduced motion.
   useEffect(() => {
     const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
+    mm.add(MOTION_OK, () => {
       // Physical x for a text sliding in from the logical start/end side.
       const fromX = (from) => (from === "end" ? 40 : -40) * (isRTL ? -1 : 1);
 

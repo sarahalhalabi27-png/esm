@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CarSectionHeading from "./CarSectionHeading.jsx";
 import InteriorLightbox from "./InteriorLightbox.jsx";
 import interiorIcon from "../../assets/car-details/car-interior.svg";
+import { MOTION_OK } from "../../utils/motion.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,7 +28,7 @@ function useGalleryReveal(carId, isRtl) {
     const mountedAt = performance.now();
     const mm = gsap.matchMedia();
 
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
+    mm.add(MOTION_OK, () => {
       const heading = section.querySelector("h2");
       const tiles = [...section.querySelectorAll("[data-tile]")];
       const direction = isRtl ? -1 : 1;
