@@ -149,7 +149,7 @@ const defaultValues = {
 // hollow button to #072E2A. On hover the button fills with its border colour:
 // white with #072E2A text (dark), #072E2A with white text (light).
 const FIELD =
-  "!min-h-0 !h-[37px] !py-0 !pb-[10px] !border-b-[0.5px] !border-white/60 [[data-theme=light]_&]:!border-[#072E2A]/40 bg-no-repeat [background-image:linear-gradient(rgb(var(--accent)),rgb(var(--accent)))] [background-size:0%_1.5px] [background-position:left_bottom] rtl:[background-position:right_bottom] !transition-[background-size] !duration-500 !ease-out focus:[background-size:100%_1.5px] !font-medium !text-[22px] !leading-[27px] max-md:!text-[17px]";
+  "!min-h-0 !h-[37px] !py-0 !pb-[10px] !border-b-[0.5px] !border-white/60 light:!border-[#072E2A]/40 bg-no-repeat [background-image:linear-gradient(rgb(var(--accent)),rgb(var(--accent)))] [background-size:0%_1.5px] [background-position:left_bottom] rtl:[background-position:right_bottom] !transition-[background-size] !duration-500 !ease-out focus:[background-size:100%_1.5px] !font-medium !text-[22px] !leading-[27px] max-md:!text-[17px]";
 const LABEL =
   "top-0 text-[22px] leading-[27px] font-medium text-fg max-md:text-[17px]";
 const fieldProps = {
@@ -213,9 +213,9 @@ export default function CarReservationForm({ car }) {
     <section className="font-display px-[47px] mt-[120px] mb-[120px] max-md:px-6 max-md:mt-14 max-md:mb-16">
       <div
         ref={cardRef}
-        className="rounded-[25px] border border-white/60 [[data-theme=light]_&]:border-[#072E2A]/25 bg-[#24B9A5]/10 ps-[74px] pe-[72px] pt-[41px] pb-[58px] max-lg:px-10 max-md:rounded-[20px] max-md:px-5 max-md:pt-8 max-md:pb-10"
+        className="rounded-[25px] border border-white/60 light:border-[#072E2A]/25 bg-[#24B9A5]/10 ps-[74px] pe-[72px] pt-[41px] pb-[58px] max-lg:px-10 max-md:rounded-[20px] max-md:px-5 max-md:pt-8 max-md:pb-10"
       >
-        <h2 className="text-center text-[25px] font-medium leading-[30px] tracking-[0.07em] capitalize text-fg [[data-theme=light]_&]:text-[#072E2A] max-md:text-lg max-md:tracking-[0.04em]">
+        <h2 className="text-center text-[25px] font-medium leading-[30px] tracking-[0.07em] capitalize text-fg light:text-[#072E2A] max-md:text-lg max-md:tracking-[0.04em]">
           {t("carDetails.form.title")}
         </h2>
 
@@ -333,7 +333,7 @@ export default function CarReservationForm({ car }) {
             // spacing:) its label 62px under the drop-off line (like the other
             // labels), then 10px to the box.
             className="w-[1195px] ms-[6px] max-lg:w-full max-lg:ms-0"
-            textareaClassName="!block !h-[161px] !rounded-[10px] !border-[0.5px] !border-white/60 [[data-theme=light]_&]:!border-[#072E2A]/40 !p-4 !text-[18px] focus:!border-teal-accent max-md:!h-[140px] max-md:!text-[15px]"
+            textareaClassName="!block !h-[161px] !rounded-[10px] !border-[0.5px] !border-white/60 light:!border-[#072E2A]/40 !p-4 !text-[18px] focus:!border-teal-accent max-md:!h-[140px] max-md:!text-[15px]"
           />
 
           {/* Figma: 59px under the message box (the form's 62px row gap − 3)
@@ -345,7 +345,7 @@ export default function CarReservationForm({ car }) {
           <div className="relative flex justify-center -mt-[3px] max-md:mt-0">
             <OutlineButton
               type="submit"
-              className="!relative !px-[47px] !py-[13px] !border-line !bg-transparent !backdrop-blur-none !text-fg hover:!bg-white hover:!text-[#072E2A] [[data-theme=light]_&]:!border-[#072E2A] [[data-theme=light]_&]:!text-[#072E2A] [[data-theme=light]_&]:hover:!bg-[#072E2A] [[data-theme=light]_&]:hover:!text-white !font-semibold !text-[22px] !leading-[27px] max-md:!px-8 max-md:!py-3 max-md:!text-[18px]"
+              className="!relative !px-[47px] !py-[13px] !border-line !bg-transparent !backdrop-blur-none !text-fg hover:!bg-white hover:!text-[#072E2A] light:!border-[#072E2A] light:!text-[#072E2A] light:hover:!bg-[#072E2A] light:hover:!text-white !font-semibold !text-[22px] !leading-[27px] max-md:!px-8 max-md:!py-3 max-md:!text-[18px]"
               disabled={status === SUBMIT_STATUS.SUBMITTING}
             >
               {/* The label keeps the button's size while the tick shows */}

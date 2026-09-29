@@ -20,7 +20,7 @@ export default function SiteHeader() {
     <header className="w-full bg-page sticky top-0 z-30">
       <div className="flex items-start ps-6 lg:ps-[50px] pt-[41px] pb-[24px] max-md:py-5 pe-6 lg:pe-[50px]">
         <NavLink to="/" className="flex items-center">
-          <BrandLogo className="w-[83px] text-[#00BFA8] [[data-theme=light]_&]:text-[#006D5D]" />
+          <BrandLogo className="w-[83px] text-[#00BFA8] light:text-[#006D5D]" />
         </NavLink>
 
         <nav className="hidden lg:flex items-center gap-[51px] ms-[157px] text-[25px] font-normal leading-[100%] tracking-[0%] capitalize font-display">

@@ -24,7 +24,7 @@ import { SUBMIT_STATUS } from "../../store/constants.js";
 // button), with the Figma's smaller 18px labels: name / email, website /
 // comment in two columns, a "remember me" checkbox, then "Post Comment".
 const FIELD =
-  "!min-h-0 !h-[33px] !py-0 !pb-[8px] !border-b-[0.5px] !border-white/60 [[data-theme=light]_&]:!border-[#072E2A]/40 bg-no-repeat [background-image:linear-gradient(rgb(var(--accent)),rgb(var(--accent)))] [background-size:0%_1.5px] [background-position:left_bottom] rtl:[background-position:right_bottom] !transition-[background-size] !duration-500 !ease-out focus:[background-size:100%_1.5px] !font-display !font-medium !text-[18px] !leading-[25px] !tracking-[0%] max-md:!text-[16px]";
+  "!min-h-0 !h-[33px] !py-0 !pb-[8px] !border-b-[0.5px] !border-white/60 light:!border-[#072E2A]/40 bg-no-repeat [background-image:linear-gradient(rgb(var(--accent)),rgb(var(--accent)))] [background-size:0%_1.5px] [background-position:left_bottom] rtl:[background-position:right_bottom] !transition-[background-size] !duration-500 !ease-out focus:[background-size:100%_1.5px] !font-display !font-medium !text-[18px] !leading-[25px] !tracking-[0%] max-md:!text-[16px]";
 const LABEL =
   "top-0 text-[18px] leading-[25px] font-medium text-fg max-md:text-[16px]";
 const fieldProps = {
@@ -87,8 +87,8 @@ export default function CommentForm({ postId }) {
 
   return (
     <section className="font-display px-[47px] mt-[138px] mb-[120px] max-md:px-6 max-md:mt-14 max-md:mb-16">
-      <div className="rounded-[25px] border border-white/60 [[data-theme=light]_&]:border-[#072E2A]/25 bg-[#24B9A5]/10 ps-[74px] pe-[72px] pt-[41px] pb-[48px] max-lg:px-10 max-md:rounded-[20px] max-md:px-5 max-md:pt-8 max-md:pb-10">
-        <h2 className="text-center text-[25px] font-medium leading-[30px] tracking-[0.07em] capitalize text-fg [[data-theme=light]_&]:text-[#072E2A] max-md:text-lg max-md:tracking-[0.04em]">
+      <div className="rounded-[25px] border border-white/60 light:border-[#072E2A]/25 bg-[#24B9A5]/10 ps-[74px] pe-[72px] pt-[41px] pb-[48px] max-lg:px-10 max-md:rounded-[20px] max-md:px-5 max-md:pt-8 max-md:pb-10">
+        <h2 className="text-center text-[25px] font-medium leading-[30px] tracking-[0.07em] capitalize text-fg light:text-[#072E2A] max-md:text-lg max-md:tracking-[0.04em]">
           {t("blogPost.comment.title")}
         </h2>
 
@@ -139,7 +139,7 @@ export default function CommentForm({ postId }) {
             <input
               type="checkbox"
               {...register("rememberMe")}
-              className="w-4 h-4 shrink-0 accent-[#24B9A5] [[data-theme=light]_&]:accent-[#072E2A] max-md:mt-0.5"
+              className="w-4 h-4 shrink-0 accent-[#24B9A5] light:accent-[#072E2A] max-md:mt-0.5"
             />
             {t("blogPost.comment.remember")}
           </label>
@@ -147,7 +147,7 @@ export default function CommentForm({ postId }) {
           <div className="relative mt-[70px] flex justify-center max-md:mt-10">
             <OutlineButton
               type="submit"
-              className="!relative !px-[47px] !py-[13px] !border-line !bg-transparent !backdrop-blur-none !text-fg hover:!bg-white hover:!text-[#072E2A] [[data-theme=light]_&]:!border-[#072E2A] [[data-theme=light]_&]:!text-[#072E2A] [[data-theme=light]_&]:hover:!bg-[#072E2A] [[data-theme=light]_&]:hover:!text-white !font-semibold !text-[20px] !leading-[27px] max-md:!px-8 max-md:!py-3 max-md:!text-[18px]"
+              className="!relative !px-[47px] !py-[13px] !border-line !bg-transparent !backdrop-blur-none !text-fg hover:!bg-white hover:!text-[#072E2A] light:!border-[#072E2A] light:!text-[#072E2A] light:hover:!bg-[#072E2A] light:hover:!text-white !font-semibold !text-[20px] !leading-[27px] max-md:!px-8 max-md:!py-3 max-md:!text-[18px]"
               disabled={status === SUBMIT_STATUS.SUBMITTING}
             >
               {status === SUBMIT_STATUS.SUBMITTING

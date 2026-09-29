@@ -52,7 +52,7 @@ export default function SiteFooter() {
       <div className="relative z-10 -translate-y-[30px]">
         {/* Logo + tagline */}
         <div className="flex flex-col items-center pt-8">
-          <BrandLogo className="w-[161px] text-white [[data-theme=light]_&]:text-[#006D5D]" />
+          <BrandLogo className="w-[161px] text-white light:text-[#006D5D]" />
 
           <p className="mt-[14px] w-full max-w-[312px] text-center font-normal text-lg md:text-[20px] leading-[120%] md:leading-[100%] tracking-[0%] capitalize text-teal-accent">
             {t("footer.tagline")}

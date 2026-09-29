@@ -147,7 +147,7 @@ function PositionedService({ service }) {
         }}
       >
         <p
-          className="font-semibold capitalize text-fg [[data-theme=light]_&]:text-[#072E2A]"
+          className="font-semibold capitalize text-fg light:text-[#072E2A]"
           style={{
             margin: 0,
             height: 30,
@@ -247,7 +247,7 @@ function ConnectorTraveler({ travelerRef, glow, ring, dot, className = "" }) {
   return (
     <div
       ref={travelerRef}
-      className={`absolute top-0 left-0 pointer-events-none [[data-theme=light]_&]:invisible ${className}`}
+      className={`absolute top-0 left-0 pointer-events-none light:invisible ${className}`}
       style={{ width: glow.size, height: glow.size }}
     >
       {/* Glow: dark mode only */}
@@ -466,7 +466,7 @@ export default function ServiceTimelineGrid() {
           className="relative flex flex-col gap-14 md:gap-20"
         >
           <svg
-            className="absolute inset-0 w-full h-full overflow-visible pointer-events-none [[data-theme=light]_&]:invisible"
+            className="absolute inset-0 w-full h-full overflow-visible pointer-events-none light:invisible"
             fill="none"
             aria-hidden="true"
             style={{ filter: "blur(0.7px)" }}
@@ -475,7 +475,7 @@ export default function ServiceTimelineGrid() {
               ref={mobilePathRef}
               stroke="#24B9A5"
               strokeWidth="1.3"
-              className="[[data-theme=light]_&]:stroke-[#072E2A]"
+              className="light:stroke-[#072E2A]"
             />
           </svg>
 
@@ -524,7 +524,7 @@ export default function ServiceTimelineGrid() {
       <div className="hidden xl:block">
         {/* Curved teal connector line — same in both themes */}
         <svg
-          className="absolute pointer-events-none [[data-theme=light]_&]:invisible"
+          className="absolute pointer-events-none light:invisible"
           style={{
             top: CONNECTOR.line.top,
             left: CONNECTOR.line.left,
@@ -540,7 +540,7 @@ export default function ServiceTimelineGrid() {
               ref={pathRef}
               d="M6.45312 6.44489C472.953 -16.5549 767.451 87.4453 742.951 290.445C709.332 569.006 50.0369 349.309 6.45312 587.945C-34.5488 812.445 330.451 981.445 749.951 888.445"
               stroke="#24B9A5"
-              className="[[data-theme=light]_&]:stroke-[#072E2A]"
+              className="light:stroke-[#072E2A]"
             />
           </g>
           <defs>

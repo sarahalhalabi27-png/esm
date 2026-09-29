@@ -34,7 +34,7 @@ export default function PartnersMarquee() {
   }, [isRTL]);
 
   return (
-    <section className="font-display -mt-[90px] md:[[data-theme=light]_&]:-mt-[130px] max-md:mt-0 max-md:py-10">
+    <section className="font-display -mt-[90px] md:light:-mt-[130px] max-md:mt-0 max-md:py-10">
       {/* Phones: heading centered above a full-width marquee (instead of a
           squeezed side-by-side row); the GSAP loop itself is unchanged. */}
       <div className="w-full max-w-[1341px] h-[75px] px-6 md:px-0 md:ms-[50px] md:-mt-[30px] flex items-center max-md:h-auto max-md:flex-col max-md:gap-7">
@@ -73,7 +73,7 @@ export default function PartnersMarquee() {
                 alt={partner.alt}
                 // The logo files are white; in light mode render them black
                 // (brightness 0 keeps their transparent cut-outs, e.g. Yango).
-                className={`object-contain shrink-0 max-md:h-[40px] max-md:w-auto [[data-theme=light]_&]:brightness-0 ${partner.className ?? ""}`}
+                className={`object-contain shrink-0 max-md:h-[40px] max-md:w-auto light:brightness-0 ${partner.className ?? ""}`}
               />
             ))}
           </div>

@@ -153,7 +153,7 @@ export default function PopularCarTypes() {
     leading-[100%]
     capitalize
     text-fg/[0.83]
-    [[data-theme=light]_&]:text-black
+    light:text-black
     text-center
   "
               >

@@ -97,7 +97,7 @@ export default function PromotionalOfferBanner() {
           <img
             src={smoke1}
             alt=""
-            className={`absolute w-[587px] h-[392px] object-contain opacity-[0.66] z-0 [[data-theme=light]_&]:opacity-100 [[data-theme=light]_&]:[filter:url(#promo-smoke-light)] max-md:max-w-none max-md:w-[190%] max-md:h-auto max-md:left-1/2 max-md:top-1/2 max-md:-translate-x-1/2 max-md:-translate-y-1/2 ${
+            className={`absolute w-[587px] h-[392px] object-contain opacity-[0.66] z-0 light:opacity-100 light:[filter:url(#promo-smoke-light)] max-md:max-w-none max-md:w-[190%] max-md:h-auto max-md:left-1/2 max-md:top-1/2 max-md:-translate-x-1/2 max-md:-translate-y-1/2 ${
               isRTL ? "md:translate-x-[100px]" : "md:translate-x-[200px]"
             }`}
           />

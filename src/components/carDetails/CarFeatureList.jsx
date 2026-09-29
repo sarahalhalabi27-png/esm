@@ -283,9 +283,9 @@ export default function CarFeatureList({ car }) {
             parts share one line of text so they sit on a common baseline and
             the 20px space between them is kept (a lone-space flex item
             collapses). */}
-        <p className="mt-[30px] flex items-center justify-center shrink-0 w-[289px] h-[50px] px-4 rounded-[10px] bg-[#24B9A5] text-[#072E2A] [[data-theme=light]_&]:bg-[#072E2A] [[data-theme=light]_&]:text-white leading-none capitalize whitespace-nowrap max-md:mt-0 max-md:w-auto max-md:h-10">
+        <p className="mt-[30px] flex items-center justify-center shrink-0 w-[289px] h-[50px] px-4 rounded-[10px] bg-[#24B9A5] text-[#072E2A] light:bg-[#072E2A] light:text-white leading-none capitalize whitespace-nowrap max-md:mt-0 max-md:w-auto max-md:h-10">
           <span>
-            <span className="text-[25px] font-semibold text-black [[data-theme=light]_&]:text-white max-md:text-lg">
+            <span className="text-[25px] font-semibold text-black light:text-white max-md:text-lg">
               {t("common.currency")}{" "}
               <span data-price className="inline-block text-start tabular-nums">
                 {car.pricePerHour.toFixed(2)}
@@ -294,7 +294,7 @@ export default function CarFeatureList({ car }) {
             <span className="text-[20px] font-normal max-md:text-[15px]">
               {" "}
             </span>
-            <span className="text-[20px] font-normal text-[#072E2A]/70 [[data-theme=light]_&]:text-white/70 max-md:text-[15px]">
+            <span className="text-[20px] font-normal text-[#072E2A]/70 light:text-white/70 max-md:text-[15px]">
               /{t("common.perHour")}
             </span>
           </span>
