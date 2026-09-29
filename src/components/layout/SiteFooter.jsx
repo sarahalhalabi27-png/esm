@@ -33,9 +33,7 @@ export default function SiteFooter() {
   const { t } = useTranslation();
   return (
     <footer className="relative overflow-visible w-full px-6 mb-[-40px] mt-[55px] max-md:mt-10 max-md:mb-0 font-display md:w-[calc(100%-100px)] md:mx-[50px] md:px-0 md:-translate-x-[10px]">
-      <div
-        className="hidden lg:block pointer-events-none absolute left-[1280px] top-[458px] w-[60px] h-[100px] bg-[#24B9A5] opacity-50 blur-[90px] z-[5]"
-      />
+      <div className="hidden lg:block pointer-events-none absolute left-[1280px] top-[458px] w-[60px] h-[100px] bg-[#24B9A5] opacity-50 blur-[90px] z-[5]" />
       {/* City art (lg+ only). The wrapper does the hiding: .light-only would
           otherwise override `hidden` on phones in light mode. */}
       <div className="hidden lg:block">
@@ -57,8 +55,8 @@ export default function SiteFooter() {
           <BrandLogo className="w-[161px] text-white [[data-theme=light]_&]:text-[#006D5D]" />
 
           <p className="mt-[14px] w-full max-w-[312px] text-center font-normal text-lg md:text-[20px] leading-[120%] md:leading-[100%] tracking-[0%] capitalize text-teal-accent">
-  {t("footer.tagline")}
-</p>
+            {t("footer.tagline")}
+          </p>
 
           <div className="w-full max-w-[314px] h-0 border-t border-fg mt-[8px]" />
         </div>

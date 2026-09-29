@@ -29,44 +29,43 @@ const {
   layers: heroIllustrationLayers,
   box: heroIllustrationBox,
   aspectRatio: heroIllustrationAspect,
-} =
-  buildLayerLayout([
-    {
-      src: building,
-      alt: "",
-      top: 71,
-      left: 518,
-      width: 922,
-      height: 760,
-      objectFit: "cover",
-      zIndex: 10,
-    },
-    {
-      src: smoke,
-      alt: "",
-      top: 539,
-      left: 136,
-      width: 1084,
-      height: 608,
-      opacity: 0.3,
-      zIndex: 40,
-    },
-    {
-      src: blackCar,
-      alt: "",
-      top: 642,
-      left: 490,
-      width: 1000,
-      height: 335,
-      objectFit: "cover",
-      zIndex: 30,
-    },
-  ]);
+} = buildLayerLayout([
+  {
+    src: building,
+    alt: "",
+    top: 71,
+    left: 518,
+    width: 922,
+    height: 760,
+    objectFit: "cover",
+    zIndex: 10,
+  },
+  {
+    src: smoke,
+    alt: "",
+    top: 539,
+    left: 136,
+    width: 1084,
+    height: 608,
+    opacity: 0.3,
+    zIndex: 40,
+  },
+  {
+    src: blackCar,
+    alt: "",
+    top: 642,
+    left: 490,
+    width: 1000,
+    height: 335,
+    objectFit: "cover",
+    zIndex: 30,
+  },
+]);
 
 export default function HeroBanner() {
-const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
-const isRTL = i18n.dir() === "rtl";
+  const isRTL = i18n.dir() === "rtl";
   const highlightsListRef = useRef(null);
 
   useEffect(() => {
@@ -164,35 +163,35 @@ const isRTL = i18n.dir() === "rtl";
           className="xl:hidden -mx-6 mt-4 md:mt-10"
           style={{ width: "calc(100% + 3rem)", maxWidth: "none" }}
         />
-       <LayeredGraphicStage
-  layers={heroIllustrationLayers}
-  className="hidden xl:block"
-  style={{
-    position: "absolute",
+        <LayeredGraphicStage
+          layers={heroIllustrationLayers}
+          className="hidden xl:block"
+          style={{
+            position: "absolute",
 
-    ...(isRTL
-      ? {
-          // Arabic → images on the LEFT
-          left:  -400,
-          right: "auto",
-        }
-      : {
-          // English → images on the RIGHT
-          left: "auto",
-          right: 0,
-        }),
+            ...(isRTL
+              ? {
+                  // Arabic → images on the LEFT
+                  left: -400,
+                  right: "auto",
+                }
+              : {
+                  // English → images on the RIGHT
+                  left: "auto",
+                  right: 0,
+                }),
 
-    top: HERO_ILLUSTRATION_OFFSET_Y,
+            top: HERO_ILLUSTRATION_OFFSET_Y,
 
-    width: heroIllustrationBox.width,
-    height: heroIllustrationBox.height,
+            width: heroIllustrationBox.width,
+            height: heroIllustrationBox.height,
 
-    transform: `scale(${HERO_ILLUSTRATION_SCALE})`,
-    transformOrigin: "65% center",
+            transform: `scale(${HERO_ILLUSTRATION_SCALE})`,
+            transformOrigin: "65% center",
 
-    zIndex: 0,
-  }}
-/>
+            zIndex: 0,
+          }}
+        />
       </div>
     </section>
   );

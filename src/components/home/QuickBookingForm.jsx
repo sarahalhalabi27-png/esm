@@ -35,7 +35,9 @@ export default function QuickBookingForm() {
   const dispatch = useDispatch();
   const status = useSelector(selectBookingStatus);
   const isLightTheme = useIsLightTheme();
-  const videoSrc = isLightTheme ? "/booking-video-light.mp4" : "/booking-video.mp4";
+  const videoSrc = isLightTheme
+    ? "/booking-video-light.mp4"
+    : "/booking-video.mp4";
 
   const { control, handleSubmit, reset } = useForm({
     resolver: zodResolver(bookingSchema(t)),

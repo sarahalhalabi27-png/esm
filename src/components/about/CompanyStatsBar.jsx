@@ -45,22 +45,24 @@ export default function CompanyStatsBar() {
   useEffect(() => {
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
-      rowRef.current.querySelectorAll("[data-odometer-value]").forEach((value) => {
-        const strips = value.querySelectorAll("[data-odometer-strip]");
-        // GSAP parses the inline final translateY into `y`; zero it so only
-        // yPercent drives the roll (otherwise the shift is applied twice).
-        gsap.fromTo(
-          strips,
-          { y: 0, yPercent: 0 },
-          {
-            y: 0,
-            yPercent: (i, el) => Number(el.dataset.final),
-            duration: (i) => 2.4 + i * 0.35,
-            ease: "power3.out",
-            scrollTrigger: { trigger: value, start: "top 90%", once: true },
-          },
-        );
-      });
+      rowRef.current
+        .querySelectorAll("[data-odometer-value]")
+        .forEach((value) => {
+          const strips = value.querySelectorAll("[data-odometer-strip]");
+          // GSAP parses the inline final translateY into `y`; zero it so only
+          // yPercent drives the roll (otherwise the shift is applied twice).
+          gsap.fromTo(
+            strips,
+            { y: 0, yPercent: 0 },
+            {
+              y: 0,
+              yPercent: (i, el) => Number(el.dataset.final),
+              duration: (i) => 2.4 + i * 0.35,
+              ease: "power3.out",
+              scrollTrigger: { trigger: value, start: "top 90%", once: true },
+            }
+          );
+        });
     });
     return () => mm.revert();
   }, []);
@@ -85,7 +87,7 @@ export default function CompanyStatsBar() {
                     <DigitColumn key={i} digit={Number(ch)} />
                   ) : (
                     <span key={i}>{ch}</span>
-                  ),
+                  )
                 )}
               </span>
             </p>

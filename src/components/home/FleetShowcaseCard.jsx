@@ -66,21 +66,23 @@ export default function FleetShowcaseCard({ car }) {
 
         {/* Reviews + Stars */}
         <div className="absolute top-[355px] start-[24px] flex items-center gap-2 font-normal text-[20px] max-md:top-[290px] max-md:start-[20px] max-md:text-base leading-[100%] capitalize">
-          <span>{car.reviewsCount} {t("common.reviews")}</span>
+          <span>
+            {car.reviewsCount} {t("common.reviews")}
+          </span>
           <RatingStars rating={car.rating} size={16} />
         </div>
 
         {/* Price */}
         <p className="absolute top-[389px] start-[24px] w-[204px] h-[41px] whitespace-nowrap font-normal text-[20px] max-md:top-[320px] max-md:start-[20px] max-md:h-auto max-md:text-base leading-[100%] tracking-[0%] capitalize">
-  <span className="inline-block whitespace-nowrap">
-   <span className="whitespace-nowrap">
-  {car.pricePerHour.toFixed(2)} {t("common.currency")}{" "}
-  <span className="text-[15px] max-md:text-[13px] font-normal whitespace-nowrap">
-    / {t("common.perHour")}
-  </span>
-</span>
-  </span>
-</p>
+          <span className="inline-block whitespace-nowrap">
+            <span className="whitespace-nowrap">
+              {car.pricePerHour.toFixed(2)} {t("common.currency")}{" "}
+              <span className="text-[15px] max-md:text-[13px] font-normal whitespace-nowrap">
+                / {t("common.perHour")}
+              </span>
+            </span>
+          </span>
+        </p>
 
         {/* Divider */}
         <div className="absolute top-[433px] start-[26px] w-[365px] h-0 max-md:top-[356px] max-md:start-[20px] max-md:end-[20px] max-md:w-auto border-t-[0.5px] border-line" />
@@ -91,60 +93,60 @@ export default function FleetShowcaseCard({ car }) {
           <div className="flex items-center font-normal text-[20px] max-md:text-[clamp(12px,3.7vw,16px)] leading-[100%] capitalize">
             <SpecIcon src={passengersIcon} />
 
-            <span>{car.passengers} {t("common.passengers")}</span>
+            <span>
+              {car.passengers} {t("common.passengers")}
+            </span>
           </div>
 
           {/* Luggage */}
           <div className="ms-auto flex items-center font-normal text-[20px] max-md:text-[clamp(12px,3.7vw,16px)] leading-[100%] capitalize">
             <SpecIcon src={luggageIcon} />
 
-            <span>{car.luggage} {t("common.luggage")}</span>
+            <span>
+              {car.luggage} {t("common.luggage")}
+            </span>
           </div>
         </div>
 
         {/* Book Button */}
-      <Link
-  to={`/fleet/${car.id}`}
-  className="absolute top-[513px] start-[24px] w-[367px] h-[41px] rounded-[10px] overflow-hidden max-md:top-[419px] max-md:start-[20px] max-md:end-[20px] max-md:w-auto max-md:h-[44px]"
->
-  {/* Dark Mode — Turquoise glow. Desktop: softened by the glass layer's
+        <Link
+          to={`/fleet/${car.id}`}
+          className="absolute top-[513px] start-[24px] w-[367px] h-[41px] rounded-[10px] overflow-hidden max-md:top-[419px] max-md:start-[20px] max-md:end-[20px] max-md:w-auto max-md:h-[44px]"
+        >
+          {/* Dark Mode — Turquoise glow. Desktop: softened by the glass layer's
       backdrop-filter. Phones: that backdrop blur isn't applied reliably
       (mobile Chrome showed a hard teal band), so blur the glow itself. */}
-  <div
-    className="dark-only absolute start-0 w-full rounded-[10px] z-0 max-md:blur-[9px] max-md:opacity-80"
-    style={{
-      top: "12px",
-      height: "17px",
-      background: "rgb(var(--accent))",
-    }}
-  />
+          <div
+            className="dark-only absolute start-0 w-full rounded-[10px] z-0 max-md:blur-[9px] max-md:opacity-80"
+            style={{
+              top: "12px",
+              height: "17px",
+              background: "rgb(var(--accent))",
+            }}
+          />
 
-  {/* Dark Mode — Black glass */}
-  <div
-    className="dark-only absolute inset-0 rounded-[10px] z-[1]"
-    style={{
-      background: "rgba(0,0,0,0.7)",
-      border: "0.5px solid #FFFFFF",
-      backdropFilter: "blur(30px)",
-      WebkitBackdropFilter: "blur(30px)",
-    }}
-  />
+          {/* Dark Mode — Black glass */}
+          <div
+            className="dark-only absolute inset-0 rounded-[10px] z-[1]"
+            style={{
+              background: "rgba(0,0,0,0.7)",
+              border: "0.5px solid #FFFFFF",
+              backdropFilter: "blur(30px)",
+              WebkitBackdropFilter: "blur(30px)",
+            }}
+          />
 
-  {/* Light Mode — Solid button */}
-  <div
-    className="light-only absolute inset-0 rounded-[10px] z-0 bg-teal-accent"
-  />
+          {/* Light Mode — Solid button */}
+          <div className="light-only absolute inset-0 rounded-[10px] z-0 bg-teal-accent" />
 
-  <span className="relative z-10 flex w-full h-full items-center justify-center font-display font-medium text-[18px] leading-[100%] text-white">
-    {t("common.bookNow")}
-  </span>
-</Link>
+          <span className="relative z-10 flex w-full h-full items-center justify-center font-display font-medium text-[18px] leading-[100%] text-white">
+            {t("common.bookNow")}
+          </span>
+        </Link>
       </div>
 
       {/* Gradient border - always on top */}
-      <div
-  className="absolute inset-0 rounded-[10px] pointer-events-none z-20 border-[0.5px] border-white"
-/>
+      <div className="absolute inset-0 rounded-[10px] pointer-events-none z-20 border-[0.5px] border-white" />
     </div>
   );
 }

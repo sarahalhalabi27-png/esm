@@ -138,41 +138,41 @@ function PositionedService({ service }) {
 
       {/* Title + Description */}
       <div
-  dir={isRTL ? "rtl" : "ltr"}
-  className="absolute text-center"
-  style={{
-    top: layout.title.top,
-    left: layout.title.left,
-    width: 300,
-  }}
->
-  <p
-    className="font-semibold capitalize text-fg [[data-theme=light]_&]:text-[#072E2A]"
-    style={{
-      margin: 0,
-      height: 30,
-      fontSize: 25,
-      lineHeight: "30px",
-      fontWeight: 600,
-      whiteSpace: "nowrap",
-    }}
-  >
-    {title}
-  </p>
+        dir={isRTL ? "rtl" : "ltr"}
+        className="absolute text-center"
+        style={{
+          top: layout.title.top,
+          left: layout.title.left,
+          width: 300,
+        }}
+      >
+        <p
+          className="font-semibold capitalize text-fg [[data-theme=light]_&]:text-[#072E2A]"
+          style={{
+            margin: 0,
+            height: 30,
+            fontSize: 25,
+            lineHeight: "30px",
+            fontWeight: 600,
+            whiteSpace: "nowrap",
+          }}
+        >
+          {title}
+        </p>
 
-  <p
-    className="font-normal capitalize text-fg"
-    style={{
-      margin: "12px 0 0",
-      fontSize: 25,
-      lineHeight: "30px",
-      fontWeight: 400,
-      whiteSpace: "nowrap",
-    }}
-  >
-    {description}
-  </p>
-</div>
+        <p
+          className="font-normal capitalize text-fg"
+          style={{
+            margin: "12px 0 0",
+            fontSize: 25,
+            lineHeight: "30px",
+            fontWeight: 400,
+            whiteSpace: "nowrap",
+          }}
+        >
+          {description}
+        </p>
+      </div>
     </>
   );
 }
@@ -208,12 +208,17 @@ const CONNECTOR_CURVES = [
 // (marked data-connector-point), in the list's own pixel space.
 function buildMobileConnectorPath(listEl) {
   const box = listEl.getBoundingClientRect();
-  const points = [...listEl.querySelectorAll("[data-connector-point]")].map((el) => {
-    const r = el.getBoundingClientRect();
-    // Lower part of the illustration, like desktop — keeps the sweep
-    // under the neighbouring title/description instead of through it.
-    return { x: r.left - box.left + r.width / 2, y: r.top - box.top + r.height * 0.78 };
-  });
+  const points = [...listEl.querySelectorAll("[data-connector-point]")].map(
+    (el) => {
+      const r = el.getBoundingClientRect();
+      // Lower part of the illustration, like desktop — keeps the sweep
+      // under the neighbouring title/description instead of through it.
+      return {
+        x: r.left - box.left + r.width / 2,
+        y: r.top - box.top + r.height * 0.78,
+      };
+    }
+  );
   if (points.length < 2) return null;
 
   const round = (n) => Math.round(n * 10) / 10;
@@ -224,7 +229,11 @@ function buildMobileConnectorPath(listEl) {
     const dx = b.x - a.x;
     const dy = b.y - a.y;
     const curve =
-      i === 1 ? CONNECTOR_CURVES[0] : i === points.length - 1 ? CONNECTOR_CURVES[2] : CONNECTOR_CURVES[1];
+      i === 1
+        ? CONNECTOR_CURVES[0]
+        : i === points.length - 1
+          ? CONNECTOR_CURVES[2]
+          : CONNECTOR_CURVES[1];
     d += ` C${round(a.x + curve.c1x * dx)} ${round(a.y + curve.c1y * dy)} ${round(b.x + curve.c2x * dx)} ${round(b.y + curve.c2y * dy)} ${round(b.x)} ${round(b.y)}`;
   }
   return { d, width: box.width, height: box.height };
@@ -294,10 +303,12 @@ export default function ServiceTimelineGrid() {
   const contentBottom = Math.max(
     0,
     ...positionedServices.flatMap((service) =>
-      [service.layout.image, service.layout.title, service.layout.description].map(
-        (box) => box.top + box.height,
-      ),
-    ),
+      [
+        service.layout.image,
+        service.layout.title,
+        service.layout.description,
+      ].map((box) => box.top + box.height)
+    )
   );
   const sectionMinHeight = contentBottom + 100;
 
@@ -348,7 +359,7 @@ export default function ServiceTimelineGrid() {
         if (!connector) return;
         pathEl.ownerSVGElement.setAttribute(
           "viewBox",
-          `0 0 ${connector.width} ${connector.height}`,
+          `0 0 ${connector.width} ${connector.height}`
         );
         pathEl.setAttribute("d", connector.d);
 
@@ -368,7 +379,8 @@ export default function ServiceTimelineGrid() {
             start: "top 65%",
             end: "bottom 55%",
             scrub: 1.5,
-            onRefresh: () => updateSceneColors(listEl, mobileTravelerRef.current),
+            onRefresh: () =>
+              updateSceneColors(listEl, mobileTravelerRef.current),
           },
         });
         updateSceneColors(listEl, mobileTravelerRef.current);
@@ -414,11 +426,13 @@ export default function ServiceTimelineGrid() {
       style={{ "--svc-min": `${sectionMinHeight}px` }}
     >
       <div className="max-w-content mx-auto px-6 py-20 max-md:pt-14 max-md:pb-0">
-      <div className="text-center mb-14 max-md:mb-10">
-  <SectionEyebrow className="max-md:text-[22px]">{t("home.services.eyebrow")}</SectionEyebrow>
+        <div className="text-center mb-14 max-md:mb-10">
+          <SectionEyebrow className="max-md:text-[22px]">
+            {t("home.services.eyebrow")}
+          </SectionEyebrow>
 
-  <p
-    className="
+          <p
+            className="
       w-full
       max-w-[1350px]
       min-h-[72px]
@@ -436,10 +450,10 @@ export default function ServiceTimelineGrid() {
       max-md:text-base
       max-md:leading-relaxed
     "
-  >
-    {t("home.services.description")}
-  </p>
-</div>
+          >
+            {t("home.services.description")}
+          </p>
+        </div>
       </div>
 
       {/* Below xl: the desktop zig-zag, condensed — illustration and text
@@ -447,7 +461,10 @@ export default function ServiceTimelineGrid() {
           sweeps through each illustration in turn and the glowing traveler
           rides it on scroll (path built in the effect above). */}
       <div className="xl:hidden max-w-content mx-auto px-6 pb-16">
-        <div ref={mobileListRef} className="relative flex flex-col gap-14 md:gap-20">
+        <div
+          ref={mobileListRef}
+          className="relative flex flex-col gap-14 md:gap-20"
+        >
           <svg
             className="absolute inset-0 w-full h-full overflow-visible pointer-events-none [[data-theme=light]_&]:invisible"
             fill="none"
@@ -508,54 +525,62 @@ export default function ServiceTimelineGrid() {
         {/* Curved teal connector line — same in both themes */}
         <svg
           className="absolute pointer-events-none [[data-theme=light]_&]:invisible"
-        style={{
-          top: CONNECTOR.line.top,
-          left: CONNECTOR.line.left,
-          width: CONNECTOR.line.width,
-          height: CONNECTOR.line.height,
-        }}
-        viewBox="0 0 753 918"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g filter="url(#serviceConnectorBlur)">
-          <path
-            ref={pathRef}
-            d="M6.45312 6.44489C472.953 -16.5549 767.451 87.4453 742.951 290.445C709.332 569.006 50.0369 349.309 6.45312 587.945C-34.5488 812.445 330.451 981.445 749.951 888.445"
-            stroke="#24B9A5"
-            className="[[data-theme=light]_&]:stroke-[#072E2A]"
-          />
-        </g>
-        <defs>
-          <filter
-            id="serviceConnectorBlur"
-            x="-0.000195265"
-            y="-0.000195265"
-            width="752.86"
-            height="917.799"
-            filterUnits="userSpaceOnUse"
-            colorInterpolationFilters="sRGB"
-          >
-            <feFlood floodOpacity="0" result="BackgroundImageFix" />
-            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-            <feGaussianBlur stdDeviation="1.4" result="effect1_foregroundBlur_1640_262" />
-          </filter>
-        </defs>
-      </svg>
+          style={{
+            top: CONNECTOR.line.top,
+            left: CONNECTOR.line.left,
+            width: CONNECTOR.line.width,
+            height: CONNECTOR.line.height,
+          }}
+          viewBox="0 0 753 918"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g filter="url(#serviceConnectorBlur)">
+            <path
+              ref={pathRef}
+              d="M6.45312 6.44489C472.953 -16.5549 767.451 87.4453 742.951 290.445C709.332 569.006 50.0369 349.309 6.45312 587.945C-34.5488 812.445 330.451 981.445 749.951 888.445"
+              stroke="#24B9A5"
+              className="[[data-theme=light]_&]:stroke-[#072E2A]"
+            />
+          </g>
+          <defs>
+            <filter
+              id="serviceConnectorBlur"
+              x="-0.000195265"
+              y="-0.000195265"
+              width="752.86"
+              height="917.799"
+              filterUnits="userSpaceOnUse"
+              colorInterpolationFilters="sRGB"
+            >
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
+              <feBlend
+                mode="normal"
+                in="SourceGraphic"
+                in2="BackgroundImageFix"
+                result="shape"
+              />
+              <feGaussianBlur
+                stdDeviation="1.4"
+                result="effect1_foregroundBlur_1640_262"
+              />
+            </filter>
+          </defs>
+        </svg>
 
-      {/* Services positioned per exact Figma spec (section-relative) */}
-      {positionedServices.map((service) => (
-        <PositionedService key={service.id} service={service} />
-      ))}
+        {/* Services positioned per exact Figma spec (section-relative) */}
+        {positionedServices.map((service) => (
+          <PositionedService key={service.id} service={service} />
+        ))}
 
-      {/* Traveler: glow + ring + dot, all animated together along the path on
+        {/* Traveler: glow + ring + dot, all animated together along the path on
           scroll — same in both themes */}
-      <ConnectorTraveler
-        travelerRef={travelerRef}
-        glow={{ size: CONNECTOR.glow.size, blur: 140 }}
-        ring={CONNECTOR.ring}
-        dot={CONNECTOR.dot}
-      />
+        <ConnectorTraveler
+          travelerRef={travelerRef}
+          glow={{ size: CONNECTOR.glow.size, blur: 140 }}
+          ring={CONNECTOR.ring}
+          dot={CONNECTOR.dot}
+        />
       </div>
     </section>
   );

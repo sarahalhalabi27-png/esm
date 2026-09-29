@@ -31,9 +31,7 @@ export default function SiteHeader() {
               end={link.path === "/"}
               className={({ isActive }) =>
                 `transition-colors capitalize ${
-                  isActive
-                    ? "text-teal-accent"
-                    : "text-fg/80 hover:text-fg"
+                  isActive ? "text-teal-accent" : "text-fg/80 hover:text-fg"
                 }`
               }
             >

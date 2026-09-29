@@ -51,7 +51,10 @@ export default function FleetPreviewGrid() {
         {/* Phones: Card Snap Carousel (see .mobile-carousel--snap in index.css). */}
         <div className="mobile-carousel mobile-carousel--snap flex flex-wrap lg:flex-nowrap justify-center gap-[51px] max-md:gap-3 max-md:py-4">
           {featuredCars.map((car) => (
-            <div key={car.id} className="lg:shrink-0 max-w-full max-md:max-w-none">
+            <div
+              key={car.id}
+              className="lg:shrink-0 max-w-full max-md:max-w-none"
+            >
               <FleetShowcaseCard car={car} />
             </div>
           ))}

@@ -26,7 +26,13 @@ export const limoServices = [
     layout: {
       image: { top: 250, left: 70, width: 511.82, height: 332.83 },
       title: { top: 370, left: 809, width: 244, height: 102 },
-      description: { top: 410, left: 809, width: 237.6, height: 61, lineHeight: "120%" },
+      description: {
+        top: 410,
+        left: 809,
+        width: 237.6,
+        height: 61,
+        lineHeight: "120%",
+      },
     },
   },
   {
@@ -38,7 +44,12 @@ export const limoServices = [
     lightColoredIllustration: cityToursLightColored,
     // The colored export is 554x481 (base 466x386) with the drawing offset by
     // (21,38) — this box, in % of the base, lines the two drawings up.
-    lightColoredFrame: { left: -4.51, top: -9.84, width: 118.88, height: 124.61 },
+    lightColoredFrame: {
+      left: -4.51,
+      top: -9.84,
+      width: 118.88,
+      height: 124.61,
+    },
     layout: {
       image: { top: 512, left: 820, width: 465.26, height: 385.21 },
       title: { top: 704, left: 182, width: 130, height: 30 },
@@ -55,7 +66,13 @@ export const limoServices = [
     layout: {
       image: { top: 928, left: 13, width: 569.17, height: 323.04 },
       title: { top: 1048, left: 809, width: 244, height: 102 },
-      description: { top: 1088, left: 829, width: 237.6, height: 61, lineHeight: "120%" },
+      description: {
+        top: 1088,
+        left: 829,
+        width: 237.6,
+        height: 61,
+        lineHeight: "120%",
+      },
     },
   },
   {

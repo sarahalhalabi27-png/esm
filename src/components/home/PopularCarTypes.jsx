@@ -42,12 +42,8 @@ export default function PopularCarTypes() {
   }, []);
 
   return (
-    <section
-      className="font-display"
-      dir={isRTL ? "rtl" : "ltr"}
-    >
+    <section className="font-display" dir={isRTL ? "rtl" : "ltr"}>
       <div className="max-w-content mx-auto px-6 py-20 max-md:py-12">
-
         {/* Section Title */}
         <h2
           className="
@@ -92,7 +88,10 @@ export default function PopularCarTypes() {
 
         {/* Car Types */}
         {/* Phones: Scroll Shelf (see .mobile-carousel--shelf in index.css). */}
-        <div ref={cardsRef} className="mobile-carousel mobile-carousel--shelf flex flex-wrap justify-center gap-[40px] mt-[45px] max-md:gap-4 max-md:mt-8">
+        <div
+          ref={cardsRef}
+          className="mobile-carousel mobile-carousel--shelf flex flex-wrap justify-center gap-[40px] mt-[45px] max-md:gap-4 max-md:mt-8"
+        >
           {popularTypes.map((type) => (
             <div
               key={type.id}
@@ -112,25 +111,25 @@ export default function PopularCarTypes() {
             >
               {/* 1px accent gradient border (bright teal in dark mode,
                   #072E2A in light mode) */}
-         <div
-  className="absolute inset-0 rounded-[10px] pointer-events-none"
-  style={{
-    padding: "1px",
-    background:
-      "linear-gradient(360deg, rgba(7, 46, 42, 0.8) 0%, rgba(23, 148, 135, 0) 100%)",
-    WebkitMask:
-      "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-    WebkitMaskComposite: "xor",
-    maskComposite: "exclude",
-  }}
-/>
+              <div
+                className="absolute inset-0 rounded-[10px] pointer-events-none"
+                style={{
+                  padding: "1px",
+                  background:
+                    "linear-gradient(360deg, rgba(7, 46, 42, 0.8) 0%, rgba(23, 148, 135, 0) 100%)",
+                  WebkitMask:
+                    "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                  WebkitMaskComposite: "xor",
+                  maskComposite: "exclude",
+                }}
+              />
 
               {/* Car icon painted with the theme accent through the SVG as a
                   mask, so it follows light/dark like the text around it. */}
               <span
                 aria-hidden="true"
                 data-car-icon
-               className="block w-[50px] h-[50px] scale-[1.8]"
+                className="block w-[50px] h-[50px] scale-[1.8]"
                 style={{
                   WebkitMaskImage: `url(${carIcon})`,
                   maskImage: `url(${carIcon})`,
@@ -145,7 +144,7 @@ export default function PopularCarTypes() {
               />
 
               <p
-  className="
+                className="
     mt-[16px]
     w-[98.68px]
     h-[31.77px]
@@ -157,9 +156,9 @@ export default function PopularCarTypes() {
     [[data-theme=light]_&]:text-black
     text-center
   "
->
-  {type.brand}
-</p>
+              >
+                {type.brand}
+              </p>
 
               <p
                 className="
@@ -171,15 +170,11 @@ export default function PopularCarTypes() {
                   text-teal-accent
                 "
               >
-                {type.count}{" "}
-                <span className="text-fg">
-                  {t("common.car")}
-                </span>
+                {type.count} <span className="text-fg">{t("common.car")}</span>
               </p>
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
