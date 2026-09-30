@@ -1,78 +1,39 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { Armchair, ZoomIn } from "lucide-react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CarSectionHeading from "./CarSectionHeading.jsx";
 import InteriorLightbox from "./InteriorLightbox.jsx";
+import useSectionReveal, {
+  CAR_DETAILS_INTRO,
+  slideInFromStart,
+} from "./useSectionReveal.js";
 import interiorIcon from "../../assets/car-details/car-interior.svg";
-import { MOTION_OK } from "../../utils/motion.js";
 
-gsap.registerPlugin(ScrollTrigger);
+// Reveal: the title slides in like the ones above, then the photos open one
+// after another like a curtain — each wiped in from the start side while
+// rising a little.
+function buildGalleryReveal({ root: section, tl, direction }) {
+  const heading = section.querySelector("h2");
+  const tiles = [...section.querySelectorAll("[data-tile]")];
+  const clipped = direction < 0 ? "inset(0 0 0 100%)" : "inset(0 100% 0 0)";
 
-// Seconds before the hero, description and features have played on load
-// (see CarDetailsHero / CarFeatureList); a gallery already on screen then
-// (a tall screen) waits its turn.
-const EARLIER_SECTIONS_S = 3.2;
+  gsap.set([heading, ...tiles], { autoAlpha: 0 });
 
-// Reveal, played once when the gallery scrolls into view (skipped when the
-// viewer prefers reduced motion): the title slides in like the ones above,
-// then the photos open one after another like a curtain — each wiped in from
-// the start side while rising a little.
-function useGalleryReveal(carId, isRtl) {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return undefined;
-    const mountedAt = performance.now();
-    const mm = gsap.matchMedia();
-
-    mm.add(MOTION_OK, () => {
-      const heading = section.querySelector("h2");
-      const tiles = [...section.querySelectorAll("[data-tile]")];
-      const direction = isRtl ? -1 : 1;
-      const clipped = isRtl ? "inset(0 0 0 100%)" : "inset(0 100% 0 0)";
-
-      gsap.set([heading, ...tiles], { autoAlpha: 0 });
-
-      const tl = gsap
-        .timeline({ paused: true, defaults: { ease: "power3.out" } })
-        .fromTo(
-          heading,
-          { autoAlpha: 0, x: -30 * direction },
-          { autoAlpha: 1, x: 0, duration: 0.8 }
-        )
-        .fromTo(
-          tiles,
-          { autoAlpha: 1, clipPath: clipped, y: 16 },
-          {
-            clipPath: "inset(0 0% 0 0%)",
-            y: 0,
-            duration: 0.9,
-            ease: "power2.inOut",
-            stagger: 0.1,
-            // Hand transform back to CSS so the hover lift works.
-            clearProps: "clipPath,transform",
-          },
-          "-=0.4"
-        );
-
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top 85%",
-        once: true,
-        onEnter: () => {
-          const sinceMount = (performance.now() - mountedAt) / 1000;
-          tl.delay(Math.max(0, EARLIER_SECTIONS_S - sinceMount)).play();
-        },
-      });
-    });
-
-    return () => mm.revert();
-  }, [carId, isRtl]);
-
-  return sectionRef;
+  slideInFromStart(tl, heading, direction).fromTo(
+    tiles,
+    { autoAlpha: 1, clipPath: clipped, y: 16 },
+    {
+      clipPath: "inset(0 0% 0 0%)",
+      y: 0,
+      duration: 0.9,
+      ease: "power2.inOut",
+      stagger: 0.1,
+      // Hand transform back to CSS so the hover lift works.
+      clearProps: "clipPath,transform",
+    },
+    "-=0.4"
+  );
 }
 
 // Same title style as the sections above ("Car Interior", icon 35 x 40.6),
@@ -82,8 +43,11 @@ function useGalleryReveal(carId, isRtl) {
 // Empty slots (no photo yet) show a quiet placeholder. Photos lift and
 // brighten a little on hover, and open full size in InteriorLightbox.
 export default function CarInteriorGallery({ car }) {
-  const { t, i18n } = useTranslation();
-  const sectionRef = useGalleryReveal(car.id, i18n.dir() === "rtl");
+  const { t } = useTranslation();
+  const sectionRef = useSectionReveal(buildGalleryReveal, {
+    key: car.id,
+    waitOnLoad: CAR_DETAILS_INTRO.interior,
+  });
   const [openPhoto, setOpenPhoto] = useState(null);
   const images = car.interiorImages ?? [];
   if (!images.length) return null;
