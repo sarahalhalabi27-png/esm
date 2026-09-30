@@ -5,7 +5,11 @@
     "about": "About Us",
     "fleet": "Our Fleet",
     "blog": "Blog",
-    "contact": "Contact Us"
+    "contact": "Contact Us",
+    "toggleMenu": "Open or close the menu",
+    "closeMenu": "Close the menu",
+    "switchToArabic": "Switch to Arabic",
+    "switchToEnglish": "Switch to English"
   },
 
   "common": {
@@ -111,7 +115,8 @@
       "eyebrow": "Our Special Offers For You",
       "heading": "Enjoy 10% Off Your Next Ride!",
       "description": "Book Your Luxury Limousine Today And Save 10% On Premium Chauffeur Services Across The UAE.",
-      "cta": "Claim Discount"
+      "cta": "Claim Discount",
+      "carAlt": "Luxury limousine"
     },
 
     "partners": {
@@ -259,6 +264,15 @@
       "sending": "Sending...",
       "success": "Message sent. We'll be in touch soon."
     }
+  },
+
+  "servicesPage": {
+    "heroTitle": "ESM Limo Services"
+  },
+
+  "aboutPage": {
+    "heroTitle": "About ESM Limo",
+    "intro": "At ESM Limo, We Place Our Clients First, Delivering Luxury Transportation Defined By Comfort And Precision."
   },
 
   "footer": {

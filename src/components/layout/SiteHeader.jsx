@@ -45,6 +45,11 @@ export default function SiteHeader() {
         <button
           type="button"
           onClick={toggleLanguage}
+          aria-label={t(
+            currentI18n.language === "en"
+              ? "nav.switchToArabic"
+              : "nav.switchToEnglish"
+          )}
           className="ms-5 self-center shrink-0 text-fg/80 hover:text-fg transition-colors font-display text-[18px]"
         >
           {currentI18n.language === "en" ? "AR" : "EN"}
@@ -55,7 +60,8 @@ export default function SiteHeader() {
           type="button"
           className="lg:hidden self-center shrink-0 text-fg/80 ms-4"
           onClick={() => setIsMenuOpen((open) => !open)}
-          aria-label="Toggle navigation menu"
+          aria-label={t("nav.toggleMenu")}
+          aria-expanded={isMenuOpen}
         >
           {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -78,9 +84,10 @@ export default function SiteHeader() {
         <div className="flex items-center justify-between mb-2">
           <ThemeToggle />
           <button
+            type="button"
             className="text-fg/80"
             onClick={() => setIsMenuOpen(false)}
-            aria-label="Close navigation menu"
+            aria-label={t("nav.closeMenu")}
           >
             <X size={24} />
           </button>

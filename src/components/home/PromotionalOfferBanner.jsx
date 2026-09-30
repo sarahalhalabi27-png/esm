@@ -104,7 +104,7 @@ export default function PromotionalOfferBanner() {
 
           <img
             src={offerCar}
-            alt="Luxury limousine"
+            alt={t("home.promo.carAlt")}
             className="relative z-10 w-full max-w-[450px] h-auto object-contain"
           />
         </div>
