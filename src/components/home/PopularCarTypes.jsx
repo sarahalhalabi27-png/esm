@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import MaskIcon from "../common/MaskIcon.jsx";
 import carIcon from "../../assets/popular-cars/car.svg";
 import { MOTION_OK } from "../../utils/motion.js";
 
@@ -127,21 +128,11 @@ export default function PopularCarTypes() {
 
               {/* Car icon painted with the theme accent through the SVG as a
                   mask, so it follows light/dark like the text around it. */}
-              <span
-                aria-hidden="true"
+              <MaskIcon
+                src={carIcon}
+                display="block"
                 data-car-icon
-                className="block w-[50px] h-[50px] scale-[1.8]"
-                style={{
-                  WebkitMaskImage: `url(${carIcon})`,
-                  maskImage: `url(${carIcon})`,
-                  WebkitMaskSize: "contain",
-                  maskSize: "contain",
-                  WebkitMaskRepeat: "no-repeat",
-                  maskRepeat: "no-repeat",
-                  WebkitMaskPosition: "center",
-                  maskPosition: "center",
-                  background: "rgb(var(--accent))",
-                }}
+                className="w-[50px] h-[50px] scale-[1.8]"
               />
 
               <p

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import RatingStars from "../common/RatingStars.jsx";
+import MaskIcon from "../common/MaskIcon.jsx";
 import smokeBg from "../../assets/our-luxury-fleet/smoke-bg.webp";
 import lexus from "../../assets/our-luxury-fleet/lexus.webp";
 import passengersIcon from "../../assets/our-luxury-fleet/passenger.svg";
@@ -15,13 +16,11 @@ function SpecIcon({ src }) {
   return (
     <>
       <img src={src} alt="" className={`dark-only ${specIconClass}`} />
-      <span
-        aria-hidden="true"
-        className={`light-only bg-[#072E2A] ${specIconClass}`}
-        style={{
-          WebkitMask: `url(${src}) center / contain no-repeat`,
-          mask: `url(${src}) center / contain no-repeat`,
-        }}
+      <MaskIcon
+        src={src}
+        display="light-only"
+        colorClassName="bg-[#072E2A]"
+        className={specIconClass}
       />
     </>
   );

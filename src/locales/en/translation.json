@@ -9,6 +9,7 @@
   },
 
   "common": {
+    "ratingLabel": "{{rating}} out of 5 stars",
     "bookNow": "Book Now",
     "reviews": "Reviews",
     "perHour": "Per Hour",
