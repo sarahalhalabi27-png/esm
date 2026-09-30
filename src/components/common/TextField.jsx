@@ -15,6 +15,8 @@ export default function TextField({
   placeholder,
   value,
   onChange,
+  onFocus,
+  onBlur,
   ...rest
 }) {
   const { i18n } = useTranslation();
@@ -35,12 +37,12 @@ export default function TextField({
 
   function handleFocus(event) {
     setIsFocused(true);
-    rest.onFocus?.(event);
+    onFocus?.(event);
   }
 
   function handleBlur(event) {
     setIsFocused(false);
-    rest.onBlur?.(event);
+    onBlur?.(event);
   }
 
   return (

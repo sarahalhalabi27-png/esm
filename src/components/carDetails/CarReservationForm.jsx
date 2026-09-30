@@ -9,9 +9,9 @@ import TextField from "../common/TextField.jsx";
 import TextAreaField from "../common/TextAreaField.jsx";
 import HollowButton from "../common/HollowButton.jsx";
 import {
-  FIELD_UNDERLINE,
   FOCUS_FILL,
   FORM_CARD,
+  FORM_CARD_DARK_IN_LIGHT,
   FORM_TITLE,
 } from "../common/formStyles.js";
 import ControlledField from "../common/ControlledField.jsx";
@@ -147,14 +147,16 @@ const defaultValues = {
 };
 
 // Figma field rule (every field): 37px tall, its label Medium 22px on a 27px
-// line resting at the top, and a 0.5px white/60% underline 10px below it.
-// Applied over the shared fields' own styling (TextField, Date/TimePicker).
-// On focus, an accent line fills the underline from the start side.
-// Light mode swaps the white/60% lines and borders for #072E2A (underlines
-// and the message box 40%, the card 25%), the title to #072E2A, and the
-// hollow button to #072E2A. On hover the button fills with its border colour:
-// white with #072E2A text (dark), #072E2A with white text (light).
-const FIELD = `!min-h-0 !h-[37px] !py-0 !pb-[10px] ${FIELD_UNDERLINE} ${FOCUS_FILL} !font-medium !text-[22px] !leading-[27px] max-md:!text-[17px]`;
+// line resting at the top, and a 0.5px underline 10px below it (lightened
+// on review, see UNDERLINE). Applied over the shared fields' own styling
+// (TextField, Date/TimePicker). On focus, an accent line fills the underline
+// from the start side.
+// Light mode keeps all of that white on a solid #072E2A card (see
+// FORM_CARD_DARK_IN_LIGHT). On hover the button fills white with #072E2A text.
+// The underlines here are lighter than the shared FIELD_UNDERLINE (white/35%)
+// so they read thinner.
+const UNDERLINE = "!border-b-[0.5px] !border-white/35";
+const FIELD = `!min-h-0 !h-[37px] !py-0 !pb-[10px] ${UNDERLINE} ${FOCUS_FILL} !font-medium !text-[22px] !leading-[27px] max-md:!text-[17px]`;
 const LABEL =
   "top-0 text-[22px] leading-[27px] font-medium text-fg max-md:text-[17px]";
 const fieldProps = {
@@ -216,8 +218,13 @@ export default function CarReservationForm({ car }) {
 
   return (
     <section className="font-display px-[47px] mt-[120px] mb-[120px] max-md:px-6 max-md:mt-14 max-md:mb-16">
-      <div ref={cardRef} className={`${FORM_CARD} pb-[58px]`}>
-        <h2 className={FORM_TITLE}>{t("carDetails.form.title")}</h2>
+      <div
+        ref={cardRef}
+        className={`${FORM_CARD} ${FORM_CARD_DARK_IN_LIGHT} pb-[58px]`}
+      >
+        <h2 className={`${FORM_TITLE} light:!text-white`}>
+          {t("carDetails.form.title")}
+        </h2>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -333,7 +340,7 @@ export default function CarReservationForm({ car }) {
             // spacing:) its label 62px under the drop-off line (like the other
             // labels), then 10px to the box.
             className="w-[1195px] ms-[6px] max-lg:w-full max-lg:ms-0"
-            textareaClassName="!block !h-[161px] !rounded-[10px] !border-[0.5px] !border-white/60 light:!border-[#072E2A]/40 !p-4 !text-[18px] focus:!border-teal-accent max-md:!h-[140px] max-md:!text-[15px]"
+            textareaClassName="!block !h-[161px] !rounded-[10px] !border-[0.5px] !border-white/60 !p-4 !text-[18px] focus:!border-teal-accent max-md:!h-[140px] max-md:!text-[15px]"
           />
 
           {/* Figma: 59px under the message box (the form's 62px row gap − 3)
@@ -344,6 +351,7 @@ export default function CarReservationForm({ car }) {
               doesn't change those spacings. */}
           <div className="relative flex justify-center -mt-[3px] max-md:mt-0">
             <HollowButton
+              onDark
               type="submit"
               className="!relative !px-[47px] !py-[13px] !text-[22px] !leading-[27px] max-md:!px-8 max-md:!py-3 max-md:!text-[18px]"
               disabled={status === SUBMIT_STATUS.SUBMITTING}

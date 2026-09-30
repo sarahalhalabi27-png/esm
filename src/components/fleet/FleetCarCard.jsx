@@ -16,7 +16,7 @@ export default function FleetCarCard({ car }) {
           <img
             src={car.image || defaultCar}
             alt={car.name}
-            loading="lazy"
+            decoding="async"
             className="max-w-full max-h-full object-contain transition-transform duration-300 ease-out group-hover:scale-105"
           />
         </div>

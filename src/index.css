@@ -64,6 +64,42 @@
   size-adjust: 97%;
 }
 
+/* Montserrat Alternates, Latin letters only (A–Z, a–z), for Arabic pages:
+   English words there ("ESM Limo", car names) render like the English site
+   — with the Inter E above — instead of in 29LT Bukra's Latin, whose
+   capitals stand taller than the Inter E (73–76 vs 71 per 100px) and made it
+   look out of place. Digits and punctuation stay in Bukra. Same files as the
+   Google Fonts <link> (its "latin" subset), so nothing extra downloads. */
+@font-face {
+  font-family: "Montserrat Latin Letters";
+  src: url("https://fonts.gstatic.com/s/montserratalternates/v18/mFTvWacfw6zH4dthXcyms1lPpC8I_b0juU0566fQ.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0041-005A, U+0061-007A;
+}
+
+@font-face {
+  font-family: "Montserrat Latin Letters";
+  src: url("https://fonts.gstatic.com/s/montserratalternates/v18/mFTiWacfw6zH4dthXcyms1lPpC8I_b0juU0xGITFB7xG.woff2")
+    format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0041-005A, U+0061-007A;
+}
+
+@font-face {
+  font-family: "Montserrat Latin Letters";
+  src: url("https://fonts.gstatic.com/s/montserratalternates/v18/mFTiWacfw6zH4dthXcyms1lPpC8I_b0juU0xNIPFB7xG.woff2")
+    format("woff2");
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0041-005A, U+0061-007A;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -93,9 +129,10 @@ img {
   --booking-glow: 36 185 165; /* bright streak for the Luxury Car shimmer */
 }
 
-/* Arabic font */
+/* Arabic font (English letters as on the English site, see
+   "Montserrat Latin Letters" above) */
 html[dir="rtl"] {
-  --font-display: "Inter", "29LT Bukra";
+  --font-display: "Inter", "Montserrat Latin Letters", "29LT Bukra";
 }
 
 /* English font */

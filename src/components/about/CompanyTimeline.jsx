@@ -38,8 +38,8 @@ export default function CompanyTimeline() {
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 75%",
-            end: "bottom 60%",
+            start: "top 60%",
+            end: "bottom 50%",
             scrub: 0.6,
           },
         }
@@ -53,7 +53,7 @@ export default function CompanyTimeline() {
             .timeline({
               scrollTrigger: {
                 trigger: row,
-                start: "top 80%",
+                start: "top 65%",
                 end: "bottom 15%",
                 toggleActions: "restart none restart none",
               },
@@ -61,7 +61,7 @@ export default function CompanyTimeline() {
             .from(row.querySelector("[data-timeline-dot]"), {
               scale: 0,
               opacity: 0,
-              duration: 0.5,
+              duration: 0.6,
               ease: "back.out(2)",
             })
             .from(
@@ -69,7 +69,7 @@ export default function CompanyTimeline() {
               {
                 opacity: 0,
                 x: (i, el) => fromX(el.dataset.from),
-                duration: 0.7,
+                duration: 0.9,
                 ease: "power2.out",
               },
               "-=0.2"

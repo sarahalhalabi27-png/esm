@@ -312,8 +312,9 @@ export default function ServiceTimelineGrid() {
     // display:none below xl, so animating only it did nothing on phones.
     const mm = gsap.matchMedia(sectionRef);
 
-    // Desktop (unchanged): the traveler rides the Figma connector across the
-    // whole section.
+    // Desktop: the traveler rides the Figma connector, kept near the middle
+    // of the screen — it starts as the line's top reaches the screen's centre
+    // and arrives as its bottom does, so each scene lights up as you reach it.
     mm.add("(min-width: 1280px)", () => {
       const syncColors = () =>
         updateSceneColors(sectionRef.current, travelerRef.current);
@@ -327,9 +328,9 @@ export default function ServiceTimelineGrid() {
         ease: "none",
         onUpdate: syncColors,
         scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom bottom",
+          trigger: pathRef.current.ownerSVGElement,
+          start: "top center",
+          end: "bottom center",
           scrub: 1.5,
           // At progress 0 the ring already sits on the first scene, and no
           // update fires until scrolling starts — sync on (re)measure too.
@@ -371,8 +372,8 @@ export default function ServiceTimelineGrid() {
           onUpdate: () => updateSceneColors(listEl, mobileTravelerRef.current),
           scrollTrigger: {
             trigger: listEl,
-            start: "top 65%",
-            end: "bottom 55%",
+            start: "top center",
+            end: "bottom center",
             scrub: 1.5,
             onRefresh: () =>
               updateSceneColors(listEl, mobileTravelerRef.current),

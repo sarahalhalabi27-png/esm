@@ -53,40 +53,62 @@ export default function FleetCategorySection({ category, isLast }) {
     if (!SCROLL_REVEAL) return;
     const mm = gsap.matchMedia();
     mm.add(MOTION_OK, () => {
-      const section = sectionRef.current;
+      const row = rowRef.current;
+      // The cars sit shifted until they slide in, and the row snaps to its
+      // cards: left on, snapping would scroll the row along with every shift
+      // (the cars seemed to appear to one side, then slide back). Pause it
+      // until they've arrived.
+      row.style.scrollSnapType = "none";
+      const restoreSnap = () => {
+        row.style.scrollSnapType = "";
+      };
 
       const timeline = gsap
         .timeline({
-          scrollTrigger: { trigger: section, start: "top 80%", once: true },
+          // Starts as soon as the cars come up into view (the car row's top
+          // 10% above the screen's bottom edge).
+          scrollTrigger: {
+            trigger: rowRef.current,
+            start: "top 90%",
+            once: true,
+          },
         })
         .from(elbowRef.current, {
           opacity: 0,
           scaleY: 0,
           transformOrigin: "top",
-          duration: 0.35,
+          duration: 0.3,
           ease: "power1.out",
         })
         .from(dotRef.current, {
           scale: 0,
-          duration: 0.5,
+          duration: 0.35,
           ease: "back.out(2.5)",
         })
         .from(
           nameRef.current,
-          { opacity: 0, x: -16 * direction, duration: 0.5, ease: "power2.out" },
-          "-=0.3"
-        )
-        .from(
-          [...rowRef.current.children],
           {
             opacity: 0,
-            x: 40 * direction,
-            duration: 0.7,
-            ease: "power3.out",
-            stagger: 0.12,
-            clearProps: "opacity,transform",
+            x: -16 * direction,
+            duration: 0.45,
+            ease: "power2.out",
           },
           "-=0.2"
+        )
+        .from(
+          [...row.children],
+          {
+            opacity: 0,
+            x: 30 * direction,
+            duration: 0.6,
+            ease: "power2.out",
+            stagger: 0.06,
+            clearProps: "opacity,transform",
+            onComplete: restoreSnap,
+          },
+          // The cars come in right away, with the branch (sped up on
+          // review).
+          0
         );
       if (trunkRef.current) {
         timeline.from(
@@ -94,12 +116,13 @@ export default function FleetCategorySection({ category, isLast }) {
           {
             scaleY: 0,
             transformOrigin: "top",
-            duration: 0.9,
+            duration: 0.8,
             ease: "power1.inOut",
           },
-          "-=0.5"
+          "-=0.4"
         );
       }
+      return restoreSnap;
     });
     return () => mm.revert();
   }, [direction]);
