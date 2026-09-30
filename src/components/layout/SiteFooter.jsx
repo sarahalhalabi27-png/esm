@@ -13,7 +13,7 @@ import {
 
 import { companyInfo } from "../../data/companyInfo.js";
 import BrandLogo from "../common/BrandLogo.jsx";
-import cityArt from "../../assets/building.png";
+import cityArt from "../../assets/building.webp";
 import cityArtLight from "../../assets/footer/building-light.webp";
 
 const socialIcons = {

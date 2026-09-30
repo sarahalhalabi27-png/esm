@@ -8,7 +8,8 @@ import LayeredGraphicStage from "../common/LayeredGraphicStage.jsx";
 import { buildLayerLayout } from "../../utils/layerLayout.js";
 import smoke from "../../assets/hero/smoke.webp";
 import blackCar from "../../assets/hero/black-car.webp";
-import building from "../../assets/building.png";
+import building from "../../assets/building.webp";
+import { MOTION_OK } from "../../utils/motion.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -68,8 +69,11 @@ export default function HeroBanner() {
   const isRTL = i18n.dir() === "rtl";
   const highlightsListRef = useRef(null);
 
+  // The highlights slide in as the list comes into view (skipped for
+  // reduced motion).
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+    mm.add(MOTION_OK, () => {
       gsap.from(highlightsListRef.current.children, {
         opacity: 0,
         x: -24,
@@ -84,7 +88,7 @@ export default function HeroBanner() {
         },
       });
     });
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   return (

@@ -21,14 +21,14 @@ export default function PopularCarTypes() {
   const cardsRef = useRef(null);
 
   // When the row scrolls into view, each card's car icon slides in from the
-  // left to its place and brakes with a small overshoot,
+  // start side (left, or right in Arabic) to its place and brakes with a small overshoot,
   // one card after another. The card clips it (overflow-hidden) so it never
   // shows over the neighbouring card. Skipped for reduced motion.
   useEffect(() => {
     const mm = gsap.matchMedia();
     mm.add(MOTION_OK, () => {
       gsap.from(cardsRef.current.querySelectorAll("[data-car-icon]"), {
-        x: -220,
+        x: isRTL ? 220 : -220,
         opacity: 0,
         duration: 0.9,
         stagger: 0.2,
@@ -41,7 +41,7 @@ export default function PopularCarTypes() {
       });
     });
     return () => mm.revert();
-  }, []);
+  }, [isRTL]);
 
   return (
     <section className="font-display" dir={isRTL ? "rtl" : "ltr"}>

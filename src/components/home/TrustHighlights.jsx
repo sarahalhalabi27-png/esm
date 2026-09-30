@@ -93,7 +93,13 @@ export default function TrustHighlights() {
           {t("home.trust.items", { returnObjects: true }).map((item, index) => (
             <CheckListItem
               key={item}
-              className={index % 2 !== 0 ? "md:translate-x-[200px]" : ""}
+              // The second column sits 200px further toward the end side
+              // (right in English, left in Arabic).
+              className={
+                index % 2 !== 0
+                  ? "md:ltr:translate-x-[200px] md:rtl:-translate-x-[200px]"
+                  : ""
+              }
             >
               {item}
             </CheckListItem>

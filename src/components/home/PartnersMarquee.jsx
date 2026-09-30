@@ -5,6 +5,7 @@ import SectionEyebrow from "../common/SectionEyebrow.jsx";
 import uberLogo from "../../assets/partners/uber.png";
 import boltLogo from "../../assets/partners/bolt.png";
 import yangoLogo from "../../assets/partners/yango.png";
+import { MOTION_OK } from "../../utils/motion.js";
 
 const partners = [
   { src: uberLogo, alt: "Uber", className: "w-[127px] h-[51px]" },
@@ -18,7 +19,9 @@ export default function PartnersMarquee() {
   const trackRef = useRef(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    // Reduced motion: the logos simply stand still.
+    const mm = gsap.matchMedia();
+    mm.add(MOTION_OK, () => {
       // Track holds the logo set twice back-to-back; looping it exactly
       // halfway and jumping back makes the loop seamless. In RTL the track is
       // anchored to the right edge, so it must travel right (+50): moving left
@@ -30,7 +33,7 @@ export default function PartnersMarquee() {
         repeat: -1,
       });
     });
-    return () => ctx.revert();
+    return () => mm.revert();
   }, [isRTL]);
 
   return (
@@ -66,11 +69,14 @@ export default function PartnersMarquee() {
             ref={trackRef}
             className="flex items-center gap-[152px] max-md:gap-16 opacity-80 w-max"
           >
+            {/* The set twice for the seamless loop; the copy is hidden from
+                screen readers so each partner is announced once. */}
             {[...partners, ...partners].map((partner, index) => (
               <img
                 key={`${partner.alt}-${index}`}
                 src={partner.src}
-                alt={partner.alt}
+                alt={index < partners.length ? partner.alt : ""}
+                aria-hidden={index < partners.length ? undefined : "true"}
                 // The logo files are white; in light mode render them black
                 // (brightness 0 keeps their transparent cut-outs, e.g. Yango).
                 className={`object-contain shrink-0 max-md:h-[40px] max-md:w-auto light:brightness-0 ${partner.className ?? ""}`}
