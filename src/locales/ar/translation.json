@@ -9,7 +9,9 @@
     "toggleMenu": "فتح القائمة أو إغلاقها",
     "closeMenu": "إغلاق القائمة",
     "switchToArabic": "التبديل إلى العربية",
-    "switchToEnglish": "التبديل إلى الإنجليزية"
+    "switchToEnglish": "التبديل إلى الإنجليزية",
+    "switchToLightTheme": "التبديل إلى الوضع الفاتح",
+    "switchToDarkTheme": "التبديل إلى الوضع الداكن"
   },
   "common": {
     "ratingLabel": "{{rating}} من 5 نجوم",

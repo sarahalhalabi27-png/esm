@@ -9,7 +9,9 @@
     "toggleMenu": "Open or close the menu",
     "closeMenu": "Close the menu",
     "switchToArabic": "Switch to Arabic",
-    "switchToEnglish": "Switch to English"
+    "switchToEnglish": "Switch to English",
+    "switchToLightTheme": "Switch to light mode",
+    "switchToDarkTheme": "Switch to dark mode"
   },
 
   "common": {
