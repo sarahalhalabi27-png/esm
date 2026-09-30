@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import MaskIcon from "../common/MaskIcon.jsx";
 import calendarIcon from "../../assets/blog/calender.svg";
 import placeholderImage from "../../assets/blog/car-news.webp";
+import useLocalizedPost from "./useLocalizedPost.js";
 
 // Formats an ISO date (YYYY-MM-DD) for the current language, e.g.
 // "Jan 22, 2025" in English. Parsed as a local date so it never shifts a day.
@@ -17,11 +18,7 @@ function formatPostDate(isoDate, language) {
 
 export default function BlogPostCard({ post }) {
   const { t, i18n } = useTranslation();
-  const { title, excerpt } = {
-    title: post.title,
-    excerpt: post.excerpt,
-    ...post.translations?.[i18n.language],
-  };
+  const { title, excerpt } = useLocalizedPost(post);
 
   return (
     <Link

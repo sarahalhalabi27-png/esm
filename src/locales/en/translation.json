@@ -231,6 +231,8 @@
 
   "blogPost": {
     "loading": "Loading post...",
+    "notFound": "We couldn't find this post.",
+    "backToBlog": "Back To The Blog",
     "comment": {
       "title": "Leave A Reply",
       "name": "Name",
