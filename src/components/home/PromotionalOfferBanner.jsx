@@ -74,7 +74,6 @@ export default function PromotionalOfferBanner() {
         </div>
 
         {/* Offer car + smoke */}
-        {/* Offer car + smoke */}
         <div
           className={`relative flex justify-center md:justify-end max-md:[grid-area:car] max-md:self-center ${
             // English: pulled left so the smoke trailing behind the car (to its

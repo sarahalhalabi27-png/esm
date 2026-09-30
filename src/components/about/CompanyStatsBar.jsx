@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { companyStats } from "../../data/aboutTimelineData.js";
 import { MOTION_OK } from "../../utils/motion.js";
+import { useTranslation } from "react-i18next";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,6 +42,7 @@ function DigitColumn({ digit }) {
 // Figma: four columns under the timeline — teal 25px semibold value, 14px
 // above a 25px regular label; the row sits 192px below the line's end.
 export default function CompanyStatsBar() {
+  const { t } = useTranslation();
   const rowRef = useRef(null);
 
   useEffect(() => {
@@ -93,7 +95,7 @@ export default function CompanyStatsBar() {
               </span>
             </p>
             <p className="mt-[14px] text-[25px] font-normal leading-[30px] capitalize text-fg max-md:mt-2 max-md:text-base">
-              {stat.label}
+              {t(`aboutPage.stats.${stat.id}`)}
             </p>
           </div>
         ))}

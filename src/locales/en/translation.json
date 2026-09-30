@@ -60,35 +60,35 @@
       ]
     },
 
-   "whyChoose": {
-  "eyebrow": "Why Choose ESM?",
-  "items": {
-    "competitive-rates": {
-      "title": "Competitive Rates",
-      "description": "Value Aligned With Excellence."
+    "whyChoose": {
+      "eyebrow": "Why Choose ESM?",
+      "items": {
+        "competitive-rates": {
+          "title": "Competitive Rates",
+          "description": "Value Aligned With Excellence."
+        },
+        "discreet-service": {
+          "title": "Discreet Service",
+          "description": "Privacy And Professionalism Guaranteed."
+        },
+        "exceptional-comfort": {
+          "title": "Exceptional Comfort",
+          "description": "Travel Redefined In Elegance."
+        },
+        "seamless-reservations": {
+          "title": "Seamless Reservations",
+          "description": "Simple, Fast, Reliable."
+        },
+        "flexible-cancellation": {
+          "title": "Flexible Cancellation",
+          "description": "Plans Change — We Adapt."
+        },
+        "around-the-clock-service": {
+          "title": "Around-The-Clock Service",
+          "description": "At Your Service, Anytime."
+        }
+      }
     },
-    "discreet-service": {
-      "title": "Discreet Service",
-      "description": "Privacy And Professionalism Guaranteed."
-    },
-    "exceptional-comfort": {
-      "title": "Exceptional Comfort",
-      "description": "Travel Redefined In Elegance."
-    },
-    "seamless-reservations": {
-      "title": "Seamless Reservations",
-      "description": "Simple, Fast, Reliable."
-    },
-    "flexible-cancellation": {
-      "title": "Flexible Cancellation",
-      "description": "Plans Change — We Adapt."
-    },
-    "around-the-clock-service": {
-      "title": "Around-The-Clock Service",
-      "description": "At Your Service, Anytime."
-    }
-  }
-},
 
     "services": {
       "eyebrow": "ESM Limo Services",
@@ -143,23 +143,23 @@
     "sending": "Sending...",
     "success": "Thanks! We received your request.",
     "selectDate": "Select Date",
-"cancel": "Cancel",
-"done": "Done",
-"selectTime": "Select Time",
-"months": {
-  "january": "January",
-  "february": "February",
-  "march": "March",
-  "april": "April",
-  "may": "May",
-  "june": "June",
-  "july": "July",
-  "august": "August",
-  "september": "September",
-  "october": "October",
-  "november": "November",
-  "december": "December"
-}
+    "cancel": "Cancel",
+    "done": "Done",
+    "selectTime": "Select Time",
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    }
   },
 
   "fleetPage": {
@@ -274,7 +274,31 @@
 
   "aboutPage": {
     "heroTitle": "About ESM Limo",
-    "intro": "At ESM Limo, We Place Our Clients First, Delivering Luxury Transportation Defined By Comfort And Precision."
+    "intro": "At ESM Limo, We Place Our Clients First, Delivering Luxury Transportation Defined By Comfort And Precision.",
+    "pillars": {
+      "client-centered-approach": {
+        "title": "Client-Centered Approach",
+        "description": "We Ensure Our Clients Get The Highest Priority, And That Their Comfort Remains The Ultimate Objective."
+      },
+      "world-class-fleet": {
+        "title": "A World-Class Luxury Fleet",
+        "description": "We Operate One Of The Most Distinguished Fleets In Dubai And The UAE, Featuring Manufacturers Selling Premium Sedans And Premium SUVs."
+      },
+      "professional-chauffeurs": {
+        "title": "Professional Chauffeurs",
+        "description": "Our Experienced Chauffeurs Ensure Punctuality, Discretion, And Personalized Service At Every Stage Of Your Journey."
+      },
+      "comprehensive-luxury-services": {
+        "title": "Comprehensive Luxury Services",
+        "description": "From Airport Transfers To Private Tours And Bespoke Transportation, We Provide Tailored Solutions For Every Occasion."
+      }
+    },
+    "stats": {
+      "years": "Years Of Experience",
+      "clients": "Satisfied Clients",
+      "vehicles": "Luxury Vehicles",
+      "availability": "Availability"
+    }
   },
 
   "footer": {
@@ -295,15 +319,15 @@
     "address": "UAE, Dubai Al Qouz 3, St 12"
   },
   "validation": {
-  "durationRequired": "Please choose a booking duration",
-  "nameRequired": "Name is required",
-  "lettersOnly": "Letters only",
-  "phoneRequired": "Phone is required",
-  "numbersOnly": "Numbers only",
-  "emailRequired": "Email is required",
-  "invalidEmail": "Enter a valid email",
-  "invalidUrl": "Enter a valid URL",
-  "messageRequired": "Message is required",
-  "commentRequired": "Comment is required"
-}
+    "durationRequired": "Please choose a booking duration",
+    "nameRequired": "Name is required",
+    "lettersOnly": "Letters only",
+    "phoneRequired": "Phone is required",
+    "numbersOnly": "Numbers only",
+    "emailRequired": "Email is required",
+    "invalidEmail": "Enter a valid email",
+    "invalidUrl": "Enter a valid URL",
+    "messageRequired": "Message is required",
+    "commentRequired": "Comment is required"
+  }
 }
