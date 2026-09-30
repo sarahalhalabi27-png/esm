@@ -102,10 +102,8 @@ function updateSceneColors(root, traveler) {
 }
 
 function PositionedService({ service }) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { layout } = service;
-
-  const isRTL = i18n.dir() === "rtl";
 
   const title = t(`home.services.items.${service.id}.title`);
   const description = t(`home.services.items.${service.id}.description`);
@@ -138,7 +136,6 @@ function PositionedService({ service }) {
 
       {/* Title + Description */}
       <div
-        dir={isRTL ? "rtl" : "ltr"}
         className="absolute text-center"
         style={{
           top: layout.title.top,
@@ -146,19 +143,18 @@ function PositionedService({ service }) {
           width: 300,
         }}
       >
-        <p
+        <h3
           className="font-semibold capitalize text-fg light:text-[#072E2A]"
           style={{
             margin: 0,
             height: 30,
             fontSize: 25,
             lineHeight: "30px",
-            fontWeight: 600,
             whiteSpace: "nowrap",
           }}
         >
           {title}
-        </p>
+        </h3>
 
         <p
           className="font-normal capitalize text-fg"
@@ -166,7 +162,6 @@ function PositionedService({ service }) {
             margin: "12px 0 0",
             fontSize: 25,
             lineHeight: "30px",
-            fontWeight: 400,
             whiteSpace: "nowrap",
           }}
         >
@@ -436,7 +431,6 @@ export default function ServiceTimelineGrid() {
       w-full
       max-w-[1350px]
       min-h-[72px]
-      ms-[0px]
       mt-[30px]
       text-[22px]
       font-medium
@@ -522,7 +516,8 @@ export default function ServiceTimelineGrid() {
 
       {/* Desktop: exact Figma-positioned layout with connector + traveler */}
       <div className="hidden xl:block">
-        {/* Curved teal connector line — same in both themes */}
+        {/* Curved teal connector line (kept in layout but invisible in light
+            mode, like the traveler) */}
         <svg
           className="absolute pointer-events-none light:invisible"
           style={{
@@ -574,7 +569,7 @@ export default function ServiceTimelineGrid() {
         ))}
 
         {/* Traveler: glow + ring + dot, all animated together along the path on
-          scroll — same in both themes */}
+          scroll */}
         <ConnectorTraveler
           travelerRef={travelerRef}
           glow={{ size: CONNECTOR.glow.size, blur: 140 }}

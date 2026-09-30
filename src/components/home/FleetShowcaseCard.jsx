@@ -144,7 +144,7 @@ export default function FleetShowcaseCard({ car }) {
         </Link>
       </div>
 
-      {/* Gradient border - always on top */}
+      {/* Hairline white border, above everything */}
       <div className="absolute inset-0 rounded-[10px] pointer-events-none z-20 border-[0.5px] border-white" />
     </div>
   );
