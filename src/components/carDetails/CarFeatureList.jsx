@@ -1,9 +1,11 @@
-import { useEffect, useRef } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import CarSectionHeading from "./CarSectionHeading.jsx";
+import useSectionReveal, {
+  CAR_DETAILS_INTRO,
+  slideInFromStart,
+} from "./useSectionReveal.js";
 import MaskIcon from "../common/MaskIcon.jsx";
 import descriptionIcon from "../../assets/car-details/description.svg";
 import featuresIcon from "../../assets/car-details/features.svg";
@@ -15,179 +17,103 @@ import luggageIcon from "../../assets/car-details/luggages.svg";
 import climateIcon from "../../assets/car-details/climate.svg";
 import electricIcon from "../../assets/car-details/electric.svg";
 
-gsap.registerPlugin(ScrollTrigger, SplitText);
+gsap.registerPlugin(SplitText);
 
-// The hero's intro (CarDetailsHero) settles the car ~1.6s after load; when
-// the description is already on screen by then, it waits its turn.
-const HERO_INTRO_S = 1.6;
+// Description reveal (root: the title + price row): the title slides in from
+// the start side, the price badge pops up and counts its price up from zero,
+// then the description (the row's next sibling) rises in line by line.
+function buildDescriptionReveal({ root: row, tl, direction }) {
+  const [heading, badge] = row.children;
+  const text = row.nextElementSibling;
+  const priceEl = badge.querySelector("[data-price]");
+  const finalPrice = priceEl.textContent;
+  const price = { value: 0 };
+  let split;
 
-// Description reveal, played once when the section scrolls into view (skipped
-// when the viewer prefers reduced motion): the title slides in from the start
-// side, the price badge pops up and counts its price up from zero, then the
-// description rises in line by line.
-function useDescriptionReveal(car, isRtl) {
-  const rowRef = useRef(null);
-  const textRef = useRef(null);
+  // Fix the price's width at its final value so the badge's centred text
+  // doesn't shift while the digits count up.
+  priceEl.style.minWidth = `${priceEl.offsetWidth}px`;
+  gsap.set([heading, badge, text], { autoAlpha: 0 });
 
-  useEffect(() => {
-    const row = rowRef.current;
-    const text = textRef.current;
-    const mountedAt = performance.now();
-    const mm = gsap.matchMedia();
-
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const [heading, badge] = row.children;
-      const priceEl = badge.querySelector("[data-price]");
-      const direction = isRtl ? -1 : 1;
-      let split;
-
-      // Fix the price's width at its final value so the badge's centred text
-      // doesn't shift while the digits count up.
-      priceEl.style.minWidth = `${priceEl.offsetWidth}px`;
-      gsap.set([heading, badge, text], { autoAlpha: 0 });
-
-      const price = { value: 0 };
-      const tl = gsap
-        .timeline({ paused: true, defaults: { ease: "power3.out" } })
-        .fromTo(
-          heading,
-          { autoAlpha: 0, x: -30 * direction },
-          { autoAlpha: 1, x: 0, duration: 0.8 }
-        )
-        .fromTo(
-          badge,
-          { autoAlpha: 0, scale: 0.9, y: 10 },
-          {
-            autoAlpha: 1,
-            scale: 1,
-            y: 0,
-            duration: 0.7,
-            ease: "back.out(1.6)",
-          },
-          "-=0.5"
-        )
-        .to(
-          price,
-          {
-            value: car.pricePerHour,
-            duration: 1.1,
-            ease: "power2.out",
-            onUpdate: () => {
-              priceEl.textContent = price.value.toFixed(2);
-            },
-          },
-          "<0.1"
-        )
-        // The description's lines are split only now (fonts are loaded by
-        // then) and put back together once they're in.
-        .add(() => {
-          split = SplitText.create(text, { type: "lines", mask: "lines" });
-          gsap.set(text, { autoAlpha: 1 });
-          gsap.from(split.lines, {
-            yPercent: 100,
-            autoAlpha: 0,
-            duration: 0.8,
-            ease: "power3.out",
-            stagger: 0.08,
-            onComplete: () => split.revert(),
-          });
-        }, "-=0.9");
-
-      ScrollTrigger.create({
-        trigger: row,
-        start: "top 85%",
-        once: true,
-        onEnter: () => {
-          const sinceMount = (performance.now() - mountedAt) / 1000;
-          tl.delay(Math.max(0, HERO_INTRO_S - sinceMount)).play();
+  slideInFromStart(tl, heading, direction)
+    .fromTo(
+      badge,
+      { autoAlpha: 0, scale: 0.9, y: 10 },
+      { autoAlpha: 1, scale: 1, y: 0, duration: 0.7, ease: "back.out(1.6)" },
+      "-=0.5"
+    )
+    .to(
+      price,
+      {
+        value: parseFloat(finalPrice),
+        duration: 1.1,
+        ease: "power2.out",
+        onUpdate: () => {
+          priceEl.textContent = price.value.toFixed(2);
         },
+      },
+      "<0.1"
+    )
+    // The description's lines are split only now (fonts are loaded by then)
+    // and put back together once they're in.
+    .add(() => {
+      split = SplitText.create(text, { type: "lines", mask: "lines" });
+      gsap.set(text, { autoAlpha: 1 });
+      gsap.from(split.lines, {
+        yPercent: 100,
+        autoAlpha: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.08,
+        onComplete: () => split.revert(),
       });
+    }, "-=0.9");
 
-      return () => {
-        split?.revert();
-        priceEl.style.minWidth = "";
-        priceEl.textContent = car.pricePerHour.toFixed(2);
-      };
-    });
-
-    return () => mm.revert();
-  }, [car.id, car.pricePerHour, isRtl]);
-
-  return { rowRef, textRef };
+  return () => {
+    split?.revert();
+    priceEl.style.minWidth = "";
+    priceEl.textContent = finalPrice;
+  };
 }
 
-// Car Features reveal, played once when it scrolls into view (skipped when
-// the viewer prefers reduced motion): the title slides in like the
-// description's, then the features follow one after another — each icon
-// wiped in from the start side (a "drawn" feel; the Figma icons are filled
-// shapes, so a true stroke draw isn't possible) with its name sliding in.
-function useFeaturesReveal(car, isRtl) {
-  const blockRef = useRef(null);
+// Car Features reveal: the title slides in like the description's, then the
+// features follow one after another — each icon wiped in from the start side
+// (a "drawn" feel; the Figma icons are filled shapes, so a true stroke draw
+// isn't possible) with its name sliding in.
+function buildFeaturesReveal({ root: block, tl, direction }) {
+  const heading = block.querySelector("h2");
+  const items = [...block.querySelectorAll("li")];
+  const icons = items.map((item) => item.querySelector("[data-icon]"));
+  // Hidden side of the wipe: the end side, so it opens from the start.
+  const clipped = direction < 0 ? "inset(0 0 0 100%)" : "inset(0 100% 0 0)";
 
-  useEffect(() => {
-    const block = blockRef.current;
-    const mountedAt = performance.now();
-    const mm = gsap.matchMedia();
+  gsap.set([heading, ...items], { autoAlpha: 0 });
 
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const heading = block.querySelector("h2");
-      const items = [...block.querySelectorAll("li")];
-      const icons = items.map((item) => item.querySelector("[data-icon]"));
-      const direction = isRtl ? -1 : 1;
-      // Hidden side of the wipe: the end side, so it opens from the start.
-      const clipped = isRtl ? "inset(0 0 0 100%)" : "inset(0 100% 0 0)";
-
-      gsap.set([heading, ...items], { autoAlpha: 0 });
-
-      const tl = gsap
-        .timeline({ paused: true, defaults: { ease: "power3.out" } })
-        .fromTo(
-          heading,
-          { autoAlpha: 0, x: -30 * direction },
-          { autoAlpha: 1, x: 0, duration: 0.8 }
-        )
-        .fromTo(
-          items,
-          { autoAlpha: 0, x: -16 * direction },
-          {
-            autoAlpha: 1,
-            x: 0,
-            duration: 0.6,
-            stagger: 0.12,
-            clearProps: "transform",
-          },
-          "-=0.4"
-        )
-        .fromTo(
-          icons,
-          { clipPath: clipped },
-          {
-            clipPath: "inset(0 0% 0 0%)",
-            duration: 0.7,
-            ease: "power2.inOut",
-            stagger: 0.12,
-            clearProps: "clipPath",
-          },
-          "<"
-        );
-
-      ScrollTrigger.create({
-        trigger: block,
-        start: "top 85%",
-        once: true,
-        onEnter: () => {
-          // Already in view on load (a tall screen): let the hero and the
-          // description go first.
-          const sinceMount = (performance.now() - mountedAt) / 1000;
-          tl.delay(Math.max(0, HERO_INTRO_S + 0.8 - sinceMount)).play();
-        },
-      });
-    });
-
-    return () => mm.revert();
-  }, [car.id, isRtl]);
-
-  return blockRef;
+  slideInFromStart(tl, heading, direction)
+    .fromTo(
+      items,
+      { autoAlpha: 0, x: -16 * direction },
+      {
+        autoAlpha: 1,
+        x: 0,
+        duration: 0.6,
+        stagger: 0.12,
+        clearProps: "transform",
+      },
+      "-=0.4"
+    )
+    .fromTo(
+      icons,
+      { clipPath: clipped },
+      {
+        clipPath: "inset(0 0% 0 0%)",
+        duration: 0.7,
+        ease: "power2.inOut",
+        stagger: 0.12,
+        clearProps: "clipPath",
+      },
+      "<"
+    );
 }
 
 // Figma exports at their Figma sizes, centred on their label. Petrol and
@@ -254,11 +180,16 @@ const accent = <span className="text-teal-accent" />;
 // width and lets the gaps give a little (instead of wrapping) when a desktop
 // scrollbar eats into the 1440 frame.
 export default function CarFeatureList({ car }) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const features = useCarFeatures(car);
-  const isRtl = i18n.dir() === "rtl";
-  const { rowRef, textRef } = useDescriptionReveal(car, isRtl);
-  const featuresRef = useFeaturesReveal(car, isRtl);
+  const rowRef = useSectionReveal(buildDescriptionReveal, {
+    key: `${car.id}:${car.pricePerHour}`,
+    waitOnLoad: CAR_DETAILS_INTRO.description,
+  });
+  const featuresRef = useSectionReveal(buildFeaturesReveal, {
+    key: car.id,
+    waitOnLoad: CAR_DETAILS_INTRO.features,
+  });
 
   return (
     <section className="font-display px-[50px] mt-[60px] max-md:px-6 max-md:mt-12">
@@ -283,9 +214,9 @@ export default function CarFeatureList({ car }) {
             parts share one line of text so they sit on a common baseline and
             the 20px space between them is kept (a lone-space flex item
             collapses). */}
-        <p className="mt-[30px] flex items-center justify-center shrink-0 w-[289px] h-[50px] px-4 rounded-[10px] bg-[#24B9A5] text-[#072E2A] [[data-theme=light]_&]:bg-[#072E2A] [[data-theme=light]_&]:text-white leading-none capitalize whitespace-nowrap max-md:mt-0 max-md:w-auto max-md:h-10">
+        <p className="mt-[30px] flex items-center justify-center shrink-0 w-[289px] h-[50px] px-4 rounded-[10px] bg-[#24B9A5] text-[#072E2A] light:bg-[#072E2A] light:text-white leading-none capitalize whitespace-nowrap max-md:mt-0 max-md:w-auto max-md:h-10">
           <span>
-            <span className="text-[25px] font-semibold text-black [[data-theme=light]_&]:text-white max-md:text-lg">
+            <span className="text-[25px] font-semibold text-black light:text-white max-md:text-lg">
               {t("common.currency")}{" "}
               <span data-price className="inline-block text-start tabular-nums">
                 {car.pricePerHour.toFixed(2)}
@@ -294,17 +225,14 @@ export default function CarFeatureList({ car }) {
             <span className="text-[20px] font-normal max-md:text-[15px]">
               {" "}
             </span>
-            <span className="text-[20px] font-normal text-[#072E2A]/70 [[data-theme=light]_&]:text-white/70 max-md:text-[15px]">
+            <span className="text-[20px] font-normal text-[#072E2A]/70 light:text-white/70 max-md:text-[15px]">
               /{t("common.perHour")}
             </span>
           </span>
         </p>
       </div>
 
-      <p
-        ref={textRef}
-        className="mt-[25px] ps-[45px] text-[20px] font-medium leading-[135%] capitalize text-fg max-md:mt-5 max-md:ps-0 max-md:text-[15px] max-md:leading-[150%]"
-      >
+      <p className="mt-[25px] ps-[45px] text-[20px] font-medium leading-[135%] capitalize text-fg max-md:mt-5 max-md:ps-0 max-md:text-[15px] max-md:leading-[150%]">
         {car.description || t("carDetails.description")}
       </p>
 

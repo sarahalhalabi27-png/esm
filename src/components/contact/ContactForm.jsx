@@ -3,7 +3,8 @@ import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import OutlineButton from "../common/OutlineButton.jsx";
+import HollowButton from "../common/HollowButton.jsx";
+import { FOCUS_WITHIN_FILL } from "../common/formStyles.js";
 import ControlledField from "../common/ControlledField.jsx";
 import { contactSchema } from "../../schemas/formSchemas.js";
 import { sanitizeName, sanitizePhone } from "../../utils/validators.js";
@@ -35,7 +36,9 @@ function LineField({
   ...rest
 }) {
   return (
-    <label className="group flex items-end gap-2 h-[40px] pb-2 border-b-[0.5px] border-white/40 [[data-theme=light]_&]:border-[#072E2A]/40 bg-no-repeat [background-image:linear-gradient(rgb(var(--accent)),rgb(var(--accent)))] [background-size:0%_1.5px] [background-position:left_bottom] rtl:[background-position:right_bottom] transition-[background-size] duration-500 ease-out focus-within:[background-size:100%_1.5px]">
+    <label
+      className={`group flex items-end gap-2 h-[40px] pb-2 border-b-[0.5px] border-white/40 light:border-[#072E2A]/40 ${FOCUS_WITHIN_FILL}`}
+    >
       <span className="shrink-0 text-[18px] font-semibold leading-[24px] text-fg max-md:text-base">
         {label}
       </span>
@@ -64,7 +67,7 @@ function MessageField({ label, value, onChange, onBlur, name }) {
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        className="block mt-4 w-full h-[198px] resize-none rounded-[8px] border-[0.5px] border-white/25 [[data-theme=light]_&]:border-[#072E2A]/40 bg-transparent p-4 text-[17px] leading-[26px] text-fg outline-none transition-colors focus:border-teal-accent max-md:h-[150px] max-md:text-base"
+        className="block mt-4 w-full h-[198px] resize-none rounded-[8px] border-[0.5px] border-white/25 light:border-[#072E2A]/40 bg-transparent p-4 text-[17px] leading-[26px] text-fg outline-none transition-colors focus:border-teal-accent max-md:h-[150px] max-md:text-base"
       />
     </label>
   );
@@ -141,15 +144,15 @@ export default function ContactForm() {
       />
 
       <div className="relative flex justify-center mt-4">
-        <OutlineButton
+        <HollowButton
           type="submit"
-          className="!px-[34px] !py-[13px] !border-line !bg-transparent !backdrop-blur-none !text-fg hover:!bg-white hover:!text-[#072E2A] [[data-theme=light]_&]:!border-[#072E2A] [[data-theme=light]_&]:!text-[#072E2A] [[data-theme=light]_&]:hover:!bg-[#072E2A] [[data-theme=light]_&]:hover:!text-white !font-semibold !text-[18px] !leading-[24px]"
+          className="!px-[34px] !py-[13px] !text-[18px] !leading-[24px]"
           disabled={status === SUBMIT_STATUS.SUBMITTING}
         >
           {status === SUBMIT_STATUS.SUBMITTING
             ? t("contactPage.form.sending")
             : t("contactPage.form.submit")}
-        </OutlineButton>
+        </HollowButton>
         {status === SUBMIT_STATUS.SUCCESS ? (
           <p
             className="absolute top-full mt-3 text-sm text-teal-accent"

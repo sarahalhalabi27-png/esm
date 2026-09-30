@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import gsap from "gsap";
+import { prefersReducedMotion } from "../../utils/motion.js";
 
 // Full-size viewer for the Car Interior photos: the photo large on a dark
 // backdrop, arrows (and swipe on touch) to step through, a counter.
@@ -36,8 +37,7 @@ export default function InteriorLightbox({
     document.body.style.overflow = "hidden";
     closeRef.current?.focus();
 
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (!reduce.matches) {
+    if (!prefersReducedMotion()) {
       gsap.fromTo(
         backdropRef.current,
         { opacity: 0 },
@@ -53,7 +53,7 @@ export default function InteriorLightbox({
 
   // Each photo shown (on open and on every step) settles in.
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (prefersReducedMotion()) return;
     gsap.fromTo(
       photoRef.current,
       { opacity: 0, scale: 0.96 },
@@ -62,10 +62,17 @@ export default function InteriorLightbox({
   }, [index]);
 
   // Keyboard: Esc closes, arrows step (visually: → shows the next photo in
-  // English, the previous one in Arabic).
+  // English, the previous one in Arabic), Tab cycles through the dialog's
+  // buttons only.
   useEffect(() => {
     const onKey = (event) => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Tab") {
+        const buttons = [...backdropRef.current.querySelectorAll("button")];
+        const at = buttons.indexOf(document.activeElement);
+        const next = at + (event.shiftKey ? -1 : 1);
+        event.preventDefault();
+        buttons[(next + buttons.length) % buttons.length]?.focus();
+      } else if (event.key === "Escape") onClose();
       else if (event.key === "ArrowRight") step(isRtl ? -1 : 1);
       else if (event.key === "ArrowLeft") step(isRtl ? 1 : -1);
     };

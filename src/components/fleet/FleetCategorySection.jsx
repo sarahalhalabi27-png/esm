@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import FleetCarCard from "./FleetCarCard.jsx";
+import { MOTION_OK, prefersReducedMotion } from "../../utils/motion.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,7 +13,6 @@ gsap.registerPlugin(ScrollTrigger);
 // towards the next category.
 // Set to false to drop it (the page then renders as-is).
 const SCROLL_REVEAL = true;
-const SCROLL_REVEAL_QUERY = "(prefers-reduced-motion: no-preference)";
 
 // One step of the Fleet Collection timeline (Figma 1440 frame): the trunk
 // line on the start edge curves into a glowing dot before the category name,
@@ -31,6 +31,7 @@ export default function FleetCategorySection({ category, isLast }) {
   const dotRef = useRef(null);
   const nameRef = useRef(null);
   const [canScroll, setCanScroll] = useState(false);
+  const direction = i18n.dir() === "rtl" ? -1 : 1;
   const categoryName = t(`fleetPage.categories.${category.id}`, {
     defaultValue: category.name,
   });
@@ -51,9 +52,8 @@ export default function FleetCategorySection({ category, isLast }) {
   useEffect(() => {
     if (!SCROLL_REVEAL) return;
     const mm = gsap.matchMedia();
-    mm.add(SCROLL_REVEAL_QUERY, () => {
+    mm.add(MOTION_OK, () => {
       const section = sectionRef.current;
-      const direction = i18n.dir() === "rtl" ? -1 : 1;
 
       const timeline = gsap
         .timeline({
@@ -102,7 +102,7 @@ export default function FleetCategorySection({ category, isLast }) {
       }
     });
     return () => mm.revert();
-  }, [i18n]);
+  }, [direction]);
 
   const showNext = (event) => {
     const row = rowRef.current;
@@ -113,13 +113,12 @@ export default function FleetCategorySection({ category, isLast }) {
     const step = cards[0].offsetWidth + gap;
     const maxScroll = row.scrollWidth - row.clientWidth;
     // scrollLeft runs from 0 to -maxScroll in RTL, so work in magnitudes.
-    const direction = i18n.dir() === "rtl" ? -1 : 1;
     const current = Math.abs(row.scrollLeft);
     const wrapping = current >= maxScroll - 2;
     const target =
       direction * (wrapping ? 0 : Math.min(current + step, maxScroll));
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (prefersReducedMotion()) {
       row.scrollLeft = target;
       return;
     }

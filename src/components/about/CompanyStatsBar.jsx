@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { companyStats } from "../../data/aboutTimelineData.js";
+import { MOTION_OK } from "../../utils/motion.js";
+import { useTranslation } from "react-i18next";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,27 +42,30 @@ function DigitColumn({ digit }) {
 // Figma: four columns under the timeline — teal 25px semibold value, 14px
 // above a 25px regular label; the row sits 192px below the line's end.
 export default function CompanyStatsBar() {
+  const { t } = useTranslation();
   const rowRef = useRef(null);
 
   useEffect(() => {
     const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      rowRef.current.querySelectorAll("[data-odometer-value]").forEach((value) => {
-        const strips = value.querySelectorAll("[data-odometer-strip]");
-        // GSAP parses the inline final translateY into `y`; zero it so only
-        // yPercent drives the roll (otherwise the shift is applied twice).
-        gsap.fromTo(
-          strips,
-          { y: 0, yPercent: 0 },
-          {
-            y: 0,
-            yPercent: (i, el) => Number(el.dataset.final),
-            duration: (i) => 2.4 + i * 0.35,
-            ease: "power3.out",
-            scrollTrigger: { trigger: value, start: "top 90%", once: true },
-          },
-        );
-      });
+    mm.add(MOTION_OK, () => {
+      rowRef.current
+        .querySelectorAll("[data-odometer-value]")
+        .forEach((value) => {
+          const strips = value.querySelectorAll("[data-odometer-strip]");
+          // GSAP parses the inline final translateY into `y`; zero it so only
+          // yPercent drives the roll (otherwise the shift is applied twice).
+          gsap.fromTo(
+            strips,
+            { y: 0, yPercent: 0 },
+            {
+              y: 0,
+              yPercent: (i, el) => Number(el.dataset.final),
+              duration: (i) => 2.4 + i * 0.35,
+              ease: "power3.out",
+              scrollTrigger: { trigger: value, start: "top 90%", once: true },
+            }
+          );
+        });
     });
     return () => mm.revert();
   }, []);
@@ -85,12 +90,12 @@ export default function CompanyStatsBar() {
                     <DigitColumn key={i} digit={Number(ch)} />
                   ) : (
                     <span key={i}>{ch}</span>
-                  ),
+                  )
                 )}
               </span>
             </p>
             <p className="mt-[14px] text-[25px] font-normal leading-[30px] capitalize text-fg max-md:mt-2 max-md:text-base">
-              {stat.label}
+              {t(`aboutPage.stats.${stat.id}`)}
             </p>
           </div>
         ))}

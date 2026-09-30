@@ -276,11 +276,23 @@ input:-webkit-autofill:active {
       )
       bottom / 100% 1px no-repeat;
     /* Soften the far edge so the half-visible card reads as "more this way". */
-    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
-    mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+    -webkit-mask-image: linear-gradient(
+      to right,
+      #000 calc(100% - 2.5rem),
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      #000 calc(100% - 2.5rem),
+      transparent
+    );
   }
   [dir="rtl"] .mobile-carousel--shelf {
-    -webkit-mask-image: linear-gradient(to left, #000 calc(100% - 2.5rem), transparent);
+    -webkit-mask-image: linear-gradient(
+      to left,
+      #000 calc(100% - 2.5rem),
+      transparent
+    );
     mask-image: linear-gradient(to left, #000 calc(100% - 2.5rem), transparent);
   }
   .mobile-carousel--shelf > * {

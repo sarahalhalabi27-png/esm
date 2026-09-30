@@ -10,6 +10,7 @@ import CheckListItem from "../common/CheckListItem.jsx";
 import lightBackground from "../../assets/why-choose-us/background.svg";
 import lightLines from "../../assets/why-choose-us/lines.svg";
 import whyChooseUsLight from "../../assets/why-choose-us/why_choose_us_light.webp";
+import { MOTION_OK } from "../../utils/motion.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,8 +35,10 @@ export default function WhyChooseUsGrid() {
 
   const isRTL = i18n.dir() === "rtl";
 
+  // The items slide in from alternating sides (skipped for reduced motion).
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia(gridRef);
+    mm.add(MOTION_OK, () => {
       gsap.from(gridRef.current.children, {
         opacity: 0,
         x: (i) => (i % 2 === 0 ? 80 : -80),
@@ -48,9 +51,9 @@ export default function WhyChooseUsGrid() {
           toggleActions: "restart none restart none",
         },
       });
-    }, gridRef);
+    });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   return (

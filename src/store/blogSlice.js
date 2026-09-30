@@ -44,9 +44,8 @@ const blogSlice = createSlice({
       })
       .addCase(fetchBlogPostById.fulfilled, (state, action) => {
         state.postStatus = STATUS.SUCCEEDED;
-        if (action.payload) {
-          state.postsById[action.meta.arg] = action.payload;
-        }
+        // null marks an ID the API doesn't know (not found).
+        state.postsById[action.meta.arg] = action.payload ?? null;
       })
       .addCase(fetchBlogPostById.rejected, (state, action) => {
         state.postStatus = STATUS.FAILED;
@@ -58,6 +57,7 @@ const blogSlice = createSlice({
 // ----- selectors -----
 export const selectBlogPosts = (state) => state.blog.posts;
 export const selectBlogPostsStatus = (state) => state.blog.postsStatus;
+// undefined = not fetched yet, null = not found.
 export const selectBlogPostById = (postId) => (state) =>
   state.blog.postsById[postId];
 export const selectBlogPostStatus = (state) => state.blog.postStatus;

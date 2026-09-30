@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 // One pillar on the About timeline: a ringed dot on the line plus its text on
 // one side (`side` = "start" | "end" of the line) on md+.
 // Figma (1440): ring 66 / dot 21 (same as the Services connector), text
@@ -7,6 +9,7 @@
 // data-timeline-* hooks drive the reveal in CompanyTimeline (data-from = the
 // side the text slides in from, toward the line).
 export default function CompanyTimelineItem({ item, side, isLast }) {
+  const { t } = useTranslation();
   const text = (from) => (
     <div
       data-timeline-text
@@ -14,10 +17,10 @@ export default function CompanyTimelineItem({ item, side, isLast }) {
       className="pt-[20px] max-w-[647px] max-md:pt-[9px]"
     >
       <h3 className="text-[22px] font-medium leading-[27px] capitalize text-teal-accent max-md:text-lg max-md:leading-[28px]">
-        {item.title}
+        {t(`aboutPage.pillars.${item.id}.title`)}
       </h3>
       <p className="mt-[13px] text-[20px] font-normal leading-[24px] capitalize text-fg max-md:mt-2 max-md:text-[15px] max-md:leading-snug">
-        {item.description}
+        {t(`aboutPage.pillars.${item.id}.description`)}
       </p>
     </div>
   );

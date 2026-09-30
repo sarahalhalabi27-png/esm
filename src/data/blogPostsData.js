@@ -59,7 +59,7 @@ export const blogPosts = [
 ];
 
 export function findBlogPostById(postId) {
-  return blogPosts.find((post) => post.id === postId) || blogPosts[0];
+  return blogPosts.find((post) => post.id === postId);
 }
 
 // TODO(api): replace with GET /api/blog-posts/:postId

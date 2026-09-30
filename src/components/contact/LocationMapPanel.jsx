@@ -11,13 +11,13 @@ export default function LocationMapPanel() {
   )}&z=15&output=embed`;
 
   return (
-    <div className="w-full max-w-[1390px] mx-auto h-[423px] rounded-[10px] overflow-hidden border-[0.5px] border-white/20 [[data-theme=light]_&]:border-[#072E2A]/25 max-md:h-[300px]">
+    <div className="w-full max-w-[1390px] mx-auto h-[423px] rounded-[10px] overflow-hidden border-[0.5px] border-white/20 light:border-[#072E2A]/25 max-md:h-[300px]">
       <iframe
         title={t("contactPage.mapTitle")}
         src={src}
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
-        className="w-full h-full border-0 [filter:invert(0.9)_hue-rotate(180deg)_saturate(0.85)_brightness(0.95)] [[data-theme=light]_&]:[filter:none]"
+        className="w-full h-full border-0 [filter:invert(0.9)_hue-rotate(180deg)_saturate(0.85)_brightness(0.95)] light:[filter:none]"
       />
     </div>
   );

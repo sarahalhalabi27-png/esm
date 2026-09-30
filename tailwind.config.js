@@ -1,3 +1,5 @@
+import plugin from "tailwindcss/plugin";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
@@ -34,5 +36,11 @@ export default {
     },
   },
 
-  plugins: [],
+  plugins: [
+    // `light:` — styles for the light theme (<html data-theme="light">, set by
+    // ThemeToggle). Dark is the default, so unprefixed classes are dark mode.
+    plugin(({ addVariant }) => {
+      addVariant("light", '[data-theme="light"] &');
+    }),
+  ],
 };

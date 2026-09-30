@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CompanyTimelineItem from "./CompanyTimelineItem.jsx";
 import { companyTimeline } from "../../data/aboutTimelineData.js";
+import { MOTION_OK } from "../../utils/motion.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,7 +25,7 @@ export default function CompanyTimeline() {
   // reduced motion.
   useEffect(() => {
     const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
+    mm.add(MOTION_OK, () => {
       // Physical x for a text sliding in from the logical start/end side.
       const fromX = (from) => (from === "end" ? 40 : -40) * (isRTL ? -1 : 1);
 
@@ -41,43 +42,48 @@ export default function CompanyTimeline() {
             end: "bottom 60%",
             scrub: 0.6,
           },
-        },
+        }
       );
 
-      sectionRef.current.querySelectorAll("[data-timeline-row]").forEach((row) => {
-        const texts = row.querySelectorAll("[data-timeline-text]");
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: row,
-              start: "top 80%",
-              end: "bottom 15%",
-              toggleActions: "restart none restart none",
-            },
-          })
-          .from(row.querySelector("[data-timeline-dot]"), {
-            scale: 0,
-            opacity: 0,
-            duration: 0.5,
-            ease: "back.out(2)",
-          })
-          .from(
-            texts,
-            {
+      sectionRef.current
+        .querySelectorAll("[data-timeline-row]")
+        .forEach((row) => {
+          const texts = row.querySelectorAll("[data-timeline-text]");
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: row,
+                start: "top 80%",
+                end: "bottom 15%",
+                toggleActions: "restart none restart none",
+              },
+            })
+            .from(row.querySelector("[data-timeline-dot]"), {
+              scale: 0,
               opacity: 0,
-              x: (i, el) => fromX(el.dataset.from),
-              duration: 0.7,
-              ease: "power2.out",
-            },
-            "-=0.2",
-          );
-      });
+              duration: 0.5,
+              ease: "back.out(2)",
+            })
+            .from(
+              texts,
+              {
+                opacity: 0,
+                x: (i, el) => fromX(el.dataset.from),
+                duration: 0.7,
+                ease: "power2.out",
+              },
+              "-=0.2"
+            );
+        });
     });
     return () => mm.revert();
   }, [isRTL]);
 
   return (
-    <section ref={sectionRef} className="relative font-display mt-[57px] max-md:mt-10">
+    <section
+      ref={sectionRef}
+      className="relative font-display mt-[57px] max-md:mt-10"
+    >
       {/* Soft teal glow behind the timeline */}
       <div
         aria-hidden="true"

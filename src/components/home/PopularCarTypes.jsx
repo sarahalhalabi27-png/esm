@@ -2,7 +2,9 @@ import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import MaskIcon from "../common/MaskIcon.jsx";
 import carIcon from "../../assets/popular-cars/car.svg";
+import { MOTION_OK } from "../../utils/motion.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,14 +21,14 @@ export default function PopularCarTypes() {
   const cardsRef = useRef(null);
 
   // When the row scrolls into view, each card's car icon slides in from the
-  // left to its place and brakes with a small overshoot,
+  // start side (left, or right in Arabic) to its place and brakes with a small overshoot,
   // one card after another. The card clips it (overflow-hidden) so it never
   // shows over the neighbouring card. Skipped for reduced motion.
   useEffect(() => {
     const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
+    mm.add(MOTION_OK, () => {
       gsap.from(cardsRef.current.querySelectorAll("[data-car-icon]"), {
-        x: -220,
+        x: isRTL ? 220 : -220,
         opacity: 0,
         duration: 0.9,
         stagger: 0.2,
@@ -39,15 +41,11 @@ export default function PopularCarTypes() {
       });
     });
     return () => mm.revert();
-  }, []);
+  }, [isRTL]);
 
   return (
-    <section
-      className="font-display"
-      dir={isRTL ? "rtl" : "ltr"}
-    >
+    <section className="font-display" dir={isRTL ? "rtl" : "ltr"}>
       <div className="max-w-content mx-auto px-6 py-20 max-md:py-12">
-
         {/* Section Title */}
         <h2
           className="
@@ -92,7 +90,10 @@ export default function PopularCarTypes() {
 
         {/* Car Types */}
         {/* Phones: Scroll Shelf (see .mobile-carousel--shelf in index.css). */}
-        <div ref={cardsRef} className="mobile-carousel mobile-carousel--shelf flex flex-wrap justify-center gap-[40px] mt-[45px] max-md:gap-4 max-md:mt-8">
+        <div
+          ref={cardsRef}
+          className="mobile-carousel mobile-carousel--shelf flex flex-wrap justify-center gap-[40px] mt-[45px] max-md:gap-4 max-md:mt-8"
+        >
           {popularTypes.map((type) => (
             <div
               key={type.id}
@@ -112,40 +113,30 @@ export default function PopularCarTypes() {
             >
               {/* 1px accent gradient border (bright teal in dark mode,
                   #072E2A in light mode) */}
-         <div
-  className="absolute inset-0 rounded-[10px] pointer-events-none"
-  style={{
-    padding: "1px",
-    background:
-      "linear-gradient(360deg, rgba(7, 46, 42, 0.8) 0%, rgba(23, 148, 135, 0) 100%)",
-    WebkitMask:
-      "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-    WebkitMaskComposite: "xor",
-    maskComposite: "exclude",
-  }}
-/>
-
-              {/* Car icon painted with the theme accent through the SVG as a
-                  mask, so it follows light/dark like the text around it. */}
-              <span
-                aria-hidden="true"
-                data-car-icon
-               className="block w-[50px] h-[50px] scale-[1.8]"
+              <div
+                className="absolute inset-0 rounded-[10px] pointer-events-none"
                 style={{
-                  WebkitMaskImage: `url(${carIcon})`,
-                  maskImage: `url(${carIcon})`,
-                  WebkitMaskSize: "contain",
-                  maskSize: "contain",
-                  WebkitMaskRepeat: "no-repeat",
-                  maskRepeat: "no-repeat",
-                  WebkitMaskPosition: "center",
-                  maskPosition: "center",
-                  background: "rgb(var(--accent))",
+                  padding: "1px",
+                  background:
+                    "linear-gradient(360deg, rgba(7, 46, 42, 0.8) 0%, rgba(23, 148, 135, 0) 100%)",
+                  WebkitMask:
+                    "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                  WebkitMaskComposite: "xor",
+                  maskComposite: "exclude",
                 }}
               />
 
+              {/* Car icon painted with the theme accent through the SVG as a
+                  mask, so it follows light/dark like the text around it. */}
+              <MaskIcon
+                src={carIcon}
+                display="block"
+                data-car-icon
+                className="w-[50px] h-[50px] scale-[1.8]"
+              />
+
               <p
-  className="
+                className="
     mt-[16px]
     w-[98.68px]
     h-[31.77px]
@@ -154,12 +145,12 @@ export default function PopularCarTypes() {
     leading-[100%]
     capitalize
     text-fg/[0.83]
-    [[data-theme=light]_&]:text-black
+    light:text-black
     text-center
   "
->
-  {type.brand}
-</p>
+              >
+                {type.brand}
+              </p>
 
               <p
                 className="
@@ -171,15 +162,11 @@ export default function PopularCarTypes() {
                   text-teal-accent
                 "
               >
-                {type.count}{" "}
-                <span className="text-fg">
-                  {t("common.car")}
-                </span>
+                {type.count} <span className="text-fg">{t("common.car")}</span>
               </p>
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

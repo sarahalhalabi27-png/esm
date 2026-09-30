@@ -18,9 +18,6 @@ import {
 import { SUBMIT_STATUS } from "../../store/constants.js";
 import useIsLightTheme from "../../hooks/useIsLightTheme.js";
 
-// Background car/smoke images are currently commented out below; re-add
-// `import Car from "../../assets/car2.png"` and the smoke import when restoring them.
-
 const defaultValues = {
   name: "",
   phone: "",
@@ -35,7 +32,9 @@ export default function QuickBookingForm() {
   const dispatch = useDispatch();
   const status = useSelector(selectBookingStatus);
   const isLightTheme = useIsLightTheme();
-  const videoSrc = isLightTheme ? "/booking-video-light.mp4" : "/booking-video.mp4";
+  const videoSrc = isLightTheme
+    ? "/booking-video-light.mp4"
+    : "/booking-video.mp4";
 
   const { control, handleSubmit, reset } = useForm({
     resolver: zodResolver(bookingSchema(t)),
@@ -63,7 +62,7 @@ export default function QuickBookingForm() {
   };
 
   return (
-    <section className="relative overflow-hidden font-display -mt-[-20px]">
+    <section className="relative overflow-hidden font-display mt-[20px]">
       {/* The video (dark or light version, per theme) fades out at the
           section's top and bottom edges — mask on this section-sized box, so it
           also covers where the video is clipped — blending into the page
@@ -95,82 +94,80 @@ export default function QuickBookingForm() {
         {/* Booking Form */}
         <div className="relative z-10 mx-auto w-[92%] max-w-[520px] max-md:w-[calc(100%-2rem)] xl:absolute xl:top-[35px] xl:left-[810px] xl:mx-0 xl:w-[520px]">
           <div className="on-dark-surface relative max-md:rounded-[20px] max-md:px-5 max-md:pt-8 max-md:pb-8 rounded-[25px] bg-[#0000004D] backdrop-blur-[20px] px-6 pt-[40px] pb-[40px] flex flex-col xl:px-[40px]">
-            <div className="relative">
-              <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-                <h2 className="text-[25px] font-semibold text-teal-accent text-center mb-[32px] max-md:text-[21px] max-md:leading-snug max-md:mb-10">
-                  {t("booking.title")}
-                </h2>
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+              <h2 className="text-[25px] font-semibold text-teal-accent text-center mb-[32px] max-md:text-[21px] max-md:leading-snug max-md:mb-10">
+                {t("booking.title")}
+              </h2>
 
-                <div className="flex flex-col gap-[36px] max-md:gap-[34px]">
-                  <ControlledField
-                    control={control}
-                    name="name"
-                    as={TextField}
-                    transform={sanitizeName}
-                    placeholder={t("booking.name")}
-                    {...fieldProps}
-                  />
+              <div className="flex flex-col gap-[36px] max-md:gap-[34px]">
+                <ControlledField
+                  control={control}
+                  name="name"
+                  as={TextField}
+                  transform={sanitizeName}
+                  placeholder={t("booking.name")}
+                  {...fieldProps}
+                />
 
-                  <ControlledField
-                    control={control}
-                    name="phone"
-                    as={TextField}
-                    transform={sanitizePhone}
-                    type="tel"
-                    placeholder={t("booking.phone")}
-                    {...fieldProps}
-                  />
+                <ControlledField
+                  control={control}
+                  name="phone"
+                  as={TextField}
+                  transform={sanitizePhone}
+                  type="tel"
+                  placeholder={t("booking.phone")}
+                  {...fieldProps}
+                />
 
-                  <ControlledField
-                    control={control}
-                    name="location"
-                    as={TextField}
-                    placeholder={t("booking.location")}
-                    {...fieldProps}
-                  />
+                <ControlledField
+                  control={control}
+                  name="location"
+                  as={TextField}
+                  placeholder={t("booking.location")}
+                  {...fieldProps}
+                />
 
-                  <ControlledField
-                    control={control}
-                    name="date"
-                    as={DatePicker}
-                    placeholder={t("booking.date")}
-                  />
+                <ControlledField
+                  control={control}
+                  name="date"
+                  as={DatePicker}
+                  placeholder={t("booking.date")}
+                />
 
-                  <ControlledField
-                    control={control}
-                    name="time"
-                    as={TimePicker}
-                    placeholder={t("booking.time")}
-                  />
+                <ControlledField
+                  control={control}
+                  name="time"
+                  as={TimePicker}
+                  placeholder={t("booking.time")}
+                />
 
-                  <ControlledField
-                    control={control}
-                    name="dropOffLocation"
-                    as={TextField}
-                    placeholder={t("booking.dropOffLocation")}
-                    {...fieldProps}
-                  />
-                </div>
+                <ControlledField
+                  control={control}
+                  name="dropOffLocation"
+                  as={TextField}
+                  placeholder={t("booking.dropOffLocation")}
+                  {...fieldProps}
+                />
+              </div>
 
-                <div className="mt-[45px] max-md:mt-9 flex flex-col items-center gap-2">
-                  <OutlineButton
-                    type="submit"
-                    className="!w-[153px] !h-[55px] !rounded-[10px] !border-line !text-fg !font-display !font-semibold !text-[22px] !leading-[100%] !tracking-[0%] !capitalize"
-                    disabled={status === SUBMIT_STATUS.SUBMITTING}
-                  >
-                    {status === SUBMIT_STATUS.SUBMITTING
-                      ? t("booking.sending")
-                      : t("booking.send")}
-                  </OutlineButton>
+              <div className="mt-[45px] max-md:mt-9 flex flex-col items-center gap-2">
+                <OutlineButton
+                  type="submit"
+                  className="!w-[153px] !h-[55px] !rounded-[10px] !border-line !text-fg !font-display !font-semibold !text-[22px] !leading-[100%] !tracking-[0%] !capitalize"
+                  disabled={status === SUBMIT_STATUS.SUBMITTING}
+                >
+                  {status === SUBMIT_STATUS.SUBMITTING
+                    ? t("booking.sending")
+                    : t("booking.send")}
+                </OutlineButton>
 
-                  {status === SUBMIT_STATUS.SUCCESS ? (
-                    <p className="text-xs text-teal-accent">
-                      {t("booking.success")}
-                    </p>
-                  ) : null}
-                </div>
-              </form>
-            </div>
+                {status === SUBMIT_STATUS.SUCCESS ? (
+                  <p className="text-xs text-teal-accent">
+                    {t("booking.success")}
+                  </p>
+                ) : null}
+              </div>
+            </form>
           </div>
         </div>
       </div>

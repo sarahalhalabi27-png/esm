@@ -13,6 +13,7 @@ export async function getBlogPosts() {
 export async function getBlogPostById(postId) {
   // return apiRequest(`/blog-posts/${postId}`);
   const post = findBlogPostById(postId);
+  if (!post) return null; // not found
   // The list entry overrides the shared detail content; translations merge
   // per language so e.g. the Arabic sections survive the list's Arabic title.
   const translations = { ...blogPostDetailFallback.translations };

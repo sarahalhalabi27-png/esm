@@ -37,7 +37,7 @@ export default function TrustHighlights() {
             scrub: true,
             invalidateOnRefresh: true,
           },
-        },
+        }
       );
     });
     return () => mm.revert();
@@ -61,11 +61,17 @@ export default function TrustHighlights() {
       >
         <div
           className="dark-only absolute inset-0 bg-cover bg-center bg-fixed bg-[image:var(--bg-wide)] max-md:bg-scroll max-md:bg-[image:var(--bg-tall)]"
-          style={{ "--bg-wide": `url(${parking})`, "--bg-tall": `url(${parkingMobile})` }}
+          style={{
+            "--bg-wide": `url(${parking})`,
+            "--bg-tall": `url(${parkingMobile})`,
+          }}
         />
         <div
           className="light-only absolute inset-0 bg-cover bg-center bg-fixed bg-[image:var(--bg-wide)] max-md:bg-scroll max-md:bg-[image:var(--bg-tall)]"
-          style={{ "--bg-wide": `url(${parkingLight})`, "--bg-tall": `url(${parkingLightMobile})` }}
+          style={{
+            "--bg-wide": `url(${parkingLight})`,
+            "--bg-tall": `url(${parkingLightMobile})`,
+          }}
         />
       </div>
 
@@ -87,7 +93,13 @@ export default function TrustHighlights() {
           {t("home.trust.items", { returnObjects: true }).map((item, index) => (
             <CheckListItem
               key={item}
-              className={index % 2 !== 0 ? "md:translate-x-[200px]" : ""}
+              // The second column sits 200px further toward the end side
+              // (right in English, left in Arabic).
+              className={
+                index % 2 !== 0
+                  ? "md:ltr:translate-x-[200px] md:rtl:-translate-x-[200px]"
+                  : ""
+              }
             >
               {item}
             </CheckListItem>

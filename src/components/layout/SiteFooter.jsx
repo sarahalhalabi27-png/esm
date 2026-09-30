@@ -13,7 +13,7 @@ import {
 
 import { companyInfo } from "../../data/companyInfo.js";
 import BrandLogo from "../common/BrandLogo.jsx";
-import cityArt from "../../assets/building.png";
+import cityArt from "../../assets/building.webp";
 import cityArtLight from "../../assets/footer/building-light.webp";
 
 const socialIcons = {
@@ -33,9 +33,7 @@ export default function SiteFooter() {
   const { t } = useTranslation();
   return (
     <footer className="relative overflow-visible w-full px-6 mb-[-40px] mt-[55px] max-md:mt-10 max-md:mb-0 font-display md:w-[calc(100%-100px)] md:mx-[50px] md:px-0 md:-translate-x-[10px]">
-      <div
-        className="hidden lg:block pointer-events-none absolute left-[1280px] top-[458px] w-[60px] h-[100px] bg-[#24B9A5] opacity-50 blur-[90px] z-[5]"
-      />
+      <div className="hidden lg:block pointer-events-none absolute left-[1280px] top-[458px] w-[60px] h-[100px] bg-[#24B9A5] opacity-50 blur-[90px] z-[5]" />
       {/* City art (lg+ only). The wrapper does the hiding: .light-only would
           otherwise override `hidden` on phones in light mode. */}
       <div className="hidden lg:block">
@@ -54,11 +52,11 @@ export default function SiteFooter() {
       <div className="relative z-10 -translate-y-[30px]">
         {/* Logo + tagline */}
         <div className="flex flex-col items-center pt-8">
-          <BrandLogo className="w-[161px] text-white [[data-theme=light]_&]:text-[#006D5D]" />
+          <BrandLogo className="w-[161px] text-white light:text-[#006D5D]" />
 
           <p className="mt-[14px] w-full max-w-[312px] text-center font-normal text-lg md:text-[20px] leading-[120%] md:leading-[100%] tracking-[0%] capitalize text-teal-accent">
-  {t("footer.tagline")}
-</p>
+            {t("footer.tagline")}
+          </p>
 
           <div className="w-full max-w-[314px] h-0 border-t border-fg mt-[8px]" />
         </div>
@@ -101,11 +99,12 @@ export default function SiteFooter() {
               <ul className="space-y-[32px] max-md:space-y-2">
                 <li className={itemClass}>
                   <Phone size={18} className="text-teal-accent shrink-0" />
-                  {companyInfo.phone}
+                  {/* Numbers keep their order in Arabic */}
+                  <span dir="ltr">{companyInfo.phone}</span>
                 </li>
                 <li className={itemClass}>
                   <Mail size={18} className="text-teal-accent shrink-0" />
-                  {companyInfo.email}
+                  <span dir="ltr">{companyInfo.email}</span>
                 </li>
                 <li className={itemClass}>
                   <Clock size={18} className="text-teal-accent shrink-0" />

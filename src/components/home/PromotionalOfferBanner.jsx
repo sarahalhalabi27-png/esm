@@ -22,9 +22,9 @@ export default function PromotionalOfferBanner() {
             {t("home.promo.heading")}
           </h2>
 
-      <p className="text-fg font-normal text-[20px] leading-[130%] tracking-[0%] capitalize w-full max-w-[703px] min-h-[48px] mb-6 max-md:[grid-area:desc] max-md:self-start max-md:min-h-0 max-md:mb-0 max-md:text-sm max-md:leading-relaxed">
-  {t("home.promo.description")}
-</p>
+          <p className="text-fg font-normal text-[20px] leading-[130%] tracking-[0%] capitalize w-full max-w-[703px] min-h-[48px] mb-6 max-md:[grid-area:desc] max-md:self-start max-md:min-h-0 max-md:mb-0 max-md:text-sm max-md:leading-relaxed">
+            {t("home.promo.description")}
+          </p>
 
           <button
             type="button"
@@ -32,17 +32,17 @@ export default function PromotionalOfferBanner() {
             style={{ background: "#072E2A" }}
           >
             <span
-  className="absolute top-[13px] h-[24px] flex items-center justify-center font-normal text-[20px] leading-[100%] tracking-[0%] capitalize"
-  style={{
-    right: "23px",
-    left: "0",
-    width: "232px",
-    direction: isRTL ? "rtl" : "ltr",
-    textAlign: isRTL ? "right" : "center",
-  }}
->
-  {t("home.promo.cta")}
-</span>
+              className="absolute top-[13px] h-[24px] flex items-center justify-center font-normal text-[20px] leading-[100%] tracking-[0%] capitalize"
+              style={{
+                right: "23px",
+                left: "0",
+                width: "232px",
+                direction: isRTL ? "rtl" : "ltr",
+                textAlign: isRTL ? "right" : "center",
+              }}
+            >
+              {t("home.promo.cta")}
+            </span>
             <svg
               className="absolute top-[20px]"
               style={{
@@ -74,40 +74,39 @@ export default function PromotionalOfferBanner() {
         </div>
 
         {/* Offer car + smoke */}
-      {/* Offer car + smoke */}
-<div
-  className={`relative flex justify-center md:justify-end max-md:[grid-area:car] max-md:self-center ${
-    // English: pulled left so the smoke trailing behind the car (to its
-    // right) stays inside the section instead of being cut at the edge.
-    isRTL ? "md:ms-[120px]" : "md:-ms-[160px] xl:-translate-x-[190px]"
-  }`}
->
-  {/* Smoke: desktop keeps its original sideways offset; phones center it
+        <div
+          className={`relative flex justify-center md:justify-end max-md:[grid-area:car] max-md:self-center ${
+            // English: pulled left so the smoke trailing behind the car (to its
+            // right) stays inside the section instead of being cut at the edge.
+            isRTL ? "md:ms-[120px]" : "md:-ms-[160px] xl:-translate-x-[190px]"
+          }`}
+        >
+          {/* Smoke: desktop keeps its original sideways offset; phones center it
       behind the smaller car. The image is a very faint teal (alpha ≤ 33%), so
       light mode runs it through #promo-smoke-light: recolored dark teal with
       its density tripled, so it reads on the white page. */}
-  <svg width="0" height="0" className="absolute" aria-hidden="true">
-    <filter id="promo-smoke-light" colorInterpolationFilters="sRGB">
-      <feColorMatrix
-        type="matrix"
-        values="0 0 0 0 0.18  0 0 0 0 0.43  0 0 0 0 0.40  0 0 0 3 0"
-      />
-    </filter>
-  </svg>
-  <img
-  src={smoke1}
-  alt=""
-  className={`absolute w-[587px] h-[392px] object-contain opacity-[0.66] z-0 [[data-theme=light]_&]:opacity-100 [[data-theme=light]_&]:[filter:url(#promo-smoke-light)] max-md:max-w-none max-md:w-[190%] max-md:h-auto max-md:left-1/2 max-md:top-1/2 max-md:-translate-x-1/2 max-md:-translate-y-1/2 ${
-    isRTL ? "md:translate-x-[100px]" : "md:translate-x-[200px]"
-  }`}
-/>
+          <svg width="0" height="0" className="absolute" aria-hidden="true">
+            <filter id="promo-smoke-light" colorInterpolationFilters="sRGB">
+              <feColorMatrix
+                type="matrix"
+                values="0 0 0 0 0.18  0 0 0 0 0.43  0 0 0 0 0.40  0 0 0 3 0"
+              />
+            </filter>
+          </svg>
+          <img
+            src={smoke1}
+            alt=""
+            className={`absolute w-[587px] h-[392px] object-contain opacity-[0.66] z-0 light:opacity-100 light:[filter:url(#promo-smoke-light)] max-md:max-w-none max-md:w-[190%] max-md:h-auto max-md:left-1/2 max-md:top-1/2 max-md:-translate-x-1/2 max-md:-translate-y-1/2 ${
+              isRTL ? "md:translate-x-[100px]" : "md:translate-x-[200px]"
+            }`}
+          />
 
-  <img
-    src={offerCar}
-    alt="Luxury limousine"
-    className="relative z-10 w-full max-w-[450px] h-auto object-contain"
-  />
-</div>
+          <img
+            src={offerCar}
+            alt={t("home.promo.carAlt")}
+            className="relative z-10 w-full max-w-[450px] h-auto object-contain"
+          />
+        </div>
       </div>
     </section>
   );

@@ -94,6 +94,9 @@ export default function DurationSelect({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={listId}
+        aria-activedescendant={
+          open && active >= 0 ? `${listId}-${active}` : undefined
+        }
         aria-label={placeholder}
         onClick={() => (open ? close() : openList())}
         onKeyDown={onKeyDown}
@@ -115,7 +118,7 @@ export default function DurationSelect({
           id={listId}
           role="listbox"
           aria-label={placeholder}
-          className="absolute z-30 flex flex-col gap-[12px] top-full start-0 end-0 ps-[18px] pe-[18px] pt-[24.33px] pb-[13.67px] rounded-b-[15px] border-[0.1px] border-white/60 shadow-xl [[data-theme=light]_&]:border-[#072E2A]/20 [[data-theme=light]_&]:!bg-white [[data-theme=light]_&]:!bg-none [[data-theme=light]_&]:shadow-[0_10px_24px_rgba(7,46,42,0.12)]"
+          className="absolute z-30 flex flex-col gap-[12px] top-full start-0 end-0 ps-[18px] pe-[18px] pt-[24.33px] pb-[13.67px] rounded-b-[15px] border-[0.1px] border-white/60 shadow-xl light:border-[#072E2A]/20 light:!bg-white light:!bg-none light:shadow-[0_10px_24px_rgba(7,46,42,0.12)]"
           // Figma's #0000007D over the card's look (page colour + teal/10%),
           // made opaque so the fields underneath don't show through.
           style={{
@@ -128,15 +131,16 @@ export default function DurationSelect({
             return (
               <li
                 key={option.value}
+                id={`${listId}-${index}`}
                 role="option"
                 aria-selected={isSelected}
                 // Keep focus on the field while picking with the mouse.
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => pick(option)}
                 onMouseEnter={() => setActive(index)}
-                className={`flex items-start h-[28px] border-b-[0.1px] border-white/60 [[data-theme=light]_&]:border-[#072E2A]/20 cursor-pointer font-display font-medium text-[18px] leading-[22px] capitalize transition-colors ${
+                className={`flex items-start h-[28px] border-b-[0.1px] border-white/60 light:border-[#072E2A]/20 cursor-pointer font-display font-medium text-[18px] leading-[22px] capitalize transition-colors ${
                   index === active || isSelected
-                    ? "text-teal-accent [[data-theme=light]_&]:bg-[#24B9A5]/10 [[data-theme=light]_&]:-mx-[6px] [[data-theme=light]_&]:px-[6px]"
+                    ? "text-teal-accent light:bg-[#24B9A5]/10 light:-mx-[6px] light:px-[6px]"
                     : "text-fg"
                 }`}
               >
