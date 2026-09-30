@@ -62,10 +62,17 @@ export default function InteriorLightbox({
   }, [index]);
 
   // Keyboard: Esc closes, arrows step (visually: → shows the next photo in
-  // English, the previous one in Arabic).
+  // English, the previous one in Arabic), Tab cycles through the dialog's
+  // buttons only.
   useEffect(() => {
     const onKey = (event) => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Tab") {
+        const buttons = [...backdropRef.current.querySelectorAll("button")];
+        const at = buttons.indexOf(document.activeElement);
+        const next = at + (event.shiftKey ? -1 : 1);
+        event.preventDefault();
+        buttons[(next + buttons.length) % buttons.length]?.focus();
+      } else if (event.key === "Escape") onClose();
       else if (event.key === "ArrowRight") step(isRtl ? -1 : 1);
       else if (event.key === "ArrowLeft") step(isRtl ? 1 : -1);
     };

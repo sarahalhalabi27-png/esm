@@ -94,6 +94,9 @@ export default function DurationSelect({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={listId}
+        aria-activedescendant={
+          open && active >= 0 ? `${listId}-${active}` : undefined
+        }
         aria-label={placeholder}
         onClick={() => (open ? close() : openList())}
         onKeyDown={onKeyDown}
@@ -128,6 +131,7 @@ export default function DurationSelect({
             return (
               <li
                 key={option.value}
+                id={`${listId}-${index}`}
                 role="option"
                 aria-selected={isSelected}
                 // Keep focus on the field while picking with the mouse.

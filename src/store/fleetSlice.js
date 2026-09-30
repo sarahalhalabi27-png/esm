@@ -65,5 +65,6 @@ export const selectFeaturedCars = (state) =>
 // بعطيها الـ ID → بتحددلي السيارة المطلوبة → Redux بيعطيها الـ state → بتجيب السيارة من الكاش.
 // undefined = not fetched yet, null = not found.
 export const selectCarById = (carId) => (state) => state.fleet.carsById[carId];
+export const selectCarStatus = (state) => state.fleet.carStatus;
 
 export default fleetSlice.reducer;

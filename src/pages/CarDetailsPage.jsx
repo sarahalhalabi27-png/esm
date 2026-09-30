@@ -7,7 +7,11 @@ import CarDetailsHero from "../components/carDetails/CarDetailsHero.jsx";
 import CarFeatureList from "../components/carDetails/CarFeatureList.jsx";
 import CarInteriorGallery from "../components/carDetails/CarInteriorGallery.jsx";
 import CarReservationForm from "../components/carDetails/CarReservationForm.jsx";
-import { fetchCarById, selectCarById } from "../store/fleetSlice.js";
+import {
+  fetchCarById,
+  selectCarById,
+  selectCarStatus,
+} from "../store/fleetSlice.js";
 import { STATUS } from "../store/constants.js";
 
 // Opened from a car on Our Fleet or a "Book Now" on the home page
@@ -18,7 +22,7 @@ export default function CarDetailsPage() {
   const dispatch = useDispatch();
   // undefined = not fetched yet, null = no car with this id.
   const car = useSelector(selectCarById(carId));
-  const carStatus = useSelector((state) => state.fleet.carStatus);
+  const carStatus = useSelector(selectCarStatus);
 
   useEffect(() => {
     if (car === undefined) dispatch(fetchCarById(carId));

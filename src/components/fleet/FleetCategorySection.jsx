@@ -31,6 +31,7 @@ export default function FleetCategorySection({ category, isLast }) {
   const dotRef = useRef(null);
   const nameRef = useRef(null);
   const [canScroll, setCanScroll] = useState(false);
+  const direction = i18n.dir() === "rtl" ? -1 : 1;
   const categoryName = t(`fleetPage.categories.${category.id}`, {
     defaultValue: category.name,
   });
@@ -53,7 +54,6 @@ export default function FleetCategorySection({ category, isLast }) {
     const mm = gsap.matchMedia();
     mm.add(MOTION_OK, () => {
       const section = sectionRef.current;
-      const direction = i18n.dir() === "rtl" ? -1 : 1;
 
       const timeline = gsap
         .timeline({
@@ -102,7 +102,7 @@ export default function FleetCategorySection({ category, isLast }) {
       }
     });
     return () => mm.revert();
-  }, [i18n]);
+  }, [direction]);
 
   const showNext = (event) => {
     const row = rowRef.current;
@@ -113,7 +113,6 @@ export default function FleetCategorySection({ category, isLast }) {
     const step = cards[0].offsetWidth + gap;
     const maxScroll = row.scrollWidth - row.clientWidth;
     // scrollLeft runs from 0 to -maxScroll in RTL, so work in magnitudes.
-    const direction = i18n.dir() === "rtl" ? -1 : 1;
     const current = Math.abs(row.scrollLeft);
     const wrapping = current >= maxScroll - 2;
     const target =
