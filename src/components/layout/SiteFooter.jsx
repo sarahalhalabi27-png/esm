@@ -99,11 +99,12 @@ export default function SiteFooter() {
               <ul className="space-y-[32px] max-md:space-y-2">
                 <li className={itemClass}>
                   <Phone size={18} className="text-teal-accent shrink-0" />
-                  {companyInfo.phone}
+                  {/* Numbers keep their order in Arabic */}
+                  <span dir="ltr">{companyInfo.phone}</span>
                 </li>
                 <li className={itemClass}>
                   <Mail size={18} className="text-teal-accent shrink-0" />
-                  {companyInfo.email}
+                  <span dir="ltr">{companyInfo.email}</span>
                 </li>
                 <li className={itemClass}>
                   <Clock size={18} className="text-teal-accent shrink-0" />

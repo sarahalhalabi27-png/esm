@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import "../../i18n.js";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { navigationLinks } from "../../data/navigationLinks.js";
@@ -9,12 +8,21 @@ import BrandLogo from "../common/BrandLogo.jsx";
 
 export default function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { t, i18n: currentI18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const toggleLanguage = () => {
     // i18n.js listens for languageChanged and syncs <html> dir/lang + storage.
-    const nextLanguage = currentI18n.language === "en" ? "ar" : "en";
-    currentI18n.changeLanguage(nextLanguage);
+    i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
   };
+
+  // Esc closes the phone menu.
+  useEffect(() => {
+    if (!isMenuOpen) return undefined;
+    const onKey = (event) => {
+      if (event.key === "Escape") setIsMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isMenuOpen]);
 
   return (
     <header className="w-full bg-page sticky top-0 z-30">
@@ -46,13 +54,13 @@ export default function SiteHeader() {
           type="button"
           onClick={toggleLanguage}
           aria-label={t(
-            currentI18n.language === "en"
+            i18n.language === "en"
               ? "nav.switchToArabic"
               : "nav.switchToEnglish"
           )}
           className="ms-5 self-center shrink-0 text-fg/80 hover:text-fg transition-colors font-display text-[18px]"
         >
-          {currentI18n.language === "en" ? "AR" : "EN"}
+          {i18n.language === "en" ? "AR" : "EN"}
         </button>
 
         {/* Mobile menu trigger (opens the right-side sidebar) */}
@@ -76,6 +84,9 @@ export default function SiteHeader() {
         aria-hidden="true"
       />
       <nav
+        // Closed (off screen): out of the tab order and hidden from screen
+        // readers. (React 18 passes `inert` through as a plain attribute.)
+        inert={isMenuOpen ? undefined : ""}
         className={`lg:hidden fixed top-0 right-0 z-50 h-full w-64 max-w-[80%] bg-page shadow-2xl flex flex-col gap-6 px-6 pt-6 pb-8 text-lg font-display transition-transform duration-300 ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
