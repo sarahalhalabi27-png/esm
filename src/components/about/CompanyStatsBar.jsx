@@ -62,7 +62,7 @@ export default function CompanyStatsBar() {
               yPercent: (i, el) => Number(el.dataset.final),
               duration: (i) => 2.4 + i * 0.35,
               ease: "power3.out",
-              scrollTrigger: { trigger: value, start: "top 90%", once: true },
+              scrollTrigger: { trigger: value, start: "top 75%", once: true },
             }
           );
         });

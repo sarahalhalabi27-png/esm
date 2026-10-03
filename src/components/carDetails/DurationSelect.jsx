@@ -11,10 +11,11 @@ import FloatingLabel from "../common/FloatingLabel.jsx";
 //   #0000007D background (made opaque, see below);
 // - items 1160 x 28 at Figma's spot (19px in from the list's edge, 25.33px
 //   down; the padding here is 1px less: browsers draw the hairline as 1px),
-//   12px apart, each with a hairline white/60% separator; the name (Medium
+//   12px apart, each with a hairline separator (white/35%, lightened on
+//   review; none under the last, Monthly); the name (Medium
 //   18px, 22px line) at the item's top.
-// Light mode: white list with a soft shadow, #072E2A/20% border and
-// separators, the highlighted item on a teal/10% wash.
+// Light mode: the form's #072E2A with white text and lines, the
+// highlighted item on a white/10% wash.
 // Keyboard: Enter/Space/↓ opens; ↑/↓ move, Enter/Space picks, Esc/Tab close.
 // Used through ControlledField: `onChange` receives the picked value.
 export default function DurationSelect({
@@ -118,7 +119,7 @@ export default function DurationSelect({
           id={listId}
           role="listbox"
           aria-label={placeholder}
-          className="absolute z-30 flex flex-col gap-[12px] top-full start-0 end-0 ps-[18px] pe-[18px] pt-[24.33px] pb-[13.67px] rounded-b-[15px] border-[0.1px] border-white/60 shadow-xl light:border-[#072E2A]/20 light:!bg-white light:!bg-none light:shadow-[0_10px_24px_rgba(7,46,42,0.12)]"
+          className="absolute z-30 flex flex-col gap-[12px] top-full start-0 end-0 ps-[18px] pe-[18px] pt-[24.33px] pb-[13.67px] rounded-b-[15px] border-[0.1px] border-white/60 shadow-xl light:border-white/25 light:!bg-[#072E2A] light:!bg-none light:shadow-[0_10px_24px_rgba(7,46,42,0.25)]"
           // Figma's #0000007D over the card's look (page colour + teal/10%),
           // made opaque so the fields underneath don't show through.
           style={{
@@ -138,9 +139,9 @@ export default function DurationSelect({
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => pick(option)}
                 onMouseEnter={() => setActive(index)}
-                className={`flex items-start h-[28px] border-b-[0.1px] border-white/60 light:border-[#072E2A]/20 cursor-pointer font-display font-medium text-[18px] leading-[22px] capitalize transition-colors ${
+                className={`flex items-start h-[28px] border-b-[0.1px] last:border-b-0 border-white/35 cursor-pointer font-display font-medium text-[18px] leading-[22px] capitalize transition-colors ${
                   index === active || isSelected
-                    ? "text-teal-accent light:bg-[#24B9A5]/10 light:-mx-[6px] light:px-[6px]"
+                    ? "text-teal-accent light:bg-white/10 light:-mx-[6px] light:px-[6px]"
                     : "text-fg"
                 }`}
               >

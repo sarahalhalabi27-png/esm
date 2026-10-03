@@ -38,8 +38,8 @@ export default function CompanyTimeline() {
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 75%",
-            end: "bottom 60%",
+            start: "top 60%",
+            end: "bottom 50%",
             scrub: 0.6,
           },
         }
@@ -53,7 +53,7 @@ export default function CompanyTimeline() {
             .timeline({
               scrollTrigger: {
                 trigger: row,
-                start: "top 80%",
+                start: "top 65%",
                 end: "bottom 15%",
                 toggleActions: "restart none restart none",
               },
@@ -61,7 +61,7 @@ export default function CompanyTimeline() {
             .from(row.querySelector("[data-timeline-dot]"), {
               scale: 0,
               opacity: 0,
-              duration: 0.5,
+              duration: 0.6,
               ease: "back.out(2)",
             })
             .from(
@@ -69,7 +69,7 @@ export default function CompanyTimeline() {
               {
                 opacity: 0,
                 x: (i, el) => fromX(el.dataset.from),
-                duration: 0.7,
+                duration: 0.9,
                 ease: "power2.out",
               },
               "-=0.2"
@@ -84,16 +84,6 @@ export default function CompanyTimeline() {
       ref={sectionRef}
       className="relative font-display mt-[57px] max-md:mt-10"
     >
-      {/* Soft teal glow behind the timeline */}
-      <div
-        aria-hidden="true"
-        className="dark-only absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 45% 55% at 20% 35%, rgba(36,185,165,0.07), transparent 70%)",
-        }}
-      />
-
       <div className="relative max-w-[1340px] mx-auto px-6 md:px-[50px]">
         {/* Figma (1440): the 1px white line starts 57px under the intro, runs
             843px, and the first dot is centred ~67px below its top (pt 35 +
