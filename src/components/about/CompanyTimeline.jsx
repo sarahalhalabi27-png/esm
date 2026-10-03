@@ -84,16 +84,6 @@ export default function CompanyTimeline() {
       ref={sectionRef}
       className="relative font-display mt-[57px] max-md:mt-10"
     >
-      {/* Soft teal glow behind the timeline */}
-      <div
-        aria-hidden="true"
-        className="dark-only absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 45% 55% at 20% 35%, rgba(36,185,165,0.07), transparent 70%)",
-        }}
-      />
-
       <div className="relative max-w-[1340px] mx-auto px-6 md:px-[50px]">
         {/* Figma (1440): the 1px white line starts 57px under the intro, runs
             843px, and the first dot is centred ~67px below its top (pt 35 +

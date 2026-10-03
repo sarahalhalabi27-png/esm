@@ -13,6 +13,7 @@ import {
   selectCarStatus,
 } from "../store/fleetSlice.js";
 import { STATUS } from "../store/constants.js";
+import SmokeBackdrop from "../components/common/SmokeBackdrop.jsx";
 
 // Opened from a car on Our Fleet or a "Book Now" on the home page
 // (/fleet/:carId).
@@ -54,9 +55,13 @@ export default function CarDetailsPage() {
   return (
     <PageLayout>
       <CarDetailsHero car={car} />
-      <CarFeatureList car={car} />
-      <CarInteriorGallery car={car} />
-      <CarReservationForm car={car} />
+      {/* Smoke from the description down (see SmokeBackdrop) */}
+      <div className="relative isolate">
+        <SmokeBackdrop />
+        <CarFeatureList car={car} />
+        <CarInteriorGallery car={car} />
+        <CarReservationForm car={car} />
+      </div>
     </PageLayout>
   );
 }

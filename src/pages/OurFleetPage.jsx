@@ -11,6 +11,7 @@ import {
   selectFleetStatus,
 } from "../store/fleetSlice.js";
 import { STATUS } from "../store/constants.js";
+import SmokeBackdrop from "../components/common/SmokeBackdrop.jsx";
 
 export default function OurFleetPage() {
   const { t } = useTranslation();
@@ -28,7 +29,8 @@ export default function OurFleetPage() {
 
       {/* Fleet Collection timeline (Figma: 50px page gutter, the trunk line
           runs down the start edge from the eyebrow to the last category) */}
-      <section className="font-display w-full max-w-[1440px] mx-auto px-[50px] mt-[130px] mb-[130px] max-md:px-6 max-md:mt-8 max-md:mb-16">
+      <section className="relative isolate font-display w-full max-w-[1440px] mx-auto px-[50px] mt-[130px] mb-[130px] max-md:px-6 max-md:mt-8 max-md:mb-16">
+        <SmokeBackdrop />
         <div className="relative pb-[110px] max-md:pb-12">
           <SectionEyebrow className="!text-[22px] max-md:!text-xl">
             {t("fleetPage.eyebrow")}
