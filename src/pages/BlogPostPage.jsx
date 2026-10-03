@@ -12,6 +12,7 @@ import {
   selectBlogPostStatus,
 } from "../store/blogSlice.js";
 import { STATUS } from "../store/constants.js";
+import SmokeBackdrop from "../components/common/SmokeBackdrop.jsx";
 
 export default function BlogPostPage() {
   const { t } = useTranslation();
@@ -51,8 +52,12 @@ export default function BlogPostPage() {
   return (
     <PageLayout>
       <BlogPostHero post={post} />
-      <BlogPostContent post={post} />
-      <CommentForm postId={post.id} />
+      {/* Smoke from the article down (see SmokeBackdrop) */}
+      <div className="relative isolate">
+        <SmokeBackdrop />
+        <BlogPostContent post={post} />
+        <CommentForm postId={post.id} />
+      </div>
     </PageLayout>
   );
 }
