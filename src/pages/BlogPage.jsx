@@ -5,6 +5,7 @@ import PageLayout from "../components/layout/PageLayout.jsx";
 import BlogPageHero from "../components/blog/BlogPageHero.jsx";
 import BlogPostCard from "../components/blog/BlogPostCard.jsx";
 import SectionEyebrow from "../components/common/SectionEyebrow.jsx";
+import SmokeBackdrop from "../components/common/SmokeBackdrop.jsx";
 import {
   fetchBlogPosts,
   selectBlogPosts,
@@ -31,7 +32,8 @@ export default function BlogPage() {
           the 50px gutter; 27px under it the intro (Medium 22px, two 27px lines,
           1368 wide — 28px past the content edge); 51px under that, three
           416 x 624 cards, 47px apart. */}
-      <section className="font-display w-full max-w-[1440px] mx-auto px-[50px] mt-[60px] mb-[140px] max-md:px-6 max-md:mt-10 max-md:mb-16">
+      <section className="relative isolate font-display w-full max-w-[1440px] mx-auto px-[50px] mt-[60px] mb-[140px] max-md:px-6 max-md:mt-10 max-md:mb-16">
+        <SmokeBackdrop />
         <SectionEyebrow className="!leading-[30px] max-md:!text-xl max-md:!leading-snug">
           {t("blogPage.eyebrow")}
         </SectionEyebrow>

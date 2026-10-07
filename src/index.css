@@ -247,7 +247,12 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-text-fill-color: rgb(var(--fg)) !important;
   caret-color: rgb(var(--fg));
-  transition: background-color 600000s ease-in-out 0s;
+  /* !important, and background-size kept: the form fields set their own
+     !transition-[background-size] (FOCUS_FILL), which would otherwise drop the
+     background-color hold and let the autofill colour show. */
+  transition:
+    background-color 600000s ease-in-out 0s,
+    background-size 500ms ease-out 0s !important;
 }
 /* Mobile horizontal carousels (home Fleet + Popular Cars rows).
    Base: below md the row stops wrapping and scrolls sideways inside its own

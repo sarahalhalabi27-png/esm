@@ -1,10 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextField from "../common/TextField.jsx";
 import TextAreaField from "../common/TextAreaField.jsx";
 import HollowButton from "../common/HollowButton.jsx";
@@ -26,110 +24,10 @@ import {
   selectBookingStatus,
 } from "../../store/bookingSlice.js";
 import { SUBMIT_STATUS } from "../../store/constants.js";
-import { MOTION_OK, prefersReducedMotion } from "../../utils/motion.js";
-
-gsap.registerPlugin(ScrollTrigger);
+import useFormReveal from "../common/useFormReveal.js";
+import DrawnCheck from "../common/DrawnCheck.jsx";
 
 const SENT_FLASH_MS = 1800;
-
-// Reveal, played once when the form scrolls into view (skipped when the
-// viewer prefers reduced motion): the card rises in, then its title, then
-// the fields one after another, each wiped in from the start side (the wipe
-// leaves room above for floated labels such as "Your Fleet").
-function useFormReveal(isRtl) {
-  const cardRef = useRef(null);
-
-  useEffect(() => {
-    const card = cardRef.current;
-    const mm = gsap.matchMedia();
-
-    mm.add(MOTION_OK, () => {
-      const title = card.querySelector("h2");
-      const form = card.querySelector("form");
-      const fields = [...form.children].flatMap((row) =>
-        row.classList.contains("grid") ? [...row.children] : [row]
-      );
-      const clipped = isRtl
-        ? "inset(-40px 0 -12px 100%)"
-        : "inset(-40px 100% -12px 0)";
-
-      gsap.set([card, title, ...fields], { autoAlpha: 0 });
-
-      const tl = gsap
-        .timeline({ paused: true, defaults: { ease: "power3.out" } })
-        .fromTo(
-          card,
-          { autoAlpha: 0, y: 40 },
-          { autoAlpha: 1, y: 0, duration: 0.9, clearProps: "transform" }
-        )
-        .fromTo(
-          title,
-          { autoAlpha: 0, y: 12 },
-          { autoAlpha: 1, y: 0, duration: 0.6 },
-          "-=0.5"
-        )
-        .fromTo(
-          fields,
-          { autoAlpha: 1, clipPath: clipped },
-          {
-            clipPath: "inset(-40px 0% -12px 0%)",
-            duration: 0.8,
-            ease: "power2.inOut",
-            stagger: 0.07,
-            clearProps: "clipPath",
-          },
-          "-=0.3"
-        );
-
-      ScrollTrigger.create({
-        trigger: card,
-        start: "top 85%",
-        once: true,
-        onEnter: () => tl.play(),
-      });
-    });
-
-    return () => mm.revert();
-  }, [isRtl]);
-
-  return cardRef;
-}
-
-// A tick drawn in (stroke by stroke) — shown inside the button for a moment
-// after a reservation is sent.
-function DrawnCheck() {
-  const pathRef = useRef(null);
-
-  useEffect(() => {
-    const path = pathRef.current;
-    if (prefersReducedMotion()) return;
-    const length = path.getTotalLength();
-    gsap.fromTo(
-      path,
-      { strokeDasharray: length, strokeDashoffset: length },
-      { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }
-    );
-  }, []);
-
-  return (
-    <svg
-      width="28"
-      height="28"
-      viewBox="0 0 28 28"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        ref={pathRef}
-        d="M6 14.5l5.5 5.5L22.5 8.5"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 const BOOKING_DURATIONS = ["hourly", "daily", "weekly", "monthly"];
 

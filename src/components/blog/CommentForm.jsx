@@ -1,12 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import TextField from "../common/TextField.jsx";
 import HollowButton from "../common/HollowButton.jsx";
+import DrawnCheck from "../common/DrawnCheck.jsx";
+import useFormReveal from "../common/useFormReveal.js";
 import {
-  FIELD_UNDERLINE,
   FOCUS_FILL,
   FORM_CARD,
   FORM_CARD_DARK_IN_LIGHT,
@@ -28,23 +29,40 @@ import {
 import { SUBMIT_STATUS } from "../../store/constants.js";
 
 // Same look as the car reservation form (card, underlined fields, hollow
-// button), with the Figma's smaller 18px labels: name / email, website /
+// button), with the Figma's 22px labels: name / email, website /
 // comment in two columns, a "remember me" checkbox, then "Post Comment".
 // Light mode draws the form on the same dark #072E2A card as the car
 // reservation (FORM_CARD_DARK_IN_LIGHT).
-const FIELD = `!min-h-0 !h-[33px] !py-0 !pb-[8px] ${FIELD_UNDERLINE} ${FOCUS_FILL} !font-display !font-medium !text-[18px] !leading-[25px] !tracking-[0%] max-md:!text-[16px]`;
+// Same field metrics and 0.5px white/35% underline as the car reservation form.
+const UNDERLINE = "!border-b-[0.5px] !border-white/35";
+const FIELD = `!min-h-0 !h-[37px] !py-0 !pb-[10px] ${UNDERLINE} ${FOCUS_FILL} !font-display !font-medium !text-[22px] !leading-[27px] !tracking-[0%] max-md:!text-[16px]`;
 const LABEL =
-  "top-0 text-[18px] leading-[25px] font-medium text-fg max-md:text-[16px]";
+  "top-0 text-[22px] leading-[27px] font-medium text-fg max-md:text-[16px]";
+// Remember-me box (Figma: 20 x 20, radius 3, 0.5px white/80% border); filled
+// with the accent and a check when ticked (white fill in light mode, where
+// the card is dark).
+const SENT_FLASH_MS = 1800;
+
+const CHECKBOX = `appearance-none w-5 h-5 shrink-0 rounded-[3px] border-[0.5px] border-white/80 bg-transparent bg-center bg-no-repeat cursor-pointer checked:bg-[#24B9A5] checked:[background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2020%2020'%20fill='none'%20stroke='white'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M5%2010.5l3.5%203.5L15%206.5'/%3E%3C/svg%3E")] light:checked:bg-white light:checked:[background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2020%2020'%20fill='none'%20stroke='%23072E2A'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M5%2010.5l3.5%203.5L15%206.5'/%3E%3C/svg%3E")] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80 max-md:mt-0.5`;
 const fieldProps = {
   inputClassName: FIELD,
   floatingLabelClassName: LABEL,
 };
 
 export default function CommentForm({ postId }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const status = useSelector(selectCommentStatus);
   const remembered = useSelector(selectRememberedAuthor);
+  const cardRef = useFormReveal(i18n.dir() === "rtl", { replay: true });
+  // Briefly show a drawn tick in the button once a comment is posted (as in
+  // the car reservation form).
+  const [sentFlash, setSentFlash] = useState(false);
+  useEffect(() => {
+    if (!sentFlash) return undefined;
+    const timer = setTimeout(() => setSentFlash(false), SENT_FLASH_MS);
+    return () => clearTimeout(timer);
+  }, [sentFlash]);
 
   const { control, register, handleSubmit, reset } = useForm({
     resolver: zodResolver(commentSchema(t)),
@@ -88,6 +106,7 @@ export default function CommentForm({ postId }) {
         comment: "",
         rememberMe: values.rememberMe,
       });
+      setSentFlash(true);
     } catch {
       // status is set to "error" by the slice
     }
@@ -95,7 +114,10 @@ export default function CommentForm({ postId }) {
 
   return (
     <section className="font-display px-[47px] mt-[138px] mb-[120px] max-md:px-6 max-md:mt-14 max-md:mb-16">
-      <div className={`${FORM_CARD} ${FORM_CARD_DARK_IN_LIGHT} pb-[48px]`}>
+      <div
+        ref={cardRef}
+        className={`${FORM_CARD} ${FORM_CARD_DARK_IN_LIGHT} md:!pt-[28px] pb-[41px]`}
+      >
         <h2 className={`${FORM_TITLE} light:!text-white`}>
           {t("blogPost.comment.title")}
         </h2>
@@ -103,9 +125,9 @@ export default function CommentForm({ postId }) {
         <form
           onSubmit={handleSubmit(onSubmit)}
           noValidate
-          className="mt-[49px] max-md:mt-10"
+          className="mt-[28px] max-md:mt-10"
         >
-          <div className="grid grid-cols-2 gap-x-[252px] gap-y-[55px] max-lg:gap-x-12 max-md:grid-cols-1 max-md:gap-y-[36px]">
+          <div className="grid grid-cols-2 gap-x-[252px] gap-y-[62px] max-lg:gap-x-12 max-md:grid-cols-1 max-md:gap-y-[36px]">
             <ControlledField
               control={control}
               name="name"
@@ -143,25 +165,33 @@ export default function CommentForm({ postId }) {
             />
           </div>
 
-          <label className="mt-[30px] flex items-center gap-3 text-[15px] leading-[20px] capitalize text-fg/80 cursor-pointer max-md:items-start max-md:text-[14px]">
+          <label className="mt-[35px] flex items-center gap-4 text-[20px] font-normal leading-[100%] capitalize text-white/80 cursor-pointer max-md:items-start max-md:gap-3 max-md:text-[14px]">
             <input
               type="checkbox"
               {...register("rememberMe")}
-              className="w-4 h-4 shrink-0 accent-[#24B9A5] light:accent-white max-md:mt-0.5"
+              className={CHECKBOX}
             />
             {t("blogPost.comment.remember")}
           </label>
 
-          <div className="relative mt-[70px] flex justify-center max-md:mt-10">
+          <div className="relative mt-[123px] flex justify-center max-md:mt-10">
             <HollowButton
               onDark
               type="submit"
-              className="!relative !px-[47px] !py-[13px] !text-[20px] !leading-[27px] max-md:!px-8 max-md:!py-3 max-md:!text-[18px]"
+              className="!relative !w-[266px] !border !border-white !px-[47px] !py-[13px] !text-[22px] !leading-[27px] max-md:!w-auto max-md:!px-8 max-md:!py-3 max-md:!text-[18px]"
               disabled={status === SUBMIT_STATUS.SUBMITTING}
             >
-              {status === SUBMIT_STATUS.SUBMITTING
-                ? t("blogPost.comment.posting")
-                : t("blogPost.comment.submit")}
+              {/* The label keeps the button's size while the tick shows */}
+              <span className={sentFlash ? "invisible" : undefined}>
+                {status === SUBMIT_STATUS.SUBMITTING
+                  ? t("blogPost.comment.posting")
+                  : t("blogPost.comment.submit")}
+              </span>
+              {sentFlash && (
+                <span className="absolute inset-0 flex items-center justify-center">
+                  <DrawnCheck />
+                </span>
+              )}
             </HollowButton>
             {status === SUBMIT_STATUS.SUCCESS ? (
               <p

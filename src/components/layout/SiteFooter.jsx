@@ -45,7 +45,7 @@ export default function SiteFooter() {
         <img
           src={cityArtLight}
           alt=""
-          className="light-only pointer-events-none absolute left-[732px] top-10 w-[600px] h-[542px] object-contain z-0 scale-[1.4]"
+          className="light-only pointer-events-none absolute left-[769px] top-[20px] w-[504px] h-[431px] object-contain origin-[283px_168px] z-0 scale-[1.4]"
         />
       </div>
 

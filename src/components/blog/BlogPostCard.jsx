@@ -24,7 +24,7 @@ export default function BlogPostCard({ post }) {
     <Link
       to={`/blog/${post.id}`}
       aria-label={t("blogPage.readPost", { title })}
-      className="group flex flex-col w-full max-w-[416px] mx-auto max-md:w-[var(--snap-card-w)] max-md:mx-0 rounded-[15px] bg-page light:bg-[#24B9A5]/[0.08] font-display shadow-[0_0_0_0.5px_rgba(255,255,255,0.4)] light:shadow-[0_0_0_0.5px_rgba(7,46,42,0.2),0_10px_30px_rgba(7,46,42,0.08)] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_0_0_1px_rgb(var(--accent))] light:hover:shadow-[0_0_0_1px_#072E2A,0_16px_40px_rgba(7,46,42,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-accent"
+      className="group flex flex-col w-full max-w-[416px] mx-auto max-md:w-[var(--snap-card-w)] max-md:mx-0 rounded-[15px] bg-page light:bg-[#24B9A5]/[0.08] font-display shadow-[0_0_0_0.5px_rgba(255,255,255,0.4)] light:shadow-[0_0_0_1px_rgba(7,46,42,0.45),0_10px_30px_rgba(7,46,42,0.08)] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_0_0_1px_rgb(var(--accent))] light:hover:shadow-[0_0_0_1px_#072E2A,0_16px_40px_rgba(7,46,42,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-accent"
     >
       <div className="overflow-hidden rounded-[15px] aspect-[416/372] bg-black">
         <img

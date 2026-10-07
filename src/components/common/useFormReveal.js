@@ -1,0 +1,82 @@
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { MOTION_OK } from "../../utils/motion.js";
+
+gsap.registerPlugin(ScrollTrigger);
+
+// The form cards' reveal (car reservation, blog comment), played once when
+// the form scrolls into view (skipped when the viewer prefers reduced
+// motion): the card rises in, then its title, then
+// the fields one after another, each wiped in from the start side (the wipe
+// leaves room above for floated labels such as "Your Fleet").
+export default function useFormReveal(isRtl, { replay = false } = {}) {
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    const mm = gsap.matchMedia();
+
+    mm.add(MOTION_OK, () => {
+      const title = card.querySelector("h2");
+      const form = card.querySelector("form");
+      const fields = [...form.children].flatMap((row) =>
+        row.classList.contains("grid") ? [...row.children] : [row]
+      );
+      const clipped = isRtl
+        ? "inset(-40px 0 -12px 100%)"
+        : "inset(-40px 100% -12px 0)";
+
+      gsap.set([card, title, ...fields], { autoAlpha: 0 });
+
+      const tl = gsap
+        .timeline({ paused: true, defaults: { ease: "power3.out" } })
+        .fromTo(
+          card,
+          { autoAlpha: 0, y: 40 },
+          { autoAlpha: 1, y: 0, duration: 0.9, clearProps: "transform" }
+        )
+        .fromTo(
+          title,
+          { autoAlpha: 0, y: 12 },
+          { autoAlpha: 1, y: 0, duration: 0.6 },
+          "-=0.5"
+        )
+        .fromTo(
+          fields,
+          { autoAlpha: 1, clipPath: clipped },
+          {
+            clipPath: "inset(-40px 0% -12px 0%)",
+            duration: 0.8,
+            ease: "power2.inOut",
+            stagger: 0.07,
+            clearProps: "clipPath",
+          },
+          "-=0.3"
+        );
+
+      if (replay) {
+        // Plays every time the form comes into view, resets when it leaves.
+        ScrollTrigger.create({
+          trigger: card,
+          start: "top 85%",
+          end: "bottom top",
+          animation: tl,
+          toggleActions: "restart reset restart reset",
+        });
+        return;
+      }
+
+      ScrollTrigger.create({
+        trigger: card,
+        start: "top 85%",
+        once: true,
+        onEnter: () => tl.play(),
+      });
+    });
+
+    return () => mm.revert();
+  }, [isRtl, replay]);
+
+  return cardRef;
+}

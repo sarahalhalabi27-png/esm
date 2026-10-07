@@ -26,11 +26,15 @@ export function slideInFromStart(tl, target, direction) {
 
 // Plays a section's reveal once, when it scrolls into view (top at 85% of
 // the viewport), unless the viewer prefers reduced motion; replays for each
-// car / language (`key`). `build({ root, tl, direction })` adds the
+// car / language (`key`). With `replay` it instead plays every time the section
+// comes into view (from either side) and resets when it leaves. `build({ root, tl, direction })` adds the
 // section's steps to the paused timeline `tl` (defaults ease power3.out) and
 // may return a cleanup. `direction` is 1, or -1 in right-to-left languages.
 // Returns the ref for the section's root element (also the trigger).
-export default function useSectionReveal(build, { key, waitOnLoad = 0 }) {
+export default function useSectionReveal(
+  build,
+  { key, waitOnLoad = 0, replay = false }
+) {
   const rootRef = useRef(null);
   const { i18n } = useTranslation();
   const isRtl = i18n.dir() === "rtl";
@@ -47,6 +51,17 @@ export default function useSectionReveal(build, { key, waitOnLoad = 0 }) {
         defaults: { ease: "power3.out" },
       });
       const cleanup = build({ root, tl, direction: isRtl ? -1 : 1 });
+
+      if (replay) {
+        ScrollTrigger.create({
+          trigger: root,
+          start: "top 85%",
+          end: "bottom top",
+          animation: tl,
+          toggleActions: "restart reset restart reset",
+        });
+        return cleanup;
+      }
 
       ScrollTrigger.create({
         trigger: root,
@@ -65,7 +80,7 @@ export default function useSectionReveal(build, { key, waitOnLoad = 0 }) {
     // `build` is a module-level function; the reveal replays only when the
     // section's content (`key`) or the text direction changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key, isRtl, waitOnLoad]);
+  }, [key, isRtl, waitOnLoad, replay]);
 
   return rootRef;
 }

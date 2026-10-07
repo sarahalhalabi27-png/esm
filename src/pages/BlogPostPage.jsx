@@ -52,9 +52,11 @@ export default function BlogPostPage() {
   return (
     <PageLayout>
       <BlogPostHero post={post} />
-      {/* Smoke from the article down (see SmokeBackdrop) */}
+      {/* Smoke from the middle of the car photo down (see SmokeBackdrop): the
+          photo's midpoint is 412px above this wrapper on desktop; phones keep
+          the smoke starting at the article. */}
       <div className="relative isolate">
-        <SmokeBackdrop />
+        <SmokeBackdrop className="md:!-top-[1412px] md:!h-[calc(100%+412px)]" />
         <BlogPostContent post={post} />
         <CommentForm postId={post.id} />
       </div>
