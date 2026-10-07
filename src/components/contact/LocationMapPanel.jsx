@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { companyInfo } from "../../data/companyInfo.js";
 
-// The office on a map (Figma: 1390 x 423, radius 10): Google Maps' keyless
+// The office on a map (Figma: 1381 x 426, radius 15): Google Maps' keyless
 // embed of the company address. Dark mode inverts and re-hues the map so it
 // sits dark like the rest of the page; light mode shows it as is.
 export default function LocationMapPanel() {
@@ -11,7 +11,7 @@ export default function LocationMapPanel() {
   )}&z=15&output=embed`;
 
   return (
-    <div className="w-full max-w-[1390px] mx-auto h-[423px] rounded-[10px] overflow-hidden border-[0.5px] border-white/20 light:border-[#072E2A]/25 max-md:h-[300px]">
+    <div className="w-full max-w-[1381px] mx-auto h-[426px] rounded-[15px] overflow-hidden border-[0.5px] border-white/20 light:border-[#072E2A]/25 max-md:h-[300px]">
       <iframe
         title={t("contactPage.mapTitle")}
         src={src}

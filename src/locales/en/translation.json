@@ -162,6 +162,92 @@
     }
   },
 
+  "quickBook": {
+    "title": "Quickly Book Your Luxury Ride",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "location": "Location",
+    "service": "Select Service",
+    "next": "Next",
+    "services": {
+      "pointToPoint": "Point-To-Point",
+      "hourly": "Hourly",
+      "airportTransfer": "Airport Transfer",
+      "cityTour": "City Tour"
+    },
+    "pointToPoint": {
+      "title": "Book Your Point-To-Point Ride",
+      "pickupLocation": "Pickup Location",
+      "dropOffLocation": "Drop-Off Location",
+      "date": "Date",
+      "time": "Time",
+      "carType": "Choose The Car Type",
+      "car": "Choose A Car",
+      "passengers": "Passengers",
+      "notes": "Optional Notes",
+      "confirm": "Confirm Booking",
+      "carTypes": {
+        "businessClass": "Business Class",
+        "businessVan": "Business Van",
+        "sprinterClass": "Sprinter Class"
+      },
+      "cars": {
+        "lexusEs300h": "Lexus ES 300H",
+        "mercedesEqe": "Mercedes EQE"
+      }
+    },
+    "hourly": {
+      "title": "Book Your Hourly Chauffeur Service",
+      "pickupLocation": "Pickup Location",
+      "date": "Date",
+      "startTime": "Start Time",
+      "hours": "Number Of Hours",
+      "carType": "Choose The Car Type",
+      "car": "Choose A Car",
+      "passengers": "Passengers",
+      "stopsQuestion": "Do You Have Specific Stops During Your Booking?",
+      "stop": "Stop {{number}}",
+      "enterLocation": "Enter Location",
+      "addStop": "Add Stop",
+      "notes": "Optional Notes",
+      "confirm": "Confirm Booking"
+    },
+    "airportTransfer": {
+      "title": "Book Your Airport Transfer",
+      "transferType": "Select Transfer Type:",
+      "toAirport": "To Airport",
+      "fromAirport": "From Airport",
+      "date": "Date",
+      "airport": "Airport",
+      "flightNumber": "Flight Number",
+      "flightTime": "Flight Time",
+      "arrivalTime": "Arrival Time",
+      "pickupTime": "Pickup Time",
+      "dropOffLocation": "Drop-Off Location",
+      "pickupLocation": "Pickup Location",
+      "carType": "Choose The Car Type",
+      "car": "Choose A Car",
+      "passengers": "Passengers",
+      "notes": "Optional Notes",
+      "confirm": "Confirm Booking"
+    },
+    "cityTour": {
+      "title": "Book Your City Tour Experience",
+      "city": "City",
+      "date": "Date",
+      "startTime": "Start Time",
+      "duration": "Duration",
+      "carType": "Choose The Car Type",
+      "car": "Choose A Car",
+      "passengers": "Passengers",
+      "places": "Places To Visit",
+      "notes": "Optional Notes",
+      "confirm": "Confirm Booking"
+    }
+  },
+
   "fleetPage": {
     "title": "Our Luxury Fleet",
     "eyebrow": "Fleet Collection",
@@ -321,6 +407,9 @@
     "address": "UAE, Dubai Al Qouz 3, St 12"
   },
   "validation": {
+    "transferRequired": "Please choose a transfer type",
+    "locationRequired": "Location is required",
+    "serviceRequired": "Please choose a service",
     "durationRequired": "Please choose a booking duration",
     "nameRequired": "Name is required",
     "lettersOnly": "Letters only",

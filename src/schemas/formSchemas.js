@@ -42,6 +42,90 @@ export const bookingSchema = (t) =>
     dropOffLocation: z.string().optional().or(z.literal("")),
   });
 
+// Quick-booking page form (the service picked decides the modal that follows)
+
+export const quickBookSchema = (t) =>
+  z.object({
+    firstName: createLettersOnly(t),
+    lastName: createLettersOnly(t),
+    email: createRequiredEmail(t),
+    phone: z
+      .string()
+      .min(1, t("validation.phoneRequired"))
+      .regex(/^\d+$/, t("validation.numbersOnly")),
+    location: z.string().optional().or(z.literal("")),
+    service: z.enum(["pointToPoint", "hourly", "airportTransfer", "cityTour"], {
+      message: t("validation.serviceRequired"),
+    }),
+  });
+
+// Quick-booking, Point-To-Point step
+
+export const pointToPointSchema = (t) =>
+  z.object({
+    pickupLocation: z.string().trim().min(1, t("validation.locationRequired")),
+    dropOffLocation: z.string().trim().min(1, t("validation.locationRequired")),
+    date: z.string().optional().or(z.literal("")),
+    time: z.string().optional().or(z.literal("")),
+    carType: z.string().optional().or(z.literal("")),
+    car: z.string().optional().or(z.literal("")),
+    passengers: z.string().optional().or(z.literal("")),
+    notes: z.string().optional().or(z.literal("")),
+  });
+
+// Quick-booking, Hourly step
+
+export const hourlySchema = (t) =>
+  z.object({
+    pickupLocation: z.string().trim().min(1, t("validation.locationRequired")),
+    date: z.string().optional().or(z.literal("")),
+    startTime: z.string().optional().or(z.literal("")),
+    hours: createDigitsOnly(t),
+    carType: z.string().optional().or(z.literal("")),
+    car: z.string().optional().or(z.literal("")),
+    passengers: z.string().optional().or(z.literal("")),
+    hasStops: z.boolean(),
+    stops: z.array(z.object({ location: z.string() })),
+    notes: z.string().optional().or(z.literal("")),
+  });
+
+// Quick-booking, Airport Transfer step (the fields shown depend on the
+// transfer type; the unused ones stay empty)
+
+export const airportTransferSchema = (t) =>
+  z.object({
+    transferType: z.enum(["toAirport", "fromAirport"], {
+      message: t("validation.transferRequired"),
+    }),
+    date: z.string().optional().or(z.literal("")),
+    airport: z.string().optional().or(z.literal("")),
+    flightNumber: z.string().optional().or(z.literal("")),
+    flightTime: z.string().optional().or(z.literal("")),
+    arrivalTime: z.string().optional().or(z.literal("")),
+    pickupTime: z.string().optional().or(z.literal("")),
+    dropOffLocation: z.string().optional().or(z.literal("")),
+    pickupLocation: z.string().optional().or(z.literal("")),
+    carType: z.string().optional().or(z.literal("")),
+    car: z.string().optional().or(z.literal("")),
+    passengers: z.string().optional().or(z.literal("")),
+    notes: z.string().optional().or(z.literal("")),
+  });
+
+// Quick-booking, City Tour step
+
+export const cityTourSchema = (t) =>
+  z.object({
+    city: z.string().trim().min(1, t("validation.locationRequired")),
+    date: z.string().optional().or(z.literal("")),
+    startTime: z.string().optional().or(z.literal("")),
+    duration: z.string().optional().or(z.literal("")),
+    carType: z.string().optional().or(z.literal("")),
+    car: z.string().optional().or(z.literal("")),
+    passengers: z.string().optional().or(z.literal("")),
+    places: z.string().optional().or(z.literal("")),
+    notes: z.string().optional().or(z.literal("")),
+  });
+
 // Car-details reservation form
 
 export const reservationSchema = (t) =>

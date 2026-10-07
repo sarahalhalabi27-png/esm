@@ -152,6 +152,92 @@
       "december": "ديسمبر"
     }
   },
+  "quickBook": {
+    "title": "احجز رحلتك الفاخرة بسرعة",
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "location": "الموقع",
+    "service": "اختر الخدمة",
+    "next": "التالي",
+    "services": {
+      "pointToPoint": "من نقطة إلى نقطة",
+      "hourly": "بالساعة",
+      "airportTransfer": "التوصيل من وإلى المطار",
+      "cityTour": "جولة في المدينة"
+    },
+    "pointToPoint": {
+      "title": "احجز رحلتك من نقطة إلى نقطة",
+      "pickupLocation": "موقع الاستلام",
+      "dropOffLocation": "موقع التوصيل",
+      "date": "التاريخ",
+      "time": "الوقت",
+      "carType": "اختر فئة السيارة",
+      "car": "اختر سيارة",
+      "passengers": "عدد الركاب",
+      "notes": "ملاحظات اختيارية",
+      "confirm": "تأكيد الحجز",
+      "carTypes": {
+        "businessClass": "فئة رجال الأعمال",
+        "businessVan": "فان رجال الأعمال",
+        "sprinterClass": "فئة سبرينتر"
+      },
+      "cars": {
+        "lexusEs300h": "لكزس ES 300H",
+        "mercedesEqe": "مرسيدس EQE"
+      }
+    },
+    "hourly": {
+      "title": "احجز خدمة السائق بالساعة",
+      "pickupLocation": "موقع الاستلام",
+      "date": "التاريخ",
+      "startTime": "وقت البدء",
+      "hours": "عدد الساعات",
+      "carType": "اختر فئة السيارة",
+      "car": "اختر سيارة",
+      "passengers": "عدد الركاب",
+      "stopsQuestion": "هل لديك محطات توقف محددة خلال حجزك؟",
+      "stop": "المحطة {{number}}",
+      "enterLocation": "أدخل الموقع",
+      "addStop": "إضافة محطة",
+      "notes": "ملاحظات اختيارية",
+      "confirm": "تأكيد الحجز"
+    },
+    "airportTransfer": {
+      "title": "احجز التوصيل من وإلى المطار",
+      "transferType": "اختر نوع التوصيل:",
+      "toAirport": "إلى المطار",
+      "fromAirport": "من المطار",
+      "date": "التاريخ",
+      "airport": "المطار",
+      "flightNumber": "رقم الرحلة",
+      "flightTime": "وقت الرحلة",
+      "arrivalTime": "وقت الوصول",
+      "pickupTime": "وقت الاستلام",
+      "dropOffLocation": "موقع التوصيل",
+      "pickupLocation": "موقع الاستلام",
+      "carType": "اختر فئة السيارة",
+      "car": "اختر سيارة",
+      "passengers": "عدد الركاب",
+      "notes": "ملاحظات اختيارية",
+      "confirm": "تأكيد الحجز"
+    },
+    "cityTour": {
+      "title": "احجز تجربة جولتك في المدينة",
+      "city": "المدينة",
+      "date": "التاريخ",
+      "startTime": "وقت البدء",
+      "duration": "المدة",
+      "carType": "اختر فئة السيارة",
+      "car": "اختر سيارة",
+      "passengers": "عدد الركاب",
+      "places": "الأماكن التي تود زيارتها",
+      "notes": "ملاحظات اختيارية",
+      "confirm": "تأكيد الحجز"
+    }
+  },
+
   "fleetPage": {
     "title": "أسطولنا الفاخر",
     "eyebrow": "مجموعة الأسطول",
@@ -310,6 +396,9 @@
     "address": "الإمارات، دبي، القوز 3، شارع 12"
   },
   "validation": {
+    "transferRequired": "يرجى اختيار نوع التوصيل",
+    "locationRequired": "الموقع مطلوب",
+    "serviceRequired": "يرجى اختيار الخدمة",
     "durationRequired": "يرجى اختيار مدة الحجز",
     "nameRequired": "الاسم مطلوب",
     "lettersOnly": "يسمح بالأحرف فقط",

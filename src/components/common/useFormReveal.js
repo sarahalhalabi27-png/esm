@@ -18,8 +18,9 @@ export default function useFormReveal(isRtl, { replay = false } = {}) {
     const mm = gsap.matchMedia();
 
     mm.add(MOTION_OK, () => {
+      // The card is the form itself (Contact, no title) or wraps one.
       const title = card.querySelector("h2");
-      const form = card.querySelector("form");
+      const form = card.matches("form") ? card : card.querySelector("form");
       const fields = [...form.children].flatMap((row) =>
         row.classList.contains("grid") ? [...row.children] : [row]
       );
@@ -27,7 +28,7 @@ export default function useFormReveal(isRtl, { replay = false } = {}) {
         ? "inset(-40px 0 -12px 100%)"
         : "inset(-40px 100% -12px 0)";
 
-      gsap.set([card, title, ...fields], { autoAlpha: 0 });
+      gsap.set([card, ...(title ? [title] : []), ...fields], { autoAlpha: 0 });
 
       const tl = gsap
         .timeline({ paused: true, defaults: { ease: "power3.out" } })
@@ -35,25 +36,27 @@ export default function useFormReveal(isRtl, { replay = false } = {}) {
           card,
           { autoAlpha: 0, y: 40 },
           { autoAlpha: 1, y: 0, duration: 0.9, clearProps: "transform" }
-        )
-        .fromTo(
+        );
+      if (title) {
+        tl.fromTo(
           title,
           { autoAlpha: 0, y: 12 },
           { autoAlpha: 1, y: 0, duration: 0.6 },
           "-=0.5"
-        )
-        .fromTo(
-          fields,
-          { autoAlpha: 1, clipPath: clipped },
-          {
-            clipPath: "inset(-40px 0% -12px 0%)",
-            duration: 0.8,
-            ease: "power2.inOut",
-            stagger: 0.07,
-            clearProps: "clipPath",
-          },
-          "-=0.3"
         );
+      }
+      tl.fromTo(
+        fields,
+        { autoAlpha: 1, clipPath: clipped },
+        {
+          clipPath: "inset(-40px 0% -12px 0%)",
+          duration: 0.8,
+          ease: "power2.inOut",
+          stagger: 0.07,
+          clearProps: "clipPath",
+        },
+        "-=0.3"
+      );
 
       if (replay) {
         // Plays every time the form comes into view, resets when it leaves.
@@ -67,11 +70,22 @@ export default function useFormReveal(isRtl, { replay = false } = {}) {
         return;
       }
 
+      // Not `once`: images above the form load after this runs and push it
+      // down, so an early "enter" is ignored (the trigger refreshes on load and
+      // fires again when the form really reaches the viewport).
       ScrollTrigger.create({
         trigger: card,
         start: "top 85%",
-        once: true,
-        onEnter: () => tl.play(),
+        onEnter: (self) => {
+          if (
+            card.getBoundingClientRect().top >
+            window.innerHeight * 0.85 + 2
+          ) {
+            return;
+          }
+          tl.play();
+          self.kill();
+        },
       });
     });
 

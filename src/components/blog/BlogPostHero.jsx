@@ -5,6 +5,9 @@ import useSectionReveal from "../carDetails/useSectionReveal.js";
 
 const accent = "text-teal-accent";
 
+// The two teal glows in the title band (temporarily off).
+const SHOW_BAND_GLOWS = false;
+
 // Blog post top (Figma, 1440 frame):
 // - a 615px band right under the header: the post's photo, full width, under
 //   a 76% black overlay with a 13px backdrop blur, and the title (Semibold
@@ -124,15 +127,20 @@ export default function BlogPostHero({ post }) {
           aria-hidden="true"
           className="absolute inset-0 bg-[#000000C2] backdrop-blur-[6.1px]"
         />
-        {/* Teal glows (Figma ellipses, 100 x 100, layer blur 242) */}
-        <div
-          aria-hidden="true"
-          className="hidden md:block pointer-events-none absolute top-[207px] left-[calc(50%-376px)] w-[100px] h-[100px] rounded-full bg-[#24B9A5]/50 blur-[121px]"
-        />
-        <div
-          aria-hidden="true"
-          className="hidden md:block pointer-events-none absolute top-[294px] left-[calc(50%+216px)] w-[100px] h-[100px] rounded-full bg-[#24B9A5]/50 blur-[121px]"
-        />
+        {/* Teal glows (Figma ellipses, 100 x 100, layer blur 242) - switched
+            off for now, see SHOW_BAND_GLOWS */}
+        {SHOW_BAND_GLOWS && (
+          <>
+            <div
+              aria-hidden="true"
+              className="hidden md:block pointer-events-none absolute top-[207px] left-[calc(50%-376px)] w-[100px] h-[100px] rounded-full bg-[#24B9A5]/50 blur-[121px]"
+            />
+            <div
+              aria-hidden="true"
+              className="hidden md:block pointer-events-none absolute top-[294px] left-[calc(50%+216px)] w-[100px] h-[100px] rounded-full bg-[#24B9A5]/50 blur-[121px]"
+            />
+          </>
+        )}
         <h1 className="absolute inset-x-0 top-[230px] mx-auto w-[987px] max-w-full px-6 whitespace-pre-line text-center text-[25px] font-semibold leading-[120%] capitalize text-white max-md:top-1/2 max-md:-translate-y-1/2 max-md:px-4 max-md:text-lg max-md:leading-snug">
           <TitleWords title={title} accents={titleAccents} />
         </h1>

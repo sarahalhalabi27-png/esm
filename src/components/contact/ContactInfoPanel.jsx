@@ -1,33 +1,28 @@
 import { Trans, useTranslation } from "react-i18next";
-import { Headset, MapPin, Phone } from "lucide-react";
+import MaskIcon from "../common/MaskIcon.jsx";
+import locationIcon from "../../assets/contact/location.svg";
+import landlineIcon from "../../assets/contact/landline.svg";
+import phoneIcon from "../../assets/contact/phone.svg";
+import whatsappIcon from "../../assets/contact/whatsapp.svg";
 import { companyInfo } from "../../data/companyInfo.js";
 
-// WhatsApp mark in the same outline style as the lucide icons (lucide has no
-// brand icons): a speech bubble with a handset inside.
-function WhatsAppIcon({ size = 28 }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z" />
-      <path d="M9.2 8.3c.2-.4.5-.5.8-.5h.5c.2 0 .4.1.5.4l.6 1.4c.1.2 0 .5-.1.6l-.5.6c.6 1.2 1.5 2.1 2.7 2.7l.6-.5c.2-.2.4-.2.6-.1l1.4.6c.3.1.4.3.4.5v.5c0 .3-.2.6-.5.8-.6.4-1.4.5-2.1.2-2.1-.8-3.8-2.5-4.6-4.6-.3-.7-.2-1.5.1-2.1z" />
-    </svg>
-  );
-}
+// Each icon is its exported SVG (own size) drawn as a mask, so it takes the
+// theme accent: teal in dark mode, dark teal in light mode.
+const icon = (src, width, height) => (
+  <MaskIcon
+    src={src}
+    display="block"
+    className="max-md:!w-7 max-md:!h-auto max-md:aspect-square"
+    style={{ width, height }}
+  />
+);
 
 const digits = (phone) => phone.replace(/[^\d+]/g, "");
 
 // Left column of Contact Us (Figma, 1440 frame): the two-line heading
-// (Semibold 20px, "ESM" and "Take Care" teal), the intro (18px) with a
-// 300px teal rule under it, "Keep Close" after a 55px teal line, then the
+// (Semibold 22px on 138% lines, 448 wide, "ESM" and "Take Care" teal), the intro (Regular 22px on 138% lines, 629 wide, 18px under the heading) with a
+// 298px teal rule under it, "Keep Close" (Medium 22px, 102px under the rule) after a 55px teal line
+// (10px apart), 49px above the list, then the
 // address and the three numbers, each with a teal icon (tap to call / chat).
 export default function ContactInfoPanel() {
   const { t } = useTranslation();
@@ -35,26 +30,26 @@ export default function ContactInfoPanel() {
 
   const rows = [
     {
-      icon: <MapPin size={28} strokeWidth={1.5} aria-hidden="true" />,
+      icon: icon(locationIcon, 31, 40),
       label: t("contactPage.addressLabel"),
       text: t("contactPage.address"),
       href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(companyInfo.address)}`,
       external: true,
     },
     {
-      icon: <Headset size={28} strokeWidth={1.5} aria-hidden="true" />,
+      icon: icon(landlineIcon, 39, 47),
       label: t("contactPage.landlineLabel"),
       text: companyInfo.secondaryPhone,
       href: `tel:${digits(companyInfo.secondaryPhone)}`,
     },
     {
-      icon: <Phone size={28} strokeWidth={1.5} aria-hidden="true" />,
+      icon: icon(phoneIcon, 35, 35),
       label: t("contactPage.phoneLabel"),
       text: companyInfo.phone,
       href: `tel:${digits(companyInfo.phone)}`,
     },
     {
-      icon: <WhatsAppIcon />,
+      icon: icon(whatsappIcon, 37, 38),
       label: t("contactPage.whatsappLabel"),
       text: companyInfo.whatsapp,
       href: `https://wa.me/${digits(companyInfo.whatsapp).replace("+", "")}`,
@@ -64,25 +59,30 @@ export default function ContactInfoPanel() {
 
   return (
     <div className="font-display">
-      <h2 className="text-[20px] font-semibold leading-[30px] capitalize text-fg max-md:text-lg max-md:leading-snug">
+      <h2 className="w-[448px] max-w-full text-[22px] font-semibold leading-[138%] capitalize text-fg max-md:w-auto max-md:text-lg max-md:leading-snug">
         <Trans i18nKey="contactPage.headingLine1" components={{ accent }} />
         <br />
         <Trans i18nKey="contactPage.headingLine2" components={{ accent }} />
       </h2>
-      <p className="mt-4 max-w-[620px] text-[18px] font-medium leading-[30px] capitalize text-fg/85 max-md:text-base max-md:leading-relaxed">
+      <p className="mt-[18px] w-[629px] max-w-full text-[22px] font-normal leading-[138%] capitalize text-fg/85 max-md:mt-4 max-md:w-auto max-md:text-base max-md:leading-relaxed">
         {t("contactPage.intro")}
       </p>
       <span
         aria-hidden="true"
-        className="block mt-1 w-[300px] max-w-full h-[1.5px] bg-teal-accent"
+        className="block mt-[10px] w-[298px] max-w-full h-px bg-teal-accent"
       />
 
-      <p className="mt-[100px] flex items-center gap-4 text-[17px] font-medium text-fg max-md:mt-12">
-        <span aria-hidden="true" className="w-[55px] h-px bg-teal-accent" />
+      <p className="mt-[102px] flex items-center gap-[6px] text-[22px] font-medium leading-[27px] text-fg light:text-[#072E2A] max-md:mt-12 max-md:gap-4 max-md:text-[17px] max-md:leading-normal">
+        <span
+          aria-hidden="true"
+          className="relative top-[8px] ms-[23px] w-[55px] h-px bg-teal-accent max-md:top-0 max-md:ms-0"
+        />
         {t("contactPage.keepClose")}
       </p>
 
-      <ul className="mt-[50px] flex flex-col gap-[42px] max-md:mt-8 max-md:gap-7">
+      {/* Figma: every row is Medium 25px in a 540-wide box starting 115px in (the
+          icons 73px in, 30px before the text, centred on the text line), 52px apart. */}
+      <ul className="mt-[49px] flex flex-col gap-[52px] max-md:mt-8 max-md:gap-7">
         {rows.map((row) => (
           <li key={row.label}>
             <a
@@ -91,12 +91,13 @@ export default function ContactInfoPanel() {
               {...(row.external
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
-              className="group flex items-center gap-4 max-w-[560px] text-[20px] font-medium leading-[28px] text-fg transition-colors hover:text-teal-accent max-md:text-base max-md:leading-snug"
+              className="group flex items-center max-w-[660px] gap-[30px] text-[25px] font-medium leading-[30px] text-fg transition-colors hover:text-teal-accent max-md:gap-4 max-md:text-base max-md:leading-snug"
             >
-              <span className="shrink-0 text-teal-accent transition-transform group-hover:-translate-y-0.5">
+              <span className="ms-[23px] flex h-[30px] shrink-0 items-center transition-transform group-hover:-translate-y-0.5 max-md:ms-0 max-md:h-auto">
                 {row.icon}
               </span>
               <span
+                className="w-[540px] max-w-full"
                 dir={
                   row.href.startsWith("tel:") || row.href.includes("wa.me")
                     ? "ltr"

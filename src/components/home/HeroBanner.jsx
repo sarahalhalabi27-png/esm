@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import PrimaryButton from "../common/PrimaryButton.jsx";
@@ -65,6 +66,7 @@ const {
 
 export default function HeroBanner() {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
 
   const isRTL = i18n.dir() === "rtl";
   const highlightsListRef = useRef(null);
@@ -128,7 +130,10 @@ export default function HeroBanner() {
             </span>
           </h1>
 
-          <PrimaryButton className="w-full max-w-[365px] h-[50px] rounded-[10px] text-[18px] md:text-[20px] font-normal leading-[100%] tracking-[0%] capitalize font-display mb-[47px] max-md:mb-7 max-md:h-[48px] max-md:px-3 max-md:text-[clamp(14px,4.4vw,17px)]">
+          <PrimaryButton
+            onClick={() => navigate("/book")}
+            className="w-full max-w-[365px] h-[50px] rounded-[10px] text-[18px] md:text-[20px] font-normal leading-[100%] tracking-[0%] capitalize font-display mb-[47px] max-md:mb-7 max-md:h-[48px] max-md:px-3 max-md:text-[clamp(14px,4.4vw,17px)]"
+          >
             {t("hero.book")}
           </PrimaryButton>
 

@@ -13,6 +13,7 @@ import BlogPage from "./pages/BlogPage.jsx";
 import BlogPostPage from "./pages/BlogPostPage.jsx";
 import ContactUsPage from "./pages/ContactUsPage.jsx";
 import CarDetailsPage from "./pages/CarDetailsPage.jsx";
+import QuickBookPage from "./pages/QuickBookPage.jsx";
 
 // Start each newly opened page at the top (e.g. a car opened from the bottom
 // of Our Fleet); browser back/forward keeps its own scroll restoration.
@@ -38,6 +39,7 @@ export default function App() {
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:postId" element={<BlogPostPage />} />
         <Route path="/contact" element={<ContactUsPage />} />
+        <Route path="/book" element={<QuickBookPage />} />
       </Routes>
     </>
   );
