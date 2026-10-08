@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import highlightWords from "../../utils/highlightWords.jsx";
 import SectionEyebrow from "../common/SectionEyebrow.jsx";
 import offerCar from "../../assets/promo/offer_car.webp";
 import smoke1 from "../../assets/promo/smoke1.webp";
@@ -19,7 +20,11 @@ export default function PromotionalOfferBanner() {
           </SectionEyebrow>
 
           <h2 className="text-2xl font-semibold mt-[40px] mb-[11px] max-md:[grid-area:heading] max-md:self-end max-md:mt-6 max-md:mb-2 max-md:text-lg max-md:leading-snug">
-            {t("home.promo.heading")}
+            {highlightWords(
+              t("home.promo.heading"),
+              [t("home.promo.headingAccent")],
+              "luxury-shine promo-glow relative inline-block"
+            )}
           </h2>
 
           <p className="text-fg font-normal text-[20px] leading-[130%] tracking-[0%] capitalize w-full max-w-[703px] min-h-[48px] mb-6 max-md:[grid-area:desc] max-md:self-start max-md:min-h-0 max-md:mb-0 max-md:text-sm max-md:leading-relaxed">
@@ -28,8 +33,7 @@ export default function PromotionalOfferBanner() {
 
           <button
             type="button"
-            className="relative w-[300px] max-w-full h-[50px] rounded-[10px] font-display text-white transition-transform hover:scale-[1.02] max-md:[grid-area:cta] max-md:mt-7"
-            style={{ background: "#072E2A" }}
+            className="relative w-[300px] max-w-full h-[50px] rounded-[10px] border border-[#072E2A] bg-[#072E2A] font-display text-white transition-[transform,background-color,color,border-color] hover:scale-[1.02] hover:border-[#0E4A43] hover:bg-[#0E4A43] max-md:[grid-area:cta] max-md:mt-7"
           >
             <span
               className="absolute top-[13px] h-[24px] flex items-center justify-center font-normal text-[20px] leading-[100%] tracking-[0%] capitalize"
@@ -57,14 +61,14 @@ export default function PromotionalOfferBanner() {
             >
               <path
                 d="M1 7L24 7"
-                stroke="white"
+                stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
               <path
                 d="M17 1L24 7L17 13"
-                stroke="white"
+                stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -96,7 +100,7 @@ export default function PromotionalOfferBanner() {
           <img
             src={smoke1}
             alt=""
-            className={`absolute w-[587px] h-[392px] object-contain opacity-[0.66] z-0 light:opacity-100 light:[filter:url(#promo-smoke-light)] max-md:max-w-none max-md:w-[190%] max-md:h-auto max-md:left-1/2 max-md:top-1/2 max-md:-translate-x-1/2 max-md:-translate-y-1/2 ${
+            className={`absolute w-[587px] h-[392px] object-contain opacity-[0.66] z-0 light:opacity-100 light:[filter:url(#promo-smoke-light)] max-md:max-w-none max-md:w-[130%] max-md:h-auto max-md:top-0 max-md:left-[-5%] ${
               isRTL ? "md:translate-x-[100px]" : "md:translate-x-[200px]"
             }`}
           />

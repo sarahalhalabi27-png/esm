@@ -1,7 +1,4 @@
-import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionEyebrow from "../common/SectionEyebrow.jsx";
 import CheckListItem from "../common/CheckListItem.jsx";
 import parking from "../../assets/trust/parking.webp";
@@ -9,55 +6,23 @@ import parkingLight from "../../assets/trust/parking_light.webp";
 import parkingMobile from "../../assets/trust/parking-mobile.webp";
 import parkingLightMobile from "../../assets/trust/parking-light-mobile.webp";
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function TrustHighlights() {
   const { t } = useTranslation();
-  const sectionRef = useRef(null);
-  const backgroundRef = useRef(null);
-
-  useEffect(() => {
-    // Phones: background-attachment:fixed is ignored on iOS and janky on
-    // Android, so recreate the desktop effect — the photo holds still while
-    // the section scrolls over it. The layer is one viewport tall and is
-    // moved by exactly the scroll distance (scrub: true, no easing), from
-    // "section top at viewport bottom" to "section bottom at viewport top".
-    const mm = gsap.matchMedia(sectionRef);
-    mm.add("(max-width: 767.98px)", () => {
-      gsap.fromTo(
-        backgroundRef.current,
-        { y: () => -window.innerHeight },
-        {
-          y: () => sectionRef.current.offsetHeight,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-            invalidateOnRefresh: true,
-          },
-        }
-      );
-    });
-    return () => mm.revert();
-  }, []);
 
   return (
     <section
-      ref={sectionRef}
-      className="relative overflow-hidden w-full max-w-[1340px] mx-auto md:h-[606px] font-display"
+      className="relative overflow-hidden max-md:[clip-path:inset(0)] w-full max-w-[1340px] mx-auto md:h-[606px] font-display"
     >
       {/* Background swaps with the theme. Desktop: bg-fixed gives the
           "photo stays put" parallax. Phones: the wrapper becomes a
-          viewport-tall layer that GSAP keeps pinned to the viewport (above),
-          so the effect is the same everywhere — with portrait versions of the
-          photo on phones, so the whole scene fills the screen. The images are
-          CSS variables picked per breakpoint, so each device downloads only
-          the one it shows. */}
+          viewport-tall position:fixed layer, clipped to the section by its
+          clip-path (pure CSS, so it tracks the scroll with no JS lag on
+          iOS/Android) — with portrait versions of the photo on phones, so
+          the whole scene fills the screen. The images are CSS variables
+          picked per breakpoint, so each device downloads only the one it
+          shows. */}
       <div
-        ref={backgroundRef}
-        className="absolute inset-0 z-0 max-md:bottom-auto max-md:h-[100lvh] max-md:will-change-transform"
+        className="absolute inset-0 z-0 max-md:fixed max-md:bottom-auto max-md:h-[100lvh]"
       >
         <div
           className="dark-only absolute inset-0 bg-cover bg-center bg-fixed bg-[image:var(--bg-wide)] max-md:bg-scroll max-md:bg-[image:var(--bg-tall)]"

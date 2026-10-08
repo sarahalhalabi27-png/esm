@@ -70,19 +70,28 @@ export default function useFormReveal(isRtl, { replay = false } = {}) {
         return;
       }
 
-      // Not `once`: images above the form load after this runs and push it
-      // down, so an early "enter" is ignored (the trigger refreshes on load and
-      // fires again when the form really reaches the viewport).
+      // Images above the form load after this runs and push it down, so an
+      // early "enter" is ignored. The trigger does not fire "enter" again when
+      // it is already past its start (e.g. the page jumped straight to the
+      // form), so the check is repeated on every refresh / scroll update /
+      // leave until the form has really reached the viewport.
+      const playIfVisible = (self) => {
+        if (
+          card.getBoundingClientRect().top >
+          window.innerHeight * 0.85 + 2
+        ) {
+          return;
+        }
+        tl.play();
+        self.kill();
+      };
       ScrollTrigger.create({
         trigger: card,
         start: "top 85%",
-        onEnter: (self) => {
-          if (
-            card.getBoundingClientRect().top >
-            window.innerHeight * 0.85 + 2
-          ) {
-            return;
-          }
+        onEnter: playIfVisible,
+        onUpdate: playIfVisible,
+        onRefresh: playIfVisible,
+        onLeave: (self) => {
           tl.play();
           self.kill();
         },

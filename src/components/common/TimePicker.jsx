@@ -179,7 +179,11 @@ export default function TimePicker({
               </select>
             </div>
 
-            <div className="flex justify-center gap-4 mt-5 max-md:gap-3">
+            {/* Cancel on the left, Done on the right in both languages */}
+            <div
+              dir="ltr"
+              className="flex justify-center gap-4 mt-5 max-md:gap-3"
+            >
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}

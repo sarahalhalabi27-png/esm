@@ -165,11 +165,11 @@ export default function CommentForm({ postId }) {
             />
           </div>
 
-          <label className="mt-[35px] flex items-center gap-4 text-[20px] font-normal leading-[100%] capitalize text-white/80 cursor-pointer max-md:items-start max-md:gap-3 max-md:text-[14px]">
+          <label className="mt-[35px] flex items-start gap-4 text-start text-[20px] font-normal leading-[1.7] capitalize text-white/80 cursor-pointer max-md:gap-3 max-md:text-[14px] max-md:leading-[1.8]">
             <input
               type="checkbox"
               {...register("rememberMe")}
-              className={CHECKBOX}
+              className={`${CHECKBOX} mt-[7px] max-md:mt-[4px]`}
             />
             {t("blogPost.comment.remember")}
           </label>

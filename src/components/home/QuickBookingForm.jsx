@@ -153,7 +153,7 @@ export default function QuickBookingForm() {
               <div className="mt-[45px] max-md:mt-9 flex flex-col items-center gap-2">
                 <OutlineButton
                   type="submit"
-                  className="!w-[153px] !h-[55px] !rounded-[10px] !border-line !text-fg !font-display !font-semibold !text-[22px] !leading-[100%] !tracking-[0%] !capitalize"
+                  className="!w-[153px] !h-[55px] !rounded-[10px] !border-line !text-fg !font-display !font-semibold !text-[22px] !leading-[100%] !tracking-[0%] !capitalize enabled:hover:!bg-white enabled:hover:!text-[#072E2A]"
                   disabled={status === SUBMIT_STATUS.SUBMITTING}
                 >
                   {status === SUBMIT_STATUS.SUBMITTING

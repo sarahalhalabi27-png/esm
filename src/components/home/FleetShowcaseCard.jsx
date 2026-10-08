@@ -32,7 +32,7 @@ export default function FleetShowcaseCard({ car }) {
   // the next card peeks in the carousel, pinned widths become start/end insets
   // and the vertical rhythm is tightened. Desktop values are unchanged.
   return (
-    <div className="relative w-[416px] max-w-full h-[575px] max-md:w-[var(--snap-card-w,82vw)] max-md:max-w-[340px] max-md:h-[480px] rounded-[10px] overflow-hidden font-display transition-transform duration-300 ease-out hover:scale-105 hover:z-30">
+    <div className="group relative w-[416px] max-w-full h-[575px] max-md:w-[var(--snap-card-w,82vw)] max-md:max-w-[340px] max-md:h-[480px] rounded-[10px] overflow-hidden font-display transition-transform duration-300 ease-out hover:scale-[1.02] hover:-translate-y-1 hover:z-30">
       {/* Green background - Rectangle 10 */}
       <div className="absolute top-0 start-0 w-full h-[319px] max-md:h-[262px] rounded-t-[10px] bg-[#24B9A4]/[0.20] z-0" />
 
@@ -59,7 +59,7 @@ export default function FleetShowcaseCard({ car }) {
         </div>
 
         {/* Car Name */}
-        <h3 className="absolute top-[295px] start-[24px] w-[251px] h-[30px] whitespace-nowrap font-semibold text-[25px] leading-[100%] tracking-[5.5px] max-md:top-[240px] max-md:w-auto max-md:end-[20px] max-md:start-[20px] max-md:text-[20px] max-md:tracking-[3px] capitalize text-teal-accent">
+        <h3 className="absolute top-[295px] start-[24px] w-[251px] h-[30px] whitespace-nowrap font-semibold text-[25px] leading-[100%] tracking-[3px] max-md:top-[240px] max-md:w-auto max-md:end-[20px] max-md:start-[20px] max-md:text-[clamp(16px,4.9vw,20px)] max-md:tracking-[2px] max-md:overflow-hidden max-md:text-ellipsis capitalize text-teal-accent">
           {car.name}
         </h3>
 
@@ -144,8 +144,8 @@ export default function FleetShowcaseCard({ car }) {
         </Link>
       </div>
 
-      {/* Hairline white border, above everything */}
-      <div className="absolute inset-0 rounded-[10px] pointer-events-none z-20 border-[0.5px] border-white" />
+      {/* Hairline teal border, above everything; brightens on hover */}
+      <div className="absolute inset-0 rounded-[10px] pointer-events-none z-20 border-[0.5px] border-[#24B9A5]/35 transition-colors duration-300 group-hover:border-[#24B9A5]/70" />
     </div>
   );
 }

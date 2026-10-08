@@ -1,0 +1,19 @@
+=== USE: image-to-video, first frame = dark-first-frame-2x.png (optional: last frame = dark-last-frame.png) ===
+Aspect ratio: 16:9 (the site crops it to 1.75:1), duration 5 s, 24 fps, no audio.
+
+--- MAIN PROMPT ---
+Cinematic automotive shot of the same black stretch limousine, identical to the reference image: same model, same body shape, same chrome multi-spoke wheels, same camera angle, same framing and same position in the frame, the front of the car entering from the left edge. The scene is now a bright, high-key studio with a pure white seamless background (#FFFFFF) and a clean, glossy white floor with a very soft, subtle shadow and faint reflection under the car. Soft, even, diffused daylight from above and the front; the black paint shows crisp specular highlights and a gentle sheen, chrome and glass reflect the white surroundings.
+Thick teal smoke (deep teal, about #0B6B61 to #1C9C8C, NOT white and NOT gray) rolls slowly across the right side and in front of the car, wrapping around the wheels and windows, semi-transparent with soft billowing edges and rich depth, clearly visible and high-contrast against the white background. The smoke drifts gently from right to left, swirling and slowly evolving.
+Motion: the car stays perfectly still. Only the smoke moves, in slow, smooth, elegant motion. Static locked-off camera, no zoom, no pan, no shake. Luxury, premium, minimal, clean commercial look. Seamless loop-friendly: the last frame closely matches the first frame.
+
+--- NEGATIVE PROMPT ---
+different car, car model change, extra wheels, distorted car, warping, morphing, melting, flickering, camera movement, zoom, pan, shake, people, driver, pedestrians, text, watermark, logo, license plate text, buildings, trees, sky, horizon, road markings, colored background, dark background, gray background, white smoke, gray smoke, fog over the whole frame, lens flare, bloom, overexposure, low quality, blurry, artifacts
+
+--- SHORT VERSION (for tools with a character limit) ---
+Same black stretch limousine, same camera angle and framing, on a pure white seamless studio background with a clean white floor and soft shadow. Dark teal smoke (#0B6B61, not white, not gray) drifts slowly across the car from right to left. Car perfectly still, static locked camera, premium commercial look, 5 seconds, loop-friendly. No text, no logos, no people.
+
+--- TIPS ---
+- If the car changes between frames: lower the "creativity / motion strength", keep "camera: static", and use the last frame as an end frame too.
+- If the smoke comes out white or gray: add "deep teal smoke, saturated teal color" to the main prompt and "white smoke, gray smoke" to the negative.
+- If the background is not pure white: add "pure white #FFFFFF background, high-key, overexposed white backdrop" (the site blends the video edges into the page, so a slightly off-white is OK but pure white is best).
+- Keep the car in the same place: the site shows the video full width at 896x512 and fades its top and bottom edges into the page.

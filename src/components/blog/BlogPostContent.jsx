@@ -39,8 +39,12 @@ function buildServicesReveal({ root, tl }) {
   const items = [...root.children];
   const checks = items.map((item) => item.querySelector("span > :first-child"));
   const columns = getComputedStyle(root).gridTemplateColumns.split(" ").length;
+  // Narrow layouts (2 columns) have four rows, so each row gets a longer
+  // beat to read as "line by line"; the 4-column desktop keeps its pace.
+  const rowStep = columns <= 2 ? 0.55 : 0.3;
   const delayOf = (index) =>
-    Math.floor(index / columns) * 0.3 + (index % columns) * 0.08;
+    Math.floor(index / columns) * rowStep +
+    (index % columns) * (columns <= 2 ? 0.12 : 0.08);
 
   gsap.set(items, { autoAlpha: 0 });
 
@@ -112,11 +116,11 @@ export default function BlogPostContent({ post }) {
 
       <ul
         ref={servicesRef}
-        className="mt-[145px] -ms-[49px] grid grid-cols-[repeat(4,max-content)] gap-x-[40px] gap-y-[30px] max-lg:grid-cols-2 max-lg:gap-x-8 max-md:ms-0 max-md:mt-14 max-md:grid-cols-1 max-md:gap-y-4"
+        className="mt-[145px] -ms-[49px] grid grid-cols-[repeat(4,max-content)] gap-x-[40px] gap-y-[30px] max-lg:grid-cols-2 max-lg:gap-x-8 max-md:ms-0 max-md:mt-14 max-md:grid-cols-2 max-md:gap-x-4 max-md:gap-y-5"
       >
         {services.map((item) => (
           <li key={item}>
-            <CheckListItem className="!gap-[5px] !text-[20px] max-md:!text-base">
+            <CheckListItem className="!gap-[5px] !text-[20px] max-md:!text-[14px] max-md:!gap-2">
               {item}
             </CheckListItem>
           </li>

@@ -99,7 +99,7 @@ export default function HeroBanner() {
           glow isn't cut into a hard line where the hero meets the booking
           video below. */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none light:hidden"
         style={{
           background:
             "radial-gradient(ellipse 80% 50% at 65% 40%, rgba(63,224,176,0.10), transparent 55%)",
@@ -149,7 +149,7 @@ export default function HeroBanner() {
           </ul>
         </div>
         <div
-          className="hidden xl:block absolute rounded-full pointer-events-none"
+          className="hidden xl:block light:!hidden absolute rounded-full pointer-events-none"
           style={{
             left: 772,
             top: 501,

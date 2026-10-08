@@ -4,6 +4,10 @@ import useLocalizedPost from "./useLocalizedPost.js";
 import useSectionReveal from "../carDetails/useSectionReveal.js";
 
 const accent = "text-teal-accent";
+// The title band is always dark (black overlay), so its accent words keep the
+// bright teal in light mode too — `text-teal-accent` turns dark green there and
+// disappears on the dark band.
+const bandAccent = "text-[#24B9A5]";
 
 // The two teal glows in the title band (temporarily off).
 const SHOW_BAND_GLOWS = false;
@@ -88,7 +92,7 @@ function TitleWords({ title, accents }) {
             <span
               data-word
               {...(isAccent ? { "data-accent": "" } : {})}
-              className={`inline-block ${isAccent ? accent : ""}`}
+              className={`inline-block ${isAccent ? bandAccent : ""}`}
             >
               {word}
             </span>

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import MaskIcon from "../common/MaskIcon.jsx";
 import locationIcon from "../../assets/contact/location.svg";
@@ -17,6 +18,9 @@ const icon = (src, width, height) => (
   />
 );
 
+const isNumber = (row) =>
+  row.href.startsWith("tel:") || row.href.includes("wa.me");
+
 const digits = (phone) => phone.replace(/[^\d+]/g, "");
 
 // Left column of Contact Us (Figma, 1440 frame): the two-line heading
@@ -25,7 +29,35 @@ const digits = (phone) => phone.replace(/[^\d+]/g, "");
 // (10px apart), 49px above the list, then the
 // address and the three numbers, each with a teal icon (tap to call / chat).
 export default function ContactInfoPanel() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isRtl = i18n.dir() === "rtl";
+  const introRef = useRef(null);
+  const ruleRef = useRef(null);
+
+  // The teal rule under the intro is 298px (Figma), which in English is just
+  // the width of the last line ("Transportation Experience."). Arabic wraps
+  // differently, so there the rule is fitted to the last line's own width: it
+  // ends under its last word, like the English one under "Experience".
+  useEffect(() => {
+    const intro = introRef.current;
+    const rule = ruleRef.current;
+    if (!isRtl) {
+      rule.style.width = "";
+      return undefined;
+    }
+    const fit = () => {
+      const range = document.createRange();
+      range.selectNodeContents(intro);
+      const lines = range.getClientRects();
+      const last = lines[lines.length - 1];
+      if (last) rule.style.width = `${Math.round(last.width)}px`;
+    };
+    fit();
+    document.fonts?.ready.then(fit);
+    const observer = new ResizeObserver(fit);
+    observer.observe(intro);
+    return () => observer.disconnect();
+  }, [isRtl, i18n.language]);
   const accent = <span className="text-teal-accent" />;
 
   const rows = [
@@ -64,10 +96,14 @@ export default function ContactInfoPanel() {
         <br />
         <Trans i18nKey="contactPage.headingLine2" components={{ accent }} />
       </h2>
-      <p className="mt-[18px] w-[629px] max-w-full text-[22px] font-normal leading-[138%] capitalize text-fg/85 max-md:mt-4 max-md:w-auto max-md:text-base max-md:leading-relaxed">
+      <p
+        ref={introRef}
+        className="mt-[18px] w-[629px] max-w-full text-[22px] font-normal leading-[138%] capitalize text-fg/85 max-md:mt-4 max-md:w-auto max-md:text-base max-md:leading-relaxed"
+      >
         {t("contactPage.intro")}
       </p>
       <span
+        ref={ruleRef}
         aria-hidden="true"
         className="block mt-[10px] w-[298px] max-w-full h-px bg-teal-accent"
       />
@@ -96,13 +132,12 @@ export default function ContactInfoPanel() {
               <span className="ms-[23px] flex h-[30px] shrink-0 items-center transition-transform group-hover:-translate-y-0.5 max-md:ms-0 max-md:h-auto">
                 {row.icon}
               </span>
+              {/* The address keeps Figma's 540px box; a number (always written
+                  left to right) takes just its own width, so in Arabic it sits
+                  next to its icon instead of at the far end of the box. */}
               <span
-                className="w-[540px] max-w-full"
-                dir={
-                  row.href.startsWith("tel:") || row.href.includes("wa.me")
-                    ? "ltr"
-                    : undefined
-                }
+                className={isNumber(row) ? undefined : "w-[540px] max-w-full"}
+                dir={isNumber(row) ? "ltr" : undefined}
               >
                 {row.text}
               </span>

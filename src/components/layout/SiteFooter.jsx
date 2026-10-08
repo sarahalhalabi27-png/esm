@@ -29,6 +29,11 @@ const headingClass =
 const itemClass =
   "flex items-center gap-2 md:whitespace-nowrap font-normal text-base md:text-[20px] leading-[120%] md:leading-[100%] tracking-[0%] capitalize text-fg max-md:text-[15px] max-md:min-h-[32px] max-md:[overflow-wrap:anywhere]";
 
+// The Explore and Quick Links links: on hover they turn teal, slide a few
+// pixels toward the end side and get a hairline underline that draws in from
+// the start side.
+const linkClass = `${itemClass.replace("flex items-center", "relative flex w-fit items-center")} transition-[color,transform] duration-300 hover:translate-x-1 hover:text-teal-accent rtl:hover:-translate-x-1 after:absolute after:-bottom-[6px] after:start-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-teal-accent after:transition-transform after:duration-300 after:content-[''] hover:after:scale-x-100 rtl:after:origin-right`;
+
 export default function SiteFooter() {
   const { t } = useTranslation();
   return (
@@ -71,22 +76,22 @@ export default function SiteFooter() {
               <h4 className={headingClass}>{t("footer.explore")}</h4>
               <ul className="space-y-[32px] max-md:space-y-2">
                 <li>
-                  <NavLink to="/" className={itemClass}>
+                  <NavLink to="/" className={linkClass}>
                     {t("footer.overview")}
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/services" className={itemClass}>
+                  <NavLink to="/services" className={linkClass}>
                     {t("footer.services")}
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/about" className={itemClass}>
+                  <NavLink to="/about" className={linkClass}>
                     {t("footer.about")}
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/fleet" className={itemClass}>
+                  <NavLink to="/fleet" className={linkClass}>
                     {t("footer.ourCar")}
                   </NavLink>
                 </li>
@@ -121,10 +126,26 @@ export default function SiteFooter() {
             <div className="max-md:order-2">
               <h4 className={headingClass}>{t("footer.quickLinks")}</h4>
               <ul className="space-y-[32px] max-md:space-y-2">
-                <li className={itemClass}>{t("footer.terms")}</li>
-                <li className={itemClass}>{t("footer.privacy")}</li>
-                <li className={itemClass}>{t("footer.disclaimer")}</li>
-                <li className={itemClass}>{t("footer.faq")}</li>
+                <li>
+                  <NavLink to="/terms" className={linkClass}>
+                    {t("footer.terms")}
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/privacy" className={linkClass}>
+                    {t("footer.privacy")}
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/disclaimer" className={linkClass}>
+                    {t("footer.disclaimer")}
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/faq" className={linkClass}>
+                    {t("footer.faq")}
+                  </NavLink>
+                </li>
               </ul>
             </div>
 

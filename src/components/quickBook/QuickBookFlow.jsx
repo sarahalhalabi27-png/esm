@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import QuickBookForm from "./QuickBookForm.jsx";
 import PointToPointForm from "./PointToPointForm.jsx";
 import HourlyForm from "./HourlyForm.jsx";
@@ -17,15 +18,24 @@ const SERVICE_FORMS = {
 // "Quickly Book Your Luxury Ride": step one collects who and which service,
 // then the page's form changes to the picked service's own form. The step-one
 // values are kept (and sent with the booking).
+// Step two is its own history entry (a router state flag on the same URL), so
+// the browser's Back button returns to step one - with its fields still
+// filled in - instead of leaving the page; Forward goes to step two again.
 export default function QuickBookFlow() {
   const [details, setDetails] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const next = (values) => {
     setDetails(values);
-    window.scrollTo(0, 0);
+    navigate(location.pathname, { state: { quickBookStep: "service" } });
   };
 
-  if (!details) return <QuickBookForm onNext={next} />;
+  // After a reload the state flag survives but the details do not: start over
+  const inStepTwo = location.state?.quickBookStep === "service" && details;
+  if (!inStepTwo) {
+    return <QuickBookForm initialValues={details} onNext={next} />;
+  }
 
   const ServiceForm = SERVICE_FORMS[details.service];
   return <ServiceForm key={details.service} details={details} />;

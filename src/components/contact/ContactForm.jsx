@@ -85,6 +85,7 @@ export default function ContactForm() {
   return (
     <form
       ref={cardRef}
+      id="contact-form"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
       className={`font-display flex flex-col gap-[45px] min-h-[800px] rounded-[25px] border-[0.5px] border-[#24B9A5]/[0.51] ${FORM_CARD_DARK_IN_LIGHT} pt-[45px] pb-[70px] ps-[83px] pe-[84px] max-lg:min-h-0 max-lg:px-10 max-md:gap-8 max-md:rounded-[20px] max-md:px-5 max-md:py-8`}

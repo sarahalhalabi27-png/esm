@@ -208,6 +208,24 @@ html[dir="ltr"] {
   }
 }
 
+/* The promo banner's "10% Off": on top of the shimmer, a soft glow that
+   breathes in and out. drop-shadow (not text-shadow) because the text is a
+   clipped gradient; the glow colour is the theme accent. */
+.promo-glow {
+  animation:
+    luxury-sweep 4.5s linear 1s infinite,
+    promo-glow-pulse 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes promo-glow-pulse {
+  from {
+    filter: drop-shadow(0 0 2px rgb(var(--accent) / 0.25));
+  }
+  to {
+    filter: drop-shadow(0 0 14px rgb(var(--accent) / 0.85));
+  }
+}
+
 /* Respect users who prefer less motion: solid teal, no gradient, no sweep. */
 @media (prefers-reduced-motion: reduce) {
   .luxury-shine {

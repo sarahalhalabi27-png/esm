@@ -84,7 +84,9 @@ export default function CompanyStatsBar() {
               aria-label={stat.value}
               className="text-[25px] font-semibold leading-[30px] text-teal-accent tabular-nums max-md:text-xl"
             >
-              <span aria-hidden="true" className="inline-flex">
+              {/* dir="ltr": each character is its own flex item, so in Arabic (rtl)
+                  the row would run right to left and read 24/7 as 7/42. */}
+              <span aria-hidden="true" dir="ltr" className="inline-flex">
                 {[...stat.value].map((ch, i) =>
                   /\d/.test(ch) ? (
                     <DigitColumn key={i} digit={Number(ch)} />

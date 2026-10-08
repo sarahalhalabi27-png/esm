@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
+import gsap from "gsap";
 import PageLayout from "../components/layout/PageLayout.jsx";
 import BlogPageHero from "../components/blog/BlogPageHero.jsx";
 import BlogPostCard from "../components/blog/BlogPostCard.jsx";
@@ -12,12 +13,44 @@ import {
   selectBlogPostsStatus,
 } from "../store/blogSlice.js";
 import { STATUS } from "../store/constants.js";
+import useSectionReveal from "../components/carDetails/useSectionReveal.js";
+
+// Reveal of the post cards (each time the grid comes into view): one after
+// another, each card is wiped in from the start side while sliding in the same
+// way, and the next begins as it settles. The clip and transform are handed
+// back to CSS afterwards so the hover lift and the card's ring keep working.
+function buildCardsReveal({ root, tl, direction }) {
+  const cards = [...root.children];
+  const clipped = direction < 0 ? "inset(0 0 0 100%)" : "inset(0 100% 0 0)";
+
+  gsap.set(cards, { autoAlpha: 0 });
+
+  cards.forEach((card, index) => {
+    tl.fromTo(
+      card,
+      { autoAlpha: 1, clipPath: clipped, x: -40 * direction },
+      {
+        clipPath: "inset(0 0% 0 0%)",
+        x: 0,
+        duration: 0.8,
+        ease: "power2.inOut",
+        clearProps: "clipPath,transform",
+      },
+      index * 0.45
+    );
+  });
+}
 
 export default function BlogPage() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const posts = useSelector(selectBlogPosts);
   const status = useSelector(selectBlogPostsStatus);
+  // The posts arrive after mount: rebuild the reveal once they are there.
+  const gridRef = useSectionReveal(buildCardsReveal, {
+    key: posts.length,
+    replay: true,
+  });
 
   useEffect(() => {
     if (status === STATUS.IDLE) dispatch(fetchBlogPosts());
@@ -43,7 +76,10 @@ export default function BlogPage() {
 
         {/* Phones: Card Snap Carousel, like the home page (see
             .mobile-carousel--snap in index.css). */}
-        <div className="mobile-carousel mobile-carousel--snap mt-[51px] grid grid-cols-[repeat(3,416px)] gap-x-[47px] gap-y-12 max-lg:grid-cols-2 max-lg:gap-x-8 max-md:mt-8 max-md:gap-3 max-md:py-4">
+        <div
+          ref={gridRef}
+          className="mobile-carousel mobile-carousel--snap mt-[51px] grid grid-cols-[repeat(3,416px)] gap-x-[47px] gap-y-12 max-lg:grid-cols-2 max-lg:gap-x-8 max-md:mt-8 max-md:gap-3 max-md:py-4"
+        >
           {posts.map((post) => (
             <BlogPostCard key={post.id} post={post} />
           ))}

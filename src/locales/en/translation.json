@@ -116,6 +116,7 @@
     "promo": {
       "eyebrow": "Our Special Offers For You",
       "heading": "Enjoy 10% Off Your Next Ride!",
+      "headingAccent": "10% Off",
       "description": "Book Your Luxury Limousine Today And Save 10% On Premium Chauffeur Services Across The UAE.",
       "cta": "Claim Discount",
       "carAlt": "Luxury limousine"
@@ -406,6 +407,234 @@
     "hours": "Mon-Sat 09:00-23:00",
     "address": "UAE, Dubai Al Qouz 3, St 12"
   },
+  "legal": {
+    "updatedLabel": "Last updated",
+    "updated": "October 2026",
+    "ctaTitle": "Still Have A Question?",
+    "ctaText": "Our team is always ready to provide you with a seamless luxury transportation experience.",
+    "ctaButton": "Contact Us",
+    "terms": {
+      "title": "Terms Of Services",
+      "intro": "These Terms Of Services govern your use of the ESM Limo website and the chauffeur and limousine services we provide in the United Arab Emirates. By booking a ride or using this website you agree to them.",
+      "sections": [
+        {
+          "heading": "Our Services",
+          "body": [
+            "ESM Limo provides premium chauffeur-driven transportation, including point-to-point rides, hourly chauffeur service, airport transfers and city tours.",
+            "Vehicles are assigned according to availability and the category you request. We may replace a vehicle with one of an equal or higher category when needed."
+          ]
+        },
+        {
+          "heading": "Bookings And Confirmation",
+          "body": [
+            "A booking is confirmed only once we have confirmed it to you by phone, email or message. Please give accurate pickup details, contact numbers and flight information so your chauffeur can find you.",
+            "Requests sent through the website are requests, not guaranteed reservations, until confirmed by our team."
+          ]
+        },
+        {
+          "heading": "Prices And Payment",
+          "body": [
+            "Prices are confirmed at the time of booking and depend on the service, vehicle category, distance or duration, and any extra stops. Payment methods and timing are agreed when the booking is confirmed.",
+            "Extra charges may apply for additional stops, extended waiting time or trips that go beyond the agreed route or duration."
+          ]
+        },
+        {
+          "heading": "Changes And Cancellations",
+          "body": [
+            "Please contact us as early as possible if you need to change or cancel a booking. Any cancellation conditions and fees that apply are confirmed with your booking.",
+            "We may need to change or cancel a booking because of circumstances beyond our control, such as severe weather, road closures or vehicle unavailability. We will tell you as soon as we can and offer an alternative where possible."
+          ]
+        },
+        {
+          "heading": "Waiting Time And Delays",
+          "body": [
+            "For airport pickups we monitor flight arrival times where a flight number is provided. The waiting time included in your booking is confirmed when you book; time beyond it may be charged.",
+            "We are not responsible for delays caused by traffic, weather or other events outside our control."
+          ]
+        },
+        {
+          "heading": "Passenger Conduct And Safety",
+          "body": [
+            "All passengers must wear seat belts and respect the chauffeur's reasonable instructions. Smoking, illegal substances and behaviour that endangers the chauffeur, other passengers or the vehicle are not permitted.",
+            "Passengers are responsible for any damage or cleaning needed because of their actions during the ride."
+          ]
+        },
+        {
+          "heading": "Liability",
+          "body": [
+            "We take reasonable care to provide a safe and comfortable service. To the extent permitted by UAE law, ESM Limo is not liable for indirect or consequential loss, or for items left in vehicles.",
+            "Nothing in these terms limits any right you have under applicable law."
+          ]
+        },
+        {
+          "heading": "Changes To These Terms",
+          "body": [
+            "We may update these terms from time to time. The version published on this page applies to bookings made after the update."
+          ]
+        },
+        {
+          "heading": "Governing Law",
+          "body": [
+            "These terms are governed by the laws of the United Arab Emirates, as applied in the Emirate of Dubai."
+          ]
+        },
+        {
+          "heading": "Contact Us",
+          "body": [
+            "If you have any question about these terms, please contact us through the Contact Us page."
+          ]
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "intro": "This Privacy Policy explains what personal information ESM Limo collects through this website and our booking process, how we use it and the choices you have.",
+      "sections": [
+        {
+          "heading": "Information We Collect",
+          "body": [
+            "Details you give us when you book or contact us: your name, email address, phone number, pickup and drop-off locations, flight details, travel dates and times, and any notes you add.",
+            "Basic technical information such as your device, browser and the pages you visit, collected through cookies and similar tools to keep the site working and understand how it is used."
+          ]
+        },
+        {
+          "heading": "How We Use Your Information",
+          "body": [
+            "To confirm, arrange and carry out your bookings and to contact you about them.",
+            "To answer your questions and to improve our services and website.",
+            "To meet legal and safety obligations."
+          ]
+        },
+        {
+          "heading": "Sharing Your Information",
+          "body": [
+            "We do not sell your personal information. We share it only with the chauffeurs and staff who need it to carry out your booking, with service providers who help us run the website and the business, and with authorities when the law requires it."
+          ]
+        },
+        {
+          "heading": "How Long We Keep It",
+          "body": [
+            "We keep personal information only as long as needed for the purposes above, including to meet legal, accounting and dispute-resolution requirements."
+          ]
+        },
+        {
+          "heading": "Keeping Your Information Safe",
+          "body": [
+            "We use reasonable technical and organisational measures to protect your information. No method of transmission or storage is completely secure, so we cannot guarantee absolute security."
+          ]
+        },
+        {
+          "heading": "Cookies",
+          "body": [
+            "This website uses cookies and similar technologies to remember your preferences, such as language and theme, and to understand how the site is used. You can control cookies through your browser settings."
+          ]
+        },
+        {
+          "heading": "Your Choices",
+          "body": [
+            "You can ask us to access, correct or delete the personal information we hold about you, or to stop contacting you. Contact us and we will respond as required by applicable law."
+          ]
+        },
+        {
+          "heading": "Changes To This Policy",
+          "body": [
+            "We may update this policy from time to time. The latest version is always published on this page."
+          ]
+        },
+        {
+          "heading": "Contact Us",
+          "body": [
+            "For any question about this policy or your information, please reach us through the Contact Us page."
+          ]
+        }
+      ]
+    },
+    "disclaimer": {
+      "title": "Disclaimer",
+      "intro": "The information on this website is provided for general purposes. Please read this disclaimer together with our Terms Of Services and Privacy Policy.",
+      "sections": [
+        {
+          "heading": "General Information",
+          "body": [
+            "We work to keep the website accurate and up to date, but we make no promise that all content is complete, current or free of errors."
+          ]
+        },
+        {
+          "heading": "Vehicles, Photos And Features",
+          "body": [
+            "Vehicle photos, descriptions and passenger and luggage figures are for illustration. The vehicle provided may differ in model year, colour or details, but it will match the category you booked."
+          ]
+        },
+        {
+          "heading": "Availability And Prices",
+          "body": [
+            "Services and vehicles are subject to availability. Any price shown on the website is indicative until confirmed by our team when you book."
+          ]
+        },
+        {
+          "heading": "Third-Party Links And Services",
+          "body": [
+            "The website may link to or embed third-party services, such as maps and social media. We are not responsible for their content, availability or privacy practices."
+          ]
+        },
+        {
+          "heading": "Limitation Of Liability",
+          "body": [
+            "To the fullest extent permitted by law, ESM Limo is not liable for any loss or damage arising from the use of, or the inability to use, this website or from reliance on its content."
+          ]
+        },
+        {
+          "heading": "Changes",
+          "body": [
+            "We may change this website and this disclaimer at any time without notice."
+          ]
+        }
+      ]
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "intro": "Quick answers to the questions we hear most. Can't find yours? Our team is always ready to help.",
+      "items": [
+        {
+          "q": "How Do I Book A Ride?",
+          "a": "Use the Quickly Book Your Luxury Ride button on the home page, choose your service and fill in the details. Our team will confirm your booking with you."
+        },
+        {
+          "q": "Which Services Do You Offer?",
+          "a": "We offer point-to-point rides, hourly chauffeur service, airport transfers and city tours, in a range of premium vehicle categories."
+        },
+        {
+          "q": "Can I Choose My Vehicle?",
+          "a": "Yes. Pick a car type and a car when you book, subject to availability. You can also browse the full range on the Our Fleet page."
+        },
+        {
+          "q": "Do You Track My Flight For Airport Pickups?",
+          "a": "When you give us your flight number or flight time, your chauffeur monitors the arrival so the pickup matches your actual landing."
+        },
+        {
+          "q": "Can I Add Stops To My Trip?",
+          "a": "Yes. With the hourly chauffeur service you can add specific stops to your booking, and for other rides just mention them in your notes."
+        },
+        {
+          "q": "How Do I Change Or Cancel A Booking?",
+          "a": "Contact us as early as possible with your booking details. Any cancellation conditions are confirmed when your booking is confirmed."
+        },
+        {
+          "q": "How Do I Pay?",
+          "a": "Payment options and timing are agreed with our team when your booking is confirmed."
+        },
+        {
+          "q": "Are Your Chauffeurs Professional?",
+          "a": "Yes. Our experienced chauffeurs are dedicated to a punctual, smooth and comfortable ride."
+        },
+        {
+          "q": "Do You Serve Areas Outside Dubai?",
+          "a": "We provide service across Dubai, Abu Dhabi and beyond. Tell us your route and we will confirm availability."
+        }
+      ]
+    }
+  },
+
   "validation": {
     "transferRequired": "Please choose a transfer type",
     "locationRequired": "Location is required",

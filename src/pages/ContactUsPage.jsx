@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import PageLayout from "../components/layout/PageLayout.jsx";
 import ContactPageHero from "../components/contact/ContactPageHero.jsx";
 import ContactForm from "../components/contact/ContactForm.jsx";
@@ -8,7 +10,50 @@ import SmokeBackdrop from "../components/common/SmokeBackdrop.jsx";
 // Contact Us (Figma, 1440 frame): the hero; then the contact details at the
 // 50px gutter and the form card (640 wide, 250px from the heading, ending at the right gutter);
 // then the map, 1390 wide.
+// When another page links here with `state.scrollTo` (the Contact Us buttons
+// of the footer pages), jump straight to that element - just under the sticky
+// header - instead of the top of the page. The hero image above loads late and
+// pushes the form down, so the jump is repeated while the layout settles, until
+// the visitor scrolls on their own.
+function useScrollToTarget() {
+  const { state, key } = useLocation();
+  const targetId = state?.scrollTo;
+
+  useEffect(() => {
+    if (!targetId) return undefined;
+    let userScrolled = false;
+    const stop = () => {
+      userScrolled = true;
+    };
+    const events = ["wheel", "touchstart", "keydown", "mousedown"];
+    events.forEach((name) =>
+      window.addEventListener(name, stop, { once: true })
+    );
+
+    const jump = () => {
+      const target = document.getElementById(targetId);
+      if (!target || userScrolled) return;
+      const header = document.querySelector("header")?.offsetHeight ?? 0;
+      const top =
+        target.getBoundingClientRect().top + window.scrollY - header - 24;
+      window.scrollTo({ top: Math.max(0, top), behavior: "instant" });
+    };
+
+    jump();
+    const observer = new ResizeObserver(jump);
+    observer.observe(document.body);
+    const done = setTimeout(() => observer.disconnect(), 2500);
+
+    return () => {
+      clearTimeout(done);
+      observer.disconnect();
+      events.forEach((name) => window.removeEventListener(name, stop));
+    };
+  }, [targetId, key]);
+}
+
 export default function ContactUsPage() {
+  useScrollToTarget();
   return (
     <PageLayout>
       <ContactPageHero />

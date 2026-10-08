@@ -87,8 +87,8 @@ export default function SiteHeader() {
         // Closed (off screen): out of the tab order and hidden from screen
         // readers. (React 18 passes `inert` through as a plain attribute.)
         inert={isMenuOpen ? undefined : ""}
-        className={`lg:hidden fixed top-0 right-0 z-50 h-full w-64 max-w-[80%] bg-page shadow-2xl flex flex-col gap-6 px-6 pt-6 pb-8 text-lg font-display transition-transform duration-300 ${
-          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        className={`lg:hidden fixed top-0 right-0 z-50 h-full w-64 max-w-[80%] bg-page flex flex-col gap-6 px-6 pt-6 pb-8 text-lg font-display transition-[transform,box-shadow] duration-300 ${
+          isMenuOpen ? "translate-x-0 shadow-2xl" : "translate-x-full"
         }`}
       >
         {/* Sidebar top row: theme toggle + close button */}
