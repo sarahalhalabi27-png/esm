@@ -16,6 +16,7 @@ import {
   FORM_CARD,
   FORM_CARD_DARK_IN_LIGHT,
   FORM_TITLE,
+  SUBMIT_BUTTON,
 } from "../common/formStyles.js";
 import DurationSelect from "../carDetails/DurationSelect.jsx";
 import { FIELD, fieldProps, pickerProps } from "./quickBookStyles.js";
@@ -204,7 +205,7 @@ export default function HourlyForm({ details }) {
           {/* The question rests on a line like the fields, the white box at
               its end */}
           <label className="flex h-[37px] cursor-pointer items-end justify-between gap-4 border-b-[0.5px] border-white/35 pb-[10px]">
-            <span className="font-display font-medium text-[22px] leading-[27px] text-fg capitalize max-md:text-[17px] max-md:leading-snug">
+            <span className="font-display font-medium text-[18px] leading-[27px] text-fg capitalize max-md:text-base max-md:leading-snug">
               {t("quickBook.hourly.stopsQuestion")}
             </span>
             <span className="relative flex h-[26px] w-[26px] shrink-0">
@@ -250,7 +251,7 @@ export default function HourlyForm({ details }) {
                     onDark
                     type="button"
                     onClick={() => append({ location: "" })}
-                    className="!h-[56px] !w-[215px] !gap-[20px] !rounded-[10px] !border-[0.5px] !border-[#F9F9F9] !p-0 !text-[22px] !leading-[27px] max-md:!h-[48px] max-md:!w-auto max-md:!px-6 max-md:!text-[18px]"
+                    className="!h-[56px] !w-[215px] !gap-[20px] !rounded-[10px] !border-[0.5px] !border-[#F9F9F9] !p-0 !text-[18px] !leading-[27px] max-md:!h-[48px] max-md:!w-auto max-md:!px-6 max-md:!text-base"
                   >
                     <svg
                       width="20.56"
@@ -279,8 +280,8 @@ export default function HourlyForm({ details }) {
             name="notes"
             as={TextAreaField}
             label={t("quickBook.hourly.notes")}
-            labelClassName="font-display font-medium text-[22px] leading-[27px] capitalize text-fg mb-[10px] max-md:text-[17px] max-md:leading-snug max-md:mb-3"
-            className="w-[1195px] ms-[6px] max-lg:w-full max-lg:ms-0"
+            labelClassName="font-display font-medium text-[18px] leading-[27px] capitalize text-fg mb-[10px] max-md:text-base max-md:leading-snug max-md:mb-3"
+            className="w-full min-[1440px]:w-[1195px] ms-[6px] max-lg:ms-0"
             textareaClassName="!block !h-[161px] !rounded-[10px] !border-[0.5px] !border-white/60 !p-4 !text-[18px] focus:!border-teal-accent max-md:!h-[140px] max-md:!text-[15px]"
           />
 
@@ -288,7 +289,7 @@ export default function HourlyForm({ details }) {
             <HollowButton
               onDark
               type="submit"
-              className="!relative !px-[47px] !py-[13px] !text-[22px] !leading-[27px] max-md:!px-8 max-md:!py-3 max-md:!text-[18px]"
+              className={`!relative ${SUBMIT_BUTTON}`}
               disabled={status === SUBMIT_STATUS.SUBMITTING}
             >
               {/* The label keeps the button's size while the tick shows */}

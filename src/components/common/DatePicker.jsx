@@ -84,8 +84,8 @@ export default function DatePicker({
           text-fg
           font-display
           font-semibold
-          text-[22px]
-          max-md:text-[17px]
+          text-[18px]
+          max-md:text-base
           leading-[100%]
           capitalize
           ${isRTL ? "text-right" : "text-left"}

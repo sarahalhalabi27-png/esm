@@ -3,13 +3,15 @@ import { useLocation } from "react-router-dom";
 import PageLayout from "../components/layout/PageLayout.jsx";
 import ContactPageHero from "../components/contact/ContactPageHero.jsx";
 import ContactForm from "../components/contact/ContactForm.jsx";
-import ContactInfoPanel from "../components/contact/ContactInfoPanel.jsx";
+import ContactInfoPanel, {
+  ContactIntro,
+} from "../components/contact/ContactInfoPanel.jsx";
 import LocationMapPanel from "../components/contact/LocationMapPanel.jsx";
 import SmokeBackdrop from "../components/common/SmokeBackdrop.jsx";
 
-// Contact Us (Figma, 1440 frame): the hero; then the contact details at the
-// 50px gutter and the form card (640 wide, 250px from the heading, ending at the right gutter);
-// then the map, 1390 wide.
+// Contact Us: the hero; then the heading + intro, under them the contact
+// details at the 50px gutter beside the form card (640 wide, ending at the
+// right gutter); then the map, 1390 wide.
 // When another page links here with `state.scrollTo` (the Contact Us buttons
 // of the footer pages), jump straight to that element - just under the sticky
 // header - instead of the top of the page. The hero image above loads late and
@@ -59,9 +61,14 @@ export default function ContactUsPage() {
       <ContactPageHero />
       <section className="relative isolate w-full max-w-[1440px] mx-auto px-[50px] mt-[106px] mb-[143px] max-md:px-6 max-md:mt-8 max-md:mb-16">
         <SmokeBackdrop className="md:!-top-[309px] md:!-left-[20px] md:!h-[1153px] md:!w-[1496px] md:rotate-180" />
-        <div className="flex justify-between gap-16 max-lg:flex-col max-lg:gap-14">
+        {/* The heading and intro on top; under them the contact details and
+            the form side by side from xl (the details column narrows on
+            1280–1439 screens instead of pushing the 640px form off the edge).
+            Below xl they stack with the form first, right under the intro. */}
+        <ContactIntro />
+        <div className="mt-14 flex justify-between gap-16 max-xl:flex-col-reverse max-xl:gap-14 max-md:mt-10">
           <ContactInfoPanel />
-          <div className="w-[640px] shrink-0 me-[2px] max-lg:w-full max-lg:me-0">
+          <div className="w-[640px] shrink-0 me-[2px] max-xl:w-full max-xl:me-0">
             <ContactForm />
           </div>
         </div>

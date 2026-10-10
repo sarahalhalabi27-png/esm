@@ -36,7 +36,7 @@ export default function ControlledField({
             onBlur={field.onBlur}
           />
           {fieldState.error ? (
-            <p className="mt-1 text-xs text-red-400">
+            <p className="mt-1.5 text-sm text-red-400">
               {fieldState.error.message}
             </p>
           ) : null}

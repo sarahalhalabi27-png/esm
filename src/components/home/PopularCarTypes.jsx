@@ -77,9 +77,9 @@ export default function PopularCarTypes() {
             mx-auto
             mt-[27px]
             text-center
-            text-[25px]
+            text-[20px]
             font-medium
-            leading-[100%]
+            leading-[1.5]
             tracking-[0%]
             capitalize
             text-fg

@@ -23,15 +23,17 @@ export default function FleetPreviewGrid() {
 
   return (
     <section className="font-display mt-[100px] mb-[80px] max-md:mt-6 max-md:mb-14">
-      <div className="w-full max-w-[1340px] mx-auto max-md:px-6">
+      <div className="max-w-content mx-auto px-6">
         <SectionEyebrow className="font-display !font-semibold !text-[25px] max-md:!text-[22px] !leading-[100%] !tracking-[0%] capitalize">
           {t("home.fleet.eyebrow")}
         </SectionEyebrow>
-        <p className="w-full max-w-[824px] min-h-[54px] font-medium text-[22px] tracking-[0%] capitalize mb-20 pt-[20px] max-md:min-h-0 max-md:text-lg max-md:leading-snug max-md:pt-3 max-md:mb-8">
+        <p className="w-full max-w-[824px] min-h-[54px] font-medium text-[20px] leading-[1.5] tracking-[0%] capitalize mb-20 pt-[20px] max-md:min-h-0 max-md:text-lg max-md:leading-snug max-md:pt-3 max-md:mb-8">
           {t("home.fleet.description")}
         </p>
-        {/* Phones: Card Snap Carousel (see .mobile-carousel--snap in index.css). */}
-        <div className="mobile-carousel mobile-carousel--snap flex flex-wrap lg:flex-nowrap justify-center gap-[51px] max-md:gap-3 max-md:py-4">
+        {/* Phones: Card Snap Carousel (see .mobile-carousel--snap in index.css).
+            The three 416px cards (1350px with the gaps) only fit on one row
+            from 1400px; narrower screens wrap them (2 + 1). */}
+        <div className="mobile-carousel mobile-carousel--snap flex flex-wrap min-[1400px]:flex-nowrap justify-center gap-[51px] max-md:gap-3 max-md:py-4">
           {featuredCars.map((car) => (
             <div
               key={car.id}

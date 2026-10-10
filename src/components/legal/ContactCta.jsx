@@ -11,7 +11,7 @@ export default function ContactCta() {
       <h2 className="text-[25px] font-semibold leading-[30px] capitalize text-teal-accent max-md:text-xl">
         {t("legal.ctaTitle")}
       </h2>
-      <p className="mt-4 text-[20px] font-medium leading-[135%] text-fg/85 max-md:text-base">
+      <p className="mt-4 text-[18px] font-medium leading-[1.6] text-fg/85 max-md:text-base">
         {t("legal.ctaText")}
       </p>
       <Link

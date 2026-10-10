@@ -23,7 +23,7 @@ export default function PageIntro({ title, intro, updated = false }) {
         </p>
       ) : null}
 
-      <p className="mx-auto mt-8 max-w-[860px] text-[22px] font-medium leading-[138%] capitalize text-fg/85 max-md:mt-6 max-md:text-[17px] max-md:leading-relaxed">
+      <p className="mx-auto mt-8 max-w-[860px] text-[20px] font-medium leading-[1.5] capitalize text-fg/85 max-md:mt-6 max-md:text-[17px] max-md:leading-relaxed">
         {intro}
       </p>
     </header>

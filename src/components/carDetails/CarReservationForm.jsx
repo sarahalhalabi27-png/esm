@@ -7,10 +7,12 @@ import TextField from "../common/TextField.jsx";
 import TextAreaField from "../common/TextAreaField.jsx";
 import HollowButton from "../common/HollowButton.jsx";
 import {
-  FOCUS_FILL,
+  CARD_FIELD_PROPS as fieldProps,
+  CARD_PICKER_PROPS as pickerProps,
   FORM_CARD,
   FORM_CARD_DARK_IN_LIGHT,
   FORM_TITLE,
+  SUBMIT_BUTTON,
 } from "../common/formStyles.js";
 import ControlledField from "../common/ControlledField.jsx";
 import DatePicker from "../common/DatePicker.jsx";
@@ -44,34 +46,16 @@ const defaultValues = {
   message: "",
 };
 
-// Figma field rule (every field): 37px tall, its label Medium 22px on a 27px
-// line resting at the top, and a 0.5px underline 10px below it (lightened
-// on review, see UNDERLINE). Applied over the shared fields' own styling
-// (TextField, Date/TimePicker). On focus, an accent line fills the underline
-// from the start side.
-// Light mode keeps all of that white on a solid #072E2A card (see
-// FORM_CARD_DARK_IN_LIGHT). On hover the button fills white with #072E2A text.
-// The underlines here are lighter than the shared FIELD_UNDERLINE (white/35%)
-// so they read thinner.
-const UNDERLINE = "!border-b-[0.5px] !border-white/35";
-const FIELD = `!min-h-0 !h-[37px] !py-0 !pb-[10px] ${UNDERLINE} ${FOCUS_FILL} !font-medium !text-[22px] !leading-[27px] max-md:!text-[17px]`;
-const LABEL =
-  "top-0 text-[22px] leading-[27px] font-medium text-fg max-md:text-[17px]";
-const fieldProps = {
-  inputClassName: `${FIELD} !font-display !tracking-[0%] capitalize`,
-  floatingLabelClassName: LABEL,
-};
-const pickerProps = { fieldClassName: FIELD, floatingLabelClassName: LABEL };
+// Fields: the shared card-form field (CARD_FIELD in formStyles.js). Light mode
+// keeps all of it white on a solid #072E2A card (see FORM_CARD_DARK_IN_LIGHT).
+// On hover the button fills white with #072E2A text.
 
-// Figma: a 1346-wide card (radius 25, 1px white/60% border, teal/10%
-// background), centred in the 1440 frame (47px each side). Its title (Medium
-// 25px, 7% tracking) 42px from the top; the rows 1198 wide from 75px in, the
-// first 121px from the top; two-column rows are 473 + 252 + 473; each row's
-// labels 62px under the line above (the Your Fleet row 65px). Two-column rows,
-// a full-width duration select, a three-column row starting with the
-// (read-only) car model, then drop-off, the message box and the button
-// (hollow: just its border over the card's fill, labelled "Post Comment" as
-// in Figma).
+// The card (radius 25, 1px white/60% border, teal/10% background) is at most
+// 880px wide, centred, with 48px sides on desktop (Figma had it 1346 wide with
+// a 252px column gap; narrowed to common form proportions). Rows are 32px
+// apart, columns 40px. Rows: name, contact, duration + the (read-only) car
+// model, then pick-up and drop-off date/time in four columns, the message box
+// and the button (hollow: just its border over the card's fill).
 export default function CarReservationForm({ car }) {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
@@ -111,14 +95,18 @@ export default function CarReservationForm({ car }) {
     label: t(`carDetails.form.durations.${value}`),
   }));
 
+  // Every row sits on the same 4-column grid (40px gutters), so the halves
+  // of the two-column rows line up with the date/time row below them.
   const twoColumns =
-    "grid grid-cols-2 gap-x-[252px] gap-y-[62px] max-lg:gap-x-12 max-md:grid-cols-1 max-md:gap-y-[38px]";
+    "grid grid-cols-2 gap-x-10 gap-y-8 max-md:grid-cols-1 max-md:gap-y-[38px]";
 
   return (
     <section className="font-display px-[47px] mt-[120px] mb-[120px] max-md:px-6 max-md:mt-14 max-md:mb-16">
+      {/* Compact enough (about 610px) to fit on a laptop screen under the
+          header without scrolling. */}
       <div
         ref={cardRef}
-        className={`${FORM_CARD} ${FORM_CARD_DARK_IN_LIGHT} pb-[58px]`}
+        className={`${FORM_CARD} ${FORM_CARD_DARK_IN_LIGHT} mx-auto max-w-[880px] lg:!ps-12 lg:!pe-12 lg:!pt-8 pb-10`}
       >
         <h2 className={`${FORM_TITLE} light:!text-white`}>
           {t("carDetails.form.title")}
@@ -127,7 +115,7 @@ export default function CarReservationForm({ car }) {
         <form
           onSubmit={handleSubmit(onSubmit)}
           noValidate
-          className="mt-[49px] flex flex-col gap-y-[62px] max-md:mt-12 max-md:gap-y-[38px]"
+          className="mt-8 flex flex-col gap-y-8 max-md:mt-12 max-md:gap-y-[38px]"
         >
           <div className={twoColumns}>
             <ControlledField
@@ -171,17 +159,15 @@ export default function CarReservationForm({ car }) {
             />
           </div>
 
-          <ControlledField
-            control={control}
-            name="bookingDuration"
-            as={DurationSelect}
-            placeholder={t("carDetails.form.bookingDuration")}
-            {...pickerProps}
-            options={durationOptions}
-          />
-
-          {/* Figma: this row sits 65px under the line above (the others 62) */}
-          <div className="mt-[3px] grid grid-cols-3 gap-x-[62px] gap-y-[62px] max-lg:gap-x-8 max-md:mt-0 max-md:grid-cols-1 max-md:gap-y-[38px]">
+          <div className={twoColumns}>
+            <ControlledField
+              control={control}
+              name="bookingDuration"
+              as={DurationSelect}
+              placeholder={t("carDetails.form.bookingDuration")}
+              {...pickerProps}
+              options={durationOptions}
+            />
             {/* The car being booked: shown, not editable */}
             <TextField
               placeholder={t("carDetails.form.carModel")}
@@ -189,9 +175,13 @@ export default function CarReservationForm({ car }) {
               readOnly
               onChange={() => {}}
               {...fieldProps}
-              // "Your Fleet" sits 13px above the car's name
-              floatingLabelActiveClassName="bottom-[calc(100%+13px)] text-[14px] leading-[17px] text-teal-accent"
+              // "Your Fleet" sits 6px above the car's name (clear of the row above)
+              floatingLabelActiveClassName="bottom-[calc(100%+6px)] text-[14px] leading-[17px] text-teal-accent"
             />
+          </div>
+
+          {/* Pick-up and drop-off on one row (two per row on tablets) */}
+          <div className="grid grid-cols-4 gap-x-10 gap-y-8 max-lg:grid-cols-2 max-md:grid-cols-1 max-md:gap-y-[38px]">
             <ControlledField
               control={control}
               name="pickUpDate"
@@ -206,9 +196,6 @@ export default function CarReservationForm({ car }) {
               placeholder={t("carDetails.form.pickUpTime")}
               {...pickerProps}
             />
-          </div>
-
-          <div className={twoColumns}>
             <ControlledField
               control={control}
               name="dropOffDate"
@@ -230,28 +217,21 @@ export default function CarReservationForm({ car }) {
             name="message"
             as={TextAreaField}
             label={t("carDetails.form.message")}
-            labelClassName="font-display font-medium text-[22px] leading-[27px] capitalize text-fg mb-[10px] max-md:text-[17px] max-md:leading-snug max-md:mb-3"
-            // Figma: the box is 1195 x 161, 81px in from the card's edge (6px
-            // past the 75px content edge, so slightly into the end padding),
-            // radius 10, 0.5px white/60% border. (Figma's absolute top, 688px,
-            // doesn't agree with the spacing given on review; we follow the
-            // spacing:) its label 62px under the drop-off line (like the other
-            // labels), then 10px to the box.
-            className="w-[1195px] ms-[6px] max-lg:w-full max-lg:ms-0"
-            textareaClassName="!block !h-[161px] !rounded-[10px] !border-[0.5px] !border-white/60 !p-4 !text-[18px] focus:!border-teal-accent max-md:!h-[140px] max-md:!text-[15px]"
+            labelClassName="font-display font-medium text-[18px] leading-[27px] capitalize text-fg mb-2 max-md:text-base max-md:leading-snug max-md:mb-3"
+            // Full width of the card, 80px tall (two lines), radius 10, 0.5px
+            // white/60% border; its label 8px above the box.
+            className="w-full"
+            textareaClassName="!block !h-[80px] !rounded-[10px] !border-[0.5px] !border-white/60 !px-4 !py-3 !text-[18px] focus:!border-teal-accent max-md:!h-[110px] max-md:!text-[15px]"
           />
 
-          {/* Figma: 59px under the message box (the form's 62px row gap − 3)
-              and 59px above the card's bottom edge; the label is Semibold 22px
-              (27px line) with 14px above/below and 48px either side, counting the
-              1px border (266 x 55). The
-              success note hangs below the button, outside the flow, so it
+          {/* One row gap under the message box, 48px above the card's bottom
+              edge (SUBMIT_BUTTON sets its size). The success note hangs below the button, outside the flow, so it
               doesn't change those spacings. */}
-          <div className="relative flex justify-center -mt-[3px] max-md:mt-0">
+          <div className="relative flex justify-center">
             <HollowButton
               onDark
               type="submit"
-              className="!relative !px-[47px] !py-[13px] !text-[22px] !leading-[27px] max-md:!px-8 max-md:!py-3 max-md:!text-[18px]"
+              className={`!relative ${SUBMIT_BUTTON}`}
               disabled={status === SUBMIT_STATUS.SUBMITTING}
             >
               {/* The label keeps the button's size while the tick shows */}

@@ -26,12 +26,17 @@ export default function SiteHeader() {
 
   return (
     <header className="w-full bg-page sticky top-0 z-30">
-      <div className="flex items-start ps-6 lg:ps-[50px] pt-[41px] pb-[24px] max-md:py-5 pe-6 lg:pe-[50px]">
-        <NavLink to="/" className="flex items-center">
-          <BrandLogo className="w-[83px] text-[#00BFA8] light:text-[#006D5D]" />
+      {/* Bar: 64px tall on phones, 88px from md (common header heights),
+          everything vertically centred. */}
+      <div className="flex items-center h-16 md:h-[88px] ps-6 lg:ps-[50px] pe-6 lg:pe-[50px]">
+        <NavLink to="/" className="flex items-center shrink-0">
+          <BrandLogo className="w-[100px] text-[#00BFA8] light:text-[#006D5D]" />
         </NavLink>
 
-        <nav className="hidden lg:flex items-center gap-[51px] ms-[157px] text-[25px] font-normal leading-[100%] tracking-[0%] capitalize font-display">
+        {/* Desktop nav (lg+): 16px links on 1024–1279, 18px from xl, with
+            24–40px gaps, centred in the space between the logo and the
+            buttons. Below lg the drawer takes over. */}
+        <nav className="hidden lg:flex flex-1 justify-center items-center gap-[clamp(24px,2.78vw,40px)] mx-8 text-base xl:text-[18px] font-normal leading-[100%] tracking-[0%] capitalize font-display whitespace-nowrap">
           {navigationLinks.map((link) => (
             <NavLink
               key={link.path}
@@ -58,7 +63,8 @@ export default function SiteHeader() {
               ? "nav.switchToArabic"
               : "nav.switchToEnglish"
           )}
-          className="ms-5 self-center shrink-0 text-fg/80 hover:text-fg transition-colors font-display text-[18px]"
+          // before: widens the tap area to 44px tall without moving anything
+          className="relative ms-5 self-center shrink-0 text-fg/80 hover:text-fg transition-colors font-display text-base before:absolute before:-inset-x-[6px] before:-inset-y-[11px] before:content-['']"
         >
           {i18n.language === "en" ? "AR" : "EN"}
         </button>
@@ -66,7 +72,7 @@ export default function SiteHeader() {
         {/* Mobile menu trigger (opens the right-side sidebar) */}
         <button
           type="button"
-          className="lg:hidden self-center shrink-0 text-fg/80 ms-4"
+          className="lg:hidden relative self-center shrink-0 text-fg/80 ms-4 before:absolute before:-inset-x-[10px] before:-inset-y-[11px] before:content-['']"
           onClick={() => setIsMenuOpen((open) => !open)}
           aria-label={t("nav.toggleMenu")}
           aria-expanded={isMenuOpen}

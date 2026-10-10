@@ -118,7 +118,7 @@ export default function HeroBanner() {
       >
         {/* Left Content */}
         <div className="relative z-10 w-full max-w-[565px] xl:w-[565px] xl:-translate-y-[130px]">
-          <p className="text-lg md:text-[25px] font-normal leading-[100%] tracking-[0%] capitalize mb-[26px] max-md:text-base max-md:mb-4">
+          <p className="text-lg md:text-[20px] font-normal leading-[100%] tracking-[0%] capitalize mb-[26px] max-md:text-base max-md:mb-4">
             {t("hero.eyebrow")}
           </p>
 

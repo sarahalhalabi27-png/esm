@@ -5,7 +5,7 @@ import QuickBookFlow from "../components/quickBook/QuickBookFlow.jsx";
 // form card 1346 wide (47px each side) - see QuickBookFlow.
 // Two teal glows (Figma: 100 x 100, #24B9A5, blur 242 = CSS blur 121px): one
 // at the top right (top 6, left 1340 - up in the header band), pinned to the
-// top of the page (the wrapper starts under the 107px header, hence -101);
+// top of the page (the wrapper starts under the 88px header, hence -82);
 // and one at the bottom left, centred on the left edge so it bleeds in from
 // it, pinned to the bottom of the form so it stays at the card's corner
 // whatever the form's height: its bottom edge 89px above the wrapper's end
@@ -17,7 +17,7 @@ export default function QuickBookPage() {
       <div className="relative flow-root">
         <div
           aria-hidden="true"
-          className="hidden md:block pointer-events-none absolute -top-[101px] left-[1340px] z-[60] w-[100px] h-[100px] rounded-full bg-[#24B9A5] blur-[121px]"
+          className="hidden md:block pointer-events-none absolute -top-[82px] left-[1340px] z-[60] w-[100px] h-[100px] rounded-full bg-[#24B9A5] blur-[121px]"
         />
         <div
           aria-hidden="true"

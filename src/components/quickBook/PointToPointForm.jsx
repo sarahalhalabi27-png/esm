@@ -15,6 +15,7 @@ import {
   FORM_CARD,
   FORM_CARD_DARK_IN_LIGHT,
   FORM_TITLE,
+  SUBMIT_BUTTON,
 } from "../common/formStyles.js";
 import DurationSelect from "../carDetails/DurationSelect.jsx";
 import { fieldProps, pickerProps } from "./quickBookStyles.js";
@@ -180,8 +181,8 @@ export default function PointToPointForm({ details }) {
             name="notes"
             as={TextAreaField}
             label={t("quickBook.pointToPoint.notes")}
-            labelClassName="font-display font-medium text-[22px] leading-[27px] capitalize text-fg mb-[10px] max-md:text-[17px] max-md:leading-snug max-md:mb-3"
-            className="w-[1195px] ms-[6px] max-lg:w-full max-lg:ms-0"
+            labelClassName="font-display font-medium text-[18px] leading-[27px] capitalize text-fg mb-[10px] max-md:text-base max-md:leading-snug max-md:mb-3"
+            className="w-full min-[1440px]:w-[1195px] ms-[6px] max-lg:ms-0"
             textareaClassName="!block !h-[161px] !rounded-[10px] !border-[0.5px] !border-white/60 !p-4 !text-[18px] focus:!border-teal-accent max-md:!h-[140px] max-md:!text-[15px]"
           />
 
@@ -189,7 +190,7 @@ export default function PointToPointForm({ details }) {
             <HollowButton
               onDark
               type="submit"
-              className="!relative !px-[47px] !py-[13px] !text-[22px] !leading-[27px] max-md:!px-8 max-md:!py-3 max-md:!text-[18px]"
+              className={`!relative ${SUBMIT_BUTTON}`}
               disabled={status === SUBMIT_STATUS.SUBMITTING}
             >
               {/* The label keeps the button's size while the tick shows */}

@@ -96,7 +96,7 @@ export default function CompanyStatsBar() {
                 )}
               </span>
             </p>
-            <p className="mt-[14px] text-[25px] font-normal leading-[30px] capitalize text-fg max-md:mt-2 max-md:text-base">
+            <p className="mt-[14px] text-[18px] font-normal leading-[1.5] capitalize text-fg max-md:mt-2 max-md:text-base">
               {t(`aboutPage.stats.${stat.id}`)}
             </p>
           </div>

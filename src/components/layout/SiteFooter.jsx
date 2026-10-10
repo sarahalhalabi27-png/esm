@@ -24,15 +24,16 @@ const socialIcons = {
 };
 
 const headingClass =
-  "md:whitespace-nowrap font-semibold text-xl md:text-[25px] leading-[100%] tracking-[0%] capitalize text-teal-accent mb-6 md:mb-[40px] max-md:mb-4 max-md:text-lg";
+  "md:whitespace-nowrap font-semibold text-lg leading-[100%] tracking-[0%] capitalize text-teal-accent mb-6 md:mb-[40px] max-md:mb-4";
 
 const itemClass =
-  "flex items-center gap-2 md:whitespace-nowrap font-normal text-base md:text-[20px] leading-[120%] md:leading-[100%] tracking-[0%] capitalize text-fg max-md:text-[15px] max-md:min-h-[32px] max-md:[overflow-wrap:anywhere]";
+  "flex items-center gap-2 md:whitespace-nowrap font-normal text-base leading-[120%] md:leading-[100%] tracking-[0%] capitalize text-fg max-md:text-[15px] max-md:min-h-[32px] max-md:[overflow-wrap:anywhere]";
 
 // The Explore and Quick Links links: on hover they turn teal, slide a few
 // pixels toward the end side and get a hairline underline that draws in from
-// the start side.
-const linkClass = `${itemClass.replace("flex items-center", "relative flex w-fit items-center")} transition-[color,transform] duration-300 hover:translate-x-1 hover:text-teal-accent rtl:hover:-translate-x-1 after:absolute after:-bottom-[6px] after:start-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-teal-accent after:transition-transform after:duration-300 after:content-[''] hover:after:scale-x-100 rtl:after:origin-right`;
+// the start side. Phones: `before:` extends the tap area 4px above and below
+// (32 → 40px) without changing the spacing.
+const linkClass = `${itemClass.replace("flex items-center", "relative flex w-fit items-center")} transition-[color,transform] duration-300 hover:translate-x-1 hover:text-teal-accent rtl:hover:-translate-x-1 max-md:before:absolute max-md:before:inset-x-0 max-md:before:-inset-y-1 max-md:before:content-[''] after:absolute after:-bottom-[6px] after:start-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-teal-accent after:transition-transform after:duration-300 after:content-[''] hover:after:scale-x-100 rtl:after:origin-right`;
 
 export default function SiteFooter() {
   const { t } = useTranslation();
@@ -69,8 +70,10 @@ export default function SiteFooter() {
         {/* Columns */}
         <div className="max-w-content mx-auto px-6 pt-0 mt-16 md:mt-[137px] pb-10 max-md:px-0 max-md:mt-10">
           {/* Phones: Explore + Quick Links side by side, then Quick Contact and
-              Follow Us as full-width rows (the long email/address need it). */}
-          <div className="grid grid-cols-2 gap-y-10 md:flex md:justify-between mb-14 max-md:gap-x-6 max-md:gap-y-9 max-md:mb-6">
+              Follow Us as full-width rows (the long email/address need it).
+              md+: one row, spread out; on tablets the columns wrap (gap-x is
+              only a minimum, so wide screens are unchanged). */}
+          <div className="grid grid-cols-2 gap-y-10 md:flex md:flex-wrap md:justify-between md:gap-x-12 mb-14 max-md:gap-x-6 max-md:gap-y-9 max-md:mb-6">
             {/* Explore */}
             <div className="max-md:order-1">
               <h4 className={headingClass}>{t("footer.explore")}</h4>

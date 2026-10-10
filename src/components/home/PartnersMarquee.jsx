@@ -40,7 +40,8 @@ export default function PartnersMarquee() {
     <section className="font-display -mt-[90px] md:light:-mt-[130px] max-md:mt-0 max-md:py-10">
       {/* Phones: heading centered above a full-width marquee (instead of a
           squeezed side-by-side row); the GSAP loop itself is unchanged. */}
-      <div className="w-full max-w-[1341px] h-[75px] px-6 md:px-0 md:ms-[50px] md:-mt-[30px] flex items-center max-md:h-auto max-md:flex-col max-md:gap-7">
+      {/* md+: never wider than the screen minus its 50px start offset */}
+      <div className="w-full max-w-[1341px] md:max-w-[min(1341px,calc(100%-50px))] h-[75px] px-6 md:px-0 md:ms-[50px] md:-mt-[30px] flex items-center max-md:h-auto max-md:flex-col max-md:gap-7">
         {/* Section Title */}
         <SectionEyebrow
           className="

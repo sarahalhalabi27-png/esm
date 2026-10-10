@@ -12,6 +12,7 @@ import {
   FORM_CARD,
   FORM_CARD_DARK_IN_LIGHT,
   FORM_TITLE,
+  SUBMIT_BUTTON,
 } from "../common/formStyles.js";
 import ControlledField from "../common/ControlledField.jsx";
 import { commentSchema } from "../../schemas/formSchemas.js";
@@ -35,9 +36,9 @@ import { SUBMIT_STATUS } from "../../store/constants.js";
 // reservation (FORM_CARD_DARK_IN_LIGHT).
 // Same field metrics and 0.5px white/35% underline as the car reservation form.
 const UNDERLINE = "!border-b-[0.5px] !border-white/35";
-const FIELD = `!min-h-0 !h-[37px] !py-0 !pb-[10px] ${UNDERLINE} ${FOCUS_FILL} !font-display !font-medium !text-[22px] !leading-[27px] !tracking-[0%] max-md:!text-[16px]`;
+const FIELD = `!min-h-0 !h-[37px] !py-0 !pb-[10px] ${UNDERLINE} ${FOCUS_FILL} !font-display !font-medium !text-[18px] !leading-[27px] !tracking-[0%] max-md:!text-[16px]`;
 const LABEL =
-  "top-0 text-[22px] leading-[27px] font-medium text-fg max-md:text-[16px]";
+  "top-0 text-[18px] leading-[27px] font-medium text-fg max-md:text-[16px]";
 // Remember-me box (Figma: 20 x 20, radius 3, 0.5px white/80% border); filled
 // with the accent and a check when ticked (white fill in light mode, where
 // the card is dark).
@@ -165,7 +166,7 @@ export default function CommentForm({ postId }) {
             />
           </div>
 
-          <label className="mt-[35px] flex items-start gap-4 text-start text-[20px] font-normal leading-[1.7] capitalize text-white/80 cursor-pointer max-md:gap-3 max-md:text-[14px] max-md:leading-[1.8]">
+          <label className="mt-[35px] flex items-start gap-4 text-start text-[16px] font-normal leading-[1.7] capitalize text-white/80 cursor-pointer max-md:gap-3 max-md:text-[14px] max-md:leading-[1.8]">
             <input
               type="checkbox"
               {...register("rememberMe")}
@@ -178,7 +179,7 @@ export default function CommentForm({ postId }) {
             <HollowButton
               onDark
               type="submit"
-              className="!relative !w-[266px] !border !border-white !px-[47px] !py-[13px] !text-[22px] !leading-[27px] max-md:!w-auto max-md:!px-8 max-md:!py-3 max-md:!text-[18px]"
+              className={`!relative !w-[266px] !border !border-white max-md:!w-auto ${SUBMIT_BUTTON}`}
               disabled={status === SUBMIT_STATUS.SUBMITTING}
             >
               {/* The label keeps the button's size while the tick shows */}

@@ -45,7 +45,7 @@ export default function LegalSection({ number, heading, paragraphs }) {
         {paragraphs.map((text) => (
           <p
             key={text}
-            className="text-[20px] font-medium leading-[135%] text-fg/85 max-md:text-[16px] max-md:leading-relaxed"
+            className="text-[18px] font-medium leading-[1.6] text-fg/85 max-md:text-[16px] max-md:leading-relaxed"
           >
             {text}
           </p>

@@ -11,7 +11,7 @@ export default function TrustHighlights() {
 
   return (
     <section
-      className="relative overflow-hidden max-md:[clip-path:inset(0)] w-full max-w-[1340px] mx-auto md:h-[606px] font-display"
+      className="relative overflow-hidden max-md:[clip-path:inset(0)] w-full max-w-[1340px] mx-auto xl:h-[606px] font-display"
     >
       {/* Background swaps with the theme. Desktop: bg-fixed gives the
           "photo stays put" parallax. Phones: the wrapper becomes a
@@ -44,13 +44,13 @@ export default function TrustHighlights() {
       <div className="dark-only absolute inset-0 bg-page/70 max-md:bg-page/75 z-[1]" />
       <div className="light-only absolute inset-0 bg-page/30 z-[1]" />
 
-      <div className="relative z-10 pt-10 md:pt-[44px] px-6 md:px-[60px] pb-12 md:pb-0 text-start max-md:py-12">
+      <div className="relative z-10 pt-10 md:pt-[44px] px-6 md:px-[60px] pb-12 xl:pb-0 text-start max-md:py-12">
         {/* Figma: a single line, ~974px wide at 30px → 0.15em tracking. */}
-        <SectionEyebrow className="w-full max-w-[1045px] md:max-w-none md:whitespace-nowrap text-2xl md:text-[30px] leading-[110%] md:leading-[100%] tracking-[0.15em] max-md:text-[clamp(19px,5.6vw,24px)] max-md:leading-[1.35] max-md:tracking-[0.08em]">
+        <SectionEyebrow className="w-full max-w-[1045px] xl:max-w-none xl:whitespace-nowrap text-2xl md:text-[30px] leading-[110%] xl:leading-[100%] tracking-[0.15em] max-md:text-[clamp(19px,5.6vw,24px)] max-md:leading-[1.35] max-md:tracking-[0.08em]">
           {t("home.trust.eyebrow")}
         </SectionEyebrow>
 
-        <p className="w-full text-base md:text-[25px] font-medium leading-relaxed md:leading-[30px] text-fg mt-[38px] max-md:text-[15px] max-md:leading-[1.7] max-md:mt-5">
+        <p className="w-full text-base md:text-[20px] font-medium leading-relaxed md:leading-[1.5] text-fg mt-[38px] max-md:text-[15px] max-md:leading-[1.7] max-md:mt-5">
           {t("home.trust.description")}
         </p>
 
@@ -58,13 +58,15 @@ export default function TrustHighlights() {
           {t("home.trust.items", { returnObjects: true }).map((item, index) => (
             <CheckListItem
               key={item}
-              // The second column sits 200px further toward the end side
-              // (right in English, left in Arabic).
-              className={
+              // xl: the second column sits 200px further toward the end side
+              // (right in English, left in Arabic). Tablets and small
+              // laptops have no room for that, so the items stay in their
+              // columns and may wrap.
+              className={`md:max-xl:whitespace-normal ${
                 index % 2 !== 0
-                  ? "md:ltr:translate-x-[200px] md:rtl:-translate-x-[200px]"
+                  ? "xl:ltr:translate-x-[200px] xl:rtl:-translate-x-[200px]"
                   : ""
-              }
+              }`}
             >
               {item}
             </CheckListItem>

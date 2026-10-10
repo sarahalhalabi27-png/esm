@@ -9,6 +9,7 @@ import {
   FORM_CARD,
   FORM_CARD_DARK_IN_LIGHT,
   FORM_TITLE,
+  SUBMIT_BUTTON,
 } from "../common/formStyles.js";
 import DurationSelect from "../carDetails/DurationSelect.jsx";
 import { FIELD, LABEL, fieldProps } from "./quickBookStyles.js";
@@ -118,11 +119,7 @@ export default function QuickBookForm({ initialValues, onNext }) {
           </div>
 
           <div className="relative flex justify-center">
-            <HollowButton
-              onDark
-              type="submit"
-              className="!px-[47px] !py-[13px] !text-[22px] !leading-[27px] max-md:!px-8 max-md:!py-3 max-md:!text-[18px]"
-            >
+            <HollowButton onDark type="submit" className={SUBMIT_BUTTON}>
               {t("quickBook.next")}
             </HollowButton>
           </div>

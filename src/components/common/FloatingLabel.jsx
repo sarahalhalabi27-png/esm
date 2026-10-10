@@ -10,7 +10,7 @@ const WEIGHT = /font-(?:thin|light|normal|medium|semibold|bold|extrabold)/;
 export default function FloatingLabel({
   text,
   active,
-  inactiveClassName = "top-2 text-[20px] max-md:text-[17px] font-semibold text-fg",
+  inactiveClassName = "top-2 text-[18px] max-md:text-base font-semibold text-fg",
   activeClassName = "-top-6 text-base text-teal-accent",
 }) {
   const { i18n } = useTranslation();

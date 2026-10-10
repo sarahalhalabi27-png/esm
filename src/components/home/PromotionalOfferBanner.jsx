@@ -27,7 +27,7 @@ export default function PromotionalOfferBanner() {
             )}
           </h2>
 
-          <p className="text-fg font-normal text-[20px] leading-[130%] tracking-[0%] capitalize w-full max-w-[703px] min-h-[48px] mb-6 max-md:[grid-area:desc] max-md:self-start max-md:min-h-0 max-md:mb-0 max-md:text-sm max-md:leading-relaxed">
+          <p className="text-fg font-normal text-[20px] leading-[1.5] tracking-[0%] capitalize w-full max-w-[703px] min-h-[48px] mb-6 max-md:[grid-area:desc] max-md:self-start max-md:min-h-0 max-md:mb-0 max-md:text-sm max-md:leading-relaxed">
             {t("home.promo.description")}
           </p>
 

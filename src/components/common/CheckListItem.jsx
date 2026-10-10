@@ -6,7 +6,7 @@ import checkIcon from "../../assets/check.svg";
 export default function CheckListItem({ children, className = "" }) {
   return (
     <span
-      className={`flex items-center gap-2 whitespace-nowrap text-[25px] font-normal leading-[100%] font-display text-fg max-md:items-start max-md:whitespace-normal max-md:text-lg max-md:leading-snug ${className}`}
+      className={`flex items-center gap-2 whitespace-nowrap text-[20px] font-normal leading-[100%] font-display text-fg max-md:items-start max-md:whitespace-normal max-md:text-lg max-md:leading-snug ${className}`}
     >
       {/* Filled with the theme accent: #24B9A5 dark, #072E2A light */}
       <MaskIcon

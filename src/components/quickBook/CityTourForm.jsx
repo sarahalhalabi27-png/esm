@@ -15,6 +15,7 @@ import {
   FORM_CARD,
   FORM_CARD_DARK_IN_LIGHT,
   FORM_TITLE,
+  SUBMIT_BUTTON,
 } from "../common/formStyles.js";
 import DurationSelect from "../carDetails/DurationSelect.jsx";
 import { fieldProps, pickerProps } from "./quickBookStyles.js";
@@ -47,9 +48,9 @@ const defaultValues = {
 
 // Both text boxes (places to visit, optional notes) share the reservation
 // form's message box look; "Places To Visit" is the shorter one.
-const BOX_CLASS = "w-[1195px] ms-[6px] max-lg:w-full max-lg:ms-0";
+const BOX_CLASS = "w-full min-[1440px]:w-[1195px] ms-[6px] max-lg:ms-0";
 const BOX_LABEL =
-  "font-display font-medium text-[22px] leading-[27px] capitalize text-fg mb-[10px] max-md:text-[17px] max-md:leading-snug max-md:mb-3";
+  "font-display font-medium text-[18px] leading-[27px] capitalize text-fg mb-[10px] max-md:text-base max-md:leading-snug max-md:mb-3";
 const BOX_TEXTAREA =
   "!block !rounded-[10px] !border-[0.5px] !border-white/60 !p-4 !text-[18px] focus:!border-teal-accent max-md:!text-[15px]";
 
@@ -207,7 +208,7 @@ export default function CityTourForm({ details }) {
             <HollowButton
               onDark
               type="submit"
-              className="!relative !px-[47px] !py-[13px] !text-[22px] !leading-[27px] max-md:!px-8 max-md:!py-3 max-md:!text-[18px]"
+              className={`!relative ${SUBMIT_BUTTON}`}
               disabled={status === SUBMIT_STATUS.SUBMITTING}
             >
               {/* The label keeps the button's size while the tick shows */}

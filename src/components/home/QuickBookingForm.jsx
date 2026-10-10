@@ -58,7 +58,7 @@ export default function QuickBookingForm() {
   const fieldProps = {
     labelClassName: "!text-fg text-[16px] font-medium mb-2",
     inputClassName:
-      "!border-line/50 !font-display !font-semibold !text-[20px] max-md:!text-[17px] max-md:min-h-[44px] !leading-[100%] !tracking-[0%] capitalize placeholder:text-fg",
+      "!border-line/50 !font-display !font-semibold !text-[18px] max-md:!text-base max-md:min-h-[44px] !leading-[100%] !tracking-[0%] capitalize placeholder:text-fg",
   };
 
   return (
@@ -91,15 +91,17 @@ export default function QuickBookingForm() {
       {/* The section (and its video) spans the full screen width; the form
           keeps its place inside a centered 1440px box. */}
       <div className="relative w-full max-w-[1440px] mx-auto py-10 min-h-0 max-md:pt-2 max-md:pb-12 xl:py-0 xl:min-h-[750px]">
-        {/* Booking Form */}
-        <div className="relative z-10 mx-auto w-[92%] max-w-[520px] max-md:w-[calc(100%-2rem)] xl:absolute xl:top-[35px] xl:left-[810px] xl:mx-0 xl:w-[520px]">
+        {/* Booking Form (xl: 810px from the left, as in Figma; on narrower
+            boxes it moves left just enough to keep a 40px end margin instead
+            of running off the screen) */}
+        <div className="relative z-10 mx-auto w-[92%] max-w-[520px] max-md:w-[calc(100%-2rem)] xl:absolute xl:top-[35px] xl:left-[min(810px,calc(100%-560px))] xl:mx-0 xl:w-[520px]">
           <div className="on-dark-surface relative max-md:rounded-[20px] max-md:px-5 max-md:pt-8 max-md:pb-8 rounded-[25px] bg-[#0000004D] backdrop-blur-[20px] px-6 pt-[40px] pb-[40px] flex flex-col xl:px-[40px]">
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-              <h2 className="text-[25px] font-semibold text-teal-accent text-center mb-[32px] max-md:text-[21px] max-md:leading-snug max-md:mb-10">
+              <h2 className="text-[22px] font-semibold text-teal-accent text-center mb-[32px] max-md:text-[21px] max-md:leading-snug max-md:mb-10">
                 {t("booking.title")}
               </h2>
 
-              <div className="flex flex-col gap-[36px] max-md:gap-[34px]">
+              <div className="flex flex-col gap-8 max-md:gap-[34px]">
                 <ControlledField
                   control={control}
                   name="name"
@@ -150,10 +152,10 @@ export default function QuickBookingForm() {
                 />
               </div>
 
-              <div className="mt-[45px] max-md:mt-9 flex flex-col items-center gap-2">
+              <div className="mt-10 max-md:mt-9 flex flex-col items-center gap-2">
                 <OutlineButton
                   type="submit"
-                  className="!w-[153px] !h-[55px] !rounded-[10px] !border-line !text-fg !font-display !font-semibold !text-[22px] !leading-[100%] !tracking-[0%] !capitalize enabled:hover:!bg-white enabled:hover:!text-[#072E2A]"
+                  className="!w-[153px] !h-[55px] !rounded-[10px] !border-line !text-fg !font-display !font-semibold !text-[18px] max-md:!text-base !leading-[100%] !tracking-[0%] !capitalize enabled:hover:!bg-white enabled:hover:!text-[#072E2A]"
                   disabled={status === SUBMIT_STATUS.SUBMITTING}
                 >
                   {status === SUBMIT_STATUS.SUBMITTING

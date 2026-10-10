@@ -232,7 +232,7 @@ export default function CarFeatureList({ car }) {
         </p>
       </div>
 
-      <p className="mt-[25px] ps-[45px] text-[20px] font-medium leading-[135%] capitalize text-fg max-md:mt-5 max-md:ps-0 max-md:text-[15px] max-md:leading-[150%]">
+      <p className="mt-[25px] ps-[45px] text-[18px] font-medium leading-[1.6] capitalize text-fg max-md:mt-5 max-md:ps-0 max-md:text-[15px] max-md:leading-[150%]">
         {car.description || t("carDetails.description")}
       </p>
 
@@ -251,7 +251,7 @@ export default function CarFeatureList({ car }) {
             return (
               <li
                 key={key}
-                className="group flex items-center gap-[12px] h-[34px] text-[20px] leading-[34px] capitalize text-fg max-md:h-auto max-md:text-[15px] max-md:leading-snug max-md:gap-2"
+                className="group flex items-center gap-[12px] h-[34px] text-[18px] leading-[34px] capitalize text-fg max-md:h-auto max-md:text-[15px] max-md:leading-snug max-md:gap-2"
               >
                 {/* Lifts a little on hover */}
                 <span data-icon className="flex">

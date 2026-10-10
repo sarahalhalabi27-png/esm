@@ -43,7 +43,7 @@ function FaqItem({ question, answer, open, onToggle }) {
         }`}
       >
         <div className="overflow-hidden">
-          <p className="px-8 pb-7 text-[20px] font-medium leading-[135%] text-fg/85 max-md:px-5 max-md:pb-5 max-md:text-[16px] max-md:leading-relaxed">
+          <p className="px-8 pb-7 text-[18px] font-medium leading-[1.6] text-fg/85 max-md:px-5 max-md:pb-5 max-md:text-[16px] max-md:leading-relaxed">
             {answer}
           </p>
         </div>

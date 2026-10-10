@@ -132,17 +132,19 @@ export default function WhyChooseUsGrid() {
           {t("home.whyChoose.eyebrow")}
         </SectionEyebrow>
 
+        {/* lg+: the Figma layout (200px column gap, the second row 87px in,
+            single-line items); tablets let the items wrap in tighter columns. */}
         <div
           ref={gridRef}
-          className="grid grid-cols-1 md:grid-cols-2 gap-x-[200px] gap-y-8 md:gap-y-[94px] mt-[70px] max-w-3xl max-md:mt-7 max-md:gap-y-5 max-md:w-[64%]"
+          className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-[200px] gap-y-8 md:gap-y-[94px] mt-[70px] max-w-3xl max-md:mt-7 max-md:gap-y-5 max-md:w-[64%]"
         >
           {whyChooseUsItems.map((item, index) => (
             <div
               key={item.id}
-              className={index === 2 || index === 3 ? "md:ms-[87px]" : ""}
+              className={index === 2 || index === 3 ? "lg:ms-[87px]" : ""}
             >
-              <CheckListItem className="!gap-[18px] max-md:!gap-2.5 !font-medium max-md:!text-[clamp(14px,4.1vw,17px)]">
-                <span className="md:whitespace-nowrap">
+              <CheckListItem className="md:max-lg:whitespace-normal !gap-[18px] max-md:!gap-2.5 !font-medium max-md:!text-[clamp(14px,4.1vw,17px)]">
+                <span className="lg:whitespace-nowrap">
                   {t(`home.whyChoose.items.${item.id}.title`)}
                 </span>
               </CheckListItem>
@@ -155,12 +157,12 @@ export default function WhyChooseUsGrid() {
                   max-md:mt-1
                   max-md:text-[clamp(12px,3.4vw,14px)]
                   max-md:text-fg/85
-                  md:whitespace-nowrap
+                  lg:whitespace-nowrap
                   text-lg
-                  md:text-[22px]
+                  md:text-[18px]
                   font-medium
                   leading-snug
-                  md:leading-[100%]
+                  lg:leading-[100%]
                   capitalize
                   text-fg
                   ${isRTL ? "text-right" : "text-left"}

@@ -160,8 +160,8 @@ function PositionedService({ service }) {
           className="font-normal capitalize text-fg"
           style={{
             margin: "12px 0 0",
-            fontSize: 25,
-            lineHeight: "30px",
+            fontSize: 18,
+            lineHeight: "27px",
             whiteSpace: "nowrap",
           }}
         >
@@ -433,9 +433,9 @@ export default function ServiceTimelineGrid() {
       max-w-[1350px]
       min-h-[72px]
       mt-[30px]
-      text-[22px]
+      text-[20px]
       font-medium
-      leading-[164%]
+      leading-[1.6]
       tracking-[0%]
       text-center
       capitalize

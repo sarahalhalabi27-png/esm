@@ -70,15 +70,17 @@ export default function BlogPage() {
         <SectionEyebrow className="!leading-[30px] max-md:!text-xl max-md:!leading-snug">
           {t("blogPage.eyebrow")}
         </SectionEyebrow>
-        <p className="mt-[27px] w-[1368px] max-w-[calc(100%+28px)] -me-[28px] text-[22px] font-medium leading-[27px] capitalize text-fg max-lg:w-auto max-lg:max-w-none max-lg:me-0 max-md:mt-4 max-md:text-base max-md:leading-snug">
+        <p className="mt-[27px] w-[1368px] max-w-[calc(100%+28px)] -me-[28px] text-[20px] font-medium leading-[1.5] capitalize text-fg max-lg:w-auto max-lg:max-w-none max-lg:me-0 max-md:mt-4 max-md:text-base max-md:leading-snug">
           {t("blogPage.description")}
         </p>
 
         {/* Phones: Card Snap Carousel, like the home page (see
-            .mobile-carousel--snap in index.css). */}
+            .mobile-carousel--snap in index.css). Three fixed 416px columns
+            from 1400px (Figma); three fluid columns on 1280–1399 laptops and
+            two below. */}
         <div
           ref={gridRef}
-          className="mobile-carousel mobile-carousel--snap mt-[51px] grid grid-cols-[repeat(3,416px)] gap-x-[47px] gap-y-12 max-lg:grid-cols-2 max-lg:gap-x-8 max-md:mt-8 max-md:gap-3 max-md:py-4"
+          className="mobile-carousel mobile-carousel--snap mt-[51px] grid grid-cols-2 xl:grid-cols-3 min-[1400px]:grid-cols-[repeat(3,416px)] gap-x-[47px] gap-y-12 max-lg:grid-cols-2 max-lg:gap-x-8 max-md:mt-8 max-md:gap-3 max-md:py-4"
         >
           {posts.map((post) => (
             <BlogPostCard key={post.id} post={post} />

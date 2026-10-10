@@ -19,7 +19,7 @@ export default function CompanyTimelineItem({ item, side, isLast }) {
       <h3 className="text-[22px] font-medium leading-[27px] capitalize text-teal-accent max-md:text-lg max-md:leading-[28px]">
         {t(`aboutPage.pillars.${item.id}.title`)}
       </h3>
-      <p className="mt-[13px] text-[20px] font-normal leading-[24px] capitalize text-fg max-md:mt-2 max-md:text-[15px] max-md:leading-snug">
+      <p className="mt-[13px] text-[18px] font-normal leading-[1.6] capitalize text-fg max-md:mt-2 max-md:text-[15px] max-md:leading-snug">
         {t(`aboutPage.pillars.${item.id}.description`)}
       </p>
     </div>

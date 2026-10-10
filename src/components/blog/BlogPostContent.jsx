@@ -83,7 +83,7 @@ function BlogArticle({ section, postId }) {
       <h2 className="text-[25px] font-semibold leading-[100%] capitalize text-fg max-md:text-lg max-md:leading-snug">
         {highlightWords(section.heading, section.accents, "text-teal-accent")}
       </h2>
-      <p className="mt-[28px] text-[20px] font-medium leading-[135%] capitalize text-fg/90 max-md:mt-3 max-md:text-[15px] max-md:leading-[25px]">
+      <p className="mt-[28px] text-[18px] font-medium leading-[1.6] capitalize text-fg/90 max-md:mt-3 max-md:text-[15px] max-md:leading-[25px]">
         {section.body}
       </p>
     </article>
@@ -120,7 +120,7 @@ export default function BlogPostContent({ post }) {
       >
         {services.map((item) => (
           <li key={item}>
-            <CheckListItem className="!gap-[5px] !text-[20px] max-md:!text-[14px] max-md:!gap-2">
+            <CheckListItem className="!gap-[5px] !text-[18px] max-md:!text-[14px] max-md:!gap-2">
               {item}
             </CheckListItem>
           </li>
