@@ -37,21 +37,23 @@ const linkClass = `${itemClass.replace("flex items-center", "relative flex w-fit
 
 export default function SiteFooter() {
   const { t } = useTranslation();
+  // The footer keeps the page gutter (24 / 40 / 50px); the city art and glow
+  // are placed from its edge (lg+).
   return (
-    <footer className="relative overflow-visible w-full px-6 mb-[-40px] mt-[55px] max-md:mt-10 max-md:mb-0 font-display md:w-[calc(100%-100px)] md:mx-[50px] md:px-0 md:-translate-x-[10px]">
-      <div className="hidden lg:block pointer-events-none absolute left-[1280px] top-[458px] w-[60px] h-[100px] bg-[#24B9A5] opacity-50 blur-[90px] z-[5]" />
+    <footer className="relative overflow-visible w-full px-6 md:px-10 lg:px-[50px] mb-[-40px] mt-[55px] max-md:mt-10 max-md:mb-0 font-display">
+      <div className="hidden lg:block pointer-events-none absolute left-[1320px] top-[458px] w-[60px] h-[100px] bg-[#24B9A5] opacity-50 blur-[90px] z-[5]" />
       {/* City art (lg+ only). The wrapper does the hiding: .light-only would
           otherwise override `hidden` on phones in light mode. */}
       <div className="hidden lg:block">
         <img
           src={cityArt}
           alt=""
-          className="dark-only pointer-events-none absolute left-[732px] top-10 w-[640px] h-[542px] object-cover opacity-20 z-0 scale-[1.4]"
+          className="dark-only pointer-events-none absolute left-[772px] top-10 w-[640px] h-[542px] object-cover opacity-20 z-0 scale-[1.4]"
         />
         <img
           src={cityArtLight}
           alt=""
-          className="light-only pointer-events-none absolute left-[769px] top-[20px] w-[504px] h-[431px] object-contain origin-[283px_168px] z-0 scale-[1.4]"
+          className="light-only pointer-events-none absolute left-[809px] top-[20px] w-[504px] h-[431px] object-contain origin-[283px_168px] z-0 scale-[1.4]"
         />
       </div>
 
@@ -68,7 +70,7 @@ export default function SiteFooter() {
         </div>
 
         {/* Columns */}
-        <div className="max-w-content mx-auto px-6 pt-0 mt-16 md:mt-[137px] pb-10 max-md:px-0 max-md:mt-10">
+        <div className="pt-0 mt-16 md:mt-[137px] pb-10 max-md:mt-10">
           {/* Phones: Explore + Quick Links side by side, then Quick Contact and
               Follow Us as full-width rows (the long email/address need it).
               md+: one row, spread out; on tablets the columns wrap (gap-x is

@@ -6,6 +6,8 @@
     "fleet": "أسطولنا",
     "blog": "المدونة",
     "contact": "تواصل معنا",
+    "login": "تسجيل الدخول",
+    "account": "حسابي",
     "toggleMenu": "فتح القائمة أو إغلاقها",
     "closeMenu": "إغلاق القائمة",
     "switchToArabic": "التبديل إلى العربية",
@@ -122,8 +124,35 @@
       "description": "استكشف أسطولنا الفاخر المصمم للارتقاء بكل مناسبة:"
     }
   },
+
+  "formPlaceholders": {
+    "firstName": "محمد",
+    "lastName": "العلي",
+    "email": "name@example.com",
+    "subject": "كيف نساعدك؟",
+    "message": "أخبرنا بالمزيد",
+    "chooseService": "اختر الخدمة",
+    "select": "اختر من القائمة",
+    "airport": "مطار دبي الدولي (DXB)",
+    "flightNumber": "EK 201",
+    "hours": "4",
+    "city": "دبي",
+    "duration": "4 ساعات",
+    "places": "الأماكن التي تود زيارتها",
+    "website": "https://example.com",
+    "comment": "اكتب تعليقك هنا",
+    "addNote": "إضافة ملاحظة",
+    "chooseDuration": "اختر المدة"
+  },
+
   "booking": {
     "title": "احجز سيارتك الفاخرة الآن",
+    "namePlaceholder": "اسمك الكامل",
+    "phonePlaceholder": "05X XXX XXXX",
+    "locationPlaceholder": "أدخل موقع الانطلاق",
+    "datePlaceholder": "شهر/يوم/سنة",
+    "timePlaceholder": "ساعة:دقيقة",
+    "dropOffPlaceholder": "أدخل موقع الوصول",
     "name": "الاسم",
     "phone": "رقم الهاتف",
     "location": "اختر موقع الانطلاق",
@@ -335,6 +364,7 @@
     "whatsappLabel": "راسلنا على واتساب",
     "mapTitle": "موقع ESM Limo على الخريطة",
     "form": {
+      "title": "أرسل لنا رسالة",
       "fullName": "الاسم الكامل :",
       "subject": "الموضوع :",
       "phone": "رقم الهاتف :",

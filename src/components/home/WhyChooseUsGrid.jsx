@@ -127,7 +127,7 @@ export default function WhyChooseUsGrid() {
       />
 
       {/* Content */}
-      <div className="relative z-20 max-w-content mx-auto px-6 py-20 max-md:pt-12 max-md:pb-12">
+      <div className="relative z-20 px-6 md:px-10 lg:px-[50px] py-20 max-md:pt-12 max-md:pb-12">
         <SectionEyebrow className="!text-[25px] max-md:!text-[22px] !font-semibold !leading-[100%] !text-teal-accent">
           {t("home.whyChoose.eyebrow")}
         </SectionEyebrow>

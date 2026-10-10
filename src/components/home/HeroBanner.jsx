@@ -107,7 +107,7 @@ export default function HeroBanner() {
       />
 
       <div
-        className="relative w-full px-6 pt-28 pb-16 max-md:pt-8 max-md:pb-6 xl:ps-[50px] xl:pe-[128px] xl:pt-[195px] xl:pb-24 xl:me-[128px] xl:min-h-[var(--hero-min)]"
+        className="relative w-full px-6 md:px-10 lg:px-[50px] pt-28 pb-16 max-md:pt-8 max-md:pb-6 xl:pe-[128px] xl:pt-[195px] xl:pb-24 xl:me-[128px] xl:min-h-[var(--hero-min)]"
         style={{
           // Desktop-only: tall enough to contain the whole scaled illustration
           // (centered vertically) so overflow-hidden never clips the car.
@@ -169,8 +169,7 @@ export default function HeroBanner() {
         <LayeredGraphicStage
           layers={heroIllustrationLayers}
           aspectRatio={heroIllustrationAspect}
-          className="xl:hidden -mx-6 mt-4 md:mt-10"
-          style={{ width: "calc(100% + 3rem)", maxWidth: "none" }}
+          className="xl:hidden -mx-6 md:-mx-10 lg:-mx-[50px] w-[calc(100%+3rem)] md:w-[calc(100%+5rem)] lg:w-[calc(100%+100px)] !max-w-none mt-4 md:mt-10"
         />
         <LayeredGraphicStage
           layers={heroIllustrationLayers}

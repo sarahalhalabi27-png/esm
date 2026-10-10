@@ -1,13 +1,13 @@
 import { Controller } from "react-hook-form";
 
 // Bridges react-hook-form to the project's controlled field components
-// (TextField, TextAreaField, DatePicker, TimePicker, ...), and
+// (BookingInput, BookingTextArea, BookingPicker, ...), and
 // renders the validation error beneath the field when present.
 //
 // `transform` optionally sanitizes each keystroke before it reaches the form
 // state (e.g. keep letters-only for names). It receives the raw string value.
 //
-// Usage: <ControlledField control={control} name="email" as={TextField} label="Email" />
+// Usage: <ControlledField control={control} name="email" as={BookingInput} label="Email" />
 export default function ControlledField({
   control,
   name,

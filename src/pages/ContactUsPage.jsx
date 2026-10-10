@@ -10,8 +10,8 @@ import LocationMapPanel from "../components/contact/LocationMapPanel.jsx";
 import SmokeBackdrop from "../components/common/SmokeBackdrop.jsx";
 
 // Contact Us: the hero; then the heading + intro, under them the contact
-// details at the 50px gutter beside the form card (640 wide, ending at the
-// right gutter); then the map, 1390 wide.
+// details beside the form card (640 wide), then the map, all within the page
+// gutters.
 // When another page links here with `state.scrollTo` (the Contact Us buttons
 // of the footer pages), jump straight to that element - just under the sticky
 // header - instead of the top of the page. The hero image above loads late and
@@ -59,7 +59,7 @@ export default function ContactUsPage() {
   return (
     <PageLayout>
       <ContactPageHero />
-      <section className="relative isolate w-full max-w-[1440px] mx-auto px-[50px] mt-[106px] mb-[143px] max-md:px-6 max-md:mt-8 max-md:mb-16">
+      <section className="relative isolate w-full max-w-[1440px] mx-auto px-6 md:px-10 lg:px-[50px] mt-[106px] mb-[143px] max-md:mt-8 max-md:mb-16">
         <SmokeBackdrop className="md:!-top-[309px] md:!-left-[20px] md:!h-[1153px] md:!w-[1496px] md:rotate-180" />
         {/* The heading and intro on top; under them the contact details and
             the form side by side from xl (the details column narrows on
@@ -72,7 +72,7 @@ export default function ContactUsPage() {
             <ContactForm />
           </div>
         </div>
-        <div className="mt-[160px] -mx-[20.5px] max-md:mx-0 max-md:mt-14">
+        <div className="mt-[160px] max-md:mt-14">
           <LocationMapPanel />
         </div>
       </section>

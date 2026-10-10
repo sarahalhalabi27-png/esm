@@ -57,7 +57,7 @@ export default function CarInteriorGallery({ car }) {
   return (
     <section
       ref={sectionRef}
-      className="font-display px-[50px] mt-[100px] max-md:px-6 max-md:mt-12"
+      className="font-display px-6 md:px-10 lg:px-[50px] mt-[100px] max-md:mt-12"
     >
       <CarSectionHeading
         iconSrc={interiorIcon}

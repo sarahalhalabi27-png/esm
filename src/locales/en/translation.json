@@ -6,6 +6,8 @@
     "fleet": "Our Fleet",
     "blog": "Blog",
     "contact": "Contact Us",
+    "login": "Login",
+    "account": "Account",
     "toggleMenu": "Open or close the menu",
     "closeMenu": "Close the menu",
     "switchToArabic": "Switch to Arabic",
@@ -132,8 +134,35 @@
     }
   },
 
+
+  "formPlaceholders": {
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "name@example.com",
+    "subject": "How can we help?",
+    "message": "Tell us a bit more",
+    "chooseService": "Choose a service",
+    "select": "Select an option",
+    "airport": "Dubai International (DXB)",
+    "flightNumber": "EK 201",
+    "hours": "4",
+    "city": "Dubai",
+    "duration": "4 hours",
+    "places": "Places you'd like to visit",
+    "website": "https://example.com",
+    "comment": "Write your comment here",
+    "addNote": "Add a note",
+    "chooseDuration": "Choose a duration"
+  },
+
   "booking": {
     "title": "Book Your Luxury Car Now",
+    "namePlaceholder": "Your full name",
+    "phonePlaceholder": "05X XXX XXXX",
+    "locationPlaceholder": "Enter pick-up location",
+    "datePlaceholder": "mm/dd/yyyy",
+    "timePlaceholder": "hh:mm",
+    "dropOffPlaceholder": "Enter drop-off location",
     "name": "Name",
     "phone": "Phone",
     "location": "Choose Location",
@@ -346,6 +375,7 @@
     "whatsappLabel": "Chat on WhatsApp",
     "mapTitle": "ESM Limo location on the map",
     "form": {
+      "title": "Send Us A Message",
       "fullName": "Full Name :",
       "subject": "Subject :",
       "phone": "Phone Number :",

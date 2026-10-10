@@ -13,7 +13,7 @@ export default function PromotionalOfferBanner() {
       {/* Phones: the copy column dissolves (max-md:contents) into a named
           grid so the car sits beside the heading + description — like the
           desktop composition — with the eyebrow above and the CTA below. */}
-      <div className="max-w-content mx-auto px-6 py-20 grid md:grid-cols-2 gap-10 items-center max-md:py-12 max-md:gap-x-3 max-md:gap-y-0 max-md:grid-cols-[minmax(0,1fr)_44%] max-md:[grid-template-areas:'eyebrow_eyebrow'_'heading_car'_'desc_car'_'cta_cta']">
+      <div className="px-6 md:px-10 lg:px-[50px] py-20 grid md:grid-cols-2 gap-10 items-center max-md:py-12 max-md:gap-x-3 max-md:gap-y-0 max-md:grid-cols-[minmax(0,1fr)_44%] max-md:[grid-template-areas:'eyebrow_eyebrow'_'heading_car'_'desc_car'_'cta_cta']">
         <div className="max-md:contents">
           <SectionEyebrow className="max-md:[grid-area:eyebrow] max-md:text-[22px]">
             {t("home.promo.eyebrow")}

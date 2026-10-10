@@ -97,7 +97,7 @@ export default function CarDetailsHero({ car }) {
   return (
     <section
       ref={rootRef}
-      className="font-display px-[50px] pt-[90px] max-md:px-6 max-md:pt-10"
+      className="font-display px-6 md:px-10 lg:px-[50px] pt-[90px] max-md:pt-10"
     >
       <h1
         data-hero-title

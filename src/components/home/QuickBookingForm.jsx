@@ -3,8 +3,16 @@ import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import TextField from "../common/TextField.jsx";
-import OutlineButton from "../common/OutlineButton.jsx";
+import { CalendarDays, Clock, MapPin, Phone } from "lucide-react";
+import {
+  BOOKING_CARD,
+  BOOKING_FIELDS,
+  BOOKING_TITLE,
+  BookingHairline,
+  BookingInput,
+  BookingPicker,
+  BookingButton,
+} from "../common/BookingFields.jsx";
 import ControlledField from "../common/ControlledField.jsx";
 import TimePicker from "../common/TimePicker.jsx";
 import DatePicker from "../common/DatePicker.jsx";
@@ -27,6 +35,11 @@ const defaultValues = {
   dropOffLocation: "",
 };
 
+// The card and its fields are the shared booking-card look (common/
+// BookingFields.jsx). On short laptop windows (<= 720px tall) the size
+// variables tighten (40px fields, 44px button) so the whole card, with its
+// button, fits without scrolling. (The media query is written out in every
+// class: Tailwind can only see whole class strings.)
 export default function QuickBookingForm() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -53,12 +66,6 @@ export default function QuickBookingForm() {
     } catch {
       // status is set to "error" by the slice
     }
-  };
-
-  const fieldProps = {
-    labelClassName: "!text-fg text-[16px] font-medium mb-2",
-    inputClassName:
-      "!border-line/50 !font-display !font-semibold !text-[18px] max-md:!text-base max-md:min-h-[44px] !leading-[100%] !tracking-[0%] capitalize placeholder:text-fg",
   };
 
   return (
@@ -94,77 +101,110 @@ export default function QuickBookingForm() {
         {/* Booking Form (xl: 810px from the left, as in Figma; on narrower
             boxes it moves left just enough to keep a 40px end margin instead
             of running off the screen) */}
-        <div className="relative z-10 mx-auto w-[92%] max-w-[520px] max-md:w-[calc(100%-2rem)] xl:absolute xl:top-[35px] xl:left-[min(810px,calc(100%-560px))] xl:mx-0 xl:w-[520px]">
-          <div className="on-dark-surface relative max-md:rounded-[20px] max-md:px-5 max-md:pt-8 max-md:pb-8 rounded-[25px] bg-[#0000004D] backdrop-blur-[20px] px-6 pt-[40px] pb-[40px] flex flex-col xl:px-[40px]">
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-              <h2 className="text-[22px] font-semibold text-teal-accent text-center mb-[32px] max-md:text-[21px] max-md:leading-snug max-md:mb-10">
-                {t("booking.title")}
-              </h2>
+        <div className="relative z-10 mx-auto w-[92%] max-w-[520px] max-md:w-[calc(100%-3rem)] xl:absolute xl:top-[85px] xl:[@media(min-width:768px)_and_(max-height:720px)]:top-[32px] xl:left-[min(810px,calc(100%-560px))] xl:mx-0 xl:w-[520px]">
+          {/* The card: dark teal-to-black glass with a thin teal border
+              (solid #072E2A in light mode, like the site's other form
+              cards); the title and a hairline, then the fields
+              and a full-width teal button. */}
+          <div
+            className={`${BOOKING_CARD} [@media(min-width:768px)_and_(max-height:720px)]:pt-5 [@media(min-width:768px)_and_(max-height:720px)]:pb-5 [@media(min-width:768px)_and_(max-height:720px)]:[--field-gap:0.75rem]`}
+          >
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              noValidate
+              className="flex flex-col"
+            >
+              <h2 className={BOOKING_TITLE}>{t("booking.title")}</h2>
+              <BookingHairline />
 
-              <div className="flex flex-col gap-8 max-md:gap-[34px]">
+              <div
+                className={`${BOOKING_FIELDS} [@media(min-width:768px)_and_(max-height:720px)]:mt-3`}
+              >
                 <ControlledField
                   control={control}
                   name="name"
-                  as={TextField}
+                  as={BookingInput}
                   transform={sanitizeName}
-                  placeholder={t("booking.name")}
-                  {...fieldProps}
+                  label={t("booking.name")}
+                  placeholder={t("booking.namePlaceholder")}
+                  autoComplete="name"
+                  required
                 />
 
                 <ControlledField
                   control={control}
                   name="phone"
-                  as={TextField}
+                  as={BookingInput}
                   transform={sanitizePhone}
                   type="tel"
-                  placeholder={t("booking.phone")}
-                  {...fieldProps}
+                  inputMode="numeric"
+                  icon={Phone}
+                  label={t("booking.phone")}
+                  placeholder={t("booking.phonePlaceholder")}
+                  autoComplete="tel"
+                  required
                 />
 
                 <ControlledField
                   control={control}
                   name="location"
-                  as={TextField}
-                  placeholder={t("booking.location")}
-                  {...fieldProps}
+                  as={BookingInput}
+                  icon={MapPin}
+                  label={t("booking.location")}
+                  placeholder={t("booking.locationPlaceholder")}
                 />
 
-                <ControlledField
-                  control={control}
-                  name="date"
-                  as={DatePicker}
-                  placeholder={t("booking.date")}
-                />
-
-                <ControlledField
-                  control={control}
-                  name="time"
-                  as={TimePicker}
-                  placeholder={t("booking.time")}
-                />
+                <div className="grid grid-cols-2 gap-x-5 gap-y-[var(--field-gap,1.25rem)] max-[399px]:grid-cols-1">
+                  <ControlledField
+                    control={control}
+                    name="date"
+                    as={BookingPicker}
+                    picker={DatePicker}
+                    icon={CalendarDays}
+                    label={t("booking.date")}
+                    placeholder={t("booking.datePlaceholder")}
+                  />
+                  <ControlledField
+                    control={control}
+                    name="time"
+                    as={BookingPicker}
+                    picker={TimePicker}
+                    icon={Clock}
+                    label={t("booking.time")}
+                    placeholder={t("booking.timePlaceholder")}
+                  />
+                </div>
 
                 <ControlledField
                   control={control}
                   name="dropOffLocation"
-                  as={TextField}
-                  placeholder={t("booking.dropOffLocation")}
-                  {...fieldProps}
+                  as={BookingInput}
+                  icon={MapPin}
+                  label={t("booking.dropOffLocation")}
+                  placeholder={t("booking.dropOffPlaceholder")}
                 />
               </div>
 
-              <div className="mt-10 max-md:mt-9 flex flex-col items-center gap-2">
-                <OutlineButton
+              {/* The success note hangs under the button, outside the flow, so the
+                  card keeps its height */}
+              <div
+                className={`relative mt-5 [@media(min-width:768px)_and_(max-height:720px)]:mt-4`}
+              >
+                <BookingButton
                   type="submit"
-                  className="!w-[153px] !h-[55px] !rounded-[10px] !border-line !text-fg !font-display !font-semibold !text-[18px] max-md:!text-base !leading-[100%] !tracking-[0%] !capitalize enabled:hover:!bg-white enabled:hover:!text-[#072E2A]"
+                  className="w-full"
                   disabled={status === SUBMIT_STATUS.SUBMITTING}
                 >
                   {status === SUBMIT_STATUS.SUBMITTING
                     ? t("booking.sending")
-                    : t("booking.send")}
-                </OutlineButton>
+                    : t("common.bookNow")}
+                </BookingButton>
 
                 {status === SUBMIT_STATUS.SUCCESS ? (
-                  <p className="text-xs text-teal-accent">
+                  <p
+                    className="absolute inset-x-0 top-full mt-3 text-center text-sm text-[#24B9A5]"
+                    role="status"
+                  >
                     {t("booking.success")}
                   </p>
                 ) : null}

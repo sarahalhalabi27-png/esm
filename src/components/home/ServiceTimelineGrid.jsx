@@ -73,30 +73,60 @@ function LightScene({ service, label, className = "", style }) {
   );
 }
 
-// Crossfade each light scene to its colored version while the traveler
-// (ring) center is inside the scene's box: a gentle fade in, and a quick
-// fade back to the base once the ring moves on.
+// Crossfade the light scenes to their colored versions as the traveler (ring)
+// passes: a gentle fade in for the scene the ring center is inside, and a
+// quick fade back to the base once the ring reaches another one. Between two
+// scenes the ring is over neither, so the last scene it was on stays colored
+// (otherwise everything went grey in the gap and the next scene only lit up
+// on arrival); before the ring has touched any, the nearest scene is colored.
 const SCENE_FADE_IN_MS = 600;
 const SCENE_FADE_OUT_MS = 150;
+
+// The scene currently colored, per layout root (desktop section / phone list).
+const activeScenes = new WeakMap();
 
 function updateSceneColors(root, traveler) {
   if (!root || !traveler) return;
   const t = traveler.getBoundingClientRect();
   const x = t.left + t.width / 2;
   const y = t.top + t.height / 2;
-  root.querySelectorAll("[data-light-scene]").forEach((scene) => {
+  // Only the visible layout's scenes (the other one is display:none)
+  const scenes = [...root.querySelectorAll("[data-light-scene]")].filter(
+    (scene) => scene.getBoundingClientRect().width > 0
+  );
+  if (!scenes.length) return;
+
+  const over = (scene) => {
     const r = scene.getBoundingClientRect();
-    const over = x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+    return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+  };
+  const distance = (scene) => {
+    const r = scene.getBoundingClientRect();
+    return Math.hypot(x - (r.left + r.width / 2), y - (r.top + r.height / 2));
+  };
+  let active = scenes.find(over);
+  if (!active) {
+    const previous = activeScenes.get(root);
+    active = scenes.includes(previous)
+      ? previous
+      : scenes.reduce((best, scene) =>
+          distance(scene) < distance(best) ? scene : best
+        );
+  }
+  activeScenes.set(root, active);
+
+  scenes.forEach((scene) => {
+    const on = scene === active;
     const base = scene.querySelector("[data-scene-base]");
     const colored = scene.querySelector("[data-scene-color]");
-    const duration = `${over ? SCENE_FADE_IN_MS : SCENE_FADE_OUT_MS}ms`;
+    const duration = `${on ? SCENE_FADE_IN_MS : SCENE_FADE_OUT_MS}ms`;
     if (colored) {
       colored.style.transitionDuration = duration;
-      colored.style.opacity = over ? "1" : "0";
+      colored.style.opacity = on ? "1" : "0";
     }
     if (base) {
       base.style.transitionDuration = duration;
-      base.style.opacity = over ? "0" : "1";
+      base.style.opacity = on ? "0" : "1";
     }
   });
 }
@@ -421,7 +451,7 @@ export default function ServiceTimelineGrid() {
       className="font-display relative mt-10 max-md:mt-6 xl:min-h-[var(--svc-min)]"
       style={{ "--svc-min": `${sectionMinHeight}px` }}
     >
-      <div className="max-w-content mx-auto px-6 py-20 max-md:pt-14 max-md:pb-0">
+      <div className="px-6 md:px-10 lg:px-[50px] py-20 max-md:pt-14 max-md:pb-0">
         <div className="text-center mb-14 max-md:mb-10">
           <SectionEyebrow className="max-md:text-[22px]">
             {t("home.services.eyebrow")}
@@ -455,7 +485,7 @@ export default function ServiceTimelineGrid() {
           side by side, alternating sides per row. As on desktop, the connector
           sweeps through each illustration in turn and the glowing traveler
           rides it on scroll (path built in the effect above). */}
-      <div className="xl:hidden max-w-content mx-auto px-6 pb-16">
+      <div className="xl:hidden px-6 md:px-10 lg:px-[50px] pb-16">
         <div
           ref={mobileListRef}
           className="relative flex flex-col gap-14 md:gap-20"

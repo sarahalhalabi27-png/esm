@@ -3,34 +3,30 @@ import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import TextField from "../common/TextField.jsx";
-import TextAreaField from "../common/TextAreaField.jsx";
-import HollowButton from "../common/HollowButton.jsx";
+import { CalendarDays, Clock, MapPin } from "lucide-react";
 import ControlledField from "../common/ControlledField.jsx";
 import DatePicker from "../common/DatePicker.jsx";
 import TimePicker from "../common/TimePicker.jsx";
-import DrawnCheck from "../common/DrawnCheck.jsx";
 import useFormReveal from "../common/useFormReveal.js";
 import {
-  FORM_CARD,
-  FORM_CARD_DARK_IN_LIGHT,
-  FORM_TITLE,
-  SUBMIT_BUTTON,
-} from "../common/formStyles.js";
-import DurationSelect from "../carDetails/DurationSelect.jsx";
-import { fieldProps, pickerProps } from "./quickBookStyles.js";
-import { pointToPointSchema } from "../../schemas/formSchemas.js";
+  BOOKING_TWO_COLUMNS,
+  BookingInput,
+  BookingPicker,
+  BookingTextArea,
+  OptionalField,
+  BOOKING_PAIR_COLUMNS,
+} from "../common/BookingFields.jsx";
 import {
-  POINT_TO_POINT_CAR_TYPES,
-  POINT_TO_POINT_CARS,
-  POINT_TO_POINT_PASSENGERS,
-} from "../../data/quickBookServices.js";
+  CarChoiceRow,
+  ConfirmRow,
+  ServiceFormShell,
+} from "./ServiceFormParts.jsx";
+import { pointToPointSchema } from "../../schemas/formSchemas.js";
 import {
   submitBooking,
   resetBookingStatus,
   selectBookingStatus,
 } from "../../store/bookingSlice.js";
-import { SUBMIT_STATUS } from "../../store/constants.js";
 
 const SENT_FLASH_MS = 1800;
 
@@ -45,11 +41,11 @@ const defaultValues = {
   notes: "",
 };
 
-// "Book Your Point-To-Point Ride": step two for the Point-To-Point service,
-// laid out like the car reservation form (same card, fields, wipe-in reveal):
-// pickup / drop-off, date / time, three dropdowns (car type, car, passengers),
-// the optional notes box and "Confirm Booking". `details` are the first
-// step's values, sent along with this form's.
+// "Book Your Point-To-Point Ride": step two for the Point-To-Point service, in
+// the booking-card look shared with the other forms (common/BookingFields.jsx,
+// quickBook/ServiceFormParts.jsx): pickup / drop-off, date / time, three lists
+// (car type, car, passengers), the optional notes box and "Confirm Booking".
+// `details` are the first step's values, sent along with this form's.
 export default function PointToPointForm({ details }) {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
@@ -85,137 +81,73 @@ export default function PointToPointForm({ details }) {
     }
   };
 
-  const options = (keys, group) =>
-    keys.map((value) => ({
-      value,
-      label: t(`quickBook.pointToPoint.${group}.${value}`),
-    }));
-  const carTypeOptions = options(POINT_TO_POINT_CAR_TYPES, "carTypes");
-  const carOptions = options(POINT_TO_POINT_CARS, "cars");
-  const passengerOptions = POINT_TO_POINT_PASSENGERS.map((value) => ({
-    value,
-    label: value,
-  }));
-
-  const twoColumns =
-    "grid grid-cols-2 gap-x-[252px] gap-y-[62px] max-lg:gap-x-12 max-md:grid-cols-1 max-md:gap-y-[38px]";
-
   return (
-    <section className="font-display px-[47px] mt-[44px] mb-[120px] max-md:px-6 max-md:mt-6 max-md:mb-16">
-      <div
-        ref={cardRef}
-        className={`${FORM_CARD} ${FORM_CARD_DARK_IN_LIGHT} pb-[58px]`}
-      >
-        <h2 className={`${FORM_TITLE} !leading-[100%] light:!text-white`}>
-          {t("quickBook.pointToPoint.title")}
-        </h2>
-
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          noValidate
-          className="mt-[49px] flex flex-col gap-y-[62px] max-md:mt-12 max-md:gap-y-[38px]"
-        >
-          <div className={twoColumns}>
-            <ControlledField
-              control={control}
-              name="pickupLocation"
-              as={TextField}
-              placeholder={t("quickBook.pointToPoint.pickupLocation")}
-              {...fieldProps}
-            />
-            <ControlledField
-              control={control}
-              name="dropOffLocation"
-              as={TextField}
-              placeholder={t("quickBook.pointToPoint.dropOffLocation")}
-              {...fieldProps}
-            />
-          </div>
-
-          <div className={twoColumns}>
-            <ControlledField
-              control={control}
-              name="date"
-              as={DatePicker}
-              placeholder={t("quickBook.pointToPoint.date")}
-              {...pickerProps}
-            />
-            <ControlledField
-              control={control}
-              name="time"
-              as={TimePicker}
-              placeholder={t("quickBook.pointToPoint.time")}
-              {...pickerProps}
-            />
-          </div>
-
-          <div className="grid grid-cols-3 gap-x-[62px] gap-y-[62px] max-lg:gap-x-8 max-md:grid-cols-1 max-md:gap-y-[38px]">
-            <ControlledField
-              control={control}
-              name="carType"
-              as={DurationSelect}
-              placeholder={t("quickBook.pointToPoint.carType")}
-              {...pickerProps}
-              options={carTypeOptions}
-            />
-            <ControlledField
-              control={control}
-              name="car"
-              as={DurationSelect}
-              placeholder={t("quickBook.pointToPoint.car")}
-              {...pickerProps}
-              options={carOptions}
-            />
-            <ControlledField
-              control={control}
-              name="passengers"
-              as={DurationSelect}
-              placeholder={t("quickBook.pointToPoint.passengers")}
-              {...pickerProps}
-              options={passengerOptions}
-            />
-          </div>
-
-          <ControlledField
-            control={control}
-            name="notes"
-            as={TextAreaField}
-            label={t("quickBook.pointToPoint.notes")}
-            labelClassName="font-display font-medium text-[18px] leading-[27px] capitalize text-fg mb-[10px] max-md:text-base max-md:leading-snug max-md:mb-3"
-            className="w-full min-[1440px]:w-[1195px] ms-[6px] max-lg:ms-0"
-            textareaClassName="!block !h-[161px] !rounded-[10px] !border-[0.5px] !border-white/60 !p-4 !text-[18px] focus:!border-teal-accent max-md:!h-[140px] max-md:!text-[15px]"
-          />
-
-          <div className="relative flex justify-center -mt-[3px] max-md:mt-0">
-            <HollowButton
-              onDark
-              type="submit"
-              className={`!relative ${SUBMIT_BUTTON}`}
-              disabled={status === SUBMIT_STATUS.SUBMITTING}
-            >
-              {/* The label keeps the button's size while the tick shows */}
-              <span className={sentFlash ? "invisible" : undefined}>
-                {status === SUBMIT_STATUS.SUBMITTING
-                  ? t("booking.sending")
-                  : t("quickBook.pointToPoint.confirm")}
-              </span>
-              {sentFlash && (
-                <span className="absolute inset-0 flex items-center justify-center">
-                  <DrawnCheck />
-                </span>
-              )}
-            </HollowButton>
-            {status === SUBMIT_STATUS.SUCCESS ? (
-              <p
-                className="absolute top-full mt-3 text-sm text-teal-accent"
-                role="status"
-              >
-                {t("booking.success")}
-              </p>
-            ) : null}
-          </div>
-        </form>
+    <ServiceFormShell
+      cardRef={cardRef}
+      title={t("quickBook.pointToPoint.title")}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div className={BOOKING_TWO_COLUMNS}>
+        <ControlledField
+          control={control}
+          name="pickupLocation"
+          as={BookingInput}
+          icon={MapPin}
+          label={t("quickBook.pointToPoint.pickupLocation")}
+          placeholder={t("booking.locationPlaceholder")}
+          required
+        />
+        <ControlledField
+          control={control}
+          name="dropOffLocation"
+          as={BookingInput}
+          icon={MapPin}
+          label={t("quickBook.pointToPoint.dropOffLocation")}
+          placeholder={t("booking.dropOffPlaceholder")}
+          required
+        />
       </div>
-    </section>
+
+      <div className={BOOKING_PAIR_COLUMNS}>
+        <ControlledField
+          control={control}
+          name="date"
+          as={BookingPicker}
+          pair
+          picker={DatePicker}
+          icon={CalendarDays}
+          label={t("quickBook.pointToPoint.date")}
+          placeholder={t("booking.datePlaceholder")}
+        />
+        <ControlledField
+          control={control}
+          name="time"
+          as={BookingPicker}
+          pair
+          picker={TimePicker}
+          icon={Clock}
+          label={t("quickBook.pointToPoint.time")}
+          placeholder={t("booking.timePlaceholder")}
+        />
+      </div>
+
+      <CarChoiceRow control={control} group="pointToPoint" />
+
+      <OptionalField label={t("formPlaceholders.addNote")}>
+        <ControlledField
+          control={control}
+          name="notes"
+          as={BookingTextArea}
+          label={t("quickBook.pointToPoint.notes")}
+          placeholder={t("formPlaceholders.message")}
+        />
+      </OptionalField>
+
+      <ConfirmRow
+        status={status}
+        sentFlash={sentFlash}
+        label={t("quickBook.pointToPoint.confirm")}
+      />
+    </ServiceFormShell>
   );
 }

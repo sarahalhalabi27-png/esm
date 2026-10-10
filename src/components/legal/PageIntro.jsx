@@ -8,7 +8,7 @@ export default function PageIntro({ title, intro, updated = false }) {
   const { t } = useTranslation();
 
   return (
-    <header className="w-full max-w-[1440px] mx-auto px-[50px] pt-[70px] text-center max-md:px-6 max-md:pt-10">
+    <header className="w-full max-w-[1440px] mx-auto px-6 md:px-10 lg:px-[50px] pt-[70px] text-center max-md:pt-10">
       <h1 className="text-[45px] font-semibold leading-[110%] capitalize text-fg max-md:text-[30px]">
         {title}
       </h1>

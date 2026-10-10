@@ -18,6 +18,10 @@ import FloatingLabel from "../common/FloatingLabel.jsx";
 // highlighted item on a white/10% wash.
 // Keyboard: Enter/Space/↓ opens; ↑/↓ move, Enter/Space picks, Esc/Tab close.
 // Used through ControlledField: `onChange` receives the picked value.
+// `variant="box"` draws it as the booking card's boxed field instead (see
+// BookingSelect in common/BookingFields.jsx): no floating label (the label sits
+// above the box, the placeholder shows inside it), a chevron at the end and
+// the list as a matching rounded panel under the box.
 export default function DurationSelect({
   value,
   onChange,
@@ -27,7 +31,9 @@ export default function DurationSelect({
   options,
   fieldClassName = "",
   floatingLabelClassName,
+  variant = "underline",
 }) {
+  const box = variant === "box";
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(-1);
   const rootRef = useRef(null);
@@ -83,11 +89,13 @@ export default function DurationSelect({
 
   return (
     <div ref={rootRef} className="relative">
-      <FloatingLabel
-        text={placeholder}
-        active={open || !!value}
-        inactiveClassName={floatingLabelClassName}
-      />
+      {box ? null : (
+        <FloatingLabel
+          text={placeholder}
+          active={open || !!value}
+          inactiveClassName={floatingLabelClassName}
+        />
+      )}
       <button
         type="button"
         name={name}
@@ -101,17 +109,29 @@ export default function DurationSelect({
         aria-label={placeholder}
         onClick={() => (open ? close() : openList())}
         onKeyDown={onKeyDown}
-        className={`w-full text-start pe-8 bg-transparent outline-none text-fg capitalize transition-colors ${fieldClassName}`}
+        className={
+          box
+            ? `text-start pe-10 ${fieldClassName}`
+            : `w-full text-start pe-8 bg-transparent outline-none text-fg capitalize transition-colors ${fieldClassName}`
+        }
       >
-        {selected?.label ?? ""}
+        {box ? (
+          selected ? (
+            <span className="truncate">{selected.label}</span>
+          ) : (
+            <span className="truncate text-white/40">{placeholder}</span>
+          )
+        ) : (
+          (selected?.label ?? "")
+        )}
       </button>
       <ChevronDown
-        size={20}
-        strokeWidth={1.5}
+        size={box ? 18 : 20}
+        strokeWidth={box ? 1.75 : 1.5}
         aria-hidden="true"
-        className={`absolute end-0 top-[13.5px] -translate-y-1/2 pointer-events-none text-fg transition-transform ${
-          open ? "rotate-180" : ""
-        }`}
+        className={`absolute -translate-y-1/2 pointer-events-none transition-transform ${
+          box ? "end-4 top-1/2 text-white/60" : "end-0 top-[13.5px] text-fg"
+        } ${open ? "rotate-180" : ""}`}
       />
 
       {open && (
@@ -119,13 +139,21 @@ export default function DurationSelect({
           id={listId}
           role="listbox"
           aria-label={placeholder}
-          className="absolute z-30 flex flex-col gap-[12px] top-full start-0 end-0 ps-[18px] pe-[18px] pt-[24.33px] pb-[13.67px] rounded-b-[15px] border-[0.1px] border-white/60 shadow-xl light:border-white/25 light:!bg-[#072E2A] light:!bg-none light:shadow-[0_10px_24px_rgba(7,46,42,0.25)]"
+          className={
+            box
+              ? "absolute z-30 flex flex-col gap-0.5 top-full start-0 end-0 mt-1.5 p-1.5 rounded-[10px] border border-white/15 bg-[#061f1c] shadow-xl"
+              : "absolute z-30 flex flex-col gap-[12px] top-full start-0 end-0 ps-[18px] pe-[18px] pt-[24.33px] pb-[13.67px] rounded-b-[15px] border-[0.1px] border-white/60 shadow-xl light:border-white/25 light:!bg-[#072E2A] light:!bg-none light:shadow-[0_10px_24px_rgba(7,46,42,0.25)]"
+          }
           // Figma's #0000007D over the card's look (page colour + teal/10%),
           // made opaque so the fields underneath don't show through.
-          style={{
-            background:
-              "linear-gradient(#0000007D, #0000007D), linear-gradient(rgb(36 185 165 / 0.1), rgb(36 185 165 / 0.1)), rgb(var(--page))",
-          }}
+          style={
+            box
+              ? undefined
+              : {
+                  background:
+                    "linear-gradient(#0000007D, #0000007D), linear-gradient(rgb(36 185 165 / 0.1), rgb(36 185 165 / 0.1)), rgb(var(--page))",
+                }
+          }
         >
           {options.map((option, index) => {
             const isSelected = option.value === value;
@@ -139,11 +167,19 @@ export default function DurationSelect({
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => pick(option)}
                 onMouseEnter={() => setActive(index)}
-                className={`flex items-start h-[28px] border-b-[0.1px] last:border-b-0 border-white/35 cursor-pointer font-display font-medium text-[18px] leading-[22px] capitalize transition-colors ${
-                  index === active || isSelected
-                    ? "text-teal-accent light:bg-white/10 light:-mx-[6px] light:px-[6px]"
-                    : "text-fg"
-                }`}
+                className={
+                  box
+                    ? `flex items-center h-10 px-3 rounded-[8px] cursor-pointer font-display text-base capitalize transition-colors ${
+                        index === active || isSelected
+                          ? "bg-white/10 text-[#24B9A5]"
+                          : "text-white"
+                      }`
+                    : `flex items-start h-[28px] border-b-[0.1px] last:border-b-0 border-white/35 cursor-pointer font-display font-medium text-[18px] leading-[22px] capitalize transition-colors ${
+                        index === active || isSelected
+                          ? "text-teal-accent light:bg-white/10 light:-mx-[6px] light:px-[6px]"
+                          : "text-fg"
+                      }`
+                }
               >
                 {option.label}
               </li>

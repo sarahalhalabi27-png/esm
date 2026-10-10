@@ -3,15 +3,17 @@ import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import HollowButton from "../common/HollowButton.jsx";
-import TextField from "../common/TextField.jsx";
-import TextAreaField from "../common/TextAreaField.jsx";
+import { Mail, MessageSquare, Phone } from "lucide-react";
 import {
-  CARD_FIELD_PROPS as fieldProps,
-  FORM_CARD,
-  FORM_CARD_DARK_IN_LIGHT,
-  SUBMIT_BUTTON,
-} from "../common/formStyles.js";
+  BOOKING_CARD,
+  BOOKING_FIELDS,
+  BOOKING_TITLE,
+  BOOKING_TWO_COLUMNS,
+  BookingHairline,
+  BookingInput,
+  BookingTextArea,
+  BookingButton,
+} from "../common/BookingFields.jsx";
 import useFormReveal from "../common/useFormReveal.js";
 import ControlledField from "../common/ControlledField.jsx";
 import { contactSchema } from "../../schemas/formSchemas.js";
@@ -31,15 +33,11 @@ const defaultValues = {
   message: "",
 };
 
-const twoColumns =
-  "grid grid-cols-2 gap-x-10 gap-y-8 max-md:grid-cols-1 max-md:gap-y-[38px]";
-
-// Right column of Contact Us, in the same style as the car reservation form
-// (Reserve Your Luxury Ride Today!): the same card (FORM_CARD; solid #072E2A
-// with white content in light mode, FORM_CARD_DARK_IN_LIGHT), the same
-// underlined fields (CARD_FIELD), 32px rows and 40px columns: full name and
-// subject, phone and email, the 80px message box, then the hollow "Contact
-// Us" button centred under them.
+// Right column of Contact Us, in the booking-card look shared with the home
+// booking form and the reservation form (common/BookingFields.jsx): full name
+// and subject, phone and email, the message box (112px tall), then the
+// "Contact Us" button centred under them, below a title and a hairline like
+// the reservation form's. The card carries the id the footer pages scroll to.
 export default function ContactForm() {
   const { t, i18n } = useTranslation();
   const cardRef = useFormReveal(i18n.dir() === "rtl");
@@ -64,87 +62,93 @@ export default function ContactForm() {
     }
   };
 
-  // Subjects and addresses are shown as typed, not capitalised like names
-  const asTyped = `${fieldProps.inputClassName} !normal-case`;
-
   return (
-    <form
+    <div
       ref={cardRef}
       id="contact-form"
-      onSubmit={handleSubmit(onSubmit)}
-      noValidate
-      className={`${FORM_CARD} ${FORM_CARD_DARK_IN_LIGHT} font-display flex flex-col gap-y-8 lg:!ps-12 lg:!pe-12 lg:!pt-8 pb-10 max-md:gap-y-[38px]`}
+      className={`${BOOKING_CARD} [--area-h:7rem] lg:px-8`}
     >
-      <div className={twoColumns}>
-        <ControlledField
-          control={control}
-          name="fullName"
-          as={TextField}
-          transform={sanitizeName}
-          placeholder={t("contactPage.form.fullName")}
-          {...fieldProps}
-          autoComplete="name"
-        />
-        <ControlledField
-          control={control}
-          name="subject"
-          as={TextField}
-          placeholder={t("contactPage.form.subject")}
-          {...fieldProps}
-          inputClassName={asTyped}
-        />
-        <ControlledField
-          control={control}
-          name="phone"
-          as={TextField}
-          transform={sanitizePhone}
-          type="tel"
-          placeholder={t("contactPage.form.phone")}
-          {...fieldProps}
-          autoComplete="tel"
-        />
-        <ControlledField
-          control={control}
-          name="email"
-          as={TextField}
-          type="email"
-          placeholder={t("contactPage.form.email")}
-          {...fieldProps}
-          inputClassName={asTyped}
-          autoComplete="email"
-        />
-      </div>
+      <h2 className={BOOKING_TITLE}>{t("contactPage.form.title")}</h2>
+      <BookingHairline />
 
-      <ControlledField
-        control={control}
-        name="message"
-        as={TextAreaField}
-        label={t("contactPage.form.message")}
-        labelClassName="font-display font-medium text-[18px] leading-[27px] capitalize text-fg mb-2 max-md:text-base max-md:leading-snug max-md:mb-3"
-        className="w-full"
-        textareaClassName="!block !h-[80px] !rounded-[10px] !border-[0.5px] !border-white/60 !px-4 !py-3 !text-[18px] focus:!border-teal-accent max-md:!h-[110px] max-md:!text-[15px]"
-      />
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+        className={BOOKING_FIELDS}
+      >
+        <div className={BOOKING_TWO_COLUMNS}>
+          <ControlledField
+            control={control}
+            name="fullName"
+            as={BookingInput}
+            transform={sanitizeName}
+            label={t("contactPage.form.fullName")}
+            placeholder={t("booking.namePlaceholder")}
+            autoComplete="name"
+            required
+          />
+          <ControlledField
+            control={control}
+            name="subject"
+            as={BookingInput}
+            icon={MessageSquare}
+            label={t("contactPage.form.subject")}
+            placeholder={t("formPlaceholders.subject")}
+          />
+          <ControlledField
+            control={control}
+            name="phone"
+            as={BookingInput}
+            type="tel"
+            inputMode="numeric"
+            transform={sanitizePhone}
+            icon={Phone}
+            label={t("contactPage.form.phone")}
+            placeholder={t("booking.phonePlaceholder")}
+            autoComplete="tel"
+          />
+          <ControlledField
+            control={control}
+            name="email"
+            as={BookingInput}
+            type="email"
+            icon={Mail}
+            label={t("contactPage.form.email")}
+            placeholder={t("formPlaceholders.email")}
+            autoComplete="email"
+            required
+          />
+        </div>
 
-      <div className="relative flex justify-center">
-        <HollowButton
-          onDark
-          type="submit"
-          className={SUBMIT_BUTTON}
-          disabled={status === SUBMIT_STATUS.SUBMITTING}
-        >
-          {status === SUBMIT_STATUS.SUBMITTING
-            ? t("contactPage.form.sending")
-            : t("contactPage.form.submit")}
-        </HollowButton>
-        {status === SUBMIT_STATUS.SUCCESS ? (
-          <p
-            className="absolute top-full mt-3 text-sm text-teal-accent"
-            role="status"
+        <ControlledField
+          control={control}
+          name="message"
+          as={BookingTextArea}
+          label={t("contactPage.form.message")}
+          placeholder={t("formPlaceholders.message")}
+          required
+        />
+
+        <div className="relative flex justify-center">
+          <BookingButton
+            type="submit"
+            className="px-12 max-md:w-full"
+            disabled={status === SUBMIT_STATUS.SUBMITTING}
           >
-            {t("contactPage.form.success")}
-          </p>
-        ) : null}
-      </div>
-    </form>
+            {status === SUBMIT_STATUS.SUBMITTING
+              ? t("contactPage.form.sending")
+              : t("contactPage.form.submit")}
+          </BookingButton>
+          {status === SUBMIT_STATUS.SUCCESS ? (
+            <p
+              className="absolute top-full mt-3 text-sm text-[#24B9A5]"
+              role="status"
+            >
+              {t("contactPage.form.success")}
+            </p>
+          ) : null}
+        </div>
+      </form>
+    </div>
   );
 }

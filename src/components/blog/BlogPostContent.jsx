@@ -103,7 +103,7 @@ export default function BlogPostContent({ post }) {
     : [];
 
   return (
-    <section className="font-display mt-[132px] ps-[96px] pe-[50px] max-md:mt-14 max-md:px-6">
+    <section className="font-display mt-[132px] px-6 md:px-10 lg:ps-[96px] lg:pe-[50px] max-md:mt-14">
       <div className="flex flex-col gap-[102px] max-md:gap-12">
         {sections.map((section) => (
           <BlogArticle
@@ -116,7 +116,9 @@ export default function BlogPostContent({ post }) {
 
       <ul
         ref={servicesRef}
-        className="mt-[145px] -ms-[49px] grid grid-cols-[repeat(4,max-content)] gap-x-[40px] gap-y-[30px] max-lg:grid-cols-2 max-lg:gap-x-8 max-md:ms-0 max-md:mt-14 max-md:grid-cols-2 max-md:gap-x-4 max-md:gap-y-5"
+        // lg: out to the page gutter (the article text is 46px further in);
+        // four columns from xl, two below.
+        className="mt-[145px] lg:-ms-[46px] grid grid-cols-[repeat(4,max-content)] gap-x-[40px] gap-y-[30px] max-xl:grid-cols-2 max-xl:gap-x-8 max-md:mt-14 max-md:grid-cols-2 max-md:gap-x-4 max-md:gap-y-5"
       >
         {services.map((item) => (
           <li key={item}>

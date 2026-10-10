@@ -10,9 +10,7 @@ export default function TrustHighlights() {
   const { t } = useTranslation();
 
   return (
-    <section
-      className="relative overflow-hidden max-md:[clip-path:inset(0)] w-full max-w-[1340px] mx-auto xl:h-[606px] font-display"
-    >
+    <section className="relative overflow-hidden max-md:[clip-path:inset(0)] md:mx-10 lg:mx-[50px] xl:h-[606px] font-display">
       {/* Background swaps with the theme. Desktop: bg-fixed gives the
           "photo stays put" parallax. Phones: the wrapper becomes a
           viewport-tall position:fixed layer, clipped to the section by its
@@ -21,9 +19,7 @@ export default function TrustHighlights() {
           the whole scene fills the screen. The images are CSS variables
           picked per breakpoint, so each device downloads only the one it
           shows. */}
-      <div
-        className="absolute inset-0 z-0 max-md:fixed max-md:bottom-auto max-md:h-[100lvh]"
-      >
+      <div className="absolute inset-0 z-0 max-md:fixed max-md:bottom-auto max-md:h-[100lvh]">
         <div
           className="dark-only absolute inset-0 bg-cover bg-center bg-fixed bg-[image:var(--bg-wide)] max-md:bg-scroll max-md:bg-[image:var(--bg-tall)]"
           style={{

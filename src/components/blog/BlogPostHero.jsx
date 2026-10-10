@@ -150,7 +150,10 @@ export default function BlogPostHero({ post }) {
         </h1>
       </div>
 
-      <div ref={photoRef} className="px-6 mt-[32px] max-md:mt-6">
+      <div
+        ref={photoRef}
+        className="px-6 md:px-10 lg:px-[50px] mt-[32px] max-md:mt-6"
+      >
         {/* The same photo, mirrored and cropped to the glass pane (its black
             frame and the dim sides trimmed off): 1113 x 478 inside 870 x 437. */}
         <div

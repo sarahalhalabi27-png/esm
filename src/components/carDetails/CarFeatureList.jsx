@@ -192,7 +192,7 @@ export default function CarFeatureList({ car }) {
   });
 
   return (
-    <section className="font-display px-[50px] mt-[60px] max-md:px-6 max-md:mt-12">
+    <section className="font-display px-6 md:px-10 lg:px-[50px] mt-[60px] max-md:mt-12">
       <div
         ref={rowRef}
         className="flex items-start justify-between gap-6 flex-wrap max-md:items-center max-md:gap-4"

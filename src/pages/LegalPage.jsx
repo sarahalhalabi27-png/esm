@@ -23,7 +23,7 @@ export default function LegalPage({ doc }) {
           updated
         />
 
-        <div className="mx-auto mt-[70px] mb-[140px] w-full max-w-[1240px] px-[50px] max-md:mt-10 max-md:mb-16 max-md:px-6">
+        <div className="mx-auto mt-[70px] mb-[140px] w-full max-w-[1240px] px-6 md:px-10 lg:px-[50px] max-md:mt-10 max-md:mb-16">
           <div className="flex flex-col gap-10 max-md:gap-7">
             {Array.isArray(sections) &&
               sections.map((section, index) => (

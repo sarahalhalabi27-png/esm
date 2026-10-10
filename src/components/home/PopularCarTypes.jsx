@@ -48,7 +48,7 @@ export default function PopularCarTypes() {
 
   return (
     <section className="font-display" dir={isRTL ? "rtl" : "ltr"}>
-      <div className="max-w-content mx-auto px-6 py-20 max-md:py-12">
+      <div className="px-6 md:px-10 lg:px-[50px] py-20 max-md:py-12">
         {/* Section Title */}
         <h2
           className="

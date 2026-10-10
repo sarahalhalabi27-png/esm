@@ -1,18 +1,20 @@
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import TextField from "../common/TextField.jsx";
-import HollowButton from "../common/HollowButton.jsx";
+import { ConciergeBell, Mail, MapPin, Phone } from "lucide-react";
 import ControlledField from "../common/ControlledField.jsx";
 import useFormReveal from "../common/useFormReveal.js";
 import {
-  FORM_CARD,
-  FORM_CARD_DARK_IN_LIGHT,
-  FORM_TITLE,
-  SUBMIT_BUTTON,
-} from "../common/formStyles.js";
-import DurationSelect from "../carDetails/DurationSelect.jsx";
-import { FIELD, LABEL, fieldProps } from "./quickBookStyles.js";
+  BOOKING_CARD,
+  BOOKING_FIELDS,
+  BOOKING_TITLE,
+  BOOKING_TWO_COLUMNS,
+  BookingHairline,
+  BookingInput,
+  BookingSelect,
+  BookingButton,
+  BOOKING_PAIR_COLUMNS,
+} from "../common/BookingFields.jsx";
 import { quickBookSchema } from "../../schemas/formSchemas.js";
 import { sanitizeName, sanitizePhone } from "../../utils/validators.js";
 import { QUICK_BOOK_SERVICES } from "../../data/quickBookServices.js";
@@ -27,10 +29,11 @@ const defaultValues = {
 };
 
 // "Quickly Book Your Luxury Ride" (opened from the home hero's button), step
-// one: a card like the car reservation form - first / last name, email /
-// phone, location / service in two columns - and "Next", which hands the
-// values to `onNext`; the page then swaps this card for the picked service's
-// own form (QuickBookFlow).
+// one: the booking-card look shared with the home booking form
+// (common/BookingFields.jsx), at most 880px wide and centred - first / last
+// name, email / phone, location / service in two columns - and "Next", which
+// hands the values to `onNext`; the page then swaps this card for the picked
+// service's own form (QuickBookFlow).
 export default function QuickBookForm({ initialValues, onNext }) {
   const { t, i18n } = useTranslation();
   const cardRef = useFormReveal(i18n.dir() === "rtl");
@@ -46,82 +49,91 @@ export default function QuickBookForm({ initialValues, onNext }) {
   }));
 
   return (
-    <section className="font-display px-[47px] mt-[44px] mb-[120px] max-md:px-6 max-md:mt-6 max-md:mb-16">
+    <section className="font-display px-6 md:px-10 lg:px-[50px] mt-[44px] mb-[120px] max-md:mt-6 max-md:mb-16">
       <div
         ref={cardRef}
-        className={`${FORM_CARD} ${FORM_CARD_DARK_IN_LIGHT} pb-[59px]`}
+        className={`${BOOKING_CARD} mx-auto max-w-[880px] lg:px-10`}
       >
-        <h2 className={`${FORM_TITLE} !leading-[100%] light:!text-white`}>
-          {t("quickBook.title")}
-        </h2>
+        <h2 className={BOOKING_TITLE}>{t("quickBook.title")}</h2>
+        <BookingHairline />
 
         <form
           onSubmit={handleSubmit(onNext)}
           noValidate
-          className="mt-[49px] flex flex-col gap-y-[62px] max-md:mt-12 max-md:gap-y-[38px]"
+          className={BOOKING_FIELDS}
         >
-          <div className="grid grid-cols-2 gap-x-[252px] gap-y-[62px] max-lg:gap-x-12 max-md:grid-cols-1 max-md:gap-y-[38px]">
+          <div className={BOOKING_PAIR_COLUMNS}>
             <ControlledField
               control={control}
               name="firstName"
-              as={TextField}
+              as={BookingInput}
               transform={sanitizeName}
-              placeholder={t("quickBook.firstName")}
+              label={t("quickBook.firstName")}
+              placeholder={t("formPlaceholders.firstName")}
               autoComplete="given-name"
-              {...fieldProps}
+              required
             />
             <ControlledField
               control={control}
               name="lastName"
-              as={TextField}
+              as={BookingInput}
               transform={sanitizeName}
-              placeholder={t("quickBook.lastName")}
+              label={t("quickBook.lastName")}
+              placeholder={t("formPlaceholders.lastName")}
               autoComplete="family-name"
-              {...fieldProps}
+              required
             />
+          </div>
+
+          <div className={BOOKING_TWO_COLUMNS}>
             <ControlledField
               control={control}
               name="email"
-              as={TextField}
+              as={BookingInput}
               type="email"
-              placeholder={t("quickBook.email")}
+              icon={Mail}
+              label={t("quickBook.email")}
+              placeholder={t("formPlaceholders.email")}
               autoComplete="email"
-              {...fieldProps}
-              // Addresses are shown as typed, not capitalised like the names
-              inputClassName={`${fieldProps.inputClassName} !normal-case`}
+              required
             />
             <ControlledField
               control={control}
               name="phone"
-              as={TextField}
+              as={BookingInput}
               type="tel"
+              inputMode="numeric"
               transform={sanitizePhone}
-              placeholder={t("quickBook.phone")}
+              icon={Phone}
+              label={t("quickBook.phone")}
+              placeholder={t("booking.phonePlaceholder")}
               autoComplete="tel"
-              {...fieldProps}
+              required
             />
             <ControlledField
               control={control}
               name="location"
-              as={TextField}
-              placeholder={t("quickBook.location")}
-              {...fieldProps}
+              as={BookingInput}
+              icon={MapPin}
+              label={t("quickBook.location")}
+              placeholder={t("booking.locationPlaceholder")}
             />
             <ControlledField
               control={control}
               name="service"
-              as={DurationSelect}
-              placeholder={t("quickBook.service")}
-              fieldClassName={FIELD}
-              floatingLabelClassName={LABEL}
+              as={BookingSelect}
+              icon={ConciergeBell}
+              label={t("quickBook.service")}
+              placeholder={t("formPlaceholders.chooseService")}
               options={serviceOptions}
+              required
             />
           </div>
 
           <div className="relative flex justify-center">
-            <HollowButton onDark type="submit" className={SUBMIT_BUTTON}>
+            <BookingButton type="submit" className="px-12 max-md:w-full">
               {t("quickBook.next")}
-            </HollowButton>
+            </BookingButton>
           </div>
         </form>
       </div>

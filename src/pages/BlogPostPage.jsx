@@ -30,7 +30,7 @@ export default function BlogPostPage() {
     const notFound = post === null || postStatus === STATUS.FAILED;
     return (
       <PageLayout>
-        <div className="font-display max-w-content mx-auto px-6 py-24 text-center text-fg/60">
+        <div className="font-display px-6 md:px-10 lg:px-[50px] py-24 text-center text-fg/60">
           {notFound ? (
             <>
               <p className="text-xl">{t("blogPost.notFound")}</p>

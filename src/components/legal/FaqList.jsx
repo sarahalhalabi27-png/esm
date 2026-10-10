@@ -1,17 +1,18 @@
 import { useId, useState } from "react";
 import { ChevronDown } from "lucide-react";
 
-// One question: a card whose header opens and closes the answer (the answer's
-// height animates through a grid row going 0fr -> 1fr).
+// One question: a card (no border; the open one has a stronger fill) whose
+// header opens and closes the answer (the answer's height animates through a
+// grid row going 0fr -> 1fr).
 function FaqItem({ question, answer, open, onToggle }) {
   const id = useId();
 
   return (
     <div
-      className={`rounded-[15px] border-[0.5px] light:border-[1px] bg-[#24B9A5]/10 transition-colors duration-300 light:bg-[#24B9A5]/[0.08] ${
+      className={`rounded-[15px] transition-colors duration-300 ${
         open
-          ? "border-teal-accent"
-          : "border-white/40 light:border-[#072E2A]/45"
+          ? "bg-[#24B9A5]/[0.16] light:bg-[#24B9A5]/[0.16]"
+          : "bg-[#24B9A5]/10 light:bg-[#24B9A5]/[0.08]"
       }`}
     >
       <h3>

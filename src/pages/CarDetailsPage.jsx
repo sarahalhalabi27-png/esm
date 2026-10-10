@@ -33,7 +33,7 @@ export default function CarDetailsPage() {
     const notFound = car === null || carStatus === STATUS.FAILED;
     return (
       <PageLayout>
-        <div className="font-display px-6 py-32 text-center text-fg/70">
+        <div className="font-display px-6 md:px-10 lg:px-[50px] py-32 text-center text-fg/70">
           {notFound ? (
             <>
               <p className="text-xl">{t("carDetails.notFound")}</p>

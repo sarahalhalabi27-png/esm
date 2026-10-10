@@ -49,7 +49,7 @@ export default function SceneHero({
         {media("block w-full max-w-[1440px] mx-auto h-auto")}
         {/* 1341 content + 2 x 50 gutter. The overlap is a % of this content
             box, i.e. of the arc's own frame. */}
-        <div className="relative w-full max-w-[1441px] mx-auto px-6 md:px-[50px]">
+        <div className="relative w-full max-w-[1441px] mx-auto px-6 md:px-10 lg:px-[50px]">
           {arc}
         </div>
       </section>
@@ -58,7 +58,7 @@ export default function SceneHero({
 
   return (
     <section
-      className={`font-display px-6 md:px-[50px] ${top} pb-10 max-md:pb-6`}
+      className={`font-display px-6 md:px-10 lg:px-[50px] ${top} pb-10 max-md:pb-6`}
     >
       <h1 className="sr-only">{title}</h1>
 

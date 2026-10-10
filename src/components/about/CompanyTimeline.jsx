@@ -84,7 +84,7 @@ export default function CompanyTimeline() {
       ref={sectionRef}
       className="relative font-display mt-[57px] max-md:mt-10"
     >
-      <div className="relative max-w-[1340px] mx-auto px-6 md:px-[50px]">
+      <div className="relative max-w-[1340px] mx-auto px-6 md:px-10 lg:px-[50px]">
         {/* Figma (1440): the 1px white line starts 57px under the intro, runs
             843px, and the first dot is centred ~67px below its top (pt 35 +
             ring 33); the line ends ~80px past the last dot's centre. */}

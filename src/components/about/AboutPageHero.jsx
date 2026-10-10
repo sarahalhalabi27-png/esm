@@ -7,13 +7,12 @@ export default function AboutPageHero() {
   return <SceneHero image={aboutScene} title={t("aboutPage.heroTitle")} />;
 }
 
-// Intro line under the scene (Figma: 1341 wide, 140px under the arc,
-// centered 25px medium, two 30px lines; 1389 = 1341 + the 24px gutter each
-// side, which keeps it off the screen edges below 1389px)
+// Intro line under the scene (100px under the arc, centred, within the page
+// gutters)
 export function AboutIntro() {
   const { t } = useTranslation();
   return (
-    <p className="font-display w-full max-w-[1389px] mx-auto mt-[100px] px-6 text-center text-[20px] font-medium leading-[1.5] capitalize text-fg max-md:mt-6 max-md:text-lg max-md:leading-snug">
+    <p className="font-display w-full mt-[100px] px-6 md:px-10 lg:px-[50px] text-center text-[20px] font-medium leading-[1.5] capitalize text-fg max-md:mt-6 max-md:text-lg max-md:leading-snug">
       {t("aboutPage.intro")}
     </p>
   );

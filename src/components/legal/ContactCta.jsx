@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { BookingButton } from "../common/BookingFields.jsx";
 
-// The closing call to action of the text pages: a short line and the hollow
-// "Contact Us" button (same look as the forms' buttons).
+// The closing call to action of the text pages: a short line and the
+// "Contact Us" button (the forms' button, in its on-the-page look).
 export default function ContactCta() {
   const { t } = useTranslation();
 
@@ -14,14 +15,16 @@ export default function ContactCta() {
       <p className="mt-4 text-[18px] font-medium leading-[1.6] text-fg/85 max-md:text-base">
         {t("legal.ctaText")}
       </p>
-      <Link
+      <BookingButton
+        as={Link}
+        variant="page"
         to="/contact"
         // Opens Contact Us at its form rather than at the top (see ContactUsPage)
         state={{ scrollTo: "contact-form" }}
-        className="mt-8 inline-flex items-center justify-center rounded-[10px] border border-line px-[47px] py-[13px] text-[22px] font-semibold leading-[27px] capitalize text-fg transition-colors hover:bg-fg hover:text-page max-md:px-8 max-md:py-3 max-md:text-[18px]"
+        className="mt-8 px-12"
       >
         {t("legal.ctaButton")}
-      </Link>
+      </BookingButton>
     </section>
   );
 }

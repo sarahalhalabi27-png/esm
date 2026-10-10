@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, User, X } from "lucide-react";
 import { navigationLinks } from "../../data/navigationLinks.js";
 import ThemeToggle from "../common/ThemeToggle.jsx";
 import BrandLogo from "../common/BrandLogo.jsx";
+import { BookingButton } from "../common/BookingFields.jsx";
 
 export default function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,7 +29,7 @@ export default function SiteHeader() {
     <header className="w-full bg-page sticky top-0 z-30">
       {/* Bar: 64px tall on phones, 88px from md (common header heights),
           everything vertically centred. */}
-      <div className="flex items-center h-16 md:h-[88px] ps-6 lg:ps-[50px] pe-6 lg:pe-[50px]">
+      <div className="flex items-center h-16 md:h-[88px] px-6 md:px-10 lg:px-[50px]">
         <NavLink to="/" className="flex items-center shrink-0">
           <BrandLogo className="w-[100px] text-[#00BFA8] light:text-[#006D5D]" />
         </NavLink>
@@ -67,6 +68,27 @@ export default function SiteHeader() {
           className="relative ms-5 self-center shrink-0 text-fg/80 hover:text-fg transition-colors font-display text-base before:absolute before:-inset-x-[6px] before:-inset-y-[11px] before:content-['']"
         >
           {i18n.language === "en" ? "AR" : "EN"}
+        </button>
+
+        {/* Account button. It has no destination yet (the Login and Sign Up
+            pages are still to come). xl+: one "Login" button;
+            1024-1279 has room for just an account icon; below that the
+            button sits at the bottom of the sidebar. */}
+        <div className="hidden xl:block ms-6 shrink-0">
+          <BookingButton
+            type="button"
+            variant="page"
+            className="!h-10 px-6 !text-base"
+          >
+            {t("nav.login")}
+          </BookingButton>
+        </div>
+        <button
+          type="button"
+          aria-label={t("nav.account")}
+          className="hidden lg:grid xl:hidden ms-4 self-center shrink-0 place-items-center w-[42px] h-[42px] rounded-full border border-teal-accent/40 text-teal-accent transition-colors hover:bg-teal-accent/10"
+        >
+          <User size={20} />
         </button>
 
         {/* Mobile menu trigger (opens the right-side sidebar) */}
@@ -124,6 +146,11 @@ export default function SiteHeader() {
             {t(link.tKey)}
           </NavLink>
         ))}
+
+        {/* Account button (no destination yet) */}
+        <BookingButton type="button" variant="page" className="mt-auto w-full">
+          {t("nav.login")}
+        </BookingButton>
       </nav>
     </header>
   );

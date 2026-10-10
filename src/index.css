@@ -236,6 +236,82 @@ html[dir="ltr"] {
   }
 }
 
+/* Border beam: a streak of light runs around a card's edge - on hover (or
+   keyboard focus inside) by default, or all the time with the
+   `border-beam--always` modifier. Put <span class="border-beam"> as the last child of a
+   `group` card (it covers the card and takes its border-radius via
+   `rounded-*`). The ring is a rotating conic gradient, cut down to a 1.5px
+   frame by the mask; --beam-angle is registered so it can be animated.
+   Colours follow the theme (accent + shine). */
+@property --beam-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.border-beam {
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--beam-angle),
+    transparent 0deg 250deg,
+    rgb(var(--accent)) 300deg,
+    rgb(var(--shine)) 330deg,
+    rgb(var(--accent)) 345deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.group:hover > .border-beam,
+.group:focus-within > .border-beam {
+  opacity: 1;
+  animation: border-beam-spin 3s linear infinite;
+}
+
+@keyframes border-beam-spin {
+  to {
+    --beam-angle: 360deg;
+  }
+}
+
+.border-beam.border-beam--always {
+  opacity: 1;
+  animation: border-beam-spin 3s linear infinite;
+}
+
+/* Less motion: the whole frame just lights up in the accent colour on hover;
+   the always-on beam stands still instead. */
+@media (prefers-reduced-motion: reduce) {
+  .group:hover > .border-beam,
+  .group:focus-within > .border-beam {
+    animation: none;
+    background: rgb(var(--accent));
+  }
+
+  .border-beam.border-beam--always,
+  .group:hover > .border-beam.border-beam--always,
+  .group:focus-within > .border-beam.border-beam--always {
+    animation: none;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg 250deg,
+      rgb(var(--accent)) 300deg,
+      rgb(var(--shine)) 330deg,
+      rgb(var(--accent)) 345deg,
+      transparent 360deg
+    );
+  }
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: clip;

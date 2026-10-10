@@ -87,9 +87,9 @@ export default function ContactInfoPanel() {
 
   return (
     // min-w-0 lets the column narrow beside the form (its fixed-width lines
-    // are max-w-full); xl: 40px down, so "Keep Close" lines up with the
-    // form's first field.
-    <div className="font-display min-w-0 xl:pt-10">
+    // are max-w-full); xl: 24px down, so "Keep Close" lines up with the
+    // form card's title.
+    <div className="font-display min-w-0 xl:pt-6">
       <p className="flex items-center gap-[6px] text-[18px] font-medium leading-[27px] text-fg light:text-[#072E2A] max-md:gap-4 max-md:text-[17px] max-md:leading-normal">
         <span
           aria-hidden="true"

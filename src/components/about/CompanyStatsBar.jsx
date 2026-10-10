@@ -75,7 +75,7 @@ export default function CompanyStatsBar() {
       {/* Figma: row 1223 wide (left 109), four columns spread edge to edge */}
       <div
         ref={rowRef}
-        className="max-w-[1223px] mx-auto px-6 md:px-0 flex justify-between max-md:grid max-md:grid-cols-2 gap-y-10 text-center"
+        className="max-w-[1323px] mx-auto px-6 md:px-10 lg:px-[50px] flex justify-between max-md:grid max-md:grid-cols-2 gap-y-10 text-center"
       >
         {companyStats.map((stat) => (
           <div key={stat.id}>

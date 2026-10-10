@@ -7,6 +7,8 @@ export default function TimePicker({
   onChange,
   placeholder = "Select Time",
   floatingLabelClassName,
+  // optional: the label's look once a value is picked (default: floats up)
+  floatingLabelActiveClassName,
   fieldClassName = "",
 }) {
   const { t, i18n } = useTranslation();
@@ -40,6 +42,7 @@ export default function TimePicker({
         text={placeholder}
         active={isFloating}
         inactiveClassName={floatingLabelClassName}
+        activeClassName={floatingLabelActiveClassName}
       />
 
       <button

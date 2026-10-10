@@ -7,6 +7,8 @@ export default function DatePicker({
   onChange,
   placeholder = "Select Date",
   floatingLabelClassName,
+  // optional: the label's look once a value is picked (default: floats up)
+  floatingLabelActiveClassName,
   fieldClassName = "",
 }) {
   const { t, i18n } = useTranslation();
@@ -68,6 +70,7 @@ export default function DatePicker({
         text={placeholder}
         active={isFloating}
         inactiveClassName={floatingLabelClassName}
+        activeClassName={floatingLabelActiveClassName}
       />
 
       <button
