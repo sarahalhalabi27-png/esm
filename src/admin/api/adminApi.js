@@ -19,12 +19,21 @@ const rawBaseQuery = fetchBaseQuery({
   },
 });
 
-// A 401 means the token expired or was revoked: sign out, and the auth gate
-// sends the user to the login page.
+// Errors reach the screens as { status, message }, where `message` is the
+// backend's error code (e.g. "EMAIL_TAKEN", see docs/admin-api.md), the same
+// shape the mocks give. A 401 means the token expired or was revoked: sign
+// out, and the auth gate sends the user to the login page.
 async function baseQuery(args, api, extraOptions) {
   const result = await rawBaseQuery(args, api, extraOptions);
-  if (result.error?.status === 401) api.dispatch(sessionExpired());
-  return result;
+  if (!result.error) return result;
+  if (result.error.status === 401) api.dispatch(sessionExpired());
+  return {
+    ...result,
+    error: {
+      status: result.error.status,
+      message: result.error.data?.code ?? "REQUEST_FAILED",
+    },
+  };
 }
 
 export const adminApi = createApi({

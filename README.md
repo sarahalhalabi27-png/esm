@@ -37,6 +37,16 @@ npm run dev
 3. Components already call these service functions through `useEffect`, so no
    further changes are needed once the service functions return live data.
 
+## Staff dashboard (`/admin`)
+- Code in `src/admin/` (its own store, routes and translations, loaded only
+  when `/admin` opens). Tabs and buttons follow the permissions the backend
+  gives each staff member; no roles are hardcoded.
+- Runs on mock services for now (`src/admin/api/mock*.js`); in development
+  the login page offers demo accounts for each role.
+- The API it expects is documented in [docs/admin-api.md](docs/admin-api.md).
+  To connect it, replace each endpoint's `queryFn` with the `query` written
+  next to it in `src/admin/api/*Api.js`.
+
 ## Notes
 - Car and blog photography are placeholders (SVG line art / icons) to avoid
   shipping copyrighted stock photos. Drop real images into `src/assets/` and pass
