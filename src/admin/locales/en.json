@@ -503,7 +503,8 @@
       "slugHint": "Made from the English title if left empty. It can't change once the post exists.",
       "image": "Card photo",
       "heroImage": "Header photo",
-      "heroImageHint": "Shown at the top of the post. The card photo is used if empty."
+      "heroImageHint": "Shown at the top of the post. The card photo is used if empty.",
+      "imageHint": "Shown on the blog cards."
     },
     "save": "Save post",
     "create": "Create post",

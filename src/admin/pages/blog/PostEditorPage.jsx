@@ -301,172 +301,177 @@ function PostEditor({ post, backTo, backLink }) {
         disabled={!canEdit}
         className="mt-6 grid gap-4 lg:grid-cols-3 items-start min-w-0"
       >
-        {/* Content, per language */}
-        <section className={`${ADMIN_CARD} lg:col-span-2 p-5 min-w-0`}>
-          <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted">
-              {t("blog.sections.content")}
-            </h3>
-            <div
-              role="tablist"
-              className="inline-flex rounded-full border border-line/15 p-1"
-            >
-              {LANGUAGES.map((code) => (
-                <button
-                  key={code}
-                  type="button"
-                  role="tab"
-                  aria-selected={lang === code}
-                  onClick={() => setLang(code)}
-                  className={`h-8 rounded-full px-4 text-sm transition-colors ${
-                    lang === code
-                      ? "bg-teal-accent text-page font-semibold"
-                      : "text-fg/75 hover:text-fg"
-                  }`}
-                >
-                  {t(`blog.languages.${code}`)}
-                </button>
-              ))}
+        <div className="lg:col-span-2 flex flex-col gap-4 min-w-0">
+          {/* Content, per language */}
+          <section className={`${ADMIN_CARD} p-5 min-w-0`}>
+            <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted">
+                {t("blog.sections.content")}
+              </h3>
+              <div
+                role="tablist"
+                className="inline-flex rounded-full border border-line/15 p-1"
+              >
+                {LANGUAGES.map((code) => (
+                  <button
+                    key={code}
+                    type="button"
+                    role="tab"
+                    aria-selected={lang === code}
+                    onClick={() => setLang(code)}
+                    className={`h-8 rounded-full px-4 text-sm transition-colors ${
+                      lang === code
+                        ? "bg-teal-accent text-page font-semibold"
+                        : "text-fg/75 hover:text-fg"
+                    }`}
+                  >
+                    {t(`blog.languages.${code}`)}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-          {lang === "ar" && (
-            <p className="-mt-2 mb-4 text-sm text-muted">
-              {t("blog.arabicHint")}
-            </p>
-          )}
+            {lang === "ar" && (
+              <p className="-mt-2 mb-4 text-sm text-muted">
+                {t("blog.arabicHint")}
+              </p>
+            )}
 
-          {/* Both languages stay mounted (hidden when not shown) so each
-              keeps its own sections list. */}
-          {LANGUAGES.map((code) => (
-            <div
-              key={code}
-              hidden={lang !== code}
-              dir={code === "ar" ? "rtl" : "ltr"}
-            >
-              <LanguageFields
-                lang={code}
-                control={control}
-                register={register}
-                errors={errors[code]}
-                disabled={!canEdit}
-              />
-            </div>
-          ))}
-        </section>
-
-        <div className="flex flex-col gap-4 min-w-0">
-          {/* Publishing */}
-          <section className={`${ADMIN_CARD} p-5`}>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted">
-              {t("blog.sections.publishing")}
-            </h3>
-            <Controller
-              control={control}
-              name="published"
-              render={({ field: { value, onChange } }) => (
-                <label className="flex items-start gap-3">
-                  <Switch
-                    checked={value}
-                    onChange={onChange}
-                    label={t("blog.fields.published")}
-                    className="mt-0.5"
-                  />
-                  <span>
-                    <span className="block text-[15px] text-fg">
-                      {t("blog.fields.published")}
-                    </span>
-                    <span className="mt-0.5 block text-sm text-muted">
-                      {t("blog.fields.publishedHint")}
-                    </span>
-                  </span>
-                </label>
-              )}
-            />
-            <div className="mt-5 flex flex-col gap-4">
-              <div>
-                <label htmlFor="post-date" className={ADMIN_LABEL}>
-                  {t("blog.fields.publishedAt")}
-                </label>
-                <input
-                  id="post-date"
-                  type="date"
-                  {...register("publishedAt")}
-                  className={ADMIN_DATE_INPUT}
+            {/* Both languages stay mounted (hidden when not shown) so each
+                keeps its own sections list. */}
+            {LANGUAGES.map((code) => (
+              <div key={code} hidden={lang !== code}>
+                <LanguageFields
+                  lang={code}
+                  control={control}
+                  register={register}
+                  errors={errors[code]}
+                  disabled={!canEdit}
                 />
               </div>
-              <div>
-                <label htmlFor="post-author" className={ADMIN_LABEL}>
-                  {t("blog.fields.author")}
-                </label>
-                <input
-                  id="post-author"
-                  dir="auto"
-                  {...register("author")}
-                  className={ADMIN_INPUT}
-                />
-              </div>
-              <div>
-                <label htmlFor="post-slug" className={ADMIN_LABEL}>
-                  {t("blog.fields.slug")}
-                </label>
-                <div
-                  className="flex items-center gap-1 text-sm text-muted"
-                  dir="ltr"
-                >
-                  <span className="shrink-0">/blog/</span>
-                  <input
-                    id="post-slug"
-                    {...register("slug")}
-                    readOnly={!isNew}
-                    placeholder="my-new-post"
-                    className={`${ADMIN_INPUT} read-only:opacity-60`}
-                  />
-                </div>
-                {isNew && (
-                  <p className="mt-1.5 text-xs text-muted">
-                    {t("blog.fields.slugHint")}
-                  </p>
-                )}
-              </div>
-            </div>
+            ))}
           </section>
 
-          {/* Images */}
+          {/* Images: same width as the content card above it */}
           <section className={`${ADMIN_CARD} p-5`}>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted">
               {t("blog.sections.images")}
             </h3>
-            <span className={ADMIN_LABEL}>{t("blog.fields.image")}</span>
-            <Controller
-              control={control}
-              name="image"
-              render={({ field: { value, onChange } }) => (
-                <ImageUpload
-                  value={value}
-                  onChange={onChange}
-                  label={t("blog.fields.image")}
+            <div className="grid gap-5 md:grid-cols-2">
+              <div>
+                <span className={ADMIN_LABEL}>{t("blog.fields.image")}</span>
+                <p className="-mt-1 mb-3 text-xs text-muted">
+                  {t("blog.fields.imageHint")}
+                </p>
+                <Controller
+                  control={control}
+                  name="image"
+                  render={({ field: { value, onChange } }) => (
+                    <ImageUpload
+                      value={value}
+                      onChange={onChange}
+                      label={t("blog.fields.image")}
+                    />
+                  )}
                 />
-              )}
-            />
-            <span className={`${ADMIN_LABEL} mt-5`}>
-              {t("blog.fields.heroImage")}
-            </span>
-            <p className="-mt-1 mb-3 text-xs text-muted">
-              {t("blog.fields.heroImageHint")}
-            </p>
-            <Controller
-              control={control}
-              name="heroImage"
-              render={({ field: { value, onChange } }) => (
-                <ImageUpload
-                  value={value}
-                  onChange={onChange}
-                  label={t("blog.fields.heroImage")}
+              </div>
+              <div>
+                <span className={ADMIN_LABEL}>
+                  {t("blog.fields.heroImage")}
+                </span>
+                <p className="-mt-1 mb-3 text-xs text-muted">
+                  {t("blog.fields.heroImageHint")}
+                </p>
+                <Controller
+                  control={control}
+                  name="heroImage"
+                  render={({ field: { value, onChange } }) => (
+                    <ImageUpload
+                      value={value}
+                      onChange={onChange}
+                      label={t("blog.fields.heroImage")}
+                    />
+                  )}
                 />
-              )}
-            />
+              </div>
+            </div>
           </section>
         </div>
+
+        {/* Publishing */}
+        <section className={`${ADMIN_CARD} p-5`}>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted">
+            {t("blog.sections.publishing")}
+          </h3>
+          <Controller
+            control={control}
+            name="published"
+            render={({ field: { value, onChange } }) => (
+              <label className="flex items-start gap-3">
+                <Switch
+                  checked={value}
+                  onChange={onChange}
+                  label={t("blog.fields.published")}
+                  className="mt-0.5"
+                />
+                <span>
+                  <span className="block text-[15px] text-fg">
+                    {t("blog.fields.published")}
+                  </span>
+                  <span className="mt-0.5 block text-sm text-muted">
+                    {t("blog.fields.publishedHint")}
+                  </span>
+                </span>
+              </label>
+            )}
+          />
+          <div className="mt-5 flex flex-col gap-4">
+            <div>
+              <label htmlFor="post-date" className={ADMIN_LABEL}>
+                {t("blog.fields.publishedAt")}
+              </label>
+              <input
+                id="post-date"
+                type="date"
+                {...register("publishedAt")}
+                className={ADMIN_DATE_INPUT}
+              />
+            </div>
+            <div>
+              <label htmlFor="post-author" className={ADMIN_LABEL}>
+                {t("blog.fields.author")}
+              </label>
+              <input
+                id="post-author"
+                dir="auto"
+                {...register("author")}
+                className={ADMIN_INPUT}
+              />
+            </div>
+            <div>
+              <label htmlFor="post-slug" className={ADMIN_LABEL}>
+                {t("blog.fields.slug")}
+              </label>
+              <div
+                className="flex items-center gap-1 text-sm text-muted"
+                dir="ltr"
+              >
+                <span className="shrink-0">/blog/</span>
+                <input
+                  id="post-slug"
+                  {...register("slug")}
+                  readOnly={!isNew}
+                  placeholder="my-new-post"
+                  className={`${ADMIN_INPUT} read-only:opacity-60`}
+                />
+              </div>
+              {isNew && (
+                <p className="mt-1.5 text-xs text-muted">
+                  {t("blog.fields.slugHint")}
+                </p>
+              )}
+            </div>
+          </div>
+        </section>
       </fieldset>
 
       {canEdit && (
@@ -520,6 +525,9 @@ function PostEditor({ post, backTo, backLink }) {
 
 // One language's title, highlighted words, summary and sections.
 function LanguageFields({ lang, control, register, errors, disabled }) {
+  // Labels and hints follow the dashboard's direction; the text fields take
+  // the direction of the language written in them.
+  const textDir = lang === "ar" ? "rtl" : "ltr";
   const { t } = useTranslation("admin");
   const { fields, append, remove, move } = useFieldArray({
     control,
@@ -536,6 +544,7 @@ function LanguageFields({ lang, control, register, errors, disabled }) {
         <textarea
           id={id("title")}
           rows={2}
+          dir={textDir}
           {...register(`${lang}.title`)}
           aria-invalid={errors?.title ? true : undefined}
           className={`${ADMIN_INPUT} h-auto py-2.5 resize-y`}
@@ -555,6 +564,7 @@ function LanguageFields({ lang, control, register, errors, disabled }) {
           </label>
           <input
             id={id("accents")}
+            dir={textDir}
             {...register(`${lang}.accents`)}
             className={ADMIN_INPUT}
           />
@@ -568,6 +578,7 @@ function LanguageFields({ lang, control, register, errors, disabled }) {
           </label>
           <input
             id={id("excerpt")}
+            dir={textDir}
             {...register(`${lang}.excerpt`)}
             className={ADMIN_INPUT}
           />
@@ -611,12 +622,14 @@ function LanguageFields({ lang, control, register, errors, disabled }) {
               </div>
               <div className="grid gap-3 md:grid-cols-2">
                 <input
+                  dir={textDir}
                   {...register(`${lang}.sections.${index}.heading`)}
                   aria-label={t("blog.fields.heading")}
                   placeholder={t("blog.fields.heading")}
                   className={ADMIN_INPUT}
                 />
                 <input
+                  dir={textDir}
                   {...register(`${lang}.sections.${index}.accents`)}
                   aria-label={t("blog.fields.accents")}
                   placeholder={t("blog.fields.accents")}
@@ -624,6 +637,7 @@ function LanguageFields({ lang, control, register, errors, disabled }) {
                 />
               </div>
               <textarea
+                dir={textDir}
                 {...register(`${lang}.sections.${index}.body`)}
                 aria-label={t("blog.fields.body")}
                 placeholder={t("blog.fields.body")}
