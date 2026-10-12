@@ -190,6 +190,7 @@ export default function BookingDetailsPage() {
                   key={action.status}
                   type="button"
                   disabled={isUpdating}
+                  aria-busy={isUpdating}
                   onClick={() => changeStatus(action.status)}
                   className={
                     index === 0 ? ADMIN_BUTTON : `${ADMIN_BUTTON_GHOST} h-11`

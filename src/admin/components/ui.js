@@ -18,9 +18,11 @@ export const ADMIN_FIELD_ERROR =
   "mt-1.5 text-sm text-red-400 light:text-red-600";
 
 // Solid accent button: bright teal with black text in dark mode, dark teal
-// with white text in light mode (text-page flips with the theme).
+// with white text in light mode (text-page flips with the theme). Disabled
+// shows the not-allowed cursor; while it is working (set aria-busy on it)
+// it shows the wait cursor instead.
 export const ADMIN_BUTTON =
-  "inline-flex h-11 items-center justify-center gap-2 rounded-[10px] bg-teal-accent px-5 text-[15px] font-semibold text-page transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-accent disabled:cursor-wait disabled:opacity-60";
+  "inline-flex h-11 items-center justify-center gap-2 rounded-[10px] bg-teal-accent px-5 text-[15px] font-semibold text-page transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-accent disabled:cursor-not-allowed disabled:opacity-60 aria-busy:!cursor-wait";
 
 export const ADMIN_BUTTON_GHOST =
   "inline-flex h-10 items-center justify-center gap-2 rounded-[10px] border border-line/15 px-4 text-sm text-fg/80 transition-colors hover:bg-surface/[0.06] hover:text-fg";

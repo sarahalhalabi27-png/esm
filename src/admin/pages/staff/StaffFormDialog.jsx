@@ -189,6 +189,7 @@ function StaffForm({ staff, isSelf, onDone }) {
         <button
           type="submit"
           disabled={isSaving}
+          aria-busy={isSaving}
           className={`${ADMIN_BUTTON} h-10`}
         >
           {isSaving && <Loader2 size={16} className="animate-spin" />}

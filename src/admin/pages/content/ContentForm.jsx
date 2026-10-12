@@ -126,7 +126,8 @@ function EditForm({ contentKey, data, schema, hint, children }) {
           <button
             type="submit"
             disabled={isSaving || !isDirty}
-            className={`${ADMIN_BUTTON} disabled:cursor-not-allowed`}
+            aria-busy={isSaving}
+            className={`${ADMIN_BUTTON}`}
           >
             {isSaving && <Loader2 size={17} className="animate-spin" />}
             {t("content.save")}

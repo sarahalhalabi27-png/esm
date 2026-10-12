@@ -274,7 +274,8 @@ function RoleForm({ role, catalog, backTo, backLink }) {
           <button
             type="submit"
             disabled={isSaving || (!isNew && !isDirty)}
-            className={`${ADMIN_BUTTON} disabled:cursor-not-allowed`}
+            aria-busy={isSaving}
+            className={`${ADMIN_BUTTON}`}
           >
             {isSaving && <Loader2 size={17} className="animate-spin" />}
             {isNew ? t("roles.create") : t("roles.save")}

@@ -209,7 +209,8 @@ function NewCategoryRow() {
         <button
           type="submit"
           disabled={!en.trim() || isLoading}
-          className={`${ADMIN_BUTTON} h-10 text-sm sm:w-[132px] disabled:cursor-not-allowed`}
+          aria-busy={isLoading}
+          className={`${ADMIN_BUTTON} h-10 text-sm sm:w-[132px]`}
         >
           {isLoading ? (
             <Loader2 size={16} className="animate-spin" />
