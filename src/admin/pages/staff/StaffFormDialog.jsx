@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Loader2 } from "lucide-react";
+import Select from "../../components/Select.jsx";
 import Modal from "../../components/Modal.jsx";
 import {
   ADMIN_BUTTON,
@@ -60,6 +61,7 @@ function StaffForm({ staff, isSelf, onDone }) {
   const [error, setError] = useState("");
 
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -150,22 +152,24 @@ function StaffForm({ staff, isSelf, onDone }) {
         <label htmlFor="staff-role" className={ADMIN_LABEL}>
           {t("staff.form.role")}
         </label>
-        <select
-          id="staff-role"
-          {...register("roleId")}
-          disabled={isSelf}
-          aria-invalid={errors.roleId ? true : undefined}
-          className={`${ADMIN_INPUT} [&>option]:bg-page disabled:opacity-60`}
-        >
-          <option value="" disabled>
-            {t("staff.form.chooseRole")}
-          </option>
-          {roles.map((role) => (
-            <option key={role.id} value={role.id}>
-              {role.name}
-            </option>
-          ))}
-        </select>
+        <Controller
+          control={control}
+          name="roleId"
+          render={({ field: { value, onChange } }) => (
+            <Select
+              id="staff-role"
+              value={value}
+              onChange={onChange}
+              disabled={isSelf}
+              placeholder={t("staff.form.chooseRole")}
+              options={roles.map((role) => ({
+                value: String(role.id),
+                label: role.name,
+              }))}
+              aria-invalid={errors.roleId ? true : undefined}
+            />
+          )}
+        />
         {errors.roleId && (
           <p className={ADMIN_FIELD_ERROR}>{errors.roleId.message}</p>
         )}

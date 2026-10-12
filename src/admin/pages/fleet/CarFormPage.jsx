@@ -17,6 +17,7 @@ import AdminMessage from "../../components/AdminMessage.jsx";
 import Can from "../../components/Can.jsx";
 import ConfirmDialog from "../../components/ConfirmDialog.jsx";
 import ImageUpload from "../../components/ImageUpload.jsx";
+import Select from "../../components/Select.jsx";
 import Switch from "../../components/Switch.jsx";
 import {
   ADMIN_BUTTON,
@@ -297,35 +298,47 @@ function CarForm({ car, backTo, backLink }) {
                 label={t("fleet.fields.category")}
                 error={errors.categoryId}
               >
-                <select
-                  {...field("categoryId")}
-                  className={`${ADMIN_INPUT} [&>option]:bg-page`}
-                >
-                  <option value="" disabled>
-                    {t("fleet.fields.chooseCategory")}
-                  </option>
-                  {categories.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {categoryName(category, i18n.language)}
-                    </option>
-                  ))}
-                </select>
+                <Controller
+                  control={control}
+                  name="categoryId"
+                  render={({ field: { value, onChange } }) => (
+                    <Select
+                      id="car-categoryId"
+                      value={value}
+                      onChange={onChange}
+                      placeholder={t("fleet.fields.chooseCategory")}
+                      options={categories.map((category) => ({
+                        value: category.id,
+                        label: categoryName(category, i18n.language),
+                      }))}
+                      aria-invalid={errors.categoryId ? true : undefined}
+                      aria-describedby={
+                        errors.categoryId ? "car-categoryId-error" : undefined
+                      }
+                    />
+                  )}
+                />
               </Field>
               <Field
                 name="fuel"
                 label={t("fleet.fields.fuel")}
                 error={errors.fuel}
               >
-                <select
-                  {...field("fuel")}
-                  className={`${ADMIN_INPUT} [&>option]:bg-page`}
-                >
-                  {CAR_FUELS.map((fuel) => (
-                    <option key={fuel} value={fuel}>
-                      {t(`fleet.fuels.${fuel}`)}
-                    </option>
-                  ))}
-                </select>
+                <Controller
+                  control={control}
+                  name="fuel"
+                  render={({ field: { value, onChange } }) => (
+                    <Select
+                      id="car-fuel"
+                      value={value}
+                      onChange={onChange}
+                      options={CAR_FUELS.map((fuel) => ({
+                        value: fuel,
+                        label: t(`fleet.fuels.${fuel}`),
+                      }))}
+                    />
+                  )}
+                />
               </Field>
               <Field
                 name="modelYear"

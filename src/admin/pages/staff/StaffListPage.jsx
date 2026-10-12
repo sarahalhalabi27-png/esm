@@ -29,6 +29,7 @@ import useUrlFilters, { useSearchBox } from "../../hooks/useUrlFilters.js";
 import { P } from "../../permissions.js";
 import { selectAdminUser } from "../../store/adminSessionSlice.js";
 import { formatShortDateTime } from "../../utils/format.js";
+import Select from "../../components/Select.jsx";
 import StaffFormDialog from "./StaffFormDialog.jsx";
 import { initials } from "../../utils/people.js";
 
@@ -78,8 +79,6 @@ export default function StaffListPage() {
     }
   };
 
-  const select = `${ADMIN_INPUT} [&>option]:bg-page`;
-
   return (
     <>
       <div className="flex flex-wrap items-center gap-3">
@@ -97,32 +96,32 @@ export default function StaffListPage() {
             className={`${ADMIN_INPUT} ps-10`}
           />
         </label>
-        <select
+        <Select
           value={params.roleId}
-          onChange={(event) => update({ role: event.target.value })}
+          onChange={(role) => update({ role })}
+          options={[
+            { value: "", label: t("staff.allRoles") },
+            ...roles.map((role) => ({
+              value: String(role.id),
+              label: role.name,
+            })),
+          ]}
           aria-label={t("staff.columns.role")}
-          className={`${select} w-[calc(50%-6px)] md:w-48`}
-        >
-          <option value="">{t("staff.allRoles")}</option>
-          {roles.map((role) => (
-            <option key={role.id} value={role.id}>
-              {role.name}
-            </option>
-          ))}
-        </select>
-        <select
+          wrapperClassName="w-[calc(50%-6px)] md:w-48"
+        />
+        <Select
           value={params.status}
-          onChange={(event) => update({ status: event.target.value })}
+          onChange={(status) => update({ status })}
+          options={[
+            { value: "", label: t("staff.allStatuses") },
+            ...STATUSES.map((status) => ({
+              value: status,
+              label: t(`staff.status.${status}`),
+            })),
+          ]}
           aria-label={t("staff.columns.status")}
-          className={`${select} w-[calc(50%-6px)] md:w-40`}
-        >
-          <option value="">{t("staff.allStatuses")}</option>
-          {STATUSES.map((status) => (
-            <option key={status} value={status}>
-              {t(`staff.status.${status}`)}
-            </option>
-          ))}
-        </select>
+          wrapperClassName="w-[calc(50%-6px)] md:w-40"
+        />
         <Can permission={P.staff.create}>
           <button
             type="button"

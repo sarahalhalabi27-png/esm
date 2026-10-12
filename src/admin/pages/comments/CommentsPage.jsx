@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import AdminMessage from "../../components/AdminMessage.jsx";
 import ConfirmDialog from "../../components/ConfirmDialog.jsx";
+import Select from "../../components/Select.jsx";
 import Pagination from "../../components/Pagination.jsx";
 import { ADMIN_BUTTON, ADMIN_CARD, ADMIN_INPUT } from "../../components/ui.js";
 import {
@@ -136,19 +137,19 @@ export default function CommentsPage() {
             );
           })}
         </div>
-        <select
+        <Select
           value={params.post}
-          onChange={(event) => update({ post: event.target.value })}
+          onChange={(post) => update({ post })}
+          options={[
+            { value: "", label: t("comments.allPosts") },
+            ...(posts?.items ?? []).map((post) => ({
+              value: post.id,
+              label: localTitle(post, i18n.language),
+            })),
+          ]}
           aria-label={t("comments.allPosts")}
-          className={`${ADMIN_INPUT} [&>option]:bg-page w-full md:w-60`}
-        >
-          <option value="">{t("comments.allPosts")}</option>
-          {(posts?.items ?? []).map((post) => (
-            <option key={post.id} value={post.id}>
-              {localTitle(post, i18n.language)}
-            </option>
-          ))}
-        </select>
+          wrapperClassName="w-full md:w-60"
+        />
         <label className="relative block w-full md:w-64">
           <span className="sr-only">{t("comments.searchPlaceholder")}</span>
           <Search

@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { AlertCircle, ArrowRight, Inbox, Search, X } from "lucide-react";
 import AdminMessage from "../../components/AdminMessage.jsx";
+import Select from "../../components/Select.jsx";
 import Pagination from "../../components/Pagination.jsx";
 import StatusBadge from "../../components/StatusBadge.jsx";
 import {
@@ -111,19 +112,19 @@ export default function BookingsListPage() {
             className={`${ADMIN_INPUT} ps-10`}
           />
         </label>
-        <select
+        <Select
           value={params.service}
-          onChange={(event) => updateParams({ service: event.target.value })}
+          onChange={(service) => updateParams({ service })}
+          options={[
+            { value: "", label: t("bookings.allServices") },
+            ...BOOKING_SERVICES.map((service) => ({
+              value: service,
+              label: t(`bookings.service.${service}`),
+            })),
+          ]}
           aria-label={t("bookings.columns.service")}
-          className={`${ADMIN_INPUT} col-span-2 md:col-span-1 [&>option]:bg-page`}
-        >
-          <option value="">{t("bookings.allServices")}</option>
-          {BOOKING_SERVICES.map((service) => (
-            <option key={service} value={service}>
-              {t(`bookings.service.${service}`)}
-            </option>
-          ))}
-        </select>
+          wrapperClassName="col-span-2 md:col-span-1"
+        />
         <label className="block">
           <span className="block mb-1 text-xs text-muted">
             {t("bookings.from")}
