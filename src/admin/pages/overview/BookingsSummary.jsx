@@ -95,14 +95,15 @@ export default function BookingsSummary() {
         ))}
       </div>
 
-      <div className="mt-4 grid gap-4 lg:grid-cols-5 items-start">
+      {/* The two panels share one height (the grid stretches them). */}
+      <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1fr)_300px] xl:grid-cols-5">
         <UpcomingPickups
-          className="lg:col-span-3"
+          className="xl:col-span-3"
           items={data?.upcoming}
           isLoading={isLoading}
         />
         <ServiceBreakdown
-          className="lg:col-span-2"
+          className="xl:col-span-2"
           rows={data?.byService}
           isLoading={isLoading}
         />
@@ -113,12 +114,12 @@ export default function BookingsSummary() {
 
 function Panel({ title, aside, className = "", children }) {
   return (
-    <section className={`${ADMIN_CARD} min-w-0 p-5 ${className}`}>
+    <section className={`${ADMIN_CARD} flex min-w-0 flex-col p-5 ${className}`}>
       <div className="mb-4 flex items-baseline justify-between gap-3">
         <h2 className="font-semibold text-fg">{title}</h2>
         {aside}
       </div>
-      {children}
+      <div className="flex flex-1 flex-col">{children}</div>
     </section>
   );
 }
@@ -226,7 +227,8 @@ function ServiceBreakdown({ rows, isLoading, className }) {
           {t("overview.noBookings")}
         </p>
       ) : (
-        <ul className="flex flex-col gap-3.5">
+        // Spread over the panel's full height, level with the pickups list.
+        <ul className="flex flex-1 flex-col justify-between gap-3.5 py-1">
           {rows.map(({ service, count }) => {
             const label = t(`bookings.service.${service}`);
             return (
