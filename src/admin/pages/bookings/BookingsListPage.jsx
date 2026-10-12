@@ -4,7 +4,12 @@ import { AlertCircle, ArrowRight, Inbox, Search, X } from "lucide-react";
 import AdminMessage from "../../components/AdminMessage.jsx";
 import Pagination from "../../components/Pagination.jsx";
 import StatusBadge from "../../components/StatusBadge.jsx";
-import { ADMIN_BUTTON, ADMIN_CARD, ADMIN_INPUT } from "../../components/ui.js";
+import {
+  ADMIN_BUTTON,
+  ADMIN_CARD,
+  ADMIN_DATE_INPUT,
+  ADMIN_INPUT,
+} from "../../components/ui.js";
 import { useGetBookingsQuery } from "../../api/bookingsApi.js";
 import { BOOKING_SERVICES, BOOKING_STATUSES } from "../../api/mockBookings.js";
 import { formatDateAndTime } from "../../utils/format.js";
@@ -12,7 +17,6 @@ import useUrlFilters, { useSearchBox } from "../../hooks/useUrlFilters.js";
 
 const PAGE_SIZE = 10;
 const FILTER_KEYS = ["status", "service", "q", "from", "to"];
-const DATE_INPUT = `${ADMIN_INPUT} [color-scheme:dark] light:[color-scheme:light]`;
 
 // Every booking request, newest first, with status tabs, filters and pages.
 // The filters live in the URL (?status=new&page=2...), so Back, reloads and
@@ -92,7 +96,7 @@ export default function BookingsListPage() {
       </div>
 
       {/* Filters */}
-      <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-[minmax(0,1fr)_200px_160px_160px_auto] items-end">
+      <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-[minmax(0,1fr)_200px_176px_176px_auto] items-end">
         <label className="relative block col-span-2 md:col-span-1">
           <span className="sr-only">{t("bookings.searchPlaceholder")}</span>
           <Search
@@ -129,7 +133,7 @@ export default function BookingsListPage() {
             value={params.from}
             max={params.to || undefined}
             onChange={(event) => updateParams({ from: event.target.value })}
-            className={DATE_INPUT}
+            className={ADMIN_DATE_INPUT}
           />
         </label>
         <label className="block">
@@ -141,7 +145,7 @@ export default function BookingsListPage() {
             value={params.to}
             min={params.from || undefined}
             onChange={(event) => updateParams({ to: event.target.value })}
-            className={DATE_INPUT}
+            className={ADMIN_DATE_INPUT}
           />
         </label>
         {hasFilters && (

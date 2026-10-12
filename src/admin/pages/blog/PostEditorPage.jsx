@@ -26,6 +26,7 @@ import {
   ADMIN_BUTTON,
   ADMIN_BUTTON_GHOST,
   ADMIN_CARD,
+  ADMIN_DATE_INPUT,
   ADMIN_FIELD_ERROR,
   ADMIN_INPUT,
   ADMIN_LABEL,
@@ -390,7 +391,7 @@ function PostEditor({ post, backTo, backLink }) {
                   id="post-date"
                   type="date"
                   {...register("publishedAt")}
-                  className={`${ADMIN_INPUT} [color-scheme:dark] light:[color-scheme:light]`}
+                  className={ADMIN_DATE_INPUT}
                 />
               </div>
               <div>

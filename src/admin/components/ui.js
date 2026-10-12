@@ -9,6 +9,11 @@ export const ADMIN_LABEL = "block mb-2 text-sm font-medium text-fg/80";
 export const ADMIN_INPUT =
   "w-full h-11 rounded-[10px] border border-line/15 bg-surface/[0.04] px-4 text-[15px] text-fg placeholder:text-muted/70 outline-none transition-colors focus:border-teal-accent aria-[invalid=true]:border-red-500/70";
 
+// A native date field: tighter side padding and 14px text, so the whole
+// "mm/dd/yyyy" and the calendar icon fit without overlapping (the browser
+// draws both inside the box). It follows the dark/light theme.
+export const ADMIN_DATE_INPUT = `${ADMIN_INPUT} !px-3 !text-[14px] [color-scheme:dark] light:[color-scheme:light]`;
+
 export const ADMIN_FIELD_ERROR =
   "mt-1.5 text-sm text-red-400 light:text-red-600";
 
