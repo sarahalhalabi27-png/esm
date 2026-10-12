@@ -300,7 +300,8 @@
       "unarchive": "نقل إلى الوارد",
       "delete": "حذف الرسالة",
       "deleteTitle": "حذف هذه الرسالة من {{name}}؟",
-      "deleteBody": "ستُحذف نهائياً. لإبعادها عن الوارد، أرشفها بدلاً من ذلك."
+      "deleteBody": "ستُحذف نهائياً. لإبعادها عن الوارد، أرشفها بدلاً من ذلك.",
+      "markRead": "تحديد كمقروءة"
     },
     "replySubject": "رد: {{subject}}",
     "replySubjectDefault": "رسالتك إلى ESM Limo",

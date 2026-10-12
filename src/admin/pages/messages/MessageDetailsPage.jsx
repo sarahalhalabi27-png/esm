@@ -186,17 +186,18 @@ export default function MessageDetailsPage() {
               ? t("messages.actions.markNotReplied")
               : t("messages.actions.markReplied")}
           </button>
-          {message.read && (
-            <button
-              type="button"
-              disabled={isUpdating}
-              onClick={() => change({ read: false })}
-              className={ghost}
-            >
-              <MailOpen size={16} />
-              {t("messages.actions.markUnread")}
-            </button>
-          )}
+          {/* One button that flips between the two states. */}
+          <button
+            type="button"
+            disabled={isUpdating}
+            onClick={() => change({ read: !message.read })}
+            className={ghost}
+          >
+            {message.read ? <Mail size={16} /> : <MailOpen size={16} />}
+            {message.read
+              ? t("messages.actions.markUnread")
+              : t("messages.actions.markRead")}
+          </button>
           <button
             type="button"
             disabled={isUpdating}

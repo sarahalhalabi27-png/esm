@@ -302,7 +302,8 @@
       "unarchive": "Move to inbox",
       "delete": "Delete message",
       "deleteTitle": "Delete this message from {{name}}?",
-      "deleteBody": "It will be removed for good. To keep it out of the way, archive it instead."
+      "deleteBody": "It will be removed for good. To keep it out of the way, archive it instead.",
+      "markRead": "Mark as read"
     },
     "replySubject": "Re: {{subject}}",
     "replySubjectDefault": "Your message to ESM Limo",
