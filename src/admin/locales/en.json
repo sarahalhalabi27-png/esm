@@ -587,5 +587,42 @@
       "deleteTitle": "Delete {{name}}'s account?",
       "deleteBody": "Their account and profile are removed for good. Their bookings stay, as records of the trips."
     }
+  },
+  "settings": {
+    "sections": {
+      "contact": "Contact details",
+      "contactHint": "Shown in the website's footer and on the Contact page.",
+      "socials": "Social media",
+      "socialsHint": "Full links to your pages. Leave a field empty to hide its icon.",
+      "notifications": "Notifications",
+      "notificationsHint": "Where the team is told about new activity on the website."
+    },
+    "fields": {
+      "phone": "Main phone",
+      "secondaryPhone": "Second phone",
+      "whatsapp": "WhatsApp number",
+      "email": "Email",
+      "addressEn": "Address (English)",
+      "addressAr": "Address (Arabic)",
+      "hoursEn": "Working hours (English)",
+      "hoursAr": "Working hours (Arabic)",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "twitter": "X (Twitter)",
+      "notifyEmail": "Send alerts to",
+      "newBooking": "A new booking request",
+      "newMessage": "A new Contact Us message",
+      "newComment": "A new blog comment waiting for review"
+    },
+    "save": "Save settings",
+    "saved": "Settings saved.",
+    "lastUpdated": "Last updated {{date}}",
+    "validation": {
+      "required": "This field is required.",
+      "phone": "Enter a phone number (digits, spaces, + and - only).",
+      "email": "Enter a valid email address.",
+      "url": "Enter a full link starting with https://"
+    }
   }
 }
