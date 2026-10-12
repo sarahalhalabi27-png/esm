@@ -132,6 +132,97 @@
     },
     "noNotes": "لا توجد ملاحظات."
   },
+  "fleet": {
+    "addCar": "إضافة سيارة",
+    "manageCategories": "الفئات",
+    "searchPlaceholder": "ابحث عن سيارة",
+    "empty": "لا توجد سيارات هنا بعد.",
+    "notFound": "هذه السيارة غير موجودة أو تم حذفها.",
+    "backToList": "كل السيارات",
+    "published": "ظاهرة في الموقع",
+    "hidden": "مخفية",
+    "perHour": "{{price}} درهم / ساعة",
+    "specs": "{{passengers}} ركاب · {{luggage}} حقائب",
+    "noPhoto": "لا توجد صورة",
+    "edit": "تعديل",
+    "view": "عرض",
+    "showOnSite": "إظهار في الموقع",
+    "deleteCar": "حذف السيارة",
+    "deleteTitle": "حذف {{name}}؟",
+    "deleteBody": "ستُحذف نهائياً من الموقع ولوحة التحكم. للاحتفاظ بها، أخفِها بدلاً من ذلك.",
+    "newTitle": "سيارة جديدة",
+    "sections": {
+      "basics": "المعلومات الأساسية",
+      "pricing": "السعر والسعة",
+      "features": "المزايا المعروضة في الموقع",
+      "description": "الوصف",
+      "photos": "الصور",
+      "visibility": "الظهور"
+    },
+    "fields": {
+      "name": "اسم السيارة",
+      "category": "الفئة",
+      "chooseCategory": "اختر فئة",
+      "modelYear": "سنة الصنع",
+      "fuel": "نوع الوقود",
+      "pricePerHour": "السعر بالساعة (درهم)",
+      "passengers": "عدد الركاب",
+      "luggage": "عدد الحقائب",
+      "descriptionEn": "بالإنجليزية",
+      "descriptionAr": "بالعربية",
+      "descriptionHint": "اتركه فارغاً لاستخدام الوصف العام في الموقع.",
+      "mainImage": "الصورة الرئيسية",
+      "interiorImages": "صور الداخل",
+      "interiorHint": "حتى {{max}} صور، تظهر في معرض داخل السيارة.",
+      "published": "إظهار هذه السيارة في الموقع",
+      "publishedHint": "السيارات المخفية تبقى في لوحة التحكم ولا تظهر في الموقع.",
+      "rating": "التقييم",
+      "ratingValue": "{{rating}} / 5 من {{count}} تقييم"
+    },
+    "fuels": {
+      "petrol": "بنزين",
+      "hybrid": "هجين",
+      "electric": "كهربائي"
+    },
+    "features": {
+      "wifi": "واي فاي",
+      "fuel": "نوع الوقود",
+      "model": "سنة الصنع",
+      "passengers": "عدد الركاب",
+      "luggage": "عدد الحقائب",
+      "climate": "التحكم بالمناخ"
+    },
+    "save": "حفظ التغييرات",
+    "create": "إضافة السيارة",
+    "saving": "جارٍ الحفظ…",
+    "saved": "تم حفظ التغييرات.",
+    "upload": {
+      "add": "رفع صورة",
+      "replace": "استبدال",
+      "remove": "حذف الصورة",
+      "uploading": "جارٍ الرفع…",
+      "tooLarge": "يجب أن يكون حجم الصورة أقل من 5 ميغابايت.",
+      "notImage": "اختر ملف صورة (JPG أو PNG أو WebP).",
+      "failed": "تعذّر رفع الصورة."
+    },
+    "validation": {
+      "required": "هذا الحقل مطلوب.",
+      "positive": "أدخل رقماً أكبر من 0.",
+      "whole": "أدخل رقماً صحيحاً.",
+      "year": "أدخل سنة بين 1990 و{{max}}."
+    },
+    "categories": {
+      "title": "فئات السيارات",
+      "nameEn": "الاسم (بالإنجليزية)",
+      "nameAr": "الاسم (بالعربية)",
+      "add": "إضافة فئة",
+      "save": "حفظ",
+      "carCount": "{{count}} سيارات",
+      "delete": "حذف الفئة",
+      "notEmpty": "انقل سياراتها أو احذفها أولاً.",
+      "close": "إغلاق"
+    }
+  },
   "overview": {
     "welcome": "أهلاً بعودتك، {{name}}",
     "subtitle": "هذا ما يحدث اليوم.",

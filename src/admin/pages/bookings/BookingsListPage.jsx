@@ -1,10 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { AlertCircle, ArrowRight, Inbox, Search, X } from "lucide-react";
 import AdminMessage from "../../components/AdminMessage.jsx";
@@ -14,6 +8,7 @@ import { ADMIN_BUTTON, ADMIN_CARD, ADMIN_INPUT } from "../../components/ui.js";
 import { useGetBookingsQuery } from "../../api/bookingsApi.js";
 import { BOOKING_SERVICES, BOOKING_STATUSES } from "../../api/mockBookings.js";
 import { formatDateAndTime } from "../../utils/format.js";
+import useUrlFilters, { useSearchBox } from "../../hooks/useUrlFilters.js";
 
 const PAGE_SIZE = 10;
 const FILTER_KEYS = ["status", "service", "q", "from", "to"];
@@ -26,51 +21,23 @@ export default function BookingsListPage() {
   const { t, i18n } = useTranslation("admin");
   const navigate = useNavigate();
   const location = useLocation();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { get, update: updateParams } = useUrlFilters();
   const params = {
-    page: Number(searchParams.get("page")) || 1,
+    page: Number(get("page")) || 1,
     pageSize: PAGE_SIZE,
-    status: searchParams.get("status") ?? "",
-    service: searchParams.get("service") ?? "",
-    q: searchParams.get("q") ?? "",
-    from: searchParams.get("from") ?? "",
-    to: searchParams.get("to") ?? "",
+    status: get("status"),
+    service: get("service"),
+    q: get("q"),
+    from: get("from"),
+    to: get("to"),
   };
   const { data, isLoading, isFetching, isError, refetch } =
     useGetBookingsQuery(params);
-
-  // Set or clear URL params; any filter change goes back to page 1.
-  const updateParams = (changes) =>
-    setSearchParams(
-      (previous) => {
-        const next = new URLSearchParams(previous);
-        Object.entries(changes).forEach(([key, value]) =>
-          value ? next.set(key, value) : next.delete(key)
-        );
-        if (!("page" in changes)) next.delete("page");
-        return next;
-      },
-      { replace: true }
-    );
-
-  // The search box updates the URL 300ms after typing stops.
-  const [query, setQuery] = useState(params.q);
-  const searchTimer = useRef();
-  useEffect(() => () => clearTimeout(searchTimer.current), []);
-  const onSearch = (event) => {
-    const value = event.target.value;
-    setQuery(value);
-    clearTimeout(searchTimer.current);
-    searchTimer.current = setTimeout(
-      () => updateParams({ q: value.trim() }),
-      300
-    );
-  };
+  const search = useSearchBox(params.q, (q) => updateParams({ q }));
 
   const hasFilters = FILTER_KEYS.some((key) => key !== "status" && params[key]);
   const clearFilters = () => {
-    clearTimeout(searchTimer.current);
-    setQuery("");
+    search.clear();
     updateParams({ service: "", q: "", from: "", to: "" });
   };
 
@@ -134,8 +101,8 @@ export default function BookingsListPage() {
           />
           <input
             type="search"
-            value={query}
-            onChange={onSearch}
+            value={search.value}
+            onChange={search.onChange}
             placeholder={t("bookings.searchPlaceholder")}
             className={`${ADMIN_INPUT} ps-10`}
           />

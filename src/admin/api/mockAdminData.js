@@ -23,6 +23,7 @@ export const MOCK_ROLES = [
       "messages.view",
       "messages.update",
       "customers.view",
+      "fleet.view",
     ],
   },
   {

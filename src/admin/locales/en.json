@@ -130,6 +130,97 @@
     },
     "noNotes": "No notes."
   },
+  "fleet": {
+    "addCar": "Add car",
+    "manageCategories": "Categories",
+    "searchPlaceholder": "Search cars",
+    "empty": "No cars here yet.",
+    "notFound": "This car doesn't exist or was deleted.",
+    "backToList": "All cars",
+    "published": "On the website",
+    "hidden": "Hidden",
+    "perHour": "{{price}} AED / hour",
+    "specs": "{{passengers}} passengers · {{luggage}} luggage",
+    "noPhoto": "No photo",
+    "edit": "Edit",
+    "view": "View",
+    "showOnSite": "Show on the website",
+    "deleteCar": "Delete car",
+    "deleteTitle": "Delete {{name}}?",
+    "deleteBody": "It will be removed from the website and the dashboard for good. To keep it, hide it instead.",
+    "newTitle": "New car",
+    "sections": {
+      "basics": "Basic information",
+      "pricing": "Price & capacity",
+      "features": "Features shown on the website",
+      "description": "Description",
+      "photos": "Photos",
+      "visibility": "Visibility"
+    },
+    "fields": {
+      "name": "Car name",
+      "category": "Category",
+      "chooseCategory": "Choose a category",
+      "modelYear": "Model year",
+      "fuel": "Fuel",
+      "pricePerHour": "Price per hour (AED)",
+      "passengers": "Passengers",
+      "luggage": "Luggage",
+      "descriptionEn": "English",
+      "descriptionAr": "Arabic",
+      "descriptionHint": "Leave empty to use the website's shared description.",
+      "mainImage": "Main photo",
+      "interiorImages": "Interior photos",
+      "interiorHint": "Up to {{max}} photos, shown in the Car Interior gallery.",
+      "published": "Show this car on the website",
+      "publishedHint": "Hidden cars stay in the dashboard but don't appear on the website.",
+      "rating": "Rating",
+      "ratingValue": "{{rating}} / 5 from {{count}} reviews"
+    },
+    "fuels": {
+      "petrol": "Petrol",
+      "hybrid": "Hybrid",
+      "electric": "Electric"
+    },
+    "features": {
+      "wifi": "WiFi",
+      "fuel": "Fuel type",
+      "model": "Model year",
+      "passengers": "Passengers",
+      "luggage": "Luggage",
+      "climate": "Climate control"
+    },
+    "save": "Save changes",
+    "create": "Add car",
+    "saving": "Saving…",
+    "saved": "Changes saved.",
+    "upload": {
+      "add": "Upload photo",
+      "replace": "Replace",
+      "remove": "Remove photo",
+      "uploading": "Uploading…",
+      "tooLarge": "Photos must be under 5 MB.",
+      "notImage": "Choose an image file (JPG, PNG or WebP).",
+      "failed": "The photo couldn't be uploaded."
+    },
+    "validation": {
+      "required": "This field is required.",
+      "positive": "Enter a number above 0.",
+      "whole": "Enter a whole number.",
+      "year": "Enter a year between 1990 and {{max}}."
+    },
+    "categories": {
+      "title": "Car categories",
+      "nameEn": "Name (English)",
+      "nameAr": "Name (Arabic)",
+      "add": "Add category",
+      "save": "Save",
+      "carCount": "{{count}} cars",
+      "delete": "Delete category",
+      "notEmpty": "Move or delete its cars first.",
+      "close": "Close"
+    }
+  },
   "overview": {
     "welcome": "Welcome back, {{name}}",
     "subtitle": "Here's what's happening today.",

@@ -17,6 +17,7 @@ import AdminLoginPage from "./pages/AdminLoginPage.jsx";
 import AdminHomePage from "./pages/AdminHomePage.jsx";
 import ComingSoonPage from "./pages/ComingSoonPage.jsx";
 import BookingsPage from "./pages/bookings/BookingsPage.jsx";
+import FleetPage from "./pages/fleet/FleetPage.jsx";
 import { ADMIN_BASE, ADMIN_NAV_ITEMS } from "./navigation.js";
 
 // The dashboard's strings live in their own "admin" namespace, loaded with
@@ -27,6 +28,7 @@ i18n.addResourceBundle("ar", "admin", ar);
 // Each tab's page, by nav id. Tabs not listed yet show "coming soon".
 const TAB_PAGES = {
   bookings: BookingsPage,
+  fleet: FleetPage,
 };
 
 function NotFound() {
