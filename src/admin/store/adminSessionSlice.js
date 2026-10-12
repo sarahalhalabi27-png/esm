@@ -57,6 +57,8 @@ const adminSessionSlice = createSlice({
       state.loginStatus = STATUS.IDLE;
       state.loginError = null;
     },
+    // The backend answered 401 (token expired or revoked).
+    sessionExpired: () => signedOutState,
   },
   extraReducers: (builder) => {
     builder
@@ -97,7 +99,8 @@ const adminSessionSlice = createSlice({
   },
 });
 
-export const { resetAdminLoginStatus } = adminSessionSlice.actions;
+export const { resetAdminLoginStatus, sessionExpired } =
+  adminSessionSlice.actions;
 
 export const selectAdminToken = (state) => state.adminSession.token;
 export const selectAdminUser = (state) => state.adminSession.user;

@@ -2,7 +2,10 @@ import { useEffect } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { SearchX } from "lucide-react";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import i18n from "../i18n.js";
+import { adminPersistor, adminStore } from "./store/index.js";
 import en from "./locales/en.json";
 import ar from "./locales/ar.json";
 import AdminLayout from "./layout/AdminLayout.jsx";
@@ -13,6 +16,7 @@ import { ADMIN_BUTTON } from "./components/ui.js";
 import AdminLoginPage from "./pages/AdminLoginPage.jsx";
 import AdminHomePage from "./pages/AdminHomePage.jsx";
 import ComingSoonPage from "./pages/ComingSoonPage.jsx";
+import BookingsPage from "./pages/bookings/BookingsPage.jsx";
 import { ADMIN_BASE, ADMIN_NAV_ITEMS } from "./navigation.js";
 
 // The dashboard's strings live in their own "admin" namespace, loaded with
@@ -21,7 +25,9 @@ i18n.addResourceBundle("en", "admin", en);
 i18n.addResourceBundle("ar", "admin", ar);
 
 // Each tab's page, by nav id. Tabs not listed yet show "coming soon".
-const TAB_PAGES = {};
+const TAB_PAGES = {
+  bookings: BookingsPage,
+};
 
 function NotFound() {
   const { t } = useTranslation("admin");
@@ -56,28 +62,32 @@ export default function AdminApp() {
   }, []);
 
   return (
-    <Routes>
-      <Route path="login" element={<AdminLoginPage />} />
-      <Route element={<RequireAdminAuth />}>
-        <Route element={<AdminLayout />}>
-          <Route index element={<AdminHomePage />} />
-          {ADMIN_NAV_ITEMS.filter((item) => item.path).map((item) => {
-            const Page = TAB_PAGES[item.id] ?? ComingSoonPage;
-            return (
-              <Route
-                key={item.id}
-                path={`${item.path}/*`}
-                element={
-                  <RequirePermission permission={item.permission}>
-                    <Page />
-                  </RequirePermission>
-                }
-              />
-            );
-          })}
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Route>
-    </Routes>
+    <Provider store={adminStore}>
+      <PersistGate loading={null} persistor={adminPersistor}>
+        <Routes>
+          <Route path="login" element={<AdminLoginPage />} />
+          <Route element={<RequireAdminAuth />}>
+            <Route element={<AdminLayout />}>
+              <Route index element={<AdminHomePage />} />
+              {ADMIN_NAV_ITEMS.filter((item) => item.path).map((item) => {
+                const Page = TAB_PAGES[item.id] ?? ComingSoonPage;
+                return (
+                  <Route
+                    key={item.id}
+                    path={`${item.path}/*`}
+                    element={
+                      <RequirePermission permission={item.permission}>
+                        <Page />
+                      </RequirePermission>
+                    }
+                  />
+                );
+              })}
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Route>
+        </Routes>
+      </PersistGate>
+    </Provider>
   );
 }

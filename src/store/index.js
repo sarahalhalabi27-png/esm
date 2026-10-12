@@ -24,14 +24,6 @@ import {
   signUpReducer,
   verifyEmailReducer,
 } from "./accountSlices.js";
-import adminSessionReducer from "../admin/store/adminSessionSlice.js";
-
-// The dashboard's staff session keeps only its token across reloads; the
-// user and permissions are fetched again from the backend each load.
-const persistedAdminSessionReducer = persistReducer(
-  { key: "esm-limo-admin", storage, whitelist: ["token"] },
-  adminSessionReducer
-);
 
 const rootReducer = combineReducers({
   fleet: fleetReducer,
@@ -46,7 +38,6 @@ const rootReducer = combineReducers({
   verifyEmail: verifyEmailReducer,
   resendCode: resendCodeReducer,
   profile: profileReducer,
-  adminSession: persistedAdminSessionReducer,
 });
 
 // Only the "author" (the Remember Me identity) and "session" (who is signed

@@ -37,6 +37,101 @@
     "roles": { "description": "الأدوار وصلاحيات كل دور" },
     "settings": { "description": "معلومات التواصل والإعدادات العامة" }
   },
+  "common": {
+    "all": "الكل",
+    "loading": "جارٍ التحميل…",
+    "loadFailed": "تعذّر تحميل البيانات.",
+    "retry": "إعادة المحاولة",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "previous": "السابق",
+    "next": "التالي",
+    "showing": "{{from}}–{{to}} من {{total}}",
+    "clearFilters": "مسح الفلاتر",
+    "actionFailed": "لم تنجح العملية. حاول مرة أخرى."
+  },
+  "bookings": {
+    "searchPlaceholder": "ابحث برقم الحجز أو الاسم أو البريد أو الهاتف",
+    "allServices": "كل الخدمات",
+    "from": "من",
+    "to": "إلى",
+    "empty": "لا توجد حجوزات تطابق هذه الفلاتر.",
+    "notFound": "هذا الحجز غير موجود أو تم حذفه.",
+    "backToList": "كل الحجوزات",
+    "createdAt": "استُلم في {{date}}",
+    "columns": {
+      "reference": "رقم الحجز",
+      "customer": "الزبون",
+      "service": "الخدمة",
+      "pickup": "موعد الانطلاق",
+      "route": "المسار",
+      "status": "الحالة"
+    },
+    "status": {
+      "new": "جديد",
+      "confirmed": "مؤكد",
+      "completed": "منجز",
+      "cancelled": "ملغي"
+    },
+    "service": {
+      "pointToPoint": "من نقطة إلى نقطة",
+      "hourly": "بالساعة",
+      "airportTransfer": "توصيل المطار",
+      "cityTour": "جولة في المدينة",
+      "carReservation": "حجز سيارة",
+      "quickRequest": "طلب سريع"
+    },
+    "actions": {
+      "confirm": "تأكيد",
+      "complete": "تحديد كمنجز",
+      "cancel": "إلغاء الحجز",
+      "reopen": "إعادة فتح",
+      "delete": "حذف الحجز",
+      "deleteTitle": "حذف الحجز {{reference}}؟",
+      "deleteBody": "سيُحذف نهائياً. للاحتفاظ بسجلّه، ألغِه بدلاً من ذلك."
+    },
+    "sections": {
+      "customer": "الزبون",
+      "trip": "الرحلة",
+      "details": "تفاصيل الخدمة",
+      "notes": "الملاحظات"
+    },
+    "fields": {
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "service": "الخدمة",
+      "pickupLocation": "مكان الانطلاق",
+      "pickupAt": "تاريخ ووقت الانطلاق",
+      "dropOffLocation": "مكان الوصول",
+      "dropOffAt": "تاريخ ووقت التسليم",
+      "car": "السيارة",
+      "carType": "فئة السيارة",
+      "passengers": "عدد الركاب",
+      "hours": "عدد الساعات",
+      "stops": "التوقفات",
+      "transferType": "نوع التوصيل",
+      "airport": "المطار",
+      "flightNumber": "رقم الرحلة",
+      "duration": "المدة",
+      "places": "الأماكن المراد زيارتها",
+      "bookingDuration": "مدة الإيجار"
+    },
+    "values": {
+      "toAirport": "إلى المطار",
+      "fromAirport": "من المطار",
+      "halfDay": "نصف يوم",
+      "fullDay": "يوم كامل",
+      "hourly": "بالساعة",
+      "daily": "يومي",
+      "weekly": "أسبوعي",
+      "monthly": "شهري",
+      "businessClass": "درجة رجال الأعمال",
+      "businessVan": "فان رجال الأعمال",
+      "sprinterClass": "سبرينتر"
+    },
+    "noNotes": "لا توجد ملاحظات."
+  },
   "overview": {
     "welcome": "أهلاً بعودتك، {{name}}",
     "subtitle": "هذه الأقسام التي يمكنك العمل عليها."

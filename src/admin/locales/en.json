@@ -35,6 +35,101 @@
     "roles": { "description": "Roles and what each one can do" },
     "settings": { "description": "Contact details and general settings" }
   },
+  "common": {
+    "all": "All",
+    "loading": "Loading…",
+    "loadFailed": "Couldn't load the data.",
+    "retry": "Try again",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "previous": "Previous",
+    "next": "Next",
+    "showing": "{{from}}–{{to}} of {{total}}",
+    "clearFilters": "Clear filters",
+    "actionFailed": "That didn't work. Please try again."
+  },
+  "bookings": {
+    "searchPlaceholder": "Search by reference, name, email or phone",
+    "allServices": "All services",
+    "from": "From",
+    "to": "To",
+    "empty": "No bookings match these filters.",
+    "notFound": "This booking doesn't exist or was deleted.",
+    "backToList": "All bookings",
+    "createdAt": "Received {{date}}",
+    "columns": {
+      "reference": "Reference",
+      "customer": "Customer",
+      "service": "Service",
+      "pickup": "Pickup",
+      "route": "Route",
+      "status": "Status"
+    },
+    "status": {
+      "new": "New",
+      "confirmed": "Confirmed",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "service": {
+      "pointToPoint": "Point-To-Point",
+      "hourly": "Hourly",
+      "airportTransfer": "Airport Transfer",
+      "cityTour": "City Tour",
+      "carReservation": "Car Reservation",
+      "quickRequest": "Quick Request"
+    },
+    "actions": {
+      "confirm": "Confirm",
+      "complete": "Mark as completed",
+      "cancel": "Cancel booking",
+      "reopen": "Reopen",
+      "delete": "Delete booking",
+      "deleteTitle": "Delete booking {{reference}}?",
+      "deleteBody": "It will be removed for good. To keep a record, cancel it instead."
+    },
+    "sections": {
+      "customer": "Customer",
+      "trip": "Trip",
+      "details": "Service details",
+      "notes": "Notes"
+    },
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "service": "Service",
+      "pickupLocation": "Pickup location",
+      "pickupAt": "Pickup date & time",
+      "dropOffLocation": "Drop-off location",
+      "dropOffAt": "Drop-off date & time",
+      "car": "Car",
+      "carType": "Car type",
+      "passengers": "Passengers",
+      "hours": "Hours",
+      "stops": "Stops",
+      "transferType": "Transfer type",
+      "airport": "Airport",
+      "flightNumber": "Flight number",
+      "duration": "Duration",
+      "places": "Places to visit",
+      "bookingDuration": "Rental period"
+    },
+    "values": {
+      "toAirport": "To the airport",
+      "fromAirport": "From the airport",
+      "halfDay": "Half day",
+      "fullDay": "Full day",
+      "hourly": "Hourly",
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "businessClass": "Business Class",
+      "businessVan": "Business Van",
+      "sprinterClass": "Sprinter Class"
+    },
+    "noNotes": "No notes."
+  },
   "overview": {
     "welcome": "Welcome back, {{name}}",
     "subtitle": "Here are the sections you can work on."
