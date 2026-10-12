@@ -22,6 +22,7 @@ import MessagesPage from "./pages/messages/MessagesPage.jsx";
 import StaffListPage from "./pages/staff/StaffListPage.jsx";
 import CustomersPage from "./pages/customers/CustomersPage.jsx";
 import SettingsPage from "./pages/settings/SettingsPage.jsx";
+import ContentPage from "./pages/content/ContentPage.jsx";
 import BlogPage from "./pages/blog/BlogPage.jsx";
 import CommentsPage from "./pages/comments/CommentsPage.jsx";
 import RolesPage from "./pages/roles/RolesPage.jsx";
@@ -43,6 +44,7 @@ const TAB_PAGES = {
   staff: StaffListPage,
   roles: RolesPage,
   settings: SettingsPage,
+  siteContent: ContentPage,
 };
 
 function NotFound() {

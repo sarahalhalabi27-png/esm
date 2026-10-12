@@ -20,6 +20,7 @@ import AdminMessage from "../../components/AdminMessage.jsx";
 import Can from "../../components/Can.jsx";
 import ConfirmDialog from "../../components/ConfirmDialog.jsx";
 import ImageUpload from "../../components/ImageUpload.jsx";
+import SmallIconButton from "../../components/SmallIconButton.jsx";
 import Switch from "../../components/Switch.jsx";
 import {
   ADMIN_BUTTON,
@@ -579,19 +580,19 @@ function LanguageFields({ lang, control, register, errors, disabled }) {
                 </span>
                 {!disabled && (
                   <div className="flex items-center gap-1">
-                    <SmallButton
+                    <SmallIconButton
                       icon={ArrowUp}
                       label={t("blog.fields.moveUp")}
                       disabled={index === 0}
                       onClick={() => move(index, index - 1)}
                     />
-                    <SmallButton
+                    <SmallIconButton
                       icon={ArrowDown}
                       label={t("blog.fields.moveDown")}
                       disabled={index === fields.length - 1}
                       onClick={() => move(index, index + 1)}
                     />
-                    <SmallButton
+                    <SmallIconButton
                       icon={Trash2}
                       danger
                       label={t("blog.fields.removeSection")}
@@ -636,23 +637,5 @@ function LanguageFields({ lang, control, register, errors, disabled }) {
         )}
       </div>
     </div>
-  );
-}
-
-function SmallButton({ icon: Icon, label, danger = false, ...props }) {
-  return (
-    <button
-      type="button"
-      aria-label={label}
-      title={label}
-      className={`grid h-8 w-8 place-items-center rounded-lg transition-colors disabled:opacity-30 ${
-        danger
-          ? "text-rose-400 light:text-rose-700 hover:bg-rose-500/10"
-          : "text-fg/70 hover:bg-surface/[0.06] hover:text-fg"
-      }`}
-      {...props}
-    >
-      <Icon size={15} />
-    </button>
   );
 }

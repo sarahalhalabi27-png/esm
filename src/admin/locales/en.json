@@ -624,5 +624,64 @@
       "email": "Enter a valid email address.",
       "url": "Enter a full link starting with https://"
     }
+  },
+  "content": {
+    "tabs": {
+      "faq": "FAQ",
+      "promo": "Offer banner",
+      "partners": "Partners",
+      "terms": "Terms",
+      "privacy": "Privacy",
+      "disclaimer": "Disclaimer"
+    },
+    "lastUpdated": "Last updated {{date}}",
+    "english": "English",
+    "arabic": "Arabic",
+    "arabicFallback": "Leave Arabic empty to show the English text on the Arabic website.",
+    "save": "Save changes",
+    "saved": "Changes saved.",
+    "required": "Required in English.",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "remove": "Remove",
+    "faq": {
+      "hint": "Questions shown on the FAQ page, in this order.",
+      "question": "Question",
+      "answer": "Answer",
+      "item": "Question {{number}}",
+      "add": "Add question",
+      "empty": "No questions yet."
+    },
+    "promo": {
+      "hint": "The special-offer banner on the home page.",
+      "enabled": "Show the offer banner on the home page",
+      "eyebrow": "Small heading",
+      "heading": "Heading",
+      "headingAccent": "Highlighted part of the heading",
+      "headingAccentHint": "Must match words in the heading exactly; shown in teal.",
+      "description": "Description",
+      "cta": "Button text",
+      "image": "Car photo"
+    },
+    "partners": {
+      "hint": "Logos in the scrolling Partners strip on the home page, in this order.",
+      "name": "Name",
+      "logo": "Logo",
+      "url": "Website (optional)",
+      "item": "Partner {{number}}",
+      "add": "Add partner",
+      "empty": "No partners yet.",
+      "logoRequired": "Upload the partner's logo.",
+      "urlInvalid": "Enter a full link starting with https://"
+    },
+    "legal": {
+      "hint": "The {{page}} page. Each section is a numbered heading with its text; separate paragraphs with an empty line.",
+      "title": "Page title",
+      "intro": "Introduction",
+      "heading": "Section heading",
+      "body": "Section text",
+      "section": "Section {{number}}",
+      "add": "Add section"
+    }
   }
 }
