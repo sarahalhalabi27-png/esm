@@ -12,6 +12,7 @@ import {
 import AdminMessage from "../../components/AdminMessage.jsx";
 import Can from "../../components/Can.jsx";
 import ConfirmDialog from "../../components/ConfirmDialog.jsx";
+import EmailLink from "../../components/EmailLink.jsx";
 import StatusBadge from "../../components/StatusBadge.jsx";
 import {
   ADMIN_BUTTON,
@@ -251,13 +252,7 @@ export default function BookingDetailsPage() {
               ["name", booking.customer.name],
               [
                 "email",
-                <a
-                  key="email"
-                  href={`mailto:${booking.customer.email}`}
-                  className="text-teal-accent hover:underline break-all"
-                >
-                  {booking.customer.email}
-                </a>,
+                <EmailLink key="email" email={booking.customer.email} />,
               ],
               [
                 "phone",

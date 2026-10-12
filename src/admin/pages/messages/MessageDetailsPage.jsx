@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import AdminMessage from "../../components/AdminMessage.jsx";
 import Can from "../../components/Can.jsx";
+import EmailLink from "../../components/EmailLink.jsx";
 import ConfirmDialog from "../../components/ConfirmDialog.jsx";
 import {
   ADMIN_BUTTON,
@@ -255,12 +256,7 @@ export default function MessageDetailsPage() {
                 {t("messages.fields.email")}
               </dt>
               <dd className="mt-1">
-                <a
-                  href={mailto}
-                  className="text-teal-accent hover:underline break-all"
-                >
-                  {message.email}
-                </a>
+                <EmailLink email={message.email} href={mailto} />
               </dd>
             </div>
             {message.phone && (

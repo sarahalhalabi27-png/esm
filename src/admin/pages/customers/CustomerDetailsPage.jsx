@@ -19,6 +19,7 @@ import AdminMessage from "../../components/AdminMessage.jsx";
 import Avatar from "../../components/Avatar.jsx";
 import Can from "../../components/Can.jsx";
 import ConfirmDialog from "../../components/ConfirmDialog.jsx";
+import EmailLink from "../../components/EmailLink.jsx";
 import StatusBadge from "../../components/StatusBadge.jsx";
 import {
   ADMIN_BUTTON,
@@ -226,15 +227,9 @@ export default function CustomerDetailsPage() {
             {t("customers.contact")}
           </h3>
           <ul className="flex flex-col gap-3 text-[15px]">
-            <li className="flex items-center gap-2 min-w-0">
-              <Mail size={16} className="shrink-0 text-muted" />
-              <a
-                href={`mailto:${customer.email}`}
-                className="truncate text-teal-accent hover:underline"
-                dir="ltr"
-              >
-                {customer.email}
-              </a>
+            <li className="flex items-start gap-2 min-w-0">
+              <Mail size={16} className="mt-1 shrink-0 text-muted" />
+              <EmailLink email={customer.email} className="min-w-0 flex-1" />
             </li>
             <li className="flex items-center gap-2 text-sm">
               {customer.emailVerified ? (
