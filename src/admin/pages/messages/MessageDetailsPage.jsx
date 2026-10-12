@@ -235,8 +235,12 @@ export default function MessageDetailsPage() {
         </p>
       )}
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-3 items-start">
+      {/* Both cards stretch to the same height and share one heading style. */}
+      <div className="mt-6 grid gap-4 lg:grid-cols-3">
         <section className={`${ADMIN_CARD} p-5 lg:col-span-2 min-w-0`}>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted">
+            {t("messages.message")}
+          </h3>
           <p
             dir="auto"
             className="whitespace-pre-wrap break-words text-[15px] leading-7 text-fg/90"

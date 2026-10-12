@@ -305,7 +305,8 @@
       "deleteBody": "It will be removed for good. To keep it out of the way, archive it instead."
     },
     "replySubject": "Re: {{subject}}",
-    "replySubjectDefault": "Your message to ESM Limo"
+    "replySubjectDefault": "Your message to ESM Limo",
+    "message": "Message"
   },
   "fleet": {
     "addCar": "Add car",

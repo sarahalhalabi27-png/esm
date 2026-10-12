@@ -303,7 +303,8 @@
       "deleteBody": "ستُحذف نهائياً. لإبعادها عن الوارد، أرشفها بدلاً من ذلك."
     },
     "replySubject": "رد: {{subject}}",
-    "replySubjectDefault": "رسالتك إلى ESM Limo"
+    "replySubjectDefault": "رسالتك إلى ESM Limo",
+    "message": "الرسالة"
   },
   "fleet": {
     "addCar": "إضافة سيارة",
