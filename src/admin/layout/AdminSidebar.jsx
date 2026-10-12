@@ -6,22 +6,35 @@ import BrandLogo from "../../components/common/BrandLogo.jsx";
 import { ADMIN_NAV, adminPath } from "../navigation.js";
 import useCan from "../hooks/useCan.js";
 import { useGetMessageStatsQuery } from "../api/messagesApi.js";
+import { useGetCommentStatsQuery } from "../api/blogApi.js";
 
 const DESKTOP_QUERY = "(min-width: 1024px)"; // Tailwind lg
 
-// Unread messages count beside "Messages", checked every minute. Only
-// rendered for staff who can see messages (the tab is hidden otherwise).
-function UnreadBadge() {
-  const { t } = useTranslation("admin");
-  const { data } = useGetMessageStatsQuery(undefined, {
-    pollingInterval: 60_000,
-  });
-  if (!data?.unread) return null;
+// Counts beside a tab ("3 unread"), checked every minute. Each is only
+// rendered for staff who can see that tab (it's hidden otherwise).
+const POLL = { pollingInterval: 60_000 };
+
+function CountBadge({ count, label }) {
+  if (!count) return null;
   return (
     <span className="ms-auto min-w-6 h-6 px-1.5 grid place-items-center rounded-full bg-teal-accent text-xs font-semibold text-page">
-      {data.unread}
-      <span className="sr-only"> {t("messages.unread")}</span>
+      {count}
+      <span className="sr-only"> {label}</span>
     </span>
+  );
+}
+
+function UnreadMessagesBadge() {
+  const { t } = useTranslation("admin");
+  const { data } = useGetMessageStatsQuery(undefined, POLL);
+  return <CountBadge count={data?.unread} label={t("messages.unread")} />;
+}
+
+function PendingCommentsBadge() {
+  const { t } = useTranslation("admin");
+  const { data } = useGetCommentStatsQuery(undefined, POLL);
+  return (
+    <CountBadge count={data?.pending} label={t("comments.views.pending")} />
   );
 }
 
@@ -110,7 +123,8 @@ export default function AdminSidebar({ isOpen, onClose }) {
                     >
                       <Icon size={19} className="shrink-0" />
                       {t(`nav.${id}`)}
-                      {id === "messages" && <UnreadBadge />}
+                      {id === "messages" && <UnreadMessagesBadge />}
+                      {id === "comments" && <PendingCommentsBadge />}
                     </NavLink>
                   </li>
                 ))}

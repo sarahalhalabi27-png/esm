@@ -9,10 +9,9 @@ import {
   listCategories,
   updateCar,
   updateCategory,
-  uploadImage,
 } from "./mockFleet.js";
 
-// Fleet endpoints (cars, categories) and image uploads. TODO(api): replace
+// Fleet endpoints (cars, categories). TODO(api): replace
 // each `queryFn` with the `query` in the comment above it.
 const fleetApi = adminApi
   .enhanceEndpoints({ addTagTypes: ["Car", "Category"] })
@@ -84,12 +83,6 @@ const fleetApi = adminApi
         queryFn: (id) => fromMock(deleteCategory(id)),
         invalidatesTags: [{ type: "Category", id: "LIST" }],
       }),
-
-      // query: (file) => { const body = new FormData(); body.append("file", file);
-      //   return { url: "/uploads", method: "POST", body }; }
-      uploadImage: build.mutation({
-        queryFn: (file) => fromMock(uploadImage(file)),
-      }),
     }),
   });
 
@@ -103,5 +96,4 @@ export const {
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,
-  useUploadImageMutation,
 } = fleetApi;

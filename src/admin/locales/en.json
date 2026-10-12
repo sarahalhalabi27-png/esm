@@ -23,17 +23,39 @@
     "backToSite": "Back to website"
   },
   "pages": {
-    "overview": { "description": "Today at a glance" },
-    "bookings": { "description": "Every booking request from the website" },
-    "fleet": { "description": "Cars, categories and photos" },
-    "messages": { "description": "Messages from the Contact Us form" },
-    "blog": { "description": "Articles and their authors" },
-    "comments": { "description": "Review readers' comments" },
-    "siteContent": { "description": "FAQ, offers, partners and legal pages" },
-    "customers": { "description": "Accounts registered on the website" },
-    "staff": { "description": "Dashboard accounts and their roles" },
-    "roles": { "description": "Roles and what each one can do" },
-    "settings": { "description": "Contact details and general settings" }
+    "overview": {
+      "description": "Today at a glance"
+    },
+    "bookings": {
+      "description": "Every booking request from the website"
+    },
+    "fleet": {
+      "description": "Cars, categories and photos"
+    },
+    "messages": {
+      "description": "Messages from the Contact Us form"
+    },
+    "blog": {
+      "description": "Articles and their authors"
+    },
+    "comments": {
+      "description": "Review readers' comments"
+    },
+    "siteContent": {
+      "description": "FAQ, offers, partners and legal pages"
+    },
+    "customers": {
+      "description": "Accounts registered on the website"
+    },
+    "staff": {
+      "description": "Dashboard accounts and their roles"
+    },
+    "roles": {
+      "description": "Roles and what each one can do"
+    },
+    "settings": {
+      "description": "Contact details and general settings"
+    }
   },
   "common": {
     "all": "All",
@@ -47,7 +69,16 @@
     "showing": "{{from}}–{{to}} of {{total}}",
     "clearFilters": "Clear filters",
     "actionFailed": "That didn't work. Please try again.",
-    "close": "Close"
+    "close": "Close",
+    "upload": {
+      "add": "Upload photo",
+      "replace": "Replace",
+      "remove": "Remove photo",
+      "uploading": "Uploading…",
+      "tooLarge": "Photos must be under 5 MB.",
+      "notImage": "Choose an image file (JPG, PNG or WebP).",
+      "failed": "The photo couldn't be uploaded."
+    }
   },
   "bookings": {
     "searchPlaceholder": "Search by reference, name, email or phone",
@@ -138,8 +169,6 @@
     "backToList": "All roles",
     "system": "System role",
     "systemHint": "This role always has full access and can't be changed.",
-    "staffCount": "{{count}} staff",
-    "permissionCount": "{{count}} permissions",
     "edit": "Edit",
     "view": "View",
     "newTitle": "New role",
@@ -186,7 +215,11 @@
     "validation": {
       "nameRequired": "Give the role a name.",
       "permissionsRequired": "Choose at least one permission."
-    }
+    },
+    "staffCount_one": "1 staff member",
+    "staffCount_other": "{{count}} staff",
+    "permissionCount_one": "1 permission",
+    "permissionCount_other": "{{count}} permissions"
   },
   "staff": {
     "invite": "Invite staff member",
@@ -338,15 +371,6 @@
     "create": "Add car",
     "saving": "Saving…",
     "saved": "Changes saved.",
-    "upload": {
-      "add": "Upload photo",
-      "replace": "Replace",
-      "remove": "Remove photo",
-      "uploading": "Uploading…",
-      "tooLarge": "Photos must be under 5 MB.",
-      "notImage": "Choose an image file (JPG, PNG or WebP).",
-      "failed": "The photo couldn't be uploaded."
-    },
     "validation": {
       "required": "This field is required.",
       "positive": "Enter a number above 0.",
@@ -359,10 +383,11 @@
       "nameAr": "Name (Arabic)",
       "add": "Add category",
       "save": "Save",
-      "carCount": "{{count}} cars",
       "delete": "Delete category",
       "notEmpty": "Move or delete its cars first.",
-      "close": "Close"
+      "close": "Close",
+      "carCount_one": "1 car",
+      "carCount_other": "{{count}} cars"
     }
   },
   "overview": {
@@ -418,5 +443,103 @@
       "INVITE_PENDING": "This account isn't set up yet. Use the link in your invitation email to choose a password.",
       "default": "Couldn't sign in. Please try again."
     }
+  },
+  "blog": {
+    "newPost": "New post",
+    "searchPlaceholder": "Search posts",
+    "views": {
+      "all": "All",
+      "published": "Published",
+      "draft": "Drafts"
+    },
+    "status": {
+      "published": "Published",
+      "draft": "Draft"
+    },
+    "empty": "No posts here yet.",
+    "notFound": "This post doesn't exist or was deleted.",
+    "backToList": "All posts",
+    "untitled": "(Untitled)",
+    "updated": "Updated {{date}}",
+    "viewOnSite": "View on the website",
+    "edit": "Edit",
+    "view": "View",
+    "deletePost": "Delete post",
+    "deleteTitle": "Delete this post?",
+    "deleteBody": "It will be removed from the website with its comments. To take it down but keep it, switch it to draft instead.",
+    "newTitle": "New post",
+    "languages": {
+      "en": "English",
+      "ar": "Arabic"
+    },
+    "arabicHint": "Leave Arabic fields empty to show the English text on the Arabic website.",
+    "sections": {
+      "content": "Content",
+      "publishing": "Publishing",
+      "images": "Images"
+    },
+    "fields": {
+      "title": "Title",
+      "titleHint": "A line break in the title is kept on the blog cards.",
+      "accents": "Highlighted words",
+      "accentsHint": "Words shown in teal, separated by commas.",
+      "excerpt": "Short summary",
+      "excerptHint": "Shown under the title on the blog cards.",
+      "sectionsLabel": "Sections",
+      "heading": "Heading",
+      "body": "Text",
+      "addSection": "Add section",
+      "removeSection": "Remove section",
+      "moveUp": "Move up",
+      "moveDown": "Move down",
+      "sectionNumber": "Section {{number}}",
+      "published": "Published on the website",
+      "publishedHint": "Drafts are only visible here in the dashboard.",
+      "publishedAt": "Publish date",
+      "author": "Author",
+      "slug": "Link",
+      "slugHint": "Made from the English title if left empty. It can't change once the post exists.",
+      "image": "Card photo",
+      "heroImage": "Header photo",
+      "heroImageHint": "Shown at the top of the post. The card photo is used if empty."
+    },
+    "save": "Save post",
+    "create": "Create post",
+    "saved": "Post saved.",
+    "errors": {
+      "SLUG_TAKEN": "Another post already uses this link."
+    },
+    "validation": {
+      "titleRequired": "Give the post an English title."
+    },
+    "comments_one": "1 comment",
+    "comments_other": "{{count}} comments"
+  },
+  "comments": {
+    "views": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "spam": "Spam"
+    },
+    "searchPlaceholder": "Search by name, email or text",
+    "empty": "No comments here.",
+    "onPost": "On",
+    "allPosts": "All posts",
+    "website": "Website",
+    "selectAll": "Select all on this page",
+    "select": "Select comment from {{name}}",
+    "selected": "{{count}} selected",
+    "actions": {
+      "approve": "Approve",
+      "unapprove": "Unapprove",
+      "spam": "Spam",
+      "notSpam": "Not spam",
+      "delete": "Delete",
+      "deleteBody": "They'll be removed for good.",
+      "deleteTitle_one": "Delete this comment?",
+      "deleteTitle_other": "Delete {{count}} comments?"
+    },
+    "done_one": "1 comment updated.",
+    "done_other": "{{count}} comments updated."
   }
 }

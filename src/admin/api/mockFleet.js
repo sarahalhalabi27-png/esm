@@ -172,18 +172,3 @@ export async function deleteCategory(id) {
   categories = categories.filter((c) => c.id !== id);
   return { id };
 }
-
-// ----- uploads -----
-
-// POST /admin/uploads  (multipart "file") -> { url }
-// The mock keeps the image in memory as a data URL.
-export async function uploadImage(file) {
-  await delay(500);
-  const url = await new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = () => reject(apiError("UPLOAD_FAILED", 500));
-    reader.readAsDataURL(file);
-  });
-  return { url };
-}

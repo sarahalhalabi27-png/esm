@@ -1,7 +1,7 @@
 import { useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ImagePlus, Loader2, Trash2 } from "lucide-react";
-import { useUploadImageMutation } from "../api/fleetApi.js";
+import { useUploadImageMutation } from "../api/uploadsApi.js";
 
 const MAX_BYTES = 5 * 1024 * 1024;
 const ACCEPT = "image/jpeg,image/png,image/webp";
@@ -25,11 +25,11 @@ export default function ImageUpload({
     event.target.value = ""; // so picking the same file again still fires
     if (!file) return;
     if (!ACCEPT.split(",").includes(file.type)) {
-      setError(t("fleet.upload.notImage"));
+      setError(t("common.upload.notImage"));
       return;
     }
     if (file.size > MAX_BYTES) {
-      setError(t("fleet.upload.tooLarge"));
+      setError(t("common.upload.tooLarge"));
       return;
     }
     setError("");
@@ -37,7 +37,7 @@ export default function ImageUpload({
       const { url } = await uploadImage(file).unwrap();
       onChange(url);
     } catch {
-      setError(t("fleet.upload.failed"));
+      setError(t("common.upload.failed"));
     }
   };
 
@@ -56,7 +56,7 @@ export default function ImageUpload({
             className="flex h-full w-full cursor-pointer flex-col items-center justify-center gap-2 text-sm text-muted transition-colors hover:text-teal-accent [fieldset:disabled_&]:cursor-default [fieldset:disabled_&]:hover:text-muted"
           >
             <ImagePlus size={24} />
-            {t("fleet.upload.add")}
+            {t("common.upload.add")}
           </label>
         )}
 
@@ -67,7 +67,7 @@ export default function ImageUpload({
           >
             <span className="flex items-center gap-2">
               <Loader2 size={18} className="animate-spin" />
-              {t("fleet.upload.uploading")}
+              {t("common.upload.uploading")}
             </span>
           </div>
         )}
@@ -78,13 +78,13 @@ export default function ImageUpload({
               htmlFor={inputId}
               className="cursor-pointer rounded-lg bg-black/60 px-3 py-1.5 text-xs font-medium text-white backdrop-blur transition-colors hover:bg-black/80"
             >
-              {t("fleet.upload.replace")}
+              {t("common.upload.replace")}
             </label>
             <button
               type="button"
               onClick={() => onChange(null)}
-              aria-label={t("fleet.upload.remove")}
-              title={t("fleet.upload.remove")}
+              aria-label={t("common.upload.remove")}
+              title={t("common.upload.remove")}
               className="grid h-7 w-7 place-items-center rounded-lg bg-black/60 text-white backdrop-blur transition-colors hover:bg-rose-600"
             >
               <Trash2 size={14} />
