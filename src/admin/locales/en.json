@@ -132,7 +132,21 @@
   },
   "overview": {
     "welcome": "Welcome back, {{name}}",
-    "subtitle": "Here are the sections you can work on."
+    "subtitle": "Here's what's happening today.",
+    "stats": {
+      "todayPickups": "Pickups today",
+      "newRequests": "New requests",
+      "newRequestsHint": "Waiting for the team",
+      "nextSevenDays": "Next 7 days",
+      "receivedThisMonth": "Received this month"
+    },
+    "upcoming": "Upcoming pickups",
+    "noUpcoming": "No upcoming pickups.",
+    "byService": "Bookings by service",
+    "last30Days": "Last 30 days",
+    "noBookings": "No bookings yet.",
+    "viewAll": "View all",
+    "sections": "Your sections"
   },
   "comingSoon": {
     "title": "This section is being built",

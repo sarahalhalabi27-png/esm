@@ -2,6 +2,7 @@ import { adminApi, fromMock } from "./adminApi.js";
 import {
   deleteBooking,
   getBooking,
+  getBookingStats,
   listBookings,
   updateBooking,
 } from "./mockBookings.js";
@@ -17,6 +18,13 @@ export const bookingsApi = adminApi.injectEndpoints({
         { type: "Booking", id: "LIST" },
         ...(result?.items ?? []).map(({ id }) => ({ type: "Booking", id })),
       ],
+    }),
+
+    // query: () => "/bookings/stats"
+    // Refetched after any booking change (it provides the LIST tag).
+    getBookingStats: build.query({
+      queryFn: () => fromMock(getBookingStats()),
+      providesTags: [{ type: "Booking", id: "LIST" }],
     }),
 
     // query: (id) => `/bookings/${id}`
@@ -45,6 +53,7 @@ export const bookingsApi = adminApi.injectEndpoints({
 export const {
   useGetBookingsQuery,
   useGetBookingQuery,
+  useGetBookingStatsQuery,
   useUpdateBookingMutation,
   useDeleteBookingMutation,
 } = bookingsApi;

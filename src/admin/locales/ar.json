@@ -134,7 +134,21 @@
   },
   "overview": {
     "welcome": "أهلاً بعودتك، {{name}}",
-    "subtitle": "هذه الأقسام التي يمكنك العمل عليها."
+    "subtitle": "هذا ما يحدث اليوم.",
+    "stats": {
+      "todayPickups": "رحلات اليوم",
+      "newRequests": "طلبات جديدة",
+      "newRequestsHint": "بانتظار الفريق",
+      "nextSevenDays": "الأيام السبعة القادمة",
+      "receivedThisMonth": "المستلمة هذا الشهر"
+    },
+    "upcoming": "الرحلات القادمة",
+    "noUpcoming": "لا توجد رحلات قادمة.",
+    "byService": "الحجوزات حسب الخدمة",
+    "last30Days": "آخر 30 يوماً",
+    "noBookings": "لا توجد حجوزات بعد.",
+    "viewAll": "عرض الكل",
+    "sections": "أقسامك"
   },
   "comingSoon": {
     "title": "هذا القسم قيد البناء",

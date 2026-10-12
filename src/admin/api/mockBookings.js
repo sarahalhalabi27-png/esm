@@ -277,6 +277,55 @@ export async function updateBooking({ id, ...changes }) {
   return copy(bookings[index]);
 }
 
+// GET /admin/bookings/stats  (for the Overview; "today" is the company's
+// local day, Dubai time, on the backend)
+// -> {
+//   todayPickups,      pickups today, not cancelled
+//   newRequests,       bookings still "new" (waiting for the team)
+//   nextSevenDays,     pickups today and the 6 days after, not cancelled
+//   receivedThisMonth, bookings received since the 1st of this month
+//   upcoming: [booking, ...]   next 6 pickups from now, new or confirmed
+//   byService: [{ service, count }, ...]  received in the last 30 days, most first
+// }
+export async function getBookingStats() {
+  await delay();
+  const now = new Date();
+  const today = isoDate(now);
+  const inSevenDays = new Date(now);
+  inSevenDays.setDate(now.getDate() + 6);
+  const weekEnd = isoDate(inSevenDays);
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+  const thirtyDaysAgo = new Date(now - 30 * 864e5);
+  const nowTime = `${today}T${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+  const active = bookings.filter((b) => b.status !== "cancelled");
+  const pickupAt = (b) => `${b.pickup.date}T${b.pickup.time}`;
+
+  const byService = BOOKING_SERVICES.map((service) => ({
+    service,
+    count: bookings.filter(
+      (b) => b.service === service && new Date(b.createdAt) >= thirtyDaysAgo
+    ).length,
+  })).sort((a, b) => b.count - a.count);
+
+  return copy({
+    todayPickups: active.filter((b) => b.pickup.date === today).length,
+    newRequests: bookings.filter((b) => b.status === "new").length,
+    nextSevenDays: active.filter(
+      (b) => b.pickup.date >= today && b.pickup.date <= weekEnd
+    ).length,
+    receivedThisMonth: bookings.filter(
+      (b) => new Date(b.createdAt) >= monthStart
+    ).length,
+    upcoming: bookings
+      .filter(
+        (b) => ["new", "confirmed"].includes(b.status) && pickupAt(b) >= nowTime
+      )
+      .sort((a, b) => pickupAt(a).localeCompare(pickupAt(b)))
+      .slice(0, 6),
+    byService,
+  });
+}
+
 // DELETE /admin/bookings/:id
 export async function deleteBooking(id) {
   await delay();

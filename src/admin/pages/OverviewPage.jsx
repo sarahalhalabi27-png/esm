@@ -5,11 +5,13 @@ import { ChevronRight } from "lucide-react";
 import { ADMIN_CARD } from "../components/ui.js";
 import { ADMIN_NAV_ITEMS, adminPath } from "../navigation.js";
 import useCan from "../hooks/useCan.js";
+import { P } from "../permissions.js";
+import BookingsSummary from "./overview/BookingsSummary.jsx";
 import { selectAdminUser } from "../store/adminSessionSlice.js";
 
-// Dashboard home. For now: a greeting and a card per section the user can
-// open. The day's numbers (bookings, unread messages, ...) come with the
-// Bookings and Messages tabs.
+// Dashboard home: a greeting, the numbers of each section the user may see
+// (bookings for now; messages etc. join as their tabs are built), then a
+// card per section they can open.
 export default function OverviewPage() {
   const { t } = useTranslation("admin");
   const can = useCan();
@@ -17,15 +19,27 @@ export default function OverviewPage() {
   const sections = ADMIN_NAV_ITEMS.filter(
     (item) => item.id !== "overview" && can(item.permission)
   );
+  const showBookings = can(P.bookings.view);
 
   return (
     <>
       <p className="text-lg font-medium text-fg">
         {t("overview.welcome", { name: user?.name })}
       </p>
-      <p className="mt-1 text-[15px] text-muted">{t("overview.subtitle")}</p>
+      {showBookings && (
+        <p className="mt-1 text-[15px] text-muted">{t("overview.subtitle")}</p>
+      )}
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      {showBookings && (
+        <div className="mt-6">
+          <BookingsSummary />
+        </div>
+      )}
+
+      <h2 className="mt-10 mb-4 font-semibold text-fg">
+        {t("overview.sections")}
+      </h2>
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {sections.map(({ id, path, icon: Icon }) => (
           <Link
             key={id}
