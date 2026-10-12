@@ -41,6 +41,8 @@ import useCan from "../../hooks/useCan.js";
 import { adminPath } from "../../navigation.js";
 import { P } from "../../permissions.js";
 import { categoryName } from "../../utils/fleet.js";
+import UnsavedChangesDialog from "../../components/UnsavedChangesDialog.jsx";
+import useUnsavedChanges from "../../hooks/useUnsavedChanges.js";
 
 // The form keeps numbers as typed text; they become numbers on submit.
 function carSchema(t) {
@@ -212,12 +214,14 @@ function CarForm({ car, backTo, backLink }) {
     resolver: zodResolver(carSchema(t)),
     defaultValues: toFormValues(car),
   });
+  const { blocker, allowLeave } = useUnsavedChanges(isDirty);
 
   const onSubmit = async (values) => {
     setResult(null);
     try {
       if (isNew) {
         await createCar(toPayload(values)).unwrap();
+        allowLeave();
         navigate(backTo, { replace: true });
       } else {
         const saved = await updateCar({
@@ -235,6 +239,7 @@ function CarForm({ car, backTo, backLink }) {
   const remove = async () => {
     try {
       await deleteCar(car.id).unwrap();
+      allowLeave();
       navigate(backTo, { replace: true });
     } catch {
       setConfirmDelete(false);
@@ -568,6 +573,7 @@ function CarForm({ car, backTo, backLink }) {
           />
         </Can>
       )}
+      <UnsavedChangesDialog blocker={blocker} />
     </form>
   );
 }

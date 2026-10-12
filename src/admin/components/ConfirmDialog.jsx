@@ -10,6 +10,7 @@ export default function ConfirmDialog({
   title,
   body,
   confirmLabel,
+  cancelLabel,
   busy = false,
   onConfirm,
   onClose,
@@ -40,7 +41,7 @@ export default function ConfirmDialog({
       </div>
       <div className="flex justify-end gap-3 mt-6">
         <button type="button" className={ADMIN_BUTTON_GHOST} onClick={onClose}>
-          {t("common.cancel")}
+          {cancelLabel ?? t("common.cancel")}
         </button>
         <button
           type="button"

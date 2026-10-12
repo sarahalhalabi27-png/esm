@@ -35,6 +35,8 @@ import {
   selectAdminUser,
 } from "../../store/adminSessionSlice.js";
 import PermissionMatrix from "./PermissionMatrix.jsx";
+import UnsavedChangesDialog from "../../components/UnsavedChangesDialog.jsx";
+import useUnsavedChanges from "../../hooks/useUnsavedChanges.js";
 
 const roleSchema = (t) =>
   z.object({
@@ -143,12 +145,14 @@ function RoleForm({ role, catalog, backTo, backLink }) {
     resolver: zodResolver(roleSchema(t)),
     defaultValues: toFormValues(role),
   });
+  const { blocker, allowLeave } = useUnsavedChanges(isDirty);
 
   const onSubmit = async (values) => {
     setResult(null);
     try {
       if (isNew) {
         await createRole(values).unwrap();
+        allowLeave();
         navigate(backTo, { replace: true });
         return;
       }
@@ -277,6 +281,7 @@ function RoleForm({ role, catalog, backTo, backLink }) {
           </button>
         </div>
       )}
+      <UnsavedChangesDialog blocker={blocker} />
     </form>
   );
 }

@@ -40,6 +40,8 @@ import useCan from "../../hooks/useCan.js";
 import { adminPath } from "../../navigation.js";
 import { P } from "../../permissions.js";
 import { textToWords, wordsToText } from "../../utils/blog.js";
+import UnsavedChangesDialog from "../../components/UnsavedChangesDialog.jsx";
+import useUnsavedChanges from "../../hooks/useUnsavedChanges.js";
 
 const LANGUAGES = ["en", "ar"];
 const today = () => new Date().toISOString().slice(0, 10);
@@ -209,6 +211,7 @@ function PostEditor({ post, backTo, backLink }) {
     resolver: zodResolver(postSchema(t)),
     defaultValues: toFormValues(post),
   });
+  const { blocker, allowLeave } = useUnsavedChanges(isDirty);
 
   const onSubmit = async (values) => {
     setResult(null);
@@ -219,6 +222,7 @@ function PostEditor({ post, backTo, backLink }) {
           ...toPayload(values),
         }).unwrap();
         // Keep editing the new post at its own address.
+        allowLeave();
         navigate(`${adminPath("blog")}/${created.id}`, { replace: true });
         return;
       }
@@ -245,6 +249,7 @@ function PostEditor({ post, backTo, backLink }) {
   const remove = async () => {
     try {
       await deletePost(post.id).unwrap();
+      allowLeave();
       navigate(backTo, { replace: true });
     } catch {
       setConfirmDelete(false);
@@ -506,6 +511,7 @@ function PostEditor({ post, backTo, backLink }) {
           />
         </Can>
       )}
+      <UnsavedChangesDialog blocker={blocker} />
     </form>
   );
 }

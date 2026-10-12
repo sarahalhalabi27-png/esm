@@ -683,5 +683,11 @@
       "section": "Section {{number}}",
       "add": "Add section"
     }
+  },
+  "unsaved": {
+    "title": "Leave without saving?",
+    "body": "Your changes on this page will be lost.",
+    "leave": "Leave",
+    "stay": "Stay"
   }
 }

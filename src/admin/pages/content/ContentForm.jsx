@@ -12,6 +12,8 @@ import {
 import useCan from "../../hooks/useCan.js";
 import { P } from "../../permissions.js";
 import { formatDateTime } from "../../utils/format.js";
+import UnsavedChangesDialog from "../../components/UnsavedChangesDialog.jsx";
+import useUnsavedChanges from "../../hooks/useUnsavedChanges.js";
 
 // Loads one content block, lets `children` edit it and saves it whole.
 // `children` is a function getting the react-hook-form methods (control,
@@ -71,6 +73,7 @@ function EditForm({ contentKey, data, schema, hint, children }) {
     reset,
     formState: { errors, isDirty },
   } = form;
+  const { blocker } = useUnsavedChanges(isDirty);
 
   const onSubmit = async (values) => {
     setResult(null);
@@ -130,6 +133,7 @@ function EditForm({ contentKey, data, schema, hint, children }) {
           </button>
         </div>
       )}
+      <UnsavedChangesDialog blocker={blocker} />
     </form>
   );
 }

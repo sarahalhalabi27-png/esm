@@ -20,6 +20,8 @@ import {
 import useCan from "../../hooks/useCan.js";
 import { P } from "../../permissions.js";
 import { formatDateTime } from "../../utils/format.js";
+import UnsavedChangesDialog from "../../components/UnsavedChangesDialog.jsx";
+import useUnsavedChanges from "../../hooks/useUnsavedChanges.js";
 
 const SOCIALS = ["instagram", "facebook", "linkedin", "twitter"];
 const NOTIFICATIONS = ["newBooking", "newMessage", "newComment"];
@@ -116,6 +118,7 @@ function SettingsForm({ settings }) {
     resolver: zodResolver(settingsSchema(t)),
     defaultValues: toFormValues(settings),
   });
+  const { blocker } = useUnsavedChanges(isDirty);
 
   const onSubmit = async (values) => {
     setResult(null);
@@ -252,6 +255,7 @@ function SettingsForm({ settings }) {
           </button>
         </div>
       )}
+      <UnsavedChangesDialog blocker={blocker} />
     </form>
   );
 }
