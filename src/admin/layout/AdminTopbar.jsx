@@ -7,15 +7,7 @@ import LanguageToggle from "../components/LanguageToggle.jsx";
 import { ADMIN_ICON_BUTTON } from "../components/ui.js";
 import { ADMIN_BASE } from "../navigation.js";
 import { adminLogout, selectAdminUser } from "../store/adminSessionSlice.js";
-
-function initials(name = "") {
-  return name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0].toUpperCase())
-    .join("");
-}
+import { initials } from "../utils/people.js";
 
 export default function AdminTopbar({ onOpenMenu }) {
   const { t } = useTranslation("admin");

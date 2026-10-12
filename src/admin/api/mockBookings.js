@@ -201,6 +201,27 @@ function generateBookings() {
 
 let bookings = generateBookings();
 
+// For the other mocks (customers): who has booked, and their bookings'
+// statuses, matched by email as the backend would by account.
+export function bookingCustomers() {
+  const byEmail = new Map();
+  [...bookings].reverse().forEach(({ customer }) => {
+    if (!byEmail.has(customer.email)) byEmail.set(customer.email, customer);
+  });
+  return [...byEmail.values()].map((c) => ({ ...c }));
+}
+
+export function bookingStatsFor(email) {
+  const mine = bookings.filter((b) => b.customer.email === email);
+  return {
+    total: mine.length,
+    completed: mine.filter((b) => b.status === "completed").length,
+    cancelled: mine.filter((b) => b.status === "cancelled").length,
+    upcoming: mine.filter((b) => ["new", "confirmed"].includes(b.status))
+      .length,
+  };
+}
+
 // Answers are copies, as from a real API: the store freezes what it keeps,
 // so handing it these objects would stop later updates to them.
 const copy = (value) => structuredClone(value);

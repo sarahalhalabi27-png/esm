@@ -20,6 +20,7 @@ import BookingsPage from "./pages/bookings/BookingsPage.jsx";
 import FleetPage from "./pages/fleet/FleetPage.jsx";
 import MessagesPage from "./pages/messages/MessagesPage.jsx";
 import StaffListPage from "./pages/staff/StaffListPage.jsx";
+import CustomersPage from "./pages/customers/CustomersPage.jsx";
 import BlogPage from "./pages/blog/BlogPage.jsx";
 import CommentsPage from "./pages/comments/CommentsPage.jsx";
 import RolesPage from "./pages/roles/RolesPage.jsx";
@@ -37,6 +38,7 @@ const TAB_PAGES = {
   messages: MessagesPage,
   blog: BlogPage,
   comments: CommentsPage,
+  customers: CustomersPage,
   staff: StaffListPage,
   roles: RolesPage,
 };

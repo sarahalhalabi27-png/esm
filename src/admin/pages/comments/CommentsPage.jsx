@@ -27,6 +27,7 @@ import { adminPath } from "../../navigation.js";
 import { P } from "../../permissions.js";
 import { localTitle } from "../../utils/blog.js";
 import { formatShortDateTime } from "../../utils/format.js";
+import { initials } from "../../utils/people.js";
 
 const PAGE_SIZE = 20;
 const VIEWS = ["pending", "approved", "spam"];
@@ -48,14 +49,6 @@ const ACTIONS_BY_VIEW = {
 // Only real web addresses become links: the website comes from a public
 // form, and a "javascript:" address must never be clickable.
 const isWebLink = (url) => /^https?:\/\//i.test(url ?? "");
-
-const initials = (name) =>
-  name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0].toUpperCase())
-    .join("");
 
 // Reader comments from the blog's open form, to approve, mark as spam or
 // delete, one at a time or several at once.

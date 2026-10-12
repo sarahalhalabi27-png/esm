@@ -30,6 +30,7 @@ import { P } from "../../permissions.js";
 import { selectAdminUser } from "../../store/adminSessionSlice.js";
 import { formatShortDateTime } from "../../utils/format.js";
 import StaffFormDialog from "./StaffFormDialog.jsx";
+import { initials } from "../../utils/people.js";
 
 const STATUSES = ["active", "invited", "disabled"];
 const STATUS_TONES = {
@@ -39,14 +40,6 @@ const STATUS_TONES = {
     "bg-amber-400/15 text-amber-300 light:bg-amber-500/15 light:text-amber-800",
   disabled: "bg-surface/[0.08] text-muted",
 };
-
-const initials = (name) =>
-  name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0].toUpperCase())
-    .join("");
 
 // The team: who has dashboard access, with which role, and whether their
 // account is active, waiting for them to accept the invitation, or disabled.

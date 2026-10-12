@@ -535,5 +535,51 @@
       "deleteBody": "ستُحذف نهائياً."
     },
     "done": "تم تحديث {{count}} تعليقات."
+  },
+  "customers": {
+    "searchPlaceholder": "ابحث بالاسم أو البريد أو الهاتف",
+    "views": {
+      "all": "الكل",
+      "active": "النشطون",
+      "blocked": "المحظورون"
+    },
+    "status": {
+      "active": "نشط",
+      "blocked": "محظور"
+    },
+    "empty": "لا يوجد زبائن يطابقون هذه الفلاتر.",
+    "notFound": "هذا الزبون غير موجود أو تم حذفه.",
+    "backToList": "كل الزبائن",
+    "columns": {
+      "customer": "الزبون",
+      "phone": "الهاتف",
+      "bookings": "الحجوزات",
+      "joined": "تاريخ التسجيل",
+      "status": "الحالة"
+    },
+    "noPhone": "—",
+    "verified": "البريد مؤكَّد",
+    "notVerified": "البريد غير مؤكَّد",
+    "joined": "سجّل في {{date}}",
+    "lastLogin": "آخر دخول {{date}}",
+    "contact": "التواصل",
+    "bookingStats": {
+      "total": "الحجوزات",
+      "upcoming": "القادمة",
+      "completed": "المنجزة",
+      "cancelled": "الملغاة"
+    },
+    "bookingsTitle": "الحجوزات",
+    "noBookings": "لا توجد حجوزات بعد.",
+    "viewAllBookings": "عرض الكل في الحجوزات",
+    "actions": {
+      "block": "حظر الحساب",
+      "unblock": "إلغاء الحظر",
+      "blockTitle": "حظر {{name}}؟",
+      "blockBody": "لن يتمكن من تسجيل الدخول إلى الموقع حتى يُلغى الحظر. تبقى حجوزاته كما هي.",
+      "delete": "حذف الحساب",
+      "deleteTitle": "حذف حساب {{name}}؟",
+      "deleteBody": "سيُحذف حسابه وملفه نهائياً. تبقى حجوزاته كسجلّ للرحلات."
+    }
   }
 }

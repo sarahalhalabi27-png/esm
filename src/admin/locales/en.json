@@ -541,5 +541,51 @@
     },
     "done_one": "1 comment updated.",
     "done_other": "{{count}} comments updated."
+  },
+  "customers": {
+    "searchPlaceholder": "Search by name, email or phone",
+    "views": {
+      "all": "All",
+      "active": "Active",
+      "blocked": "Blocked"
+    },
+    "status": {
+      "active": "Active",
+      "blocked": "Blocked"
+    },
+    "empty": "No customers match these filters.",
+    "notFound": "This customer doesn't exist or was deleted.",
+    "backToList": "All customers",
+    "columns": {
+      "customer": "Customer",
+      "phone": "Phone",
+      "bookings": "Bookings",
+      "joined": "Joined",
+      "status": "Status"
+    },
+    "noPhone": "—",
+    "verified": "Email verified",
+    "notVerified": "Email not verified",
+    "joined": "Joined {{date}}",
+    "lastLogin": "Last sign-in {{date}}",
+    "contact": "Contact",
+    "bookingStats": {
+      "total": "Bookings",
+      "upcoming": "Upcoming",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "bookingsTitle": "Bookings",
+    "noBookings": "No bookings yet.",
+    "viewAllBookings": "View all in Bookings",
+    "actions": {
+      "block": "Block account",
+      "unblock": "Unblock account",
+      "blockTitle": "Block {{name}}?",
+      "blockBody": "They won't be able to sign in to the website until the account is unblocked. Their bookings stay as they are.",
+      "delete": "Delete account",
+      "deleteTitle": "Delete {{name}}'s account?",
+      "deleteBody": "Their account and profile are removed for good. Their bookings stay, as records of the trips."
+    }
   }
 }
