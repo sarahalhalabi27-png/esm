@@ -35,7 +35,7 @@ function SpecIcon({ src }) {
 export default function FleetShowcaseCard({ car }) {
   const { t } = useTranslation();
   return (
-    <div className="group relative w-[416px] max-w-full xl:w-full max-md:w-[var(--snap-card-w,82vw)] max-md:max-w-[340px] rounded-[10px] overflow-hidden font-display transition-transform duration-300 ease-out hover:scale-[1.02] hover:-translate-y-1 hover:z-30">
+    <div className="group relative w-[416px] max-w-full xl:w-full md:max-xl:w-[var(--snap-card-w,360px)] md:max-xl:max-w-none max-md:w-[var(--snap-card-w,82vw)] max-md:max-w-[340px] rounded-[10px] overflow-hidden font-display transition-transform duration-300 ease-out hover:scale-[1.02] hover:-translate-y-1 hover:z-30">
       {/* Green background behind the photo and the name */}
       <div className="absolute top-0 start-0 w-full h-[232px] max-md:h-[188px] rounded-t-[10px] bg-[#24B9A4]/[0.20] z-0" />
 
@@ -88,7 +88,7 @@ export default function FleetShowcaseCard({ car }) {
         {/* Passengers + Luggage */}
         <div className="mt-4 max-md:mt-3.5 flex items-center max-md:gap-2 max-md:whitespace-nowrap">
           {/* Passengers */}
-          <div className="flex items-center font-normal text-[20px] max-md:text-[clamp(12px,3.7vw,16px)] leading-[100%] capitalize">
+          <div className="flex items-center font-normal text-[20px] md:max-xl:text-[clamp(14px,1.9vw,17px)] max-md:text-[clamp(12px,3.7vw,16px)] leading-[100%] capitalize">
             <SpecIcon src={passengersIcon} />
 
             <span>
@@ -97,7 +97,7 @@ export default function FleetShowcaseCard({ car }) {
           </div>
 
           {/* Luggage */}
-          <div className="ms-auto flex items-center font-normal text-[20px] max-md:text-[clamp(12px,3.7vw,16px)] leading-[100%] capitalize">
+          <div className="ms-auto flex items-center font-normal text-[20px] md:max-xl:text-[clamp(14px,1.9vw,17px)] max-md:text-[clamp(12px,3.7vw,16px)] leading-[100%] capitalize">
             <SpecIcon src={luggageIcon} />
 
             <span>

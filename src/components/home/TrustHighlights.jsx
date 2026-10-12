@@ -58,7 +58,7 @@ export default function TrustHighlights() {
               // (right in English, left in Arabic). Tablets and small
               // laptops have no room for that, so the items stay in their
               // columns and may wrap.
-              className={`md:max-xl:whitespace-normal ${
+              className={`md:max-xl:whitespace-normal md:max-xl:leading-[1.6] ${
                 index % 2 !== 0
                   ? "xl:ltr:translate-x-[200px] xl:rtl:-translate-x-[200px]"
                   : ""

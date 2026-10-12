@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
 import { getFleetCategories, getCarById } from "../api/fleetService.js";
 import { STATUS } from "./constants.js";
 
@@ -60,8 +60,10 @@ const fleetSlice = createSlice({
 // باستخدام الـ carId.
 export const selectFleetCategories = (state) => state.fleet.categories;
 export const selectFleetStatus = (state) => state.fleet.categoriesStatus;
-export const selectFeaturedCars = (state) =>
-  state.fleet.categories.flatMap((category) => category.cars).slice(0, 3);
+export const selectFeaturedCars = createSelector(
+  [(state) => state.fleet.categories],
+  (categories) => categories.flatMap((category) => category.cars).slice(0, 3)
+);
 // بعطيها الـ ID → بتحددلي السيارة المطلوبة → Redux بيعطيها الـ state → بتجيب السيارة من الكاش.
 // undefined = not fetched yet, null = not found.
 export const selectCarById = (carId) => (state) => state.fleet.carsById[carId];

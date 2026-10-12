@@ -24,7 +24,13 @@ import { SUBMIT_STATUS } from "../../store/constants.js";
 
 // The page section and card (at most 880px wide, centred) with the form's
 // title and hairline; the fields go inside as `children`.
-export function ServiceFormShell({ cardRef, title, onSubmit, children }) {
+export function ServiceFormShell({
+  cardRef,
+  title,
+  onSubmit,
+  formClassName = "",
+  children,
+}) {
   return (
     <section className="font-display px-6 md:px-10 lg:px-[50px] mt-[44px] mb-[120px] max-md:mt-6 max-md:mb-16">
       <div
@@ -34,7 +40,11 @@ export function ServiceFormShell({ cardRef, title, onSubmit, children }) {
         <h2 className={BOOKING_TITLE}>{title}</h2>
         <BookingHairline />
 
-        <form onSubmit={onSubmit} noValidate className={BOOKING_FIELDS}>
+        <form
+          onSubmit={onSubmit}
+          noValidate
+          className={`${BOOKING_FIELDS} ${formClassName}`}
+        >
           {children}
         </form>
       </div>
@@ -44,7 +54,7 @@ export function ServiceFormShell({ cardRef, title, onSubmit, children }) {
 
 // Car type, car and passengers: three lists in one row. `group` is the
 // service's translation group (its labels are quickBook.<group>.carType...).
-export function CarChoiceRow({ control, group }) {
+export function CarChoiceRow({ control, group, className = "" }) {
   const { t } = useTranslation();
   const options = (keys, name) =>
     keys.map((value) => ({
@@ -57,7 +67,7 @@ export function CarChoiceRow({ control, group }) {
   }));
 
   return (
-    <div className={BOOKING_THREE_COLUMNS}>
+    <div className={`${BOOKING_THREE_COLUMNS} ${className}`}>
       <ControlledField
         control={control}
         name="carType"

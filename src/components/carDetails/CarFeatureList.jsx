@@ -245,13 +245,24 @@ export default function CarFeatureList({ car }) {
           <Trans i18nKey="carDetails.featuresTitle" components={{ accent }} />
         </CarSectionHeading>
 
-        <ul className="mt-[25px] ms-[37px] max-w-[1298.64px] flex flex-wrap justify-between gap-x-10 gap-y-6 max-md:ms-0 max-md:mt-6 max-md:grid max-md:grid-cols-2 max-md:gap-x-4 max-md:gap-y-5">
+        {/* Desktop: Figma's single row, spread across the line (up to 7 features
+            fit). Tablets, and desktop when there are more than 7, use equal
+            columns instead, so the last row lines up with the ones above
+            however many features there are (spreading a short last row
+            across the line left its items stranded at the two ends). */}
+        <ul
+          className={`mt-[25px] ms-[37px] max-w-[1298.64px] flex flex-wrap justify-between gap-x-10 gap-y-6 md:max-xl:grid md:max-xl:grid-cols-[repeat(auto-fill,minmax(190px,1fr))] md:max-xl:justify-normal md:max-xl:gap-x-6 max-md:ms-0 max-md:mt-6 max-md:grid max-md:grid-cols-2 max-md:gap-x-4 max-md:gap-y-5 ${
+            features.length > 7
+              ? "xl:grid xl:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] xl:justify-normal"
+              : ""
+          }`}
+        >
           {features.map(({ key, label }) => {
             const icon = featureIcons[key] ?? featureIcons.model;
             return (
               <li
                 key={key}
-                className="group flex items-center gap-[12px] h-[34px] text-[18px] leading-[34px] capitalize text-fg max-md:h-auto max-md:text-[15px] max-md:leading-snug max-md:gap-2"
+                className="group flex items-center gap-[12px] h-[34px] text-[18px] leading-[34px] capitalize text-fg md:max-xl:h-auto md:max-xl:min-h-[34px] md:max-xl:leading-snug max-md:h-auto max-md:text-[15px] max-md:leading-snug max-md:gap-2"
               >
                 {/* Lifts a little on hover */}
                 <span data-icon className="flex">

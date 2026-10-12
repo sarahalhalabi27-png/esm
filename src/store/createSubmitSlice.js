@@ -50,5 +50,6 @@ export function createSubmitSlice({ name, submitFn }) {
     submit,
     reset: slice.actions.reset,
     selectStatus: (state) => state[name].status,
+    selectError: (state) => state[name].error,
   };
 }

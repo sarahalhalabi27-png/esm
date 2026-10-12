@@ -65,6 +65,14 @@ const TYPE_FIELDS = {
 };
 
 // Each of those fields' icon and the example shown inside it (translation key).
+// Small tablets (768-1023px): every field after the transfer type flows into
+// one two-column grid (the wrappers around them dissolve: md:max-lg:contents),
+// so the date, the four fields of the picked type and the three lists (car
+// type, car, passengers) fill rows of two with no field left alone; the
+// transfer type, the notes and the button take full rows.
+const TABLET_FORM =
+  "md:max-lg:grid md:max-lg:grid-cols-2 md:max-lg:gap-x-[var(--col-gap,5.5rem)] md:max-lg:gap-y-[var(--field-gap,1.25rem)]";
+
 const FIELD_LOOK = {
   airport: { icon: Plane, placeholder: "formPlaceholders.airport" },
   flightNumber: { icon: Ticket, placeholder: "formPlaceholders.flightNumber" },
@@ -154,16 +162,19 @@ export default function AirportTransferForm({ details }) {
       cardRef={cardRef}
       title={t("quickBook.airportTransfer.title")}
       onSubmit={handleSubmit(onSubmit)}
+      formClassName={TABLET_FORM}
     >
-      <div className={BOOKING_TWO_COLUMNS}>
-        <ControlledField
-          control={control}
-          name="transferType"
-          as={BookingRadioGroup}
-          label={t("quickBook.airportTransfer.transferType")}
-          options={transferOptions}
-          required
-        />
+      <div className={`${BOOKING_TWO_COLUMNS} md:max-lg:contents`}>
+        <div className="md:max-lg:col-span-2">
+          <ControlledField
+            control={control}
+            name="transferType"
+            as={BookingRadioGroup}
+            label={t("quickBook.airportTransfer.transferType")}
+            options={transferOptions}
+            required
+          />
+        </div>
         <ControlledField
           control={control}
           name="date"
@@ -176,28 +187,36 @@ export default function AirportTransferForm({ details }) {
       </div>
 
       {transferType ? (
-        <div className={BOOKING_TWO_COLUMNS}>
+        <div className={`${BOOKING_TWO_COLUMNS} md:max-lg:contents`}>
           {TYPE_FIELDS[transferType].map(renderField)}
         </div>
       ) : null}
 
-      <CarChoiceRow control={control} group="airportTransfer" />
-
-      <OptionalField label={t("formPlaceholders.addNote")}>
-        <ControlledField
-          control={control}
-          name="notes"
-          as={BookingTextArea}
-          label={t("quickBook.airportTransfer.notes")}
-          placeholder={t("formPlaceholders.message")}
-        />
-      </OptionalField>
-
-      <ConfirmRow
-        status={status}
-        sentFlash={sentFlash}
-        label={t("quickBook.airportTransfer.confirm")}
+      <CarChoiceRow
+        control={control}
+        group="airportTransfer"
+        className="md:max-lg:contents"
       />
+
+      <div className="md:max-lg:col-span-2">
+        <OptionalField label={t("formPlaceholders.addNote")}>
+          <ControlledField
+            control={control}
+            name="notes"
+            as={BookingTextArea}
+            label={t("quickBook.airportTransfer.notes")}
+            placeholder={t("formPlaceholders.message")}
+          />
+        </OptionalField>
+      </div>
+
+      <div className="md:max-lg:col-span-2">
+        <ConfirmRow
+          status={status}
+          sentFlash={sentFlash}
+          label={t("quickBook.airportTransfer.confirm")}
+        />
+      </div>
     </ServiceFormShell>
   );
 }

@@ -16,6 +16,9 @@ import CarDetailsPage from "./pages/CarDetailsPage.jsx";
 import QuickBookPage from "./pages/QuickBookPage.jsx";
 import LegalPage from "./pages/LegalPage.jsx";
 import FaqPage from "./pages/FaqPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import SignUpPage from "./pages/SignUpPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
 
 // Start each newly opened page at the top (e.g. a car opened from the bottom
 // of Our Fleet); browser back/forward keeps its own scroll restoration.
@@ -46,6 +49,9 @@ export default function App() {
         <Route path="/privacy" element={<LegalPage doc="privacy" />} />
         <Route path="/disclaimer" element={<LegalPage doc="disclaimer" />} />
         <Route path="/faq" element={<FaqPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </>
   );

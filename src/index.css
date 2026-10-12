@@ -461,3 +461,43 @@ input:-webkit-autofill:active {
     transform: scale(1);
   }
 }
+
+/* Tablet Carousel (768–1279px): one row that scrolls sideways, snapping
+   card by card from the start edge. The card width is worked out so two
+   cards fit in full and a ~56px strip of the third shows at the end edge —
+   the cue that there is more to swipe to (capped at 420px on wide tablets).
+   Reads the right way round in Arabic (rtl) on its own. */
+@media (min-width: 768px) and (max-width: 1279.98px) {
+  .tablet-carousel {
+    --tablet-gutter: 2.5rem;
+    --snap-card-w: clamp(300px, calc((100vw - var(--tablet-gutter) - 136px) / 2), 420px);
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    margin-inline: calc(-1 * var(--tablet-gutter));
+    padding-block: 1rem;
+    padding-inline: var(--tablet-gutter);
+    scroll-padding-inline: var(--tablet-gutter);
+  }
+  .tablet-carousel::-webkit-scrollbar {
+    display: none;
+  }
+  .tablet-carousel > * {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .tablet-carousel {
+    --tablet-gutter: 50px;
+  }
+}
+

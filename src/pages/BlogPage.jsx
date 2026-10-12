@@ -76,10 +76,11 @@ export default function BlogPage() {
         </p>
 
         {/* Phones: Card Snap Carousel, like the home page (see
-            .mobile-carousel--snap in index.css). Two columns below xl. */}
+            .mobile-carousel--snap in index.css). Tablets: the cards in a
+            swipeable row (.tablet-carousel, same as the home fleet). */}
         <div
           ref={gridRef}
-          className="mobile-carousel mobile-carousel--snap mt-[51px] grid grid-cols-2 xl:grid-cols-3 gap-8 max-md:mt-8 max-md:gap-3 max-md:py-4"
+          className="mobile-carousel mobile-carousel--snap tablet-carousel mt-[51px] grid grid-cols-2 md:max-xl:flex xl:grid-cols-3 gap-8 max-md:mt-8 max-md:gap-3 max-md:py-4"
         >
           {posts.map((post) => (
             <BlogPostCard key={post.id} post={post} />

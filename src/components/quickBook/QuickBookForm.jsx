@@ -18,6 +18,7 @@ import {
 import { quickBookSchema } from "../../schemas/formSchemas.js";
 import { sanitizeName, sanitizePhone } from "../../utils/validators.js";
 import { QUICK_BOOK_SERVICES } from "../../data/quickBookServices.js";
+import useProfilePrefill from "../../hooks/useProfilePrefill.js";
 
 const defaultValues = {
   firstName: "",
@@ -38,10 +39,17 @@ export default function QuickBookForm({ initialValues, onNext }) {
   const { t, i18n } = useTranslation();
   const cardRef = useFormReveal(i18n.dir() === "rtl");
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, getValues, setValue } = useForm({
     resolver: zodResolver(quickBookSchema(t)),
     defaultValues: initialValues ?? defaultValues,
   });
+  // Fills the empty fields from the signed-in user's profile
+  useProfilePrefill({ getValues, setValue }, [
+    "firstName",
+    "lastName",
+    "email",
+    "phone",
+  ]);
 
   const serviceOptions = QUICK_BOOK_SERVICES.map((value) => ({
     value,

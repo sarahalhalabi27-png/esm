@@ -8,6 +8,8 @@
     "contact": "Contact Us",
     "login": "Login",
     "account": "Account",
+    "myProfile": "My Profile",
+    "logout": "Log Out",
     "toggleMenu": "Open or close the menu",
     "closeMenu": "Close the menu",
     "switchToArabic": "Switch to Arabic",
@@ -665,6 +667,78 @@
     }
   },
 
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "submit": "Login",
+      "noAccount": "Don't have an account?",
+      "signUpLink": "Sign Up"
+    },
+    "signUp": {
+      "title": "Create Your Account",
+      "submit": "Create Account",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Login",
+      "terms": "By creating an account you agree to our <terms>Terms Of Services</terms> and <privacy>Privacy Policy</privacy>."
+    },
+    "fields": {
+      "email": "Email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "newPasswordPlaceholder": "Create a password",
+      "passwordHint": "At least 8 characters, with a letter and a number.",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password"
+    },
+    "verify": {
+      "title": "Verify Your Email",
+      "text": "We sent a 6-digit code to <email>{{email}}</email>. Enter it below to finish creating your account.",
+      "codeLabel": "Verification Code",
+      "codePlaceholder": "000000",
+      "submit": "Verify Email",
+      "resend": "Resend code",
+      "resendIn": "Resend code in {{seconds}}s",
+      "resent": "A new code is on its way.",
+      "changeEmail": "Use a different email",
+      "demoHint": "Demo: the code is {{code}}."
+    },
+    "done": {
+      "title": "Email Verified",
+      "text": "Your account is ready. Welcome to ESM Limo.",
+      "continue": "Continue"
+    },
+    "errors": {
+      "codeIncorrect": "That code isn't right. Try again.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+
+  "profile": {
+    "title": "My Profile",
+    "photo": {
+      "label": "Profile Photo",
+      "add": "Add Photo",
+      "change": "Change Photo",
+      "remove": "Remove",
+      "hint": "JPG, PNG or WebP, up to 5MB."
+    },
+    "name": "Name",
+    "phone": "Mobile Number",
+    "phonePlaceholder": "+971 50 123 4567",
+    "email": "Email",
+    "verified": "Verified",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "saved": "Your profile was saved.",
+    "menuProfile": "My Profile",
+    "errors": {
+      "type": "Choose a JPG, PNG or WebP image.",
+      "size": "That image is over 5MB.",
+      "read": "We couldn't read that image.",
+      "save": "We couldn't save your profile. Please try again."
+    }
+  },
+
   "validation": {
     "transferRequired": "Please choose a transfer type",
     "locationRequired": "Location is required",
@@ -678,6 +752,11 @@
     "invalidEmail": "Enter a valid email",
     "invalidUrl": "Enter a valid URL",
     "messageRequired": "Message is required",
-    "commentRequired": "Comment is required"
+    "commentRequired": "Comment is required",
+    "passwordRequired": "Password is required",
+    "passwordShort": "Use at least 8 characters",
+    "passwordWeak": "Include a letter and a number",
+    "codeInvalid": "Enter the 6-digit code",
+    "phoneInvalid": "Enter a valid mobile number"
   }
 }

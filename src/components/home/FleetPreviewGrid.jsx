@@ -33,9 +33,10 @@ export default function FleetPreviewGrid() {
         </p>
         {/* xl+: three equal columns across the content, 32px apart, so the
             row's edges line up with the page gutters and the button below.
-            Narrower screens wrap the 416px cards (2 + 1), centred. Phones:
+            Tablets: the cards sit side by side in a row that scrolls
+            (.tablet-carousel in index.css). Phones:
             Card Snap Carousel (see .mobile-carousel--snap in index.css). */}
-        <div className="mobile-carousel mobile-carousel--snap flex flex-wrap justify-center gap-8 xl:grid xl:grid-cols-3 max-md:gap-3 max-md:py-4">
+        <div className="mobile-carousel mobile-carousel--snap tablet-carousel flex flex-wrap justify-center gap-8 xl:grid xl:grid-cols-3 max-md:gap-3 max-md:py-4">
           {featuredCars.map((car) => (
             <div key={car.id} className="min-w-0 max-w-full max-md:max-w-none">
               <FleetShowcaseCard car={car} />

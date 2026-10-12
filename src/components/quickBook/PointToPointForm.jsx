@@ -30,6 +30,13 @@ import {
 
 const SENT_FLASH_MS = 1800;
 
+// Small tablets (768-1023px): the fields flow into one two-column grid (the
+// wrappers around them dissolve: md:max-lg:contents) - pickup and drop-off,
+// date and time, car type and car, then Passengers with the notes beside it -
+// so each row holds two with none left alone; the button takes a full row.
+const TABLET_FORM =
+  "md:max-lg:grid md:max-lg:grid-cols-2 md:max-lg:gap-x-[var(--col-gap,5.5rem)] md:max-lg:gap-y-[var(--field-gap,1.25rem)]";
+
 const defaultValues = {
   pickupLocation: "",
   dropOffLocation: "",
@@ -86,8 +93,9 @@ export default function PointToPointForm({ details }) {
       cardRef={cardRef}
       title={t("quickBook.pointToPoint.title")}
       onSubmit={handleSubmit(onSubmit)}
+      formClassName={TABLET_FORM}
     >
-      <div className={BOOKING_TWO_COLUMNS}>
+      <div className={`${BOOKING_TWO_COLUMNS} md:max-lg:contents`}>
         <ControlledField
           control={control}
           name="pickupLocation"
@@ -108,7 +116,7 @@ export default function PointToPointForm({ details }) {
         />
       </div>
 
-      <div className={BOOKING_PAIR_COLUMNS}>
+      <div className={`${BOOKING_PAIR_COLUMNS} md:max-lg:contents`}>
         <ControlledField
           control={control}
           name="date"
@@ -131,23 +139,32 @@ export default function PointToPointForm({ details }) {
         />
       </div>
 
-      <CarChoiceRow control={control} group="pointToPoint" />
-
-      <OptionalField label={t("formPlaceholders.addNote")}>
-        <ControlledField
-          control={control}
-          name="notes"
-          as={BookingTextArea}
-          label={t("quickBook.pointToPoint.notes")}
-          placeholder={t("formPlaceholders.message")}
-        />
-      </OptionalField>
-
-      <ConfirmRow
-        status={status}
-        sentFlash={sentFlash}
-        label={t("quickBook.pointToPoint.confirm")}
+      <CarChoiceRow
+        control={control}
+        group="pointToPoint"
+        className="md:max-lg:contents"
       />
+
+      {/* Tablets: beside Passengers, as tall as that field */}
+      <div className="md:max-lg:[&_textarea]:h-[var(--box-h,2.5rem)] md:max-lg:[&_textarea]:py-2">
+        <OptionalField label={t("formPlaceholders.addNote")}>
+          <ControlledField
+            control={control}
+            name="notes"
+            as={BookingTextArea}
+            label={t("quickBook.pointToPoint.notes")}
+            placeholder={t("formPlaceholders.message")}
+          />
+        </OptionalField>
+      </div>
+
+      <div className="md:max-lg:col-span-2">
+        <ConfirmRow
+          status={status}
+          sentFlash={sentFlash}
+          label={t("quickBook.pointToPoint.confirm")}
+        />
+      </div>
     </ServiceFormShell>
   );
 }

@@ -32,6 +32,7 @@ import {
 import { SUBMIT_STATUS } from "../../store/constants.js";
 import useFormReveal from "../common/useFormReveal.js";
 import DrawnCheck from "../common/DrawnCheck.jsx";
+import useProfilePrefill from "../../hooks/useProfilePrefill.js";
 
 const SENT_FLASH_MS = 1800;
 
@@ -67,10 +68,17 @@ export default function CarReservationForm({ car }) {
     return () => clearTimeout(timer);
   }, [sentFlash]);
   const status = useSelector(selectBookingStatus);
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset, getValues, setValue } = useForm({
     resolver: zodResolver(reservationSchema(t)),
     defaultValues,
   });
+  // Fills the empty fields from the signed-in user's profile
+  const applyPrefill = useProfilePrefill({ getValues, setValue }, [
+    "firstName",
+    "lastName",
+    "email",
+    "phone",
+  ]);
 
   // Reset any leftover status when the form mounts.
   useEffect(() => {
@@ -83,6 +91,7 @@ export default function CarReservationForm({ car }) {
         submitBooking({ carId: car.id, carName: car.name, ...values })
       ).unwrap();
       reset(defaultValues);
+      applyPrefill();
       setSentFlash(true);
     } catch {
       // status is set to "error" by the slice

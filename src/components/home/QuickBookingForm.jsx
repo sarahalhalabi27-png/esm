@@ -25,6 +25,7 @@ import {
 } from "../../store/bookingSlice.js";
 import { SUBMIT_STATUS } from "../../store/constants.js";
 import useIsLightTheme from "../../hooks/useIsLightTheme.js";
+import useProfilePrefill from "../../hooks/useProfilePrefill.js";
 
 const defaultValues = {
   name: "",
@@ -49,10 +50,15 @@ export default function QuickBookingForm() {
     ? "/booking-video-light.mp4"
     : "/booking-video.mp4";
 
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset, getValues, setValue } = useForm({
     resolver: zodResolver(bookingSchema(t)),
     defaultValues,
   });
+  // Fills the empty fields from the signed-in user's profile
+  const applyPrefill = useProfilePrefill({ getValues, setValue }, [
+    "name",
+    "phone",
+  ]);
 
   // Reset any leftover status when the form mounts.
   useEffect(() => {
@@ -63,6 +69,7 @@ export default function QuickBookingForm() {
     try {
       await dispatch(submitBooking(values)).unwrap();
       reset(defaultValues);
+      applyPrefill();
     } catch {
       // status is set to "error" by the slice
     }
@@ -85,7 +92,7 @@ export default function QuickBookingForm() {
       >
         <video
           key={videoSrc}
-          className="absolute top-0 left-0 w-full h-auto z-0 max-md:h-full max-md:object-cover"
+          className="absolute top-0 left-0 w-full h-auto z-0 max-md:h-full max-md:object-cover md:max-xl:h-full md:max-xl:object-cover md:max-xl:object-left"
           src={videoSrc}
           autoPlay
           muted
@@ -100,8 +107,9 @@ export default function QuickBookingForm() {
       <div className="relative w-full max-w-[1440px] mx-auto py-10 min-h-0 max-md:pt-2 max-md:pb-12 xl:py-0 xl:min-h-[750px]">
         {/* Booking Form (xl: 810px from the left, as in Figma; on narrower
             boxes it moves left just enough to keep a 40px end margin instead
-            of running off the screen) */}
-        <div className="relative z-10 mx-auto w-[92%] max-w-[520px] max-md:w-[calc(100%-3rem)] xl:absolute xl:top-[85px] xl:[@media(min-width:768px)_and_(max-height:720px)]:top-[32px] xl:left-[min(810px,calc(100%-560px))] xl:mx-0 xl:w-[520px]">
+            of running off the screen). On tablets it sits on the right, as on
+            desktop, leaving the car in the video visible on the left. */}
+        <div className="relative z-10 mx-auto w-[92%] max-w-[520px] max-md:w-[calc(100%-3rem)] md:max-xl:ml-auto md:max-xl:mr-8 md:max-xl:w-[min(440px,56%)] xl:absolute xl:top-[85px] xl:[@media(min-width:768px)_and_(max-height:720px)]:top-[32px] xl:left-[min(810px,calc(100%-560px))] xl:mx-0 xl:w-[520px]">
           {/* The card: dark teal-to-black glass with a thin teal border
               (solid #072E2A in light mode, like the site's other form
               cards); the title and a hairline, then the fields
@@ -154,11 +162,15 @@ export default function QuickBookingForm() {
                   placeholder={t("booking.locationPlaceholder")}
                 />
 
-                <div className="grid grid-cols-2 gap-x-5 gap-y-[var(--field-gap,1.25rem)] max-[399px]:grid-cols-1">
+                {/* Side by side on phones too (down to 360px): `compact` tightens the
+                    pickers there (icon nearer the edge, slightly smaller text)
+                    so the placeholders and icons both fit the narrower boxes */}
+                <div className="grid grid-cols-2 gap-x-5 max-md:gap-x-3 gap-y-[var(--field-gap,1.25rem)] max-[359px]:grid-cols-1">
                   <ControlledField
                     control={control}
                     name="date"
                     as={BookingPicker}
+                    compact
                     picker={DatePicker}
                     icon={CalendarDays}
                     label={t("booking.date")}
@@ -168,6 +180,7 @@ export default function QuickBookingForm() {
                     control={control}
                     name="time"
                     as={BookingPicker}
+                    compact
                     picker={TimePicker}
                     icon={Clock}
                     label={t("booking.time")}

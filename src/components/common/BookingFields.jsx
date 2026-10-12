@@ -31,7 +31,9 @@ export function BookingHairline() {
 }
 
 // Field rows, 20px apart; columns are 40px apart (--col-gap), the same in the
-// two- and four-column rows so their edges line up.
+// two- and four-column rows so their edges line up. On tablets the three- and
+// four-column rows fold into two columns and take the two-column rows' gap, so
+// every row's columns start at the same edges.
 export const BOOKING_FIELDS =
   "mt-4 flex flex-col gap-[var(--field-gap,1.25rem)]";
 export const BOOKING_TWO_COLUMNS =
@@ -39,9 +41,9 @@ export const BOOKING_TWO_COLUMNS =
 export const BOOKING_PAIR_COLUMNS =
   "grid grid-cols-2 gap-x-[var(--col-gap,5.5rem)] gap-y-[var(--field-gap,1.25rem)] max-md:gap-x-3 max-[359px]:grid-cols-1";
 export const BOOKING_THREE_COLUMNS =
-  "grid grid-cols-3 gap-x-[var(--col-gap,2.5rem)] gap-y-[var(--field-gap,1.25rem)] max-lg:grid-cols-2 max-md:grid-cols-1";
+  "grid grid-cols-3 gap-x-[var(--col-gap,2.5rem)] gap-y-[var(--field-gap,1.25rem)] max-lg:grid-cols-2 md:max-lg:gap-x-[var(--col-gap,5.5rem)] max-md:grid-cols-1";
 export const BOOKING_FOUR_COLUMNS =
-  "grid grid-cols-4 gap-x-[var(--col-gap,2.5rem)] gap-y-[var(--field-gap,1.25rem)] max-lg:grid-cols-2 max-md:gap-x-3 max-[359px]:grid-cols-1";
+  "grid grid-cols-4 gap-x-[var(--col-gap,2.5rem)] gap-y-[var(--field-gap,1.25rem)] max-lg:grid-cols-2 md:max-lg:gap-x-[var(--col-gap,5.5rem)] max-md:gap-x-3 max-[359px]:grid-cols-1";
 
 // The form buttons: 44px tall (48px on phones), 18px text (16px on phones).
 // `solid` (the submit button) is white with dark teal text and turns brand
@@ -115,6 +117,7 @@ export function BookingInput({
   required,
   icon,
   readOnly,
+  inputClassName = "",
   ...inputProps
 }) {
   return (
@@ -128,7 +131,7 @@ export function BookingInput({
           required={required}
           className={`${BOX} ${icon ? "ps-11" : "ps-4"} placeholder:text-white/40 ${
             readOnly ? "cursor-default text-white/80" : ""
-          }`}
+          } ${inputClassName}`}
         />
       </span>
     </label>
@@ -157,17 +160,21 @@ export function BookingPicker({
   required,
   icon,
   pair = false,
+  compact = false,
   ...pickerProps
 }) {
   return (
     <div>
       <FieldLabel text={label} required={required} />
       <div className="relative">
-        <FieldIcon icon={icon} className={pair ? "max-md:hidden" : ""} />
+        <FieldIcon
+          icon={icon}
+          className={`${pair ? "max-md:hidden" : ""} ${compact ? "max-md:start-3" : ""}`}
+        />
         <Picker
           {...pickerProps}
-          fieldClassName={`${BOX} !min-h-0 !py-0 ${pair ? "!ps-4 md:!ps-11" : "!ps-11"} !border !border-white/[0.12] !font-normal !normal-case !text-base !text-white focus-visible:!border-[#24B9A5]/70`}
-          floatingLabelClassName={`top-1/2 -translate-y-1/2 ${pair ? "ps-4 md:ps-11" : "ps-11"} text-base font-normal !normal-case text-white/40`}
+          fieldClassName={`${BOX} !min-h-0 !py-0 ${pair ? "!ps-4 md:!ps-11" : "!ps-11"} ${compact ? "max-md:!ps-9 max-md:!text-[15px] max-[380px]:!text-[13px]" : ""} !border !border-white/[0.12] !font-normal !normal-case !text-base !text-white focus-visible:!border-[#24B9A5]/70`}
+          floatingLabelClassName={`top-1/2 -translate-y-1/2 ${pair ? "ps-4 md:ps-11" : "ps-11"} ${compact ? "max-md:ps-9 max-md:text-[15px] max-[380px]:text-[13px]" : ""} whitespace-nowrap text-base font-normal !normal-case text-white/40`}
           floatingLabelActiveClassName="hidden"
         />
       </div>
@@ -232,7 +239,7 @@ export function BookingRadioGroup({
   return (
     <div role="radiogroup" aria-label={label}>
       <FieldLabel text={label} required={required} />
-      <div className="grid grid-cols-2 gap-3 max-[420px]:grid-cols-1">
+      <div className="grid grid-cols-2 gap-3 md:max-lg:gap-x-[var(--col-gap,5.5rem)] max-[420px]:grid-cols-1">
         {options.map((option) => {
           const picked = value === option.value;
           return (
@@ -246,7 +253,7 @@ export function BookingRadioGroup({
                 className="peer sr-only"
               />
               <span
-                className={`flex h-[var(--box-h,2.5rem)] max-md:h-11 items-center gap-2.5 rounded-[10px] border px-3 text-base text-white transition-[border-color,background-color] duration-200 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-white/80 ${
+                className={`flex h-[var(--box-h,2.5rem)] max-md:h-11 items-center gap-2.5 whitespace-nowrap rounded-[10px] border px-3 text-base text-white transition-[border-color,background-color] duration-200 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-white/80 ${
                   picked
                     ? "border-[#24B9A5]/70 bg-[#24B9A5]/10"
                     : "border-white/[0.12] bg-white/[0.04] hover:border-white/25"

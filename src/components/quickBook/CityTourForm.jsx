@@ -29,6 +29,13 @@ import {
 
 const SENT_FLASH_MS = 1800;
 
+// Small tablets (768-1023px): the fields flow into one two-column grid (the
+// wrappers around them dissolve: md:max-lg:contents) - city, date, start time,
+// duration, then car type, car, passengers and places to visit - so each row
+// holds two with none left alone; the notes and the button take full rows.
+const TABLET_FORM =
+  "md:max-lg:grid md:max-lg:grid-cols-2 md:max-lg:gap-x-[var(--col-gap,5.5rem)] md:max-lg:gap-y-[var(--field-gap,1.25rem)]";
+
 const defaultValues = {
   city: "",
   date: "",
@@ -87,8 +94,9 @@ export default function CityTourForm({ details }) {
       cardRef={cardRef}
       title={t("quickBook.cityTour.title")}
       onSubmit={handleSubmit(onSubmit)}
+      formClassName={TABLET_FORM}
     >
-      <div className={BOOKING_TWO_COLUMNS}>
+      <div className={`${BOOKING_TWO_COLUMNS} md:max-lg:contents`}>
         <ControlledField
           control={control}
           name="city"
@@ -126,31 +134,42 @@ export default function CityTourForm({ details }) {
         />
       </div>
 
-      <CarChoiceRow control={control} group="cityTour" />
-
-      <ControlledField
+      <CarChoiceRow
         control={control}
-        name="places"
-        as={BookingTextArea}
-        label={t("quickBook.cityTour.places")}
-        placeholder={t("formPlaceholders.places")}
+        group="cityTour"
+        className="md:max-lg:contents"
       />
 
-      <OptionalField label={t("formPlaceholders.addNote")}>
+      {/* Tablets: beside Passengers, as tall as that field */}
+      <div className="md:max-lg:[&_textarea]:h-[var(--box-h,2.5rem)] md:max-lg:[&_textarea]:py-2">
         <ControlledField
           control={control}
-          name="notes"
+          name="places"
           as={BookingTextArea}
-          label={t("quickBook.cityTour.notes")}
-          placeholder={t("formPlaceholders.message")}
+          label={t("quickBook.cityTour.places")}
+          placeholder={t("formPlaceholders.places")}
         />
-      </OptionalField>
+      </div>
 
-      <ConfirmRow
-        status={status}
-        sentFlash={sentFlash}
-        label={t("quickBook.cityTour.confirm")}
-      />
+      <div className="md:max-lg:col-span-2">
+        <OptionalField label={t("formPlaceholders.addNote")}>
+          <ControlledField
+            control={control}
+            name="notes"
+            as={BookingTextArea}
+            label={t("quickBook.cityTour.notes")}
+            placeholder={t("formPlaceholders.message")}
+          />
+        </OptionalField>
+      </div>
+
+      <div className="md:max-lg:col-span-2">
+        <ConfirmRow
+          status={status}
+          sentFlash={sentFlash}
+          label={t("quickBook.cityTour.confirm")}
+        />
+      </div>
     </ServiceFormShell>
   );
 }

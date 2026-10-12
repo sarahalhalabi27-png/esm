@@ -31,6 +31,7 @@ import {
   selectRememberedAuthor,
 } from "../../store/authorSlice.js";
 import { SUBMIT_STATUS } from "../../store/constants.js";
+import useProfilePrefill from "../../hooks/useProfilePrefill.js";
 
 const SENT_FLASH_MS = 1800;
 
@@ -53,7 +54,7 @@ export default function CommentForm({ postId }) {
     return () => clearTimeout(timer);
   }, [sentFlash]);
 
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset, getValues, setValue } = useForm({
     resolver: zodResolver(commentSchema(t)),
     // Pre-fill identity fields from the persisted "Remember Me" data.
     defaultValues: {
@@ -64,6 +65,11 @@ export default function CommentForm({ postId }) {
       rememberMe: remembered.remember,
     },
   });
+  // Fills the empty fields from the signed-in user's profile
+  const applyPrefill = useProfilePrefill({ getValues, setValue }, [
+    "name",
+    "email",
+  ]);
 
   // Reset any leftover status when the form mounts.
   useEffect(() => {
@@ -95,6 +101,7 @@ export default function CommentForm({ postId }) {
         comment: "",
         rememberMe: values.rememberMe,
       });
+      applyPrefill();
       setSentFlash(true);
     } catch {
       // status is set to "error" by the slice
@@ -137,16 +144,21 @@ export default function CommentForm({ postId }) {
               autoComplete="email"
               required
             />
-            <ControlledField
-              control={control}
-              name="website"
-              as={BookingInput}
-              type="url"
-              icon={Globe}
-              label={t("blogPost.comment.website")}
-              placeholder={t("formPlaceholders.website")}
-              autoComplete="url"
-            />
+            {/* Two columns on tablets: name + email in a row, the website
+                across the full width below them (instead of alone in half a
+                row with an empty space beside it). */}
+            <div className="md:max-lg:col-span-2">
+              <ControlledField
+                control={control}
+                name="website"
+                as={BookingInput}
+                type="url"
+                icon={Globe}
+                label={t("blogPost.comment.website")}
+                placeholder={t("formPlaceholders.website")}
+                autoComplete="url"
+              />
+            </div>
           </div>
 
           <ControlledField

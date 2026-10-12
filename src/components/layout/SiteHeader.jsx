@@ -1,15 +1,22 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Menu, User, X } from "lucide-react";
 import { navigationLinks } from "../../data/navigationLinks.js";
 import ThemeToggle from "../common/ThemeToggle.jsx";
 import BrandLogo from "../common/BrandLogo.jsx";
+import UserAvatar from "../common/UserAvatar.jsx";
+import ProfileMenu from "./ProfileMenu.jsx";
 import { BookingButton } from "../common/BookingFields.jsx";
+import { selectSessionUser, signedOut } from "../../store/sessionSlice.js";
 
 export default function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
+  const user = useSelector(selectSessionUser);
+  const logout = () => dispatch(signedOut());
   const toggleLanguage = () => {
     // i18n.js listens for languageChanged and syncs <html> dir/lang + storage.
     i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
@@ -70,26 +77,35 @@ export default function SiteHeader() {
           {i18n.language === "en" ? "AR" : "EN"}
         </button>
 
-        {/* Account button. It has no destination yet (the Login and Sign Up
-            pages are still to come). xl+: one "Login" button;
-            1024-1279 has room for just an account icon; below that the
-            button sits at the bottom of the sidebar. */}
-        <div className="hidden xl:block ms-6 shrink-0">
-          <BookingButton
-            type="button"
-            variant="page"
-            className="!h-10 px-6 !text-base"
-          >
-            {t("nav.login")}
-          </BookingButton>
-        </div>
-        <button
-          type="button"
-          aria-label={t("nav.account")}
-          className="hidden lg:grid xl:hidden ms-4 self-center shrink-0 place-items-center w-[42px] h-[42px] rounded-full border border-teal-accent/40 text-teal-accent transition-colors hover:bg-teal-accent/10"
-        >
-          <User size={20} />
-        </button>
+        {/* Account: from 1024 up, the profile menu (photo, name, My Profile,
+            Log Out) once signed in; otherwise "Login" (to /login): a button
+            from xl, just an icon on 1024-1279. Below 1024 both live in the
+            sidebar. */}
+        {user ? (
+          <div className="hidden lg:block ms-4 xl:ms-6 shrink-0">
+            <ProfileMenu />
+          </div>
+        ) : (
+          <>
+            <div className="hidden xl:block ms-6 shrink-0">
+              <BookingButton
+                as={Link}
+                to="/login"
+                variant="page"
+                className="!h-10 px-6 !text-base"
+              >
+                {t("nav.login")}
+              </BookingButton>
+            </div>
+            <Link
+              to="/login"
+              aria-label={t("nav.login")}
+              className="hidden lg:grid xl:hidden ms-4 self-center shrink-0 place-items-center w-[42px] h-[42px] rounded-full border border-teal-accent/40 text-teal-accent transition-colors hover:bg-teal-accent/10"
+            >
+              <User size={20} />
+            </Link>
+          </>
+        )}
 
         {/* Mobile menu trigger (opens the right-side sidebar) */}
         <button
@@ -131,6 +147,23 @@ export default function SiteHeader() {
             <X size={24} />
           </button>
         </div>
+        {user ? (
+          <Link
+            to="/profile"
+            onClick={() => setIsMenuOpen(false)}
+            className="flex items-center gap-3 border-b border-line/15 pb-5"
+          >
+            <UserAvatar user={user} size={44} />
+            <span className="min-w-0">
+              <span className="block truncate text-base font-semibold text-fg">
+                {user.name || user.email}
+              </span>
+              <span className="block text-[13px] text-teal-accent">
+                {t("profile.menuProfile")}
+              </span>
+            </span>
+          </Link>
+        ) : null}
         {navigationLinks.map((link) => (
           <NavLink
             key={link.path}
@@ -147,10 +180,30 @@ export default function SiteHeader() {
           </NavLink>
         ))}
 
-        {/* Account button (no destination yet) */}
-        <BookingButton type="button" variant="page" className="mt-auto w-full">
-          {t("nav.login")}
-        </BookingButton>
+        {/* Account button */}
+        {user ? (
+          <BookingButton
+            type="button"
+            variant="page"
+            onClick={() => {
+              logout();
+              setIsMenuOpen(false);
+            }}
+            className="mt-auto w-full"
+          >
+            {t("nav.logout")}
+          </BookingButton>
+        ) : (
+          <BookingButton
+            as={Link}
+            to="/login"
+            variant="page"
+            onClick={() => setIsMenuOpen(false)}
+            className="mt-auto w-full"
+          >
+            {t("nav.login")}
+          </BookingButton>
+        )}
       </nav>
     </header>
   );

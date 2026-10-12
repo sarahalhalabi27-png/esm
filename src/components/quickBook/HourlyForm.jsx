@@ -34,6 +34,14 @@ import {
 const SENT_FLASH_MS = 1800;
 const MAX_STOPS = 6;
 
+// Small tablets (768-1023px): the fields flow into one two-column grid (the
+// wrappers around them dissolve: md:max-lg:contents) - pickup and date, start
+// time and hours, car type and car, then Passengers with the "specific stops"
+// tick box beside it - so each row holds two with none left alone. The stop
+// fields, the notes and the button take full rows.
+const TABLET_FORM =
+  "md:max-lg:grid md:max-lg:grid-cols-2 md:max-lg:gap-x-[var(--col-gap,5.5rem)] md:max-lg:gap-y-[var(--field-gap,1.25rem)]";
+
 const defaultValues = {
   pickupLocation: "",
   date: "",
@@ -106,8 +114,9 @@ export default function HourlyForm({ details }) {
       cardRef={cardRef}
       title={t("quickBook.hourly.title")}
       onSubmit={handleSubmit(onSubmit)}
+      formClassName={TABLET_FORM}
     >
-      <div className={BOOKING_TWO_COLUMNS}>
+      <div className={`${BOOKING_TWO_COLUMNS} md:max-lg:contents`}>
         <ControlledField
           control={control}
           name="pickupLocation"
@@ -148,17 +157,24 @@ export default function HourlyForm({ details }) {
         />
       </div>
 
-      <CarChoiceRow control={control} group="hourly" />
-
-      <ControlledField
+      <CarChoiceRow
         control={control}
-        name="hasStops"
-        as={BookingCheckbox}
-        label={t("quickBook.hourly.stopsQuestion")}
+        group="hourly"
+        className="md:max-lg:contents"
       />
 
+      {/* Tablets: beside Passengers, level with its box */}
+      <div className="md:max-lg:flex md:max-lg:items-end md:max-lg:min-h-[var(--box-h,2.5rem)] md:max-lg:self-end">
+        <ControlledField
+          control={control}
+          name="hasStops"
+          as={BookingCheckbox}
+          label={t("quickBook.hourly.stopsQuestion")}
+        />
+      </div>
+
       {hasStops ? (
-        <div className={BOOKING_THREE_COLUMNS}>
+        <div className={`${BOOKING_THREE_COLUMNS} md:max-lg:col-span-2`}>
           {stopFields.map((field, index) => (
             <ControlledField
               key={field.id}
@@ -186,21 +202,25 @@ export default function HourlyForm({ details }) {
         </div>
       ) : null}
 
-      <OptionalField label={t("formPlaceholders.addNote")}>
-        <ControlledField
-          control={control}
-          name="notes"
-          as={BookingTextArea}
-          label={t("quickBook.hourly.notes")}
-          placeholder={t("formPlaceholders.message")}
-        />
-      </OptionalField>
+      <div className="md:max-lg:col-span-2">
+        <OptionalField label={t("formPlaceholders.addNote")}>
+          <ControlledField
+            control={control}
+            name="notes"
+            as={BookingTextArea}
+            label={t("quickBook.hourly.notes")}
+            placeholder={t("formPlaceholders.message")}
+          />
+        </OptionalField>
+      </div>
 
-      <ConfirmRow
-        status={status}
-        sentFlash={sentFlash}
-        label={t("quickBook.hourly.confirm")}
-      />
+      <div className="md:max-lg:col-span-2">
+        <ConfirmRow
+          status={status}
+          sentFlash={sentFlash}
+          label={t("quickBook.hourly.confirm")}
+        />
+      </div>
     </ServiceFormShell>
   );
 }

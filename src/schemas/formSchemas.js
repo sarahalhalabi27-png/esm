@@ -25,6 +25,44 @@ const createRequiredEmail = (t) =>
 const createOptionalUrl = (t) =>
   z.union([z.literal(""), z.url(t("validation.invalidUrl"))]);
 
+// Account forms
+
+// At least 8 characters with a letter and a number.
+const createNewPassword = (t) =>
+  z
+    .string()
+    .min(1, t("validation.passwordRequired"))
+    .min(8, t("validation.passwordShort"))
+    .regex(/(?=.*[A-Za-z])(?=.*\d)/, t("validation.passwordWeak"));
+
+export const loginSchema = (t) =>
+  z.object({
+    email: createRequiredEmail(t),
+    password: z.string().min(1, t("validation.passwordRequired")),
+  });
+
+export const signUpSchema = (t) =>
+  z.object({
+    email: createRequiredEmail(t),
+    password: createNewPassword(t),
+  });
+
+// Profile: both fields optional; a name is letters only, a mobile number is
+// digits with an optional + at the start (7-15 digits).
+export const profileSchema = (t) =>
+  z.object({
+    name: z
+      .string()
+      .trim()
+      .regex(/^[A-Za-z\u0600-\u06FF\s'-]*$/, t("validation.lettersOnly")),
+    phone: z.string().regex(/^(\+?\d{7,15})?$/, t("validation.phoneInvalid")),
+  });
+
+export const verifyEmailSchema = (t) =>
+  z.object({
+    code: z.string().regex(/^\d{6}$/, t("validation.codeInvalid")),
+  });
+
 // Home quick-booking form
 
 export const bookingSchema = (t) =>

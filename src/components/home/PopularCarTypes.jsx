@@ -92,10 +92,12 @@ export default function PopularCarTypes() {
         </p>
 
         {/* Car Types */}
-        {/* Phones: Scroll Shelf (see .mobile-carousel--shelf in index.css). */}
+        {/* Phones: Scroll Shelf (see .mobile-carousel--shelf in index.css).
+            Tablets: all four in one row like desktop, the cards shrinking to
+            fit (md:max-xl:*). */}
         <div
           ref={cardsRef}
-          className="mobile-carousel mobile-carousel--shelf flex flex-wrap justify-center gap-[40px] mt-[45px] max-md:gap-4 max-md:mt-8"
+          className="mobile-carousel mobile-carousel--shelf flex flex-wrap md:max-xl:flex-nowrap justify-center gap-[40px] md:max-xl:gap-5 mt-[45px] max-md:gap-4 max-md:mt-8"
         >
           {popularTypes.map((type) => (
             <div
@@ -103,6 +105,10 @@ export default function PopularCarTypes() {
               className="
                 relative
                 w-[257px]
+                md:max-xl:w-auto
+                md:max-xl:min-w-0
+                md:max-xl:flex-1
+                md:max-xl:max-w-[257px]
                 h-[172px]
                 max-md:w-[58vw]
                 max-md:max-w-[240px]

@@ -73,9 +73,12 @@ export default function SiteFooter() {
         <div className="pt-0 mt-16 md:mt-[137px] pb-10 max-md:mt-10">
           {/* Phones: Explore + Quick Links side by side, then Quick Contact and
               Follow Us as full-width rows (the long email/address need it).
-              md+: one row, spread out; on tablets the columns wrap (gap-x is
-              only a minimum, so wide screens are unchanged). */}
-          <div className="grid grid-cols-2 gap-y-10 md:flex md:flex-wrap md:justify-between md:gap-x-12 mb-14 max-md:gap-x-6 max-md:gap-y-9 max-md:mb-6">
+              lg+: one row, spread out (gap-x is only a minimum, so wide
+              screens are unchanged). Small tablets (md:max-lg:*): the three
+              link columns spread across one row, and Follow Us as a centred
+              full-width row under a hairline, like on phones — instead of
+              wrapping alone to the start of a second row. */}
+          <div className="grid grid-cols-2 gap-y-10 md:flex md:flex-wrap md:justify-between md:gap-x-12 md:max-lg:grid md:max-lg:grid-cols-[auto_auto_auto] md:max-lg:gap-x-8 md:max-lg:gap-y-12 mb-14 max-md:gap-x-6 max-md:gap-y-9 max-md:mb-6">
             {/* Explore */}
             <div className="max-md:order-1">
               <h4 className={headingClass}>{t("footer.explore")}</h4>
@@ -155,9 +158,9 @@ export default function SiteFooter() {
             </div>
 
             {/* Follow Us */}
-            <div className="max-md:order-4 max-md:col-span-2 max-md:border-t max-md:border-line/15 max-md:pt-7 max-md:text-center">
+            <div className="max-md:order-4 max-md:col-span-2 max-md:border-t max-md:border-line/15 max-md:pt-7 max-md:text-center md:max-lg:col-span-3 md:max-lg:border-t md:max-lg:border-line/15 md:max-lg:pt-8 md:max-lg:text-center">
               <h4 className={headingClass}>{t("footer.followUs")}</h4>
-              <div className="flex gap-6 text-fg max-md:justify-center">
+              <div className="flex gap-6 text-fg max-md:justify-center md:max-lg:justify-center">
                 {companyInfo.socials.map((social) => {
                   const Icon = socialIcons[social.id];
                   if (!Icon) return null;

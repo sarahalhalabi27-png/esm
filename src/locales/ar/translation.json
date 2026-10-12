@@ -8,6 +8,8 @@
     "contact": "تواصل معنا",
     "login": "تسجيل الدخول",
     "account": "حسابي",
+    "myProfile": "ملفي الشخصي",
+    "logout": "تسجيل الخروج",
     "toggleMenu": "فتح القائمة أو إغلاقها",
     "closeMenu": "إغلاق القائمة",
     "switchToArabic": "التبديل إلى العربية",
@@ -654,6 +656,78 @@
     }
   },
 
+  "auth": {
+    "login": {
+      "title": "أهلًا بعودتك",
+      "submit": "تسجيل الدخول",
+      "noAccount": "ليس لديك حساب؟",
+      "signUpLink": "إنشاء حساب"
+    },
+    "signUp": {
+      "title": "أنشئ حسابك",
+      "submit": "إنشاء الحساب",
+      "haveAccount": "لديك حساب بالفعل؟",
+      "loginLink": "تسجيل الدخول",
+      "terms": "بإنشاء حساب فإنك توافق على <terms>شروط الخدمة</terms> و<privacy>سياسة الخصوصية</privacy>."
+    },
+    "fields": {
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "أدخل كلمة المرور",
+      "newPasswordPlaceholder": "أنشئ كلمة مرور",
+      "passwordHint": "8 أحرف على الأقل، وتتضمن حرفًا ورقمًا.",
+      "showPassword": "إظهار كلمة المرور",
+      "hidePassword": "إخفاء كلمة المرور"
+    },
+    "verify": {
+      "title": "تأكيد بريدك الإلكتروني",
+      "text": "أرسلنا رمزًا من 6 أرقام إلى <email>{{email}}</email>. أدخله أدناه لإكمال إنشاء حسابك.",
+      "codeLabel": "رمز التأكيد",
+      "codePlaceholder": "000000",
+      "submit": "تأكيد البريد",
+      "resend": "إعادة إرسال الرمز",
+      "resendIn": "إعادة الإرسال بعد {{seconds}} ث",
+      "resent": "تم إرسال رمز جديد.",
+      "changeEmail": "استخدام بريد آخر",
+      "demoHint": "تجريبي: الرمز هو {{code}}."
+    },
+    "done": {
+      "title": "تم تأكيد البريد",
+      "text": "حسابك جاهز. أهلًا بك في ESM Limo.",
+      "continue": "متابعة"
+    },
+    "errors": {
+      "codeIncorrect": "هذا الرمز غير صحيح. حاول مرة أخرى.",
+      "generic": "حدث خطأ ما. حاول مرة أخرى."
+    }
+  },
+
+  "profile": {
+    "title": "ملفي الشخصي",
+    "photo": {
+      "label": "الصورة الشخصية",
+      "add": "إضافة صورة",
+      "change": "تغيير الصورة",
+      "remove": "إزالة",
+      "hint": "JPG أو PNG أو WebP، حتى 5MB."
+    },
+    "name": "الاسم",
+    "phone": "رقم الموبايل",
+    "phonePlaceholder": "+971 50 123 4567",
+    "email": "البريد الإلكتروني",
+    "verified": "مؤكَّد",
+    "save": "حفظ التغييرات",
+    "saving": "جارٍ الحفظ...",
+    "saved": "تم حفظ ملفك الشخصي.",
+    "menuProfile": "ملفي الشخصي",
+    "errors": {
+      "type": "اختر صورة JPG أو PNG أو WebP.",
+      "size": "حجم الصورة أكبر من 5MB.",
+      "read": "تعذّرت قراءة هذه الصورة.",
+      "save": "تعذّر حفظ ملفك الشخصي. حاول مرة أخرى."
+    }
+  },
+
   "validation": {
     "transferRequired": "يرجى اختيار نوع التوصيل",
     "locationRequired": "الموقع مطلوب",
@@ -667,6 +741,11 @@
     "invalidEmail": "أدخل بريدًا إلكترونيًا صالحًا",
     "invalidUrl": "أدخل رابطًا صالحًا",
     "messageRequired": "الرسالة مطلوبة",
-    "commentRequired": "التعليق مطلوب"
+    "commentRequired": "التعليق مطلوب",
+    "passwordRequired": "كلمة المرور مطلوبة",
+    "passwordShort": "استخدم 8 أحرف على الأقل",
+    "passwordWeak": "أضف حرفًا ورقمًا",
+    "codeInvalid": "أدخل الرمز المكوّن من 6 أرقام",
+    "phoneInvalid": "أدخل رقم موبايل صالحًا"
   }
 }

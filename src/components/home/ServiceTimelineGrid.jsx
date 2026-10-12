@@ -313,7 +313,7 @@ function ConnectorTraveler({ travelerRef, glow, ring, dot, className = "" }) {
 }
 
 export default function ServiceTimelineGrid() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const sectionRef = useRef(null);
   const pathRef = useRef(null);
   const travelerRef = useRef(null);
@@ -443,7 +443,9 @@ export default function ServiceTimelineGrid() {
       resizeObserver.disconnect();
       mm.revert();
     };
-  }, []);
+    // Switching language mirrors the layout, so the connector (measured from
+    // the illustrations) has to be built again for the new direction.
+  }, [i18n.language]);
 
   return (
     <section
@@ -523,7 +525,7 @@ export default function ServiceTimelineGrid() {
                     className="relative w-full aspect-[3/2]"
                   />
                 </div>
-                <div className={flipped ? "order-1 text-end" : "text-start"}>
+                <div className={`text-start ${flipped ? "order-1" : ""}`}>
                   <h3 className="text-base sm:text-lg md:text-2xl font-semibold capitalize text-fg leading-snug">
                     {t(`home.services.items.${service.id}.title`)}
                   </h3>

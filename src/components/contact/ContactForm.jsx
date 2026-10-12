@@ -24,6 +24,7 @@ import {
   selectContactStatus,
 } from "../../store/contactSlice.js";
 import { SUBMIT_STATUS } from "../../store/constants.js";
+import useProfilePrefill from "../../hooks/useProfilePrefill.js";
 
 const defaultValues = {
   fullName: "",
@@ -43,10 +44,16 @@ export default function ContactForm() {
   const cardRef = useFormReveal(i18n.dir() === "rtl");
   const dispatch = useDispatch();
   const status = useSelector(selectContactStatus);
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset, getValues, setValue } = useForm({
     resolver: zodResolver(contactSchema(t)),
     defaultValues,
   });
+  // Fills the empty fields from the signed-in user's profile
+  const applyPrefill = useProfilePrefill({ getValues, setValue }, [
+    "fullName",
+    "phone",
+    "email",
+  ]);
 
   // Reset any leftover status when the form mounts.
   useEffect(() => {
@@ -57,6 +64,7 @@ export default function ContactForm() {
     try {
       await dispatch(submitContact(values)).unwrap();
       reset(defaultValues);
+      applyPrefill();
     } catch {
       // status is set to "error" by the slice
     }

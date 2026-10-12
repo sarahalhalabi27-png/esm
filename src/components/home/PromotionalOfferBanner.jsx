@@ -82,7 +82,7 @@ export default function PromotionalOfferBanner() {
           className={`relative flex justify-center md:justify-end max-md:[grid-area:car] max-md:self-center ${
             // English: pulled left so the smoke trailing behind the car (to its
             // right) stays inside the section instead of being cut at the edge.
-            isRTL ? "md:ms-[120px]" : "md:-ms-[160px] xl:-translate-x-[190px]"
+            isRTL ? "md:ms-[120px] md:max-xl:ms-0" : "md:-ms-[160px] md:max-xl:ms-0 xl:-translate-x-[190px]"
           }`}
         >
           {/* Smoke: desktop keeps its original sideways offset; phones center it
@@ -100,7 +100,7 @@ export default function PromotionalOfferBanner() {
           <img
             src={smoke1}
             alt=""
-            className={`absolute w-[587px] h-[392px] object-contain opacity-[0.66] z-0 light:opacity-100 light:[filter:url(#promo-smoke-light)] max-md:max-w-none max-md:w-[130%] max-md:h-auto max-md:top-0 max-md:left-[-5%] ${
+            className={`absolute w-[587px] h-[392px] object-contain opacity-[0.66] z-0 light:opacity-100 light:[filter:url(#promo-smoke-light)] md:max-xl:translate-x-0 md:max-xl:max-w-none md:max-xl:w-[130%] md:max-xl:h-auto md:max-xl:top-0 md:max-xl:left-[-5%] max-md:max-w-none max-md:w-[130%] max-md:h-auto max-md:top-0 max-md:left-[-5%] ${
               isRTL ? "md:translate-x-[100px]" : "md:translate-x-[200px]"
             }`}
           />

@@ -37,7 +37,7 @@ export default function PartnersMarquee() {
   }, [isRTL]);
 
   return (
-    <section className="font-display -mt-[90px] md:light:-mt-[130px] max-md:mt-0 max-md:py-10">
+    <section className="font-display -mt-[90px] md:light:-mt-[130px] md:max-xl:mt-0 md:max-xl:light:mt-0 md:max-xl:pt-[150px] md:max-xl:pb-0 max-md:mt-0 max-md:py-10">
       {/* Phones: heading centered above a full-width marquee (instead of a
           squeezed side-by-side row); the GSAP loop itself is unchanged. */}
       <div className="w-full h-[75px] px-6 md:px-10 lg:px-[50px] md:-mt-[30px] flex items-center max-md:h-auto max-md:flex-col max-md:gap-7">
@@ -64,10 +64,10 @@ export default function PartnersMarquee() {
         </SectionEyebrow>
 
         {/* Partners — looping marquee */}
-        <div className="relative overflow-hidden ms-6 md:ms-[154px] flex-1 max-md:ms-0 max-md:w-full max-md:[mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
+        <div className="relative overflow-hidden ms-6 md:ms-[154px] md:max-xl:ms-10 flex-1 max-md:ms-0 max-md:w-full max-md:[mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
           <div
             ref={trackRef}
-            className="flex items-center gap-[152px] max-md:gap-16 opacity-80 w-max"
+            className="flex items-center gap-[152px] md:max-xl:gap-24 max-md:gap-16 opacity-80 w-max"
           >
             {/* The set twice for the seamless loop; the copy is hidden from
                 screen readers so each partner is announced once. */}

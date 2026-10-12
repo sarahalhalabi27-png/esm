@@ -19,7 +19,7 @@ export default function PageLayout({ top, bleed, children }) {
   return (
     <div className="min-h-screen bg-page text-fg font-display">
       <div className="sticky top-0 z-50 bg-page">
-        <div className={`${frame} overflow-hidden`}>
+        <div className={`${frame} overflow-x-clip`}>
           <SiteHeader />
         </div>
       </div>
