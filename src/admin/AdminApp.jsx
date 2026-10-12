@@ -18,6 +18,7 @@ import AdminHomePage from "./pages/AdminHomePage.jsx";
 import ComingSoonPage from "./pages/ComingSoonPage.jsx";
 import BookingsPage from "./pages/bookings/BookingsPage.jsx";
 import FleetPage from "./pages/fleet/FleetPage.jsx";
+import MessagesPage from "./pages/messages/MessagesPage.jsx";
 import { ADMIN_BASE, ADMIN_NAV_ITEMS } from "./navigation.js";
 
 // The dashboard's strings live in their own "admin" namespace, loaded with
@@ -29,6 +30,7 @@ i18n.addResourceBundle("ar", "admin", ar);
 const TAB_PAGES = {
   bookings: BookingsPage,
   fleet: FleetPage,
+  messages: MessagesPage,
 };
 
 function NotFound() {

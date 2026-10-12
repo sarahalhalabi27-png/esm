@@ -132,6 +132,40 @@
     },
     "noNotes": "لا توجد ملاحظات."
   },
+  "messages": {
+    "views": {
+      "inbox": "الوارد",
+      "unread": "غير المقروءة",
+      "archived": "المؤرشفة"
+    },
+    "searchPlaceholder": "ابحث بالاسم أو البريد أو النص",
+    "empty": "لا توجد رسائل هنا.",
+    "notFound": "هذه الرسالة غير موجودة أو تم حذفها.",
+    "backToList": "كل الرسائل",
+    "noSubject": "(بدون موضوع)",
+    "unread": "غير مقروءة",
+    "replied": "تم الرد",
+    "archivedBadge": "مؤرشفة",
+    "receivedAt": "استُلمت في {{date}}",
+    "from": "من",
+    "fields": {
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف"
+    },
+    "actions": {
+      "replyByEmail": "الرد بالبريد",
+      "markReplied": "تحديد كمُجاب",
+      "markNotReplied": "إلغاء تحديد الرد",
+      "markUnread": "تحديد كغير مقروءة",
+      "archive": "أرشفة",
+      "unarchive": "نقل إلى الوارد",
+      "delete": "حذف الرسالة",
+      "deleteTitle": "حذف هذه الرسالة من {{name}}؟",
+      "deleteBody": "ستُحذف نهائياً. لإبعادها عن الوارد، أرشفها بدلاً من ذلك."
+    },
+    "replySubject": "رد: {{subject}}",
+    "replySubjectDefault": "رسالتك إلى ESM Limo"
+  },
   "fleet": {
     "addCar": "إضافة سيارة",
     "manageCategories": "الفئات",
@@ -239,6 +273,8 @@
     "last30Days": "آخر 30 يوماً",
     "noBookings": "لا توجد حجوزات بعد.",
     "viewAll": "عرض الكل",
+    "unreadMessages": "رسائل غير مقروءة",
+    "noUnread": "لا توجد رسائل غير مقروءة.",
     "sections": "أقسامك"
   },
   "comingSoon": {

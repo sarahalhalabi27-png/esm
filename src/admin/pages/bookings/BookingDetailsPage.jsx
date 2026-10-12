@@ -235,7 +235,10 @@ export default function BookingDetailsPage() {
             </Section>
           )}
           <Section title={t("bookings.sections.notes")}>
-            <p className={booking.notes ? "text-fg/85" : "text-muted"}>
+            <p
+              dir="auto"
+              className={booking.notes ? "text-fg/85" : "text-muted"}
+            >
               {booking.notes || t("bookings.noNotes")}
             </p>
           </Section>

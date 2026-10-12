@@ -32,6 +32,20 @@ export function formatDateTime(value, language) {
   }).format(toDate(value));
 }
 
+// Inbox style: the time for today, "12 Oct" this year, "12 Oct 2025" before.
+export function formatShortDateTime(value, language) {
+  if (!value) return "";
+  const date = toDate(value);
+  const now = new Date();
+  const options =
+    date.toDateString() === now.toDateString()
+      ? { hour: "2-digit", minute: "2-digit", hour12: false }
+      : date.getFullYear() === now.getFullYear()
+        ? { day: "numeric", month: "short" }
+        : { day: "numeric", month: "short", year: "numeric" };
+  return new Intl.DateTimeFormat(locale(language), options).format(date);
+}
+
 // A date and an "HH:mm" time kept apart, as the booking forms send them.
 export function formatDateAndTime(date, time, language) {
   return [formatDate(date, language), time].filter(Boolean).join(" · ");

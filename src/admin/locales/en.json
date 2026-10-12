@@ -130,6 +130,40 @@
     },
     "noNotes": "No notes."
   },
+  "messages": {
+    "views": {
+      "inbox": "Inbox",
+      "unread": "Unread",
+      "archived": "Archived"
+    },
+    "searchPlaceholder": "Search by name, email or text",
+    "empty": "No messages here.",
+    "notFound": "This message doesn't exist or was deleted.",
+    "backToList": "All messages",
+    "noSubject": "(No subject)",
+    "unread": "Unread",
+    "replied": "Replied",
+    "archivedBadge": "Archived",
+    "receivedAt": "Received {{date}}",
+    "from": "From",
+    "fields": {
+      "email": "Email",
+      "phone": "Phone"
+    },
+    "actions": {
+      "replyByEmail": "Reply by email",
+      "markReplied": "Mark as replied",
+      "markNotReplied": "Mark as not replied",
+      "markUnread": "Mark as unread",
+      "archive": "Archive",
+      "unarchive": "Move to inbox",
+      "delete": "Delete message",
+      "deleteTitle": "Delete this message from {{name}}?",
+      "deleteBody": "It will be removed for good. To keep it out of the way, archive it instead."
+    },
+    "replySubject": "Re: {{subject}}",
+    "replySubjectDefault": "Your message to ESM Limo"
+  },
   "fleet": {
     "addCar": "Add car",
     "manageCategories": "Categories",
@@ -237,6 +271,8 @@
     "last30Days": "Last 30 days",
     "noBookings": "No bookings yet.",
     "viewAll": "View all",
+    "unreadMessages": "Unread messages",
+    "noUnread": "All caught up — no unread messages.",
     "sections": "Your sections"
   },
   "comingSoon": {

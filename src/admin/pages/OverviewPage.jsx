@@ -7,6 +7,7 @@ import { ADMIN_NAV_ITEMS, adminPath } from "../navigation.js";
 import useCan from "../hooks/useCan.js";
 import { P } from "../permissions.js";
 import BookingsSummary from "./overview/BookingsSummary.jsx";
+import MessagesSummary from "./overview/MessagesSummary.jsx";
 import { selectAdminUser } from "../store/adminSessionSlice.js";
 
 // Dashboard home: a greeting, the numbers of each section the user may see
@@ -20,19 +21,25 @@ export default function OverviewPage() {
     (item) => item.id !== "overview" && can(item.permission)
   );
   const showBookings = can(P.bookings.view);
+  const showMessages = can(P.messages.view);
 
   return (
     <>
       <p className="text-lg font-medium text-fg">
         {t("overview.welcome", { name: user?.name })}
       </p>
-      {showBookings && (
+      {(showBookings || showMessages) && (
         <p className="mt-1 text-[15px] text-muted">{t("overview.subtitle")}</p>
       )}
 
       {showBookings && (
         <div className="mt-6">
           <BookingsSummary />
+        </div>
+      )}
+      {showMessages && (
+        <div className="mt-4">
+          <MessagesSummary />
         </div>
       )}
 

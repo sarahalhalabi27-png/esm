@@ -5,8 +5,25 @@ import { ArrowUpRight, X } from "lucide-react";
 import BrandLogo from "../../components/common/BrandLogo.jsx";
 import { ADMIN_NAV, adminPath } from "../navigation.js";
 import useCan from "../hooks/useCan.js";
+import { useGetMessageStatsQuery } from "../api/messagesApi.js";
 
 const DESKTOP_QUERY = "(min-width: 1024px)"; // Tailwind lg
+
+// Unread messages count beside "Messages", checked every minute. Only
+// rendered for staff who can see messages (the tab is hidden otherwise).
+function UnreadBadge() {
+  const { t } = useTranslation("admin");
+  const { data } = useGetMessageStatsQuery(undefined, {
+    pollingInterval: 60_000,
+  });
+  if (!data?.unread) return null;
+  return (
+    <span className="ms-auto min-w-6 h-6 px-1.5 grid place-items-center rounded-full bg-teal-accent text-xs font-semibold text-page">
+      {data.unread}
+      <span className="sr-only"> {t("messages.unread")}</span>
+    </span>
+  );
+}
 
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(
@@ -93,6 +110,7 @@ export default function AdminSidebar({ isOpen, onClose }) {
                     >
                       <Icon size={19} className="shrink-0" />
                       {t(`nav.${id}`)}
+                      {id === "messages" && <UnreadBadge />}
                     </NavLink>
                   </li>
                 ))}
