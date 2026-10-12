@@ -48,7 +48,8 @@
     "next": "التالي",
     "showing": "{{from}}–{{to}} من {{total}}",
     "clearFilters": "مسح الفلاتر",
-    "actionFailed": "لم تنجح العملية. حاول مرة أخرى."
+    "actionFailed": "لم تنجح العملية. حاول مرة أخرى.",
+    "close": "إغلاق"
   },
   "bookings": {
     "searchPlaceholder": "ابحث برقم الحجز أو الاسم أو البريد أو الهاتف",
@@ -131,6 +132,115 @@
       "sprinterClass": "سبرينتر"
     },
     "noNotes": "لا توجد ملاحظات."
+  },
+  "roles": {
+    "addRole": "إضافة دور",
+    "empty": "لا توجد أدوار بعد.",
+    "notFound": "هذا الدور غير موجود أو تم حذفه.",
+    "backToList": "كل الأدوار",
+    "system": "دور النظام",
+    "systemHint": "هذا الدور يملك كل الصلاحيات دائماً ولا يمكن تعديله.",
+    "staffCount": "{{count}} موظفين",
+    "permissionCount": "{{count}} صلاحيات",
+    "edit": "تعديل",
+    "view": "عرض",
+    "newTitle": "دور جديد",
+    "fields": {
+      "name": "اسم الدور",
+      "description": "الوصف",
+      "descriptionPlaceholder": "ما الغرض من هذا الدور؟"
+    },
+    "permissions": "الصلاحيات",
+    "permissionsHint": "منح الإضافة أو التعديل أو الحذف يمنح العرض أيضاً، فلا يمكن العمل على ما لا يمكن رؤيته.",
+    "allOfSection": "كل صلاحيات {{section}}",
+    "selected": "{{count}} محددة",
+    "resources": {
+      "dashboard": "الرئيسية",
+      "bookings": "الحجوزات",
+      "fleet": "الأسطول",
+      "messages": "الرسائل",
+      "blog": "المدونة",
+      "comments": "التعليقات",
+      "content": "محتوى الموقع",
+      "customers": "الزبائن",
+      "staff": "الموظفون",
+      "roles": "الأدوار والصلاحيات",
+      "settings": "الإعدادات"
+    },
+    "actions": {
+      "view": "عرض",
+      "create": "إضافة",
+      "update": "تعديل",
+      "delete": "حذف"
+    },
+    "save": "حفظ الدور",
+    "create": "إضافة الدور",
+    "saved": "تم حفظ الدور.",
+    "deleteRole": "حذف الدور",
+    "deleteTitle": "حذف دور {{name}}؟",
+    "deleteBody": "لا يمكن التراجع عن ذلك.",
+    "inUse": "انقل موظفيه إلى دور آخر قبل حذفه.",
+    "errors": {
+      "NAME_TAKEN": "يوجد دور بهذا الاسم مسبقاً.",
+      "SYSTEM_ROLE": "لا يمكن تعديل أدوار النظام.",
+      "ROLE_IN_USE": "انقل موظفيه إلى دور آخر قبل حذفه."
+    },
+    "validation": {
+      "nameRequired": "أعطِ الدور اسماً.",
+      "permissionsRequired": "اختر صلاحية واحدة على الأقل."
+    }
+  },
+  "staff": {
+    "invite": "دعوة موظف",
+    "searchPlaceholder": "ابحث بالاسم أو البريد",
+    "allRoles": "كل الأدوار",
+    "allStatuses": "كل الحالات",
+    "empty": "لا يوجد موظفون يطابقون هذه الفلاتر.",
+    "you": "أنت",
+    "columns": {
+      "name": "الاسم",
+      "role": "الدور",
+      "status": "الحالة",
+      "lastLogin": "آخر دخول"
+    },
+    "status": {
+      "active": "نشط",
+      "invited": "مدعو",
+      "disabled": "معطّل"
+    },
+    "never": "أبداً",
+    "actions": {
+      "edit": "تعديل",
+      "resendInvite": "إعادة إرسال الدعوة",
+      "inviteSent": "تم إرسال الدعوة.",
+      "disable": "تعطيل الحساب",
+      "enable": "تفعيل الحساب",
+      "delete": "حذف الحساب",
+      "deleteTitle": "حذف حساب {{name}}؟",
+      "deleteBody": "سيفقد الوصول فوراً. للاحتفاظ بسجلّه، عطّل الحساب بدلاً من ذلك."
+    },
+    "form": {
+      "inviteTitle": "دعوة موظف",
+      "inviteHint": "سيصله بريد فيه رابط لاختيار كلمة مروره بنفسه.",
+      "editTitle": "تعديل {{name}}",
+      "name": "الاسم الكامل",
+      "email": "بريد العمل",
+      "role": "الدور",
+      "chooseRole": "اختر دوراً",
+      "send": "إرسال الدعوة",
+      "save": "حفظ",
+      "selfNote": "لا يمكنك تغيير دورك أو تعطيل حسابك."
+    },
+    "errors": {
+      "EMAIL_TAKEN": "يستخدم أحد أعضاء الفريق هذا البريد مسبقاً.",
+      "CANNOT_CHANGE_SELF": "لا يمكنك تغيير دورك أو حسابك."
+    },
+    "validation": {
+      "nameRequired": "أدخل الاسم.",
+      "roleRequired": "اختر دوراً.",
+      "emailRequired": "أدخل بريد العمل.",
+      "emailInvalid": "أدخل بريداً إلكترونياً صحيحاً."
+    }
   },
   "messages": {
     "views": {
@@ -307,6 +417,7 @@
     "errors": {
       "INVALID_CREDENTIALS": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
       "ACCOUNT_DISABLED": "هذا الحساب معطّل.",
+      "INVITE_PENDING": "هذا الحساب غير مفعّل بعد. استخدم الرابط في بريد الدعوة لاختيار كلمة مرور.",
       "default": "تعذّر تسجيل الدخول. حاول مرة أخرى."
     }
   }

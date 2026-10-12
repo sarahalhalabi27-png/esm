@@ -19,6 +19,8 @@ import ComingSoonPage from "./pages/ComingSoonPage.jsx";
 import BookingsPage from "./pages/bookings/BookingsPage.jsx";
 import FleetPage from "./pages/fleet/FleetPage.jsx";
 import MessagesPage from "./pages/messages/MessagesPage.jsx";
+import StaffListPage from "./pages/staff/StaffListPage.jsx";
+import RolesPage from "./pages/roles/RolesPage.jsx";
 import { ADMIN_BASE, ADMIN_NAV_ITEMS } from "./navigation.js";
 
 // The dashboard's strings live in their own "admin" namespace, loaded with
@@ -31,6 +33,8 @@ const TAB_PAGES = {
   bookings: BookingsPage,
   fleet: FleetPage,
   messages: MessagesPage,
+  staff: StaffListPage,
+  roles: RolesPage,
 };
 
 function NotFound() {

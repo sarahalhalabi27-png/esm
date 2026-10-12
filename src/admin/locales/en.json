@@ -46,7 +46,8 @@
     "next": "Next",
     "showing": "{{from}}–{{to}} of {{total}}",
     "clearFilters": "Clear filters",
-    "actionFailed": "That didn't work. Please try again."
+    "actionFailed": "That didn't work. Please try again.",
+    "close": "Close"
   },
   "bookings": {
     "searchPlaceholder": "Search by reference, name, email or phone",
@@ -129,6 +130,115 @@
       "sprinterClass": "Sprinter Class"
     },
     "noNotes": "No notes."
+  },
+  "roles": {
+    "addRole": "Add role",
+    "empty": "No roles yet.",
+    "notFound": "This role doesn't exist or was deleted.",
+    "backToList": "All roles",
+    "system": "System role",
+    "systemHint": "This role always has full access and can't be changed.",
+    "staffCount": "{{count}} staff",
+    "permissionCount": "{{count}} permissions",
+    "edit": "Edit",
+    "view": "View",
+    "newTitle": "New role",
+    "fields": {
+      "name": "Role name",
+      "description": "Description",
+      "descriptionPlaceholder": "What is this role for?"
+    },
+    "permissions": "Permissions",
+    "permissionsHint": "Giving create, edit or delete also gives view, since you can't work on what you can't see.",
+    "allOfSection": "All of {{section}}",
+    "selected": "{{count}} selected",
+    "resources": {
+      "dashboard": "Overview",
+      "bookings": "Bookings",
+      "fleet": "Fleet",
+      "messages": "Messages",
+      "blog": "Blog",
+      "comments": "Comments",
+      "content": "Site Content",
+      "customers": "Customers",
+      "staff": "Staff",
+      "roles": "Roles & Permissions",
+      "settings": "Settings"
+    },
+    "actions": {
+      "view": "View",
+      "create": "Create",
+      "update": "Edit",
+      "delete": "Delete"
+    },
+    "save": "Save role",
+    "create": "Add role",
+    "saved": "Role saved.",
+    "deleteRole": "Delete role",
+    "deleteTitle": "Delete the {{name}} role?",
+    "deleteBody": "This can't be undone.",
+    "inUse": "Move its staff to another role before deleting it.",
+    "errors": {
+      "NAME_TAKEN": "A role with this name already exists.",
+      "SYSTEM_ROLE": "System roles can't be changed.",
+      "ROLE_IN_USE": "Move its staff to another role before deleting it."
+    },
+    "validation": {
+      "nameRequired": "Give the role a name.",
+      "permissionsRequired": "Choose at least one permission."
+    }
+  },
+  "staff": {
+    "invite": "Invite staff member",
+    "searchPlaceholder": "Search by name or email",
+    "allRoles": "All roles",
+    "allStatuses": "All statuses",
+    "empty": "No staff match these filters.",
+    "you": "You",
+    "columns": {
+      "name": "Name",
+      "role": "Role",
+      "status": "Status",
+      "lastLogin": "Last sign-in"
+    },
+    "status": {
+      "active": "Active",
+      "invited": "Invited",
+      "disabled": "Disabled"
+    },
+    "never": "Never",
+    "actions": {
+      "edit": "Edit",
+      "resendInvite": "Resend invitation",
+      "inviteSent": "Invitation sent.",
+      "disable": "Disable account",
+      "enable": "Enable account",
+      "delete": "Delete account",
+      "deleteTitle": "Delete {{name}}'s account?",
+      "deleteBody": "They'll lose access straight away. To keep their history, disable the account instead."
+    },
+    "form": {
+      "inviteTitle": "Invite a staff member",
+      "inviteHint": "They'll get an email with a link to choose their own password.",
+      "editTitle": "Edit {{name}}",
+      "name": "Full name",
+      "email": "Work email",
+      "role": "Role",
+      "chooseRole": "Choose a role",
+      "send": "Send invitation",
+      "save": "Save",
+      "selfNote": "You can't change your own role or disable your own account."
+    },
+    "errors": {
+      "EMAIL_TAKEN": "Someone on the team already uses this email.",
+      "CANNOT_CHANGE_SELF": "You can't change your own role or account."
+    },
+    "validation": {
+      "nameRequired": "Enter their name.",
+      "roleRequired": "Choose a role.",
+      "emailRequired": "Enter their work email.",
+      "emailInvalid": "Enter a valid email address."
+    }
   },
   "messages": {
     "views": {
@@ -305,6 +415,7 @@
     "errors": {
       "INVALID_CREDENTIALS": "Wrong email or password.",
       "ACCOUNT_DISABLED": "This account is disabled.",
+      "INVITE_PENDING": "This account isn't set up yet. Use the link in your invitation email to choose a password.",
       "default": "Couldn't sign in. Please try again."
     }
   }

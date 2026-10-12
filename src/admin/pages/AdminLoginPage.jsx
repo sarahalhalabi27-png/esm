@@ -26,7 +26,7 @@ import {
   selectAdminLoginStatus,
   selectAdminToken,
 } from "../store/adminSessionSlice.js";
-import { DEMO_STAFF_PASSWORD, MOCK_STAFF } from "../api/mockAdminData.js";
+import { DEMO_ACCOUNTS, DEMO_STAFF_PASSWORD } from "../api/mockAdminData.js";
 
 const defaultValues = { email: "", password: "" };
 
@@ -128,7 +128,7 @@ export default function AdminLoginPage() {
               {ta("login.demoAccounts")}
             </p>
             <div className="flex flex-wrap gap-2">
-              {MOCK_STAFF.map((staff) => (
+              {DEMO_ACCOUNTS.map((staff) => (
                 <button
                   key={staff.id}
                   type="button"

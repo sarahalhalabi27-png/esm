@@ -12,6 +12,7 @@ import {
   selectAdminMeError,
   selectAdminMeStatus,
   selectAdminToken,
+  selectAdminUser,
 } from "../store/adminSessionSlice.js";
 
 // Gate for every dashboard page: no token -> the staff login; with a token,
@@ -24,6 +25,7 @@ export default function RequireAdminAuth() {
   const token = useSelector(selectAdminToken);
   const meStatus = useSelector(selectAdminMeStatus);
   const meError = useSelector(selectAdminMeError);
+  const user = useSelector(selectAdminUser);
 
   useEffect(() => {
     if (token && meStatus === STATUS.IDLE) dispatch(fetchAdminMe());
@@ -35,7 +37,7 @@ export default function RequireAdminAuth() {
     );
   }
 
-  if (meStatus === STATUS.FAILED) {
+  if (meStatus === STATUS.FAILED && !user) {
     return (
       <AdminMessage
         className="min-h-screen bg-page"
@@ -55,7 +57,9 @@ export default function RequireAdminAuth() {
     );
   }
 
-  if (meStatus !== STATUS.SUCCEEDED) {
+  // A refresh with a user already loaded (e.g. after editing your own role)
+  // happens in the background, without hiding the page.
+  if (meStatus !== STATUS.SUCCEEDED && !user) {
     return (
       <AdminMessage
         className="min-h-screen bg-page"
