@@ -1,0 +1,77 @@
+{
+  "brand": "لوحة التحكم",
+  "nav": {
+    "groups": {
+      "operations": "العمليات",
+      "content": "المحتوى",
+      "people": "الأشخاص",
+      "system": "النظام"
+    },
+    "overview": "الرئيسية",
+    "bookings": "الحجوزات",
+    "fleet": "الأسطول",
+    "messages": "الرسائل",
+    "blog": "المدونة",
+    "comments": "التعليقات",
+    "siteContent": "محتوى الموقع",
+    "customers": "الزبائن",
+    "staff": "الموظفون",
+    "roles": "الأدوار والصلاحيات",
+    "settings": "الإعدادات",
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة",
+    "backToSite": "العودة إلى الموقع"
+  },
+  "pages": {
+    "overview": { "description": "نظرة سريعة على اليوم" },
+    "bookings": { "description": "كل طلبات الحجز من الموقع" },
+    "fleet": { "description": "السيارات والفئات والصور" },
+    "messages": { "description": "رسائل نموذج تواصل معنا" },
+    "blog": { "description": "المقالات وكتّابها" },
+    "comments": { "description": "مراجعة تعليقات القرّاء" },
+    "siteContent": {
+      "description": "الأسئلة الشائعة والعروض والشركاء والصفحات القانونية"
+    },
+    "customers": { "description": "الحسابات المسجلة في الموقع" },
+    "staff": { "description": "حسابات لوحة التحكم وأدوارها" },
+    "roles": { "description": "الأدوار وصلاحيات كل دور" },
+    "settings": { "description": "معلومات التواصل والإعدادات العامة" }
+  },
+  "overview": {
+    "welcome": "أهلاً بعودتك، {{name}}",
+    "subtitle": "هذه الأقسام التي يمكنك العمل عليها."
+  },
+  "comingSoon": {
+    "title": "هذا القسم قيد البناء",
+    "body": "سيظهر هنا قريباً."
+  },
+  "access": {
+    "forbiddenTitle": "لا تملك صلاحية الوصول إلى هذه الصفحة",
+    "forbiddenBody": "دورك لا يشمل هذا القسم. تواصل مع المدير إذا كنت تحتاجه.",
+    "noAccessTitle": "لا توجد أقسام بعد",
+    "noAccessBody": "دورك لا يشمل أي قسم حتى الآن. اطلب من المدير تحديثه.",
+    "notFoundTitle": "الصفحة غير موجودة",
+    "notFoundBody": "هذه الصفحة غير موجودة في لوحة التحكم.",
+    "goHome": "الذهاب إلى لوحة التحكم"
+  },
+  "session": {
+    "loading": "جارٍ تحميل حسابك…",
+    "loadFailed": "تعذّر تحميل حسابك.",
+    "retry": "إعادة المحاولة",
+    "logout": "تسجيل الخروج"
+  },
+  "login": {
+    "title": "دخول الموظفين",
+    "subtitle": "سجّل الدخول لإدارة ESM Limo",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "submit": "تسجيل الدخول",
+    "submitting": "جارٍ تسجيل الدخول…",
+    "demoAccounts": "حسابات تجريبية (بيانات وهمية)",
+    "errors": {
+      "INVALID_CREDENTIALS": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+      "ACCOUNT_DISABLED": "هذا الحساب معطّل.",
+      "default": "تعذّر تسجيل الدخول. حاول مرة أخرى."
+    }
+  }
+}

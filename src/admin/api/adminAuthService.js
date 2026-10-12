@@ -1,0 +1,64 @@
+// Mock staff auth API for the dashboard. There is no backend yet, so these
+// read mockAdminData.js and answer after a short delay, the way the API will.
+//
+// Contract the backend should follow:
+//   POST /admin/auth/login  { email, password }
+//     -> { token, user: { id, name, email, role: { id, name } }, permissions: ["bookings.view", ...] }
+//   GET  /admin/auth/me     (Authorization: Bearer <token>)
+//     -> { user, permissions }   (401 when the token is invalid or expired)
+//   POST /admin/auth/logout (Authorization: Bearer <token>)
+//
+// Errors are thrown with a code as the message: INVALID_CREDENTIALS,
+// ACCOUNT_DISABLED, UNAUTHORIZED.
+import {
+  DEMO_STAFF_PASSWORD,
+  MOCK_ROLES,
+  MOCK_STAFF,
+} from "./mockAdminData.js";
+
+const TOKEN_PREFIX = "mock-admin-token-";
+const delay = (ms = 400) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function sessionFor(staff) {
+  const role = MOCK_ROLES.find((r) => r.id === staff.roleId);
+  return {
+    user: {
+      id: staff.id,
+      name: staff.name,
+      email: staff.email,
+      role: role ? { id: role.id, name: role.name } : null,
+    },
+    permissions: role ? role.permissions : [],
+  };
+}
+
+// TODO(api): swap for POST /admin/auth/login.
+export async function adminLoginRequest({ email, password }) {
+  // return apiRequest("/admin/auth/login", { method: "POST", body: JSON.stringify({ email, password }) });
+  await delay();
+  const staff = MOCK_STAFF.find((s) => s.email === email.trim().toLowerCase());
+  if (!staff || password !== DEMO_STAFF_PASSWORD) {
+    throw new Error("INVALID_CREDENTIALS");
+  }
+  if (!staff.active) throw new Error("ACCOUNT_DISABLED");
+  return { token: `${TOKEN_PREFIX}${staff.id}`, ...sessionFor(staff) };
+}
+
+// TODO(api): swap for GET /admin/auth/me.
+export async function getAdminMeRequest(token) {
+  // return apiRequest("/admin/auth/me", { headers: { Authorization: `Bearer ${token}` } });
+  await delay();
+  const id = Number(token?.slice(TOKEN_PREFIX.length));
+  const staff = MOCK_STAFF.find((s) => s.id === id);
+  if (!token?.startsWith(TOKEN_PREFIX) || !staff || !staff.active) {
+    throw new Error("UNAUTHORIZED");
+  }
+  return sessionFor(staff);
+}
+
+// TODO(api): swap for POST /admin/auth/logout.
+export async function adminLogoutRequest() {
+  // return apiRequest("/admin/auth/logout", { method: "POST", headers: { Authorization: `Bearer ${token}` } });
+  await delay(150);
+  return { success: true };
+}

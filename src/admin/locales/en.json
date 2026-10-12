@@ -1,0 +1,75 @@
+{
+  "brand": "Dashboard",
+  "nav": {
+    "groups": {
+      "operations": "Operations",
+      "content": "Content",
+      "people": "People",
+      "system": "System"
+    },
+    "overview": "Overview",
+    "bookings": "Bookings",
+    "fleet": "Fleet",
+    "messages": "Messages",
+    "blog": "Blog",
+    "comments": "Comments",
+    "siteContent": "Site Content",
+    "customers": "Customers",
+    "staff": "Staff",
+    "roles": "Roles & Permissions",
+    "settings": "Settings",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "backToSite": "Back to website"
+  },
+  "pages": {
+    "overview": { "description": "Today at a glance" },
+    "bookings": { "description": "Every booking request from the website" },
+    "fleet": { "description": "Cars, categories and photos" },
+    "messages": { "description": "Messages from the Contact Us form" },
+    "blog": { "description": "Articles and their authors" },
+    "comments": { "description": "Review readers' comments" },
+    "siteContent": { "description": "FAQ, offers, partners and legal pages" },
+    "customers": { "description": "Accounts registered on the website" },
+    "staff": { "description": "Dashboard accounts and their roles" },
+    "roles": { "description": "Roles and what each one can do" },
+    "settings": { "description": "Contact details and general settings" }
+  },
+  "overview": {
+    "welcome": "Welcome back, {{name}}",
+    "subtitle": "Here are the sections you can work on."
+  },
+  "comingSoon": {
+    "title": "This section is being built",
+    "body": "It will appear here soon."
+  },
+  "access": {
+    "forbiddenTitle": "You don't have access to this page",
+    "forbiddenBody": "Your role doesn't include this section. Ask an admin if you need it.",
+    "noAccessTitle": "No sections yet",
+    "noAccessBody": "Your role doesn't include any section yet. Ask an admin to update it.",
+    "notFoundTitle": "Page not found",
+    "notFoundBody": "This page doesn't exist in the dashboard.",
+    "goHome": "Go to dashboard"
+  },
+  "session": {
+    "loading": "Loading your account…",
+    "loadFailed": "Couldn't load your account.",
+    "retry": "Try again",
+    "logout": "Log out"
+  },
+  "login": {
+    "title": "Staff sign in",
+    "subtitle": "Sign in to manage ESM Limo",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "demoAccounts": "Demo accounts (mock data)",
+    "errors": {
+      "INVALID_CREDENTIALS": "Wrong email or password.",
+      "ACCOUNT_DISABLED": "This account is disabled.",
+      "default": "Couldn't sign in. Please try again."
+    }
+  }
+}

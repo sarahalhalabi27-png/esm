@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import {
   Routes,
   Route,
@@ -19,6 +19,9 @@ import FaqPage from "./pages/FaqPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
+
+// The staff dashboard is its own bundle, downloaded only when /admin opens.
+const AdminApp = lazy(() => import("./admin/AdminApp.jsx"));
 
 // Start each newly opened page at the top (e.g. a car opened from the bottom
 // of Our Fleet); browser back/forward keeps its own scroll restoration.
@@ -52,6 +55,14 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route
+          path="/admin/*"
+          element={
+            <Suspense fallback={<div className="min-h-screen bg-page" />}>
+              <AdminApp />
+            </Suspense>
+          }
+        />
       </Routes>
     </>
   );
