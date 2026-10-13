@@ -320,6 +320,11 @@
     "published": "On the website",
     "hidden": "Hidden",
     "perHour": "{{price}} AED / hour",
+    "units": {
+      "price": "AED",
+      "passengers": "pax",
+      "luggage": "bags"
+    },
     "specs": "{{passengers}} passengers · {{luggage}} luggage",
     "noPhoto": "No photo",
     "edit": "Edit",

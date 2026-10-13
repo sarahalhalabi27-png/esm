@@ -7,11 +7,17 @@ import { z } from "zod";
 import {
   AlertCircle,
   ArrowLeft,
+  CarFront,
   CheckCircle2,
+  Eye,
+  FileText,
+  Image as ImageIcon,
   Loader2,
   SearchX,
+  Sparkles,
   Star,
   Trash2,
+  Wallet,
 } from "lucide-react";
 import AdminMessage from "../../components/AdminMessage.jsx";
 import Can from "../../components/Can.jsx";
@@ -22,6 +28,7 @@ import Switch from "../../components/Switch.jsx";
 import {
   ADMIN_BUTTON,
   ADMIN_CARD,
+  ADMIN_CARD_RICH,
   ADMIN_FIELD_ERROR,
   ADMIN_INPUT,
   ADMIN_LABEL,
@@ -283,7 +290,7 @@ function CarForm({ car, backTo, backLink }) {
         className="mt-6 grid gap-4 lg:grid-cols-3 items-start min-w-0"
       >
         <div className="lg:col-span-2 flex flex-col gap-4 min-w-0">
-          <Section title={t("fleet.sections.basics")}>
+          <Section icon={CarFront} title={t("fleet.sections.basics")}>
             <div className="grid gap-4 sm:grid-cols-2">
               <Field
                 name="name"
@@ -372,45 +379,51 @@ function CarForm({ car, backTo, backLink }) {
             </div>
           </Section>
 
-          <Section title={t("fleet.sections.pricing")}>
+          <Section icon={Wallet} title={t("fleet.sections.pricing")}>
             <div className="grid gap-4 sm:grid-cols-3">
               <Field
                 name="pricePerHour"
                 label={t("fleet.fields.pricePerHour")}
                 error={errors.pricePerHour}
               >
-                <input
-                  {...field("pricePerHour")}
-                  inputMode="decimal"
-                  className={ADMIN_INPUT}
-                />
+                <UnitInput unit={t("fleet.units.price")}>
+                  <input
+                    {...field("pricePerHour")}
+                    inputMode="decimal"
+                    className={`${ADMIN_INPUT} pe-16`}
+                  />
+                </UnitInput>
               </Field>
               <Field
                 name="passengers"
                 label={t("fleet.fields.passengers")}
                 error={errors.passengers}
               >
-                <input
-                  {...field("passengers")}
-                  inputMode="numeric"
-                  className={ADMIN_INPUT}
-                />
+                <UnitInput unit={t("fleet.units.passengers")}>
+                  <input
+                    {...field("passengers")}
+                    inputMode="numeric"
+                    className={`${ADMIN_INPUT} pe-16`}
+                  />
+                </UnitInput>
               </Field>
               <Field
                 name="luggage"
                 label={t("fleet.fields.luggage")}
                 error={errors.luggage}
               >
-                <input
-                  {...field("luggage")}
-                  inputMode="numeric"
-                  className={ADMIN_INPUT}
-                />
+                <UnitInput unit={t("fleet.units.luggage")}>
+                  <input
+                    {...field("luggage")}
+                    inputMode="numeric"
+                    className={`${ADMIN_INPUT} pe-16`}
+                  />
+                </UnitInput>
               </Field>
             </div>
           </Section>
 
-          <Section title={t("fleet.sections.features")}>
+          <Section icon={Sparkles} title={t("fleet.sections.features")}>
             <div className="grid gap-3 sm:grid-cols-3">
               {CAR_FEATURES.map((feature) => (
                 <label
@@ -429,7 +442,7 @@ function CarForm({ car, backTo, backLink }) {
             </div>
           </Section>
 
-          <Section title={t("fleet.sections.description")}>
+          <Section icon={FileText} title={t("fleet.sections.description")}>
             <p className="-mt-2 mb-4 text-sm text-muted">
               {t("fleet.fields.descriptionHint")}
             </p>
@@ -461,7 +474,7 @@ function CarForm({ car, backTo, backLink }) {
         </div>
 
         <div className="flex flex-col gap-4 min-w-0">
-          <Section title={t("fleet.sections.visibility")}>
+          <Section icon={Eye} title={t("fleet.sections.visibility")}>
             <Controller
               control={control}
               name="published"
@@ -486,7 +499,7 @@ function CarForm({ car, backTo, backLink }) {
             />
           </Section>
 
-          <Section title={t("fleet.sections.photos")}>
+          <Section icon={ImageIcon} title={t("fleet.sections.photos")}>
             <span className={ADMIN_LABEL}>{t("fleet.fields.mainImage")}</span>
             <Controller
               control={control}
@@ -592,14 +605,29 @@ function CarForm({ car, backTo, backLink }) {
   );
 }
 
-function Section({ title, children }) {
+function Section({ icon: Icon, title, children }) {
   return (
-    <section className={`${ADMIN_CARD} p-5 min-w-0`}>
-      <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted">
+    <section className={`${ADMIN_CARD_RICH} p-5 min-w-0`}>
+      <h3 className="mb-5 flex items-center gap-3 font-semibold text-fg">
+        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-teal-accent/15 text-teal-accent">
+          <Icon size={18} />
+        </span>
         {title}
       </h3>
       {children}
     </section>
+  );
+}
+
+// A number field with its unit written inside, at the end of the box.
+function UnitInput({ unit, children }) {
+  return (
+    <div className="relative">
+      {children}
+      <span className="pointer-events-none absolute top-1/2 -translate-y-1/2 end-3.5 text-xs text-muted">
+        {unit}
+      </span>
+    </div>
   );
 }
 

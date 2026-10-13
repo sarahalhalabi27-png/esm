@@ -318,6 +318,11 @@
     "published": "ظاهرة في الموقع",
     "hidden": "مخفية",
     "perHour": "{{price}} درهم / ساعة",
+    "units": {
+      "price": "درهم",
+      "passengers": "راكب",
+      "luggage": "حقيبة"
+    },
     "specs": "{{passengers}} ركاب · {{luggage}} حقائب",
     "noPhoto": "لا توجد صورة",
     "edit": "تعديل",

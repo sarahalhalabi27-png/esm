@@ -3,11 +3,14 @@ import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   AlertCircle,
+  Briefcase,
   CarFront,
+  Fuel,
   FolderCog,
   Plus,
   Search,
   Trash2,
+  Users,
 } from "lucide-react";
 import AdminMessage from "../../components/AdminMessage.jsx";
 import Can from "../../components/Can.jsx";
@@ -17,6 +20,7 @@ import {
   ADMIN_BUTTON,
   ADMIN_BUTTON_GHOST,
   ADMIN_CARD,
+  ADMIN_CARD_RICH,
   ADMIN_INPUT,
 } from "../../components/ui.js";
 import {
@@ -30,6 +34,48 @@ import useUrlFilters, { useSearchBox } from "../../hooks/useUrlFilters.js";
 import { P } from "../../permissions.js";
 import { categoryName } from "../../utils/fleet.js";
 import CategoriesDialog from "./CategoriesDialog.jsx";
+
+// One colour per category (by its place in the list): the line along a car
+// card's top, the wash behind its photo, its category tag and price, and the
+// dot on the category's tab.
+const TONES = [
+  {
+    bar: "from-teal-accent",
+    wash: "from-teal-accent/20",
+    chip: "bg-teal-accent/15 text-teal-accent",
+    dot: "bg-teal-accent",
+  },
+  {
+    bar: "from-sky-400 light:from-sky-500",
+    wash: "from-sky-400/20",
+    chip: "bg-sky-400/15 text-sky-300 light:bg-sky-500/15 light:text-sky-700",
+    dot: "bg-sky-400 light:bg-sky-500",
+  },
+  {
+    bar: "from-violet-400 light:from-violet-500",
+    wash: "from-violet-400/20",
+    chip: "bg-violet-400/15 text-violet-300 light:bg-violet-500/15 light:text-violet-700",
+    dot: "bg-violet-400 light:bg-violet-500",
+  },
+  {
+    bar: "from-amber-400 light:from-amber-500",
+    wash: "from-amber-400/20",
+    chip: "bg-amber-400/15 text-amber-300 light:bg-amber-500/15 light:text-amber-700",
+    dot: "bg-amber-400 light:bg-amber-500",
+  },
+  {
+    bar: "from-rose-400 light:from-rose-500",
+    wash: "from-rose-400/20",
+    chip: "bg-rose-400/15 text-rose-300 light:bg-rose-500/15 light:text-rose-700",
+    dot: "bg-rose-400 light:bg-rose-500",
+  },
+  {
+    bar: "from-emerald-400 light:from-emerald-500",
+    wash: "from-emerald-400/20",
+    chip: "bg-emerald-400/15 text-emerald-300 light:bg-emerald-500/15 light:text-emerald-700",
+    dot: "bg-emerald-400 light:bg-emerald-500",
+  },
+];
 
 // The fleet: a card per car with its photo, price and whether it shows on
 // the website, filtered by category and name (kept in the URL).
@@ -81,6 +127,13 @@ export default function CarsListPage() {
     })),
   ];
   const categoriesById = Object.fromEntries(categories.map((c) => [c.id, c]));
+  const toneOf = (categoryId) =>
+    TONES[
+      Math.max(
+        0,
+        categories.findIndex((c) => c.id === categoryId)
+      ) % TONES.length
+    ];
 
   return (
     <>
@@ -104,6 +157,12 @@ export default function CarsListPage() {
                     : "border border-line/15 text-fg/75 hover:text-fg hover:bg-surface/[0.05]"
                 }`}
               >
+                {tab.value && (
+                  <span
+                    aria-hidden="true"
+                    className={`h-2 w-2 rounded-full ${toneOf(tab.value).dot}`}
+                  />
+                )}
                 {tab.label}
                 <span
                   className={`min-w-6 h-6 px-1.5 grid place-items-center rounded-full text-xs ${
@@ -196,111 +255,137 @@ export default function CarsListPage() {
               isFetching ? "opacity-60" : ""
             }`}
           >
-            {data.items.map((car) => (
-              <li
-                key={car.id}
-                className={`${ADMIN_CARD} flex flex-col overflow-hidden`}
-              >
-                <Link
-                  to={car.id}
-                  state={linkState}
-                  className="relative block aspect-[16/10] bg-surface/[0.04]"
+            {data.items.map((car) => {
+              const tone = toneOf(car.categoryId);
+              return (
+                <li
+                  key={car.id}
+                  className={`${ADMIN_CARD_RICH} relative flex flex-col overflow-hidden transition-colors hover:border-teal-accent/40`}
                 >
-                  {car.image ? (
-                    <img
-                      src={car.image}
-                      alt=""
-                      loading="lazy"
-                      className="h-full w-full object-contain p-3"
-                    />
-                  ) : (
-                    <span className="flex h-full flex-col items-center justify-center gap-2 text-sm text-muted">
-                      <CarFront size={28} />
-                      {t("fleet.noPhoto")}
-                    </span>
-                  )}
-                  {!car.published && (
-                    <span className="absolute top-3 start-3 rounded-full bg-black/70 px-3 py-1 text-xs font-medium text-white">
-                      {t("fleet.hidden")}
-                    </span>
-                  )}
-                </Link>
-
-                <div className="flex flex-1 flex-col p-4">
+                  <span
+                    aria-hidden="true"
+                    className={`absolute inset-x-0 top-0 z-10 h-0.5 bg-gradient-to-r to-transparent ${tone.bar}`}
+                  />
                   <Link
                     to={car.id}
                     state={linkState}
-                    className="font-semibold text-fg hover:text-teal-accent"
+                    className={`relative block aspect-[16/10] bg-gradient-to-b to-transparent ${tone.wash}`}
                   >
-                    {car.name}
-                  </Link>
-                  <p className="mt-0.5 text-sm text-muted">
-                    {categoryName(
-                      categoriesById[car.categoryId],
-                      i18n.language
-                    )}
-                  </p>
-                  <p className="mt-3 text-[15px] font-medium text-fg tabular-nums">
-                    {t("fleet.perHour", { price: car.pricePerHour })}
-                  </p>
-                  <p className="mt-0.5 text-sm text-muted">
-                    {t("fleet.specs", {
-                      passengers: car.passengers,
-                      luggage: car.luggage,
-                    })}{" "}
-                    · {t(`fleet.fuels.${car.fuel}`)}
-                  </p>
-
-                  {/* Pinned to the card's bottom, 16px clear of the text. */}
-                  <div className="mt-auto pt-4" />
-                  <div className="flex items-center justify-between gap-3 border-t border-line/10 pt-4">
-                    {can(P.fleet.update) ? (
-                      <label className="flex items-center gap-2.5 text-sm text-fg/80">
-                        <Switch
-                          checked={car.published}
-                          disabled={isUpdating && originalArgs?.id === car.id}
-                          onChange={(published) =>
-                            run(() => updateCar({ id: car.id, published }))
-                          }
-                          label={t("fleet.showOnSite")}
-                        />
-                        {car.published
-                          ? t("fleet.published")
-                          : t("fleet.hidden")}
-                      </label>
+                    {car.image ? (
+                      <img
+                        src={car.image}
+                        alt=""
+                        loading="lazy"
+                        className="h-full w-full object-contain p-3"
+                      />
                     ) : (
-                      <span className="text-sm text-muted">
-                        {car.published
-                          ? t("fleet.published")
-                          : t("fleet.hidden")}
+                      <span className="flex h-full flex-col items-center justify-center gap-2 text-sm text-muted">
+                        <CarFront size={28} />
+                        {t("fleet.noPhoto")}
                       </span>
                     )}
-                    <div className="flex items-center gap-1">
-                      <Link
-                        to={car.id}
-                        state={linkState}
-                        className="h-9 px-3 inline-flex items-center rounded-lg text-sm text-teal-accent hover:bg-teal-accent/10"
-                      >
-                        {can(P.fleet.update)
-                          ? t("fleet.edit")
-                          : t("fleet.view")}
-                      </Link>
-                      <Can permission={P.fleet.delete}>
-                        <button
-                          type="button"
-                          onClick={() => setCarToDelete(car)}
-                          aria-label={`${t("fleet.deleteCar")}: ${car.name}`}
-                          title={t("fleet.deleteCar")}
-                          className="grid h-9 w-9 place-items-center rounded-lg text-rose-400 light:text-rose-700 hover:bg-rose-500/10"
+                    <span
+                      className={`absolute top-3 start-3 rounded-full px-3 py-1 text-xs font-medium ${tone.chip}`}
+                    >
+                      {categoryName(
+                        categoriesById[car.categoryId],
+                        i18n.language
+                      )}
+                    </span>
+                    {!car.published && (
+                      <span className="absolute top-3 end-3 rounded-full bg-black/70 px-3 py-1 text-xs font-medium text-white">
+                        {t("fleet.hidden")}
+                      </span>
+                    )}
+                  </Link>
+
+                  <div className="flex flex-1 flex-col p-4">
+                    <Link
+                      to={car.id}
+                      state={linkState}
+                      className="font-semibold text-fg hover:text-teal-accent"
+                    >
+                      {car.name}
+                    </Link>
+                    <p
+                      className={`mt-2 inline-flex w-fit rounded-lg px-3 py-1 text-[15px] font-semibold tabular-nums ${tone.chip}`}
+                    >
+                      {t("fleet.perHour", { price: car.pricePerHour })}
+                    </p>
+                    <ul
+                      title={t("fleet.specs", {
+                        passengers: car.passengers,
+                        luggage: car.luggage,
+                      })}
+                      className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-fg/75"
+                    >
+                      <li className="inline-flex items-center gap-1.5">
+                        <Users size={15} className="text-muted" />
+                        {car.passengers}
+                      </li>
+                      <li className="inline-flex items-center gap-1.5">
+                        <Briefcase size={15} className="text-muted" />
+                        {car.luggage}
+                      </li>
+                      <li className="inline-flex items-center gap-1.5">
+                        <Fuel size={15} className="text-muted" />
+                        {t(`fleet.fuels.${car.fuel}`)}
+                      </li>
+                    </ul>
+
+                    {/* Pinned to the card's bottom, 16px clear of the text. */}
+                    <div className="mt-auto pt-4" />
+                    <div className="flex items-center justify-between gap-3 border-t border-line/10 pt-4">
+                      {can(P.fleet.update) ? (
+                        <label
+                          className={`flex items-center gap-2.5 text-sm ${car.published ? "text-emerald-300 light:text-emerald-700" : "text-muted"}`}
                         >
-                          <Trash2 size={17} />
-                        </button>
-                      </Can>
+                          <Switch
+                            checked={car.published}
+                            disabled={isUpdating && originalArgs?.id === car.id}
+                            onChange={(published) =>
+                              run(() => updateCar({ id: car.id, published }))
+                            }
+                            label={t("fleet.showOnSite")}
+                          />
+                          {car.published
+                            ? t("fleet.published")
+                            : t("fleet.hidden")}
+                        </label>
+                      ) : (
+                        <span className="text-sm text-muted">
+                          {car.published
+                            ? t("fleet.published")
+                            : t("fleet.hidden")}
+                        </span>
+                      )}
+                      <div className="flex items-center gap-1">
+                        <Link
+                          to={car.id}
+                          state={linkState}
+                          className="h-9 px-3 inline-flex items-center rounded-lg text-sm text-teal-accent hover:bg-teal-accent/10"
+                        >
+                          {can(P.fleet.update)
+                            ? t("fleet.edit")
+                            : t("fleet.view")}
+                        </Link>
+                        <Can permission={P.fleet.delete}>
+                          <button
+                            type="button"
+                            onClick={() => setCarToDelete(car)}
+                            aria-label={`${t("fleet.deleteCar")}: ${car.name}`}
+                            title={t("fleet.deleteCar")}
+                            className="grid h-9 w-9 place-items-center rounded-lg text-rose-400 light:text-rose-700 hover:bg-rose-500/10"
+                          >
+                            <Trash2 size={17} />
+                          </button>
+                        </Can>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>
