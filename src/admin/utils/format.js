@@ -50,3 +50,12 @@ export function formatShortDateTime(value, language) {
 export function formatDateAndTime(date, time, language) {
   return [formatDate(date, language), time].filter(Boolean).join(" · ");
 }
+
+// 12 Oct (no year)
+export function formatDayMonth(value, language) {
+  if (!value) return "";
+  return new Intl.DateTimeFormat(locale(language), {
+    day: "numeric",
+    month: "short",
+  }).format(toDate(value));
+}

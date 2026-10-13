@@ -4,6 +4,11 @@
 export const ADMIN_CARD =
   "rounded-2xl border border-line/10 bg-surface/[0.03] light:bg-surface/[0.02]";
 
+// The Overview's richer card: a faint teal wash and a soft shadow in dark
+// mode (flat in light mode, like ADMIN_CARD), and the border warms on hover.
+export const ADMIN_CARD_RICH =
+  "rounded-2xl border border-line/10 bg-gradient-to-br from-teal-accent/[0.08] via-surface/[0.03] to-surface/[0.015] shadow-[0_10px_30px_-14px_rgba(0,0,0,0.7)] light:bg-none light:bg-surface/[0.02] light:shadow-none";
+
 export const ADMIN_LABEL = "block mb-2 text-sm font-medium text-fg/80";
 
 export const ADMIN_INPUT =

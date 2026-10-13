@@ -400,17 +400,24 @@
       "newRequests": "New requests",
       "newRequestsHint": "Waiting for the team",
       "nextSevenDays": "Next 7 days",
-      "receivedThisMonth": "Received this month"
+      "receivedThisMonth": "Received this month",
+      "nextPickup": "Next pickup at {{time}}",
+      "noPickupsToday": "No pickups today",
+      "allCaughtUp": "All caught up",
+      "range": "{{from}} – {{to}}"
     },
     "upcoming": "Upcoming pickups",
     "noUpcoming": "No upcoming pickups.",
     "byService": "Bookings by service",
     "last30Days": "Last 30 days",
+    "bookingsTotal": "bookings",
+    "vsLastMonth": "vs last month",
+    "quickRequests": "Review new requests",
+    "quickMessages": "Open unread messages",
     "noBookings": "No bookings yet.",
     "viewAll": "View all",
     "unreadMessages": "Unread messages",
-    "noUnread": "All caught up — no unread messages.",
-    "sections": "Your sections"
+    "noUnread": "All caught up — no unread messages."
   },
   "comingSoon": {
     "title": "This section is being built",

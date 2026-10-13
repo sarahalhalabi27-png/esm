@@ -397,17 +397,24 @@
       "newRequests": "طلبات جديدة",
       "newRequestsHint": "بانتظار الفريق",
       "nextSevenDays": "الأيام السبعة القادمة",
-      "receivedThisMonth": "المستلمة هذا الشهر"
+      "receivedThisMonth": "المستلمة هذا الشهر",
+      "nextPickup": "أقرب رحلة الساعة {{time}}",
+      "noPickupsToday": "لا رحلات اليوم",
+      "allCaughtUp": "لا شيء بالانتظار",
+      "range": "{{from}} – {{to}}"
     },
     "upcoming": "الرحلات القادمة",
     "noUpcoming": "لا توجد رحلات قادمة.",
     "byService": "الحجوزات حسب الخدمة",
     "last30Days": "آخر 30 يوماً",
+    "bookingsTotal": "حجز",
+    "vsLastMonth": "عن الشهر الماضي",
+    "quickRequests": "مراجعة الطلبات الجديدة",
+    "quickMessages": "فتح الرسائل غير المقروءة",
     "noBookings": "لا توجد حجوزات بعد.",
     "viewAll": "عرض الكل",
     "unreadMessages": "رسائل غير مقروءة",
-    "noUnread": "لا توجد رسائل غير مقروءة.",
-    "sections": "أقسامك"
+    "noUnread": "لا توجد رسائل غير مقروءة."
   },
   "comingSoon": {
     "title": "هذا القسم قيد البناء",

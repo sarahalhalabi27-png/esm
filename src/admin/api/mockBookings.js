@@ -307,6 +307,7 @@ export async function updateBooking({ id, ...changes }) {
 //   receivedThisMonth, bookings received since the 1st of this month
 //   upcoming: [booking, ...]   next 6 pickups from now, new or confirmed
 //   byService: [{ service, count }, ...]  received in the last 30 days, most first
+//   receivedLastMonth, bookings received during the whole previous month
 // }
 export async function getBookingStats() {
   await delay();
@@ -328,7 +329,13 @@ export async function getBookingStats() {
     ).length,
   })).sort((a, b) => b.count - a.count);
 
+  const lastMonthStart = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+
   return copy({
+    receivedLastMonth: bookings.filter((b) => {
+      const created = new Date(b.createdAt);
+      return created >= lastMonthStart && created < monthStart;
+    }).length,
     todayPickups: active.filter((b) => b.pickup.date === today).length,
     newRequests: bookings.filter((b) => b.status === "new").length,
     nextSevenDays: active.filter(
