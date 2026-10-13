@@ -13,10 +13,16 @@ import {
   Undo2,
 } from "lucide-react";
 import AdminMessage from "../../components/AdminMessage.jsx";
+import Avatar from "../../components/Avatar.jsx";
 import ConfirmDialog from "../../components/ConfirmDialog.jsx";
 import Select from "../../components/Select.jsx";
 import Pagination from "../../components/Pagination.jsx";
-import { ADMIN_BUTTON, ADMIN_CARD, ADMIN_INPUT } from "../../components/ui.js";
+import {
+  ADMIN_BUTTON,
+  ADMIN_CARD,
+  ADMIN_CARD_RICH,
+  ADMIN_INPUT,
+} from "../../components/ui.js";
 import {
   useGetCommentsQuery,
   useGetPostsQuery,
@@ -28,7 +34,6 @@ import { adminPath } from "../../navigation.js";
 import { P } from "../../permissions.js";
 import { localTitle } from "../../utils/blog.js";
 import { formatShortDateTime } from "../../utils/format.js";
-import { initials } from "../../utils/people.js";
 
 const PAGE_SIZE = 20;
 const VIEWS = ["pending", "approved", "spam"];
@@ -45,6 +50,29 @@ const ACTIONS_BY_VIEW = {
     { action: "spam", label: "spam", icon: Ban },
   ],
   spam: [{ action: "pending", label: "notSpam", icon: Undo2 }],
+};
+
+// The bar beside each comment and the tab's count, by the tab being viewed.
+const VIEW_BARS = {
+  pending: "bg-amber-400 light:bg-amber-500",
+  approved: "bg-emerald-400 light:bg-emerald-500",
+  spam: "bg-rose-400 light:bg-rose-500",
+};
+const VIEW_COUNTS = {
+  pending:
+    "bg-amber-400/20 text-amber-300 light:bg-amber-500/20 light:text-amber-700",
+  spam: "bg-rose-400/20 text-rose-300 light:bg-rose-500/20 light:text-rose-700",
+};
+
+// A colour per kind of action: approve green, spam amber, undo neutral,
+// delete red.
+const ACTION_TONES = {
+  approve:
+    "bg-emerald-400/15 text-emerald-300 hover:bg-emerald-400/25 light:bg-emerald-500/15 light:text-emerald-800",
+  spam: "bg-amber-400/15 text-amber-300 hover:bg-amber-400/25 light:bg-amber-500/15 light:text-amber-800",
+  pending: "bg-teal-accent/15 text-teal-accent hover:bg-teal-accent/25",
+  delete:
+    "bg-rose-400/15 text-rose-300 hover:bg-rose-400/25 light:bg-rose-500/15 light:text-rose-700",
 };
 
 // Only real web addresses become links: the website comes from a public
@@ -127,7 +155,11 @@ export default function CommentsPage() {
                 {count !== undefined && (
                   <span
                     className={`min-w-6 h-6 px-1.5 grid place-items-center rounded-full text-xs ${
-                      active ? "bg-page/20" : "bg-surface/[0.08]"
+                      active
+                        ? "bg-page/20"
+                        : count > 0 && VIEW_COUNTS[view]
+                          ? VIEW_COUNTS[view]
+                          : "bg-surface/[0.08]"
                     }`}
                   >
                     {count}
@@ -220,7 +252,9 @@ export default function CommentsPage() {
           >
             {/* Select-all and the actions for the selection */}
             {selectable && (
-              <div className="mb-3 flex min-h-11 flex-wrap items-center gap-3 rounded-xl border border-line/10 px-4 py-2">
+              <div
+                className={`${ADMIN_CARD_RICH} mb-3 flex min-h-12 flex-wrap items-center gap-3 !rounded-xl px-4 py-2`}
+              >
                 <label className="flex items-center gap-2.5 text-sm text-fg/80">
                   <input
                     type="checkbox"
@@ -244,7 +278,7 @@ export default function CommentsPage() {
                         type="button"
                         disabled={isWorking}
                         onClick={() => run(selected, action)}
-                        className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-line/15 px-3 text-sm text-fg/85 hover:bg-surface/[0.06]"
+                        className={`inline-flex h-9 items-center gap-1.5 rounded-lg px-3 text-sm font-medium transition-colors ${ACTION_TONES[action]}`}
                       >
                         <Icon size={15} />
                         {t(`comments.actions.${label}`)}
@@ -255,7 +289,7 @@ export default function CommentsPage() {
                         type="button"
                         disabled={isWorking}
                         onClick={() => setToDelete(selected)}
-                        className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-rose-500/30 px-3 text-sm text-rose-400 light:text-rose-700 hover:bg-rose-500/10"
+                        className={`inline-flex h-9 items-center gap-1.5 rounded-lg px-3 text-sm font-medium transition-colors ${ACTION_TONES.delete}`}
                       >
                         <Trash2 size={15} />
                         {t("comments.actions.delete")}
@@ -266,7 +300,7 @@ export default function CommentsPage() {
               </div>
             )}
 
-            <ul className={`${ADMIN_CARD} overflow-hidden`}>
+            <ul className={`${ADMIN_CARD_RICH} overflow-hidden`}>
               {items.map((comment) => (
                 <li
                   key={comment.id}
@@ -289,9 +323,11 @@ export default function CommentsPage() {
                       className="mt-2.5 h-[18px] w-[18px] shrink-0 accent-[rgb(var(--accent))]"
                     />
                   )}
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-teal-accent/15 text-sm font-semibold text-teal-accent">
-                    {initials(comment.name)}
-                  </span>
+                  <span
+                    aria-hidden="true"
+                    className={`w-1 shrink-0 self-stretch rounded-full ${VIEW_BARS[params.status]}`}
+                  />
+                  <Avatar name={comment.name} />
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
                       <span className="font-medium text-fg" dir="auto">
@@ -343,7 +379,7 @@ export default function CommentsPage() {
                             type="button"
                             disabled={isWorking}
                             onClick={() => run([comment.id], action)}
-                            className="inline-flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-sm text-teal-accent hover:bg-teal-accent/10 disabled:opacity-50"
+                            className={`inline-flex h-8 items-center gap-1.5 rounded-lg px-3 text-sm font-medium transition-colors disabled:opacity-50 ${ACTION_TONES[action]}`}
                           >
                             <Icon size={14} />
                             {t(`comments.actions.${label}`)}
@@ -354,7 +390,7 @@ export default function CommentsPage() {
                             type="button"
                             disabled={isWorking}
                             onClick={() => setToDelete([comment.id])}
-                            className="inline-flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-sm text-rose-400 light:text-rose-700 hover:bg-rose-500/10 disabled:opacity-50"
+                            className={`inline-flex h-8 items-center gap-1.5 rounded-lg px-3 text-sm font-medium transition-colors disabled:opacity-50 ${ACTION_TONES.delete}`}
                           >
                             <Trash2 size={14} />
                             {t("comments.actions.delete")}
