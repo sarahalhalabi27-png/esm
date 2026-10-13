@@ -1,13 +1,15 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Controller, useFieldArray } from "react-hook-form";
 import { z } from "zod";
 import { ArrowDown, ArrowUp, Plus, Trash2 } from "lucide-react";
+import ConfirmDialog from "../../components/ConfirmDialog.jsx";
 import ImageUpload from "../../components/ImageUpload.jsx";
 import SmallIconButton from "../../components/SmallIconButton.jsx";
 import Switch from "../../components/Switch.jsx";
 import {
   ADMIN_BUTTON_GHOST,
-  ADMIN_CARD,
+  ADMIN_CARD_RICH,
   ADMIN_FIELD_ERROR,
   ADMIN_INPUT,
   ADMIN_LABEL,
@@ -26,19 +28,26 @@ const text = (t, required = true) =>
 
 function Card({ className = "", children }) {
   return (
-    <section className={`${ADMIN_CARD} p-5 min-w-0 ${className}`}>
+    <section className={`${ADMIN_CARD_RICH} p-5 min-w-0 ${className}`}>
       {children}
     </section>
   );
 }
 
-// A numbered list item with move up / down / remove buttons.
+// A list item with move up / down / remove buttons; removing asks first.
 function ListItem({ title, index, count, move, remove, canEdit, children }) {
   const { t } = useTranslation("admin");
+  const [confirmRemove, setConfirmRemove] = useState(false);
   return (
-    <li className={`${ADMIN_CARD} p-5 min-w-0`}>
+    <li className={`${ADMIN_CARD_RICH} p-5 min-w-0`}>
       <div className="mb-4 flex items-center justify-between gap-2">
-        <span className="text-sm font-semibold text-muted">{title}</span>
+        <span className="flex items-center gap-3 font-semibold text-fg">
+          <span
+            aria-hidden="true"
+            className="h-6 w-1 shrink-0 rounded-full bg-teal-accent"
+          />
+          {title}
+        </span>
         {canEdit && (
           <div className="flex items-center gap-1">
             <SmallIconButton
@@ -57,12 +66,23 @@ function ListItem({ title, index, count, move, remove, canEdit, children }) {
               icon={Trash2}
               danger
               label={t("content.remove")}
-              onClick={() => remove(index)}
+              onClick={() => setConfirmRemove(true)}
             />
           </div>
         )}
       </div>
       <div className="flex flex-col gap-4">{children}</div>
+      <ConfirmDialog
+        open={confirmRemove}
+        title={t("content.removeTitle", { title })}
+        body={t("content.removeBody")}
+        confirmLabel={t("common.delete")}
+        onConfirm={() => {
+          setConfirmRemove(false);
+          remove(index);
+        }}
+        onClose={() => setConfirmRemove(false)}
+      />
     </li>
   );
 }

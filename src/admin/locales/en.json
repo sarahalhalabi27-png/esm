@@ -660,6 +660,8 @@
     "moveUp": "Move up",
     "moveDown": "Move down",
     "remove": "Remove",
+    "removeTitle": "Delete “{{title}}”?",
+    "removeBody": "It will be removed from the website once you save your changes.",
     "faq": {
       "hint": "Questions shown on the FAQ page, in this order.",
       "question": "Question",

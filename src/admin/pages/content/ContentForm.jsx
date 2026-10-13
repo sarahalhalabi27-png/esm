@@ -2,9 +2,13 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
+import { AlertCircle, CheckCircle2, Clock, Info, Loader2 } from "lucide-react";
 import AdminMessage from "../../components/AdminMessage.jsx";
-import { ADMIN_BUTTON, ADMIN_CARD } from "../../components/ui.js";
+import {
+  ADMIN_BUTTON,
+  ADMIN_CARD,
+  ADMIN_CARD_RICH,
+} from "../../components/ui.js";
 import {
   useGetContentQuery,
   useSaveContentMutation,
@@ -91,9 +95,17 @@ function EditForm({ contentKey, data, schema, hint, children }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-sm text-muted">
-        <p>{hint}</p>
-        <p>
+      <div
+        className={`${ADMIN_CARD_RICH} mb-5 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-5 py-4 text-sm text-muted`}
+      >
+        <p className="flex min-w-0 items-center gap-3">
+          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-sky-400/15 text-sky-300 light:bg-sky-500/15 light:text-sky-700">
+            <Info size={16} />
+          </span>
+          {hint}
+        </p>
+        <p className="flex items-center gap-1.5">
+          <Clock size={14} className="shrink-0" />
           {t("content.lastUpdated", {
             date: formatDateTime(data.updatedAt, i18n.language),
           })}

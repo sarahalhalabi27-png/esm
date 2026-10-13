@@ -1,5 +1,13 @@
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import {
+  CircleHelp,
+  FileText,
+  Handshake,
+  Scale,
+  ShieldCheck,
+  Tag,
+} from "lucide-react";
 import { adminPath } from "../../navigation.js";
 import { LEGAL_PAGES } from "../../api/mockContent.js";
 import {
@@ -10,6 +18,16 @@ import {
 } from "./editors.jsx";
 
 const TABS = ["faq", "promo", "partners", ...LEGAL_PAGES];
+
+// An icon per tab, in front of its name.
+const TAB_ICONS = {
+  faq: CircleHelp,
+  promo: Tag,
+  partners: Handshake,
+  terms: FileText,
+  privacy: ShieldCheck,
+  disclaimer: Scale,
+};
 
 // /admin/content/<faq | promo | partners | terms | privacy | disclaimer>:
 // one editor per block of website text, under a row of sub-tabs.
@@ -23,13 +41,14 @@ export default function ContentPage() {
             key={tab}
             to={`${adminPath("content")}/${tab}`}
             className={({ isActive }) =>
-              `inline-flex h-10 shrink-0 items-center rounded-full px-4 text-sm transition-colors ${
+              `inline-flex h-10 shrink-0 items-center gap-2 rounded-full px-4 text-sm transition-colors ${
                 isActive
                   ? "bg-teal-accent text-page font-semibold"
                   : "border border-line/15 text-fg/75 hover:text-fg hover:bg-surface/[0.05]"
               }`
             }
           >
+            <TabIcon tab={tab} />
             {t(`content.tabs.${tab}`)}
           </NavLink>
         ))}
@@ -50,4 +69,9 @@ export default function ContentPage() {
       </Routes>
     </>
   );
+}
+
+function TabIcon({ tab }) {
+  const Icon = TAB_ICONS[tab];
+  return Icon ? <Icon size={16} className="shrink-0" /> : null;
 }
