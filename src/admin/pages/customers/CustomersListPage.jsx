@@ -4,11 +4,19 @@ import { AlertCircle, BadgeCheck, Search, Users } from "lucide-react";
 import AdminMessage from "../../components/AdminMessage.jsx";
 import Avatar from "../../components/Avatar.jsx";
 import Pagination from "../../components/Pagination.jsx";
-import { ADMIN_BUTTON, ADMIN_CARD, ADMIN_INPUT } from "../../components/ui.js";
+import {
+  ADMIN_BUTTON,
+  ADMIN_CARD,
+  ADMIN_CARD_RICH,
+  ADMIN_INPUT,
+} from "../../components/ui.js";
 import { useGetCustomersQuery } from "../../api/customersApi.js";
 import useUrlFilters, { useSearchBox } from "../../hooks/useUrlFilters.js";
 import { formatDate } from "../../utils/format.js";
-import { CUSTOMER_STATUS_TONES } from "../../utils/people.js";
+import {
+  CUSTOMER_STATUS_BARS,
+  CUSTOMER_STATUS_TONES,
+} from "../../utils/people.js";
 
 const PAGE_SIZE = 15;
 const VIEWS = ["", "active", "blocked"];
@@ -55,7 +63,11 @@ export default function CustomersListPage() {
                 {count !== undefined && (
                   <span
                     className={`min-w-6 h-6 px-1.5 grid place-items-center rounded-full text-xs ${
-                      active ? "bg-page/20" : "bg-surface/[0.08]"
+                      active
+                        ? "bg-page/20"
+                        : view === "blocked" && count > 0
+                          ? "bg-rose-400/20 text-rose-300 light:bg-rose-500/20 light:text-rose-700"
+                          : "bg-surface/[0.08]"
                     }`}
                   >
                     {count}
@@ -119,11 +131,12 @@ export default function CustomersListPage() {
           <div
             className={`transition-opacity ${isFetching ? "opacity-60" : ""}`}
           >
-            <ul className={`${ADMIN_CARD} overflow-hidden`}>
+            <ul className={`${ADMIN_CARD_RICH} overflow-hidden`}>
               <li
                 aria-hidden="true"
-                className="hidden md:grid grid-cols-[minmax(0,1fr)_150px_90px_120px_100px] gap-4 border-b border-line/10 px-4 py-3 text-xs uppercase tracking-wider text-muted"
+                className="hidden md:grid grid-cols-[4px_minmax(0,1fr)_150px_90px_120px_100px] gap-4 border-b border-line/10 px-4 py-3 text-xs uppercase tracking-wider text-muted"
               >
+                <span />
                 <span>{t("customers.columns.customer")}</span>
                 <span>{t("customers.columns.phone")}</span>
                 <span>{t("customers.columns.bookings")}</span>
@@ -138,8 +151,13 @@ export default function CustomersListPage() {
                   <Link
                     to={customer.id}
                     state={{ listSearch: location.search }}
-                    className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 transition-colors hover:bg-surface/[0.04] md:grid md:grid-cols-[minmax(0,1fr)_150px_90px_120px_100px]"
+                    className="relative flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 max-md:ps-6 transition-colors hover:bg-surface/[0.05] md:grid md:grid-cols-[4px_minmax(0,1fr)_150px_90px_120px_100px]"
                   >
+                    {/* Green bar for an active account, red for a blocked one. */}
+                    <span
+                      aria-hidden="true"
+                      className={`h-11 w-1 rounded-full max-md:absolute max-md:inset-y-3 max-md:start-2 max-md:h-auto ${CUSTOMER_STATUS_BARS[customer.status]}`}
+                    />
                     <span className="flex min-w-0 flex-1 basis-full items-center gap-3 md:basis-auto">
                       <Avatar name={customer.name} photo={customer.photo} />
                       <span className="min-w-0">
@@ -169,11 +187,19 @@ export default function CustomersListPage() {
                     <span className="text-sm text-fg/80 tabular-nums" dir="ltr">
                       {customer.phone || t("customers.noPhone")}
                     </span>
-                    <span className="text-sm text-fg/80 tabular-nums">
-                      <span className="md:sr-only">
+                    <span>
+                      <span className="md:sr-only text-sm text-muted">
                         {t("customers.columns.bookings")}:{" "}
                       </span>
-                      {customer.bookings.total}
+                      <span
+                        className={`inline-grid h-7 min-w-7 place-items-center rounded-full px-2 text-[13px] font-medium tabular-nums ${
+                          customer.bookings.total > 0
+                            ? "bg-teal-accent/15 text-teal-accent"
+                            : "bg-surface/[0.06] text-muted"
+                        }`}
+                      >
+                        {customer.bookings.total}
+                      </span>
                     </span>
                     <span className="text-sm text-muted">
                       {formatDate(customer.createdAt, i18n.language)}

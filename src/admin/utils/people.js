@@ -15,3 +15,9 @@ export const CUSTOMER_STATUS_TONES = {
   blocked:
     "bg-rose-400/15 text-rose-300 light:bg-rose-500/15 light:text-rose-800",
 };
+
+// The thin bar beside a customer, by account status.
+export const CUSTOMER_STATUS_BARS = {
+  active: "bg-emerald-400 light:bg-emerald-500",
+  blocked: "bg-rose-400 light:bg-rose-500",
+};
