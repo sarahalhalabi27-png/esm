@@ -11,6 +11,9 @@ import {
   ArrowUp,
   CheckCircle2,
   ExternalLink,
+  FileText,
+  Globe,
+  Image as ImageIcon,
   Loader2,
   Plus,
   SearchX,
@@ -27,6 +30,7 @@ import {
   ADMIN_BUTTON,
   ADMIN_BUTTON_GHOST,
   ADMIN_CARD,
+  ADMIN_CARD_RICH,
   ADMIN_FIELD_ERROR,
   ADMIN_INPUT,
   ADMIN_LABEL,
@@ -264,8 +268,21 @@ function PostEditor({ post, backTo, backLink }) {
     <form onSubmit={handleSubmit(onSubmit, onInvalid)} noValidate>
       {backLink}
 
-      <div className="mt-4 flex flex-wrap items-start justify-between gap-4">
-        <h2 className="text-xl font-semibold text-fg">
+      {/* Heading card; its side bar is green when published, amber for a draft. */}
+      <div
+        className={`${ADMIN_CARD_RICH} relative mt-4 flex flex-wrap items-center justify-between gap-4 overflow-hidden p-5 ps-7 md:p-6 md:ps-8`}
+      >
+        <span
+          aria-hidden="true"
+          className={`absolute inset-y-0 start-0 w-1.5 ${
+            isNew
+              ? "bg-teal-accent"
+              : post.status === "published"
+                ? "bg-emerald-400 light:bg-emerald-500"
+                : "bg-amber-400 light:bg-amber-500"
+          }`}
+        />
+        <h2 className="min-w-0 text-2xl font-semibold text-fg">
           {isNew
             ? t("blog.newTitle")
             : post.content.en.title.replace(/\n/g, " ")}
@@ -287,7 +304,7 @@ function PostEditor({ post, backTo, backLink }) {
               <button
                 type="button"
                 onClick={() => setConfirmDelete(true)}
-                className="inline-flex h-10 items-center gap-2 rounded-[10px] border border-rose-500/30 px-4 text-sm text-rose-400 light:text-rose-700 transition-colors hover:bg-rose-500/10"
+                className="inline-flex h-10 items-center gap-2 rounded-[10px] border border-rose-500/40 bg-rose-500/10 px-4 text-sm font-medium text-rose-300 light:text-rose-700 transition-colors hover:bg-rose-500/20"
               >
                 <Trash2 size={16} />
                 {t("blog.deletePost")}
@@ -299,13 +316,14 @@ function PostEditor({ post, backTo, backLink }) {
 
       <fieldset
         disabled={!canEdit}
-        className="mt-6 grid gap-4 lg:grid-cols-3 items-start min-w-0"
+        className="mt-4 grid gap-4 lg:grid-cols-3 items-start min-w-0"
       >
         <div className="lg:col-span-2 flex flex-col gap-4 min-w-0">
           {/* Content, per language */}
-          <section className={`${ADMIN_CARD} p-5 min-w-0`}>
+          <section className={`${ADMIN_CARD_RICH} p-5 min-w-0`}>
             <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted">
+              <h3 className="flex items-center gap-3 font-semibold text-fg">
+                <IconChip icon={FileText} />
                 {t("blog.sections.content")}
               </h3>
               <div
@@ -352,8 +370,9 @@ function PostEditor({ post, backTo, backLink }) {
           </section>
 
           {/* Images: same width as the content card above it */}
-          <section className={`${ADMIN_CARD} p-5`}>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted">
+          <section className={`${ADMIN_CARD_RICH} p-5`}>
+            <h3 className="mb-5 flex items-center gap-3 font-semibold text-fg">
+              <IconChip icon={ImageIcon} />
               {t("blog.sections.images")}
             </h3>
             <div className="grid gap-5 md:grid-cols-2">
@@ -398,8 +417,9 @@ function PostEditor({ post, backTo, backLink }) {
         </div>
 
         {/* Publishing */}
-        <section className={`${ADMIN_CARD} p-5`}>
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted">
+        <section className={`${ADMIN_CARD_RICH} p-5`}>
+          <h3 className="mb-5 flex items-center gap-3 font-semibold text-fg">
+            <IconChip icon={Globe} />
             {t("blog.sections.publishing")}
           </h3>
           <Controller
@@ -665,5 +685,14 @@ function LanguageFields({ lang, control, register, errors, disabled }) {
         )}
       </div>
     </div>
+  );
+}
+
+// The teal icon square that leads a section heading.
+function IconChip({ icon: Icon }) {
+  return (
+    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-teal-accent/15 text-teal-accent">
+      <Icon size={18} />
+    </span>
   );
 }

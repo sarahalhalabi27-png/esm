@@ -14,7 +14,12 @@ import {
 import AdminMessage from "../../components/AdminMessage.jsx";
 import Can from "../../components/Can.jsx";
 import ConfirmDialog from "../../components/ConfirmDialog.jsx";
-import { ADMIN_BUTTON, ADMIN_CARD, ADMIN_INPUT } from "../../components/ui.js";
+import {
+  ADMIN_BUTTON,
+  ADMIN_CARD,
+  ADMIN_CARD_RICH,
+  ADMIN_INPUT,
+} from "../../components/ui.js";
 import { useDeletePostMutation, useGetPostsQuery } from "../../api/blogApi.js";
 import useCan from "../../hooks/useCan.js";
 import useUrlFilters, { useSearchBox } from "../../hooks/useUrlFilters.js";
@@ -27,8 +32,15 @@ const VIEWS = ["", "published", "draft"];
 const STATUS_TONES = {
   published:
     "bg-emerald-400/15 text-emerald-300 light:bg-emerald-500/15 light:text-emerald-800",
-  draft: "bg-surface/[0.08] text-muted",
+  draft:
+    "bg-amber-400/15 text-amber-300 light:bg-amber-500/15 light:text-amber-800",
 };
+const STATUS_BARS = {
+  published: "bg-emerald-400 light:bg-emerald-500",
+  draft: "bg-amber-400 light:bg-amber-500",
+};
+const COMMENTS_CHIP =
+  "inline-flex h-6 items-center gap-1 rounded-full bg-sky-400/15 px-2.5 text-xs font-medium text-sky-300 light:bg-sky-500/15 light:text-sky-800";
 
 export default function PostsListPage() {
   const { t, i18n } = useTranslation("admin");
@@ -157,7 +169,7 @@ export default function PostsListPage() {
           </div>
         ) : (
           <ul
-            className={`${ADMIN_CARD} overflow-hidden transition-opacity ${
+            className={`${ADMIN_CARD_RICH} overflow-hidden transition-opacity ${
               isFetching ? "opacity-60" : ""
             }`}
           >
@@ -166,6 +178,11 @@ export default function PostsListPage() {
                 key={post.id}
                 className="flex items-center gap-4 border-b border-line/[0.06] px-4 py-3 last:border-0"
               >
+                {/* Green bar for a published post, amber for a draft. */}
+                <span
+                  aria-hidden="true"
+                  className={`h-14 w-1 shrink-0 rounded-full ${STATUS_BARS[post.status]}`}
+                />
                 <Link
                   to={post.id}
                   state={{ listSearch: location.search }}
@@ -206,13 +223,13 @@ export default function PostsListPage() {
                     {can(P.comments.view) ? (
                       <Link
                         to={`${adminPath("comments")}?post=${post.id}`}
-                        className="inline-flex items-center gap-1 hover:text-teal-accent"
+                        className={`${COMMENTS_CHIP} hover:bg-sky-400/25`}
                       >
                         <MessageSquare size={13} />
                         {t("blog.comments", { count: post.commentCount })}
                       </Link>
                     ) : (
-                      <span className="inline-flex items-center gap-1">
+                      <span className={COMMENTS_CHIP}>
                         <MessageSquare size={13} />
                         {t("blog.comments", { count: post.commentCount })}
                       </span>
