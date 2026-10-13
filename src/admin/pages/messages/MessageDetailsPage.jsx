@@ -6,16 +6,20 @@ import {
   Archive,
   ArchiveRestore,
   ArrowLeft,
+  Clock,
   CornerUpLeft,
   Loader2,
   Mail,
   MailOpen,
   MessageCircle,
+  MessageSquareText,
   Phone,
   SearchX,
   Trash2,
+  User,
 } from "lucide-react";
 import AdminMessage from "../../components/AdminMessage.jsx";
+import Avatar from "../../components/Avatar.jsx";
 import Can from "../../components/Can.jsx";
 import EmailLink from "../../components/EmailLink.jsx";
 import ConfirmDialog from "../../components/ConfirmDialog.jsx";
@@ -23,6 +27,7 @@ import {
   ADMIN_BUTTON,
   ADMIN_BUTTON_GHOST,
   ADMIN_CARD,
+  ADMIN_CARD_RICH,
 } from "../../components/ui.js";
 import {
   useDeleteMessageMutation,
@@ -142,10 +147,23 @@ export default function MessageDetailsPage() {
     <>
       {backLink}
 
-      <div className="mt-4 flex flex-wrap items-start justify-between gap-4">
+      {/* Heading card; its side bar is amber while unread, green once replied. */}
+      <div
+        className={`${ADMIN_CARD_RICH} relative mt-4 overflow-hidden p-5 ps-7 md:p-6 md:ps-8`}
+      >
+        <span
+          aria-hidden="true"
+          className={`absolute inset-y-0 start-0 w-1.5 ${
+            message.replied
+              ? "bg-emerald-400 light:bg-emerald-500"
+              : !message.read
+                ? "bg-amber-400 light:bg-amber-500"
+                : "bg-teal-accent"
+          }`}
+        />
         <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-2">
-            <h2 dir="auto" className="text-xl font-semibold text-fg">
+          <div className="flex flex-wrap items-center gap-3">
+            <h2 dir="auto" className="text-2xl font-semibold text-fg">
               {message.subject || t("messages.noSubject")}
             </h2>
             {message.replied && (
@@ -160,71 +178,71 @@ export default function MessageDetailsPage() {
               </span>
             )}
           </div>
-          <p className="mt-1 text-sm text-muted">
+          <p className="mt-1.5 flex items-center gap-1.5 text-sm text-muted">
+            <Clock size={14} className="shrink-0" />
             {t("messages.receivedAt", {
               date: formatDateTime(message.createdAt, i18n.language),
             })}
           </p>
         </div>
-      </div>
 
-      {/* Actions */}
-      <div className="mt-5 flex flex-wrap gap-2">
-        <a href={mailto} className={ADMIN_BUTTON}>
-          <Mail size={17} />
-          {t("messages.actions.replyByEmail")}
-        </a>
-        <Can permission={P.messages.update}>
-          <button
-            type="button"
-            disabled={isUpdating}
-            onClick={() => change({ replied: !message.replied })}
-            className={ghost}
-          >
-            <CornerUpLeft size={16} />
-            {message.replied
-              ? t("messages.actions.markNotReplied")
-              : t("messages.actions.markReplied")}
-          </button>
-          {/* One button that flips between the two states. */}
-          <button
-            type="button"
-            disabled={isUpdating}
-            onClick={() => change({ read: !message.read })}
-            className={ghost}
-          >
-            {message.read ? <Mail size={16} /> : <MailOpen size={16} />}
-            {message.read
-              ? t("messages.actions.markUnread")
-              : t("messages.actions.markRead")}
-          </button>
-          <button
-            type="button"
-            disabled={isUpdating}
-            onClick={() => change({ archived: !message.archived })}
-            className={ghost}
-          >
-            {message.archived ? (
-              <ArchiveRestore size={16} />
-            ) : (
-              <Archive size={16} />
-            )}
-            {message.archived
-              ? t("messages.actions.unarchive")
-              : t("messages.actions.archive")}
-          </button>
-        </Can>
-        <Can permission={P.messages.delete}>
-          <button
-            type="button"
-            onClick={() => setConfirmDelete(true)}
-            aria-label={t("messages.actions.delete")}
-            title={t("messages.actions.delete")}
-            className="grid place-items-center w-11 h-11 rounded-[10px] border border-rose-500/30 text-rose-400 light:text-rose-700 transition-colors hover:bg-rose-500/10"
-          >
-            <Trash2 size={18} />
-          </button>
-        </Can>
+        {/* Actions */}
+        <div className="mt-5 flex flex-wrap gap-2 border-t border-line/10 pt-5">
+          <a href={mailto} className={ADMIN_BUTTON}>
+            <Mail size={17} />
+            {t("messages.actions.replyByEmail")}
+          </a>
+          <Can permission={P.messages.update}>
+            <button
+              type="button"
+              disabled={isUpdating}
+              onClick={() => change({ replied: !message.replied })}
+              className={ghost}
+            >
+              <CornerUpLeft size={16} />
+              {message.replied
+                ? t("messages.actions.markNotReplied")
+                : t("messages.actions.markReplied")}
+            </button>
+            {/* One button that flips between the two states. */}
+            <button
+              type="button"
+              disabled={isUpdating}
+              onClick={() => change({ read: !message.read })}
+              className={ghost}
+            >
+              {message.read ? <Mail size={16} /> : <MailOpen size={16} />}
+              {message.read
+                ? t("messages.actions.markUnread")
+                : t("messages.actions.markRead")}
+            </button>
+            <button
+              type="button"
+              disabled={isUpdating}
+              onClick={() => change({ archived: !message.archived })}
+              className={ghost}
+            >
+              {message.archived ? (
+                <ArchiveRestore size={16} />
+              ) : (
+                <Archive size={16} />
+              )}
+              {message.archived
+                ? t("messages.actions.unarchive")
+                : t("messages.actions.archive")}
+            </button>
+          </Can>
+          <Can permission={P.messages.delete}>
+            <button
+              type="button"
+              onClick={() => setConfirmDelete(true)}
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-[10px] border border-rose-500/40 bg-rose-500/10 px-4 text-[15px] font-medium text-rose-300 transition-colors hover:bg-rose-500/20 light:text-rose-700"
+            >
+              <Trash2 size={18} />
+              {t("messages.actions.delete")}
+            </button>
+          </Can>
+        </div>
       </div>
 
       {actionFailed && (
@@ -237,61 +255,55 @@ export default function MessageDetailsPage() {
       )}
 
       {/* Both cards stretch to the same height and share one heading style. */}
-      <div className="mt-6 grid gap-4 lg:grid-cols-3">
-        <section className={`${ADMIN_CARD} p-5 lg:col-span-2 min-w-0`}>
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted">
-            {t("messages.message")}
-          </h3>
+      <div className="mt-4 grid gap-4 lg:grid-cols-3">
+        <Section
+          icon={MessageSquareText}
+          title={t("messages.message")}
+          className="lg:col-span-2"
+        >
           <p
             dir="auto"
-            className="whitespace-pre-wrap break-words text-[15px] leading-7 text-fg/90"
+            className="whitespace-pre-wrap break-words text-[16px] leading-8 text-fg/90"
           >
             {message.message}
           </p>
-        </section>
+        </Section>
 
-        <section className={`${ADMIN_CARD} p-5 min-w-0`}>
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted">
-            {t("messages.from")}
-          </h3>
-          <p className="font-medium text-fg">{message.name}</p>
-          <dl className="mt-4 flex flex-col gap-3 text-[15px]">
-            <div>
-              <dt className="text-xs text-muted">
-                {t("messages.fields.email")}
-              </dt>
-              <dd className="mt-1">
-                <EmailLink email={message.email} href={mailto} />
-              </dd>
-            </div>
+        <Section icon={User} title={t("messages.from")}>
+          <div className="flex items-center gap-4">
+            <Avatar name={message.name} size="lg" />
+            <p className="min-w-0 break-words text-lg font-semibold text-fg">
+              {message.name}
+            </p>
+          </div>
+          <ul className="mt-5 flex flex-col gap-3">
+            <ContactRow icon={Mail} label={t("messages.fields.email")}>
+              <EmailLink email={message.email} href={mailto} />
+            </ContactRow>
             {message.phone && (
-              <div>
-                <dt className="text-xs text-muted">
-                  {t("messages.fields.phone")}
-                </dt>
-                <dd className="mt-1 flex flex-wrap items-center gap-3">
-                  <a
-                    href={`tel:${message.phone}`}
-                    dir="ltr"
-                    className="inline-flex items-center gap-1.5 text-teal-accent hover:underline"
-                  >
-                    <Phone size={14} />
-                    {message.phone}
-                  </a>
-                  <a
-                    href={`https://wa.me/${phoneDigits}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-fg"
-                  >
-                    <MessageCircle size={14} />
-                    WhatsApp
-                  </a>
-                </dd>
-              </div>
+              <ContactRow icon={Phone} label={t("messages.fields.phone")}>
+                <a
+                  href={`tel:${message.phone}`}
+                  dir="ltr"
+                  className="text-teal-accent hover:underline"
+                >
+                  {message.phone}
+                </a>
+              </ContactRow>
             )}
-          </dl>
-        </section>
+          </ul>
+          {message.phone && (
+            <a
+              href={`https://wa.me/${phoneDigits}`}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-[10px] border border-emerald-500/30 bg-emerald-500/10 text-sm font-medium text-emerald-300 transition-colors hover:bg-emerald-500/20 light:text-emerald-700"
+            >
+              <MessageCircle size={16} />
+              WhatsApp
+            </a>
+          )}
+        </Section>
       </div>
 
       <Can permission={P.messages.delete}>
@@ -306,5 +318,33 @@ export default function MessageDetailsPage() {
         />
       </Can>
     </>
+  );
+}
+
+function Section({ icon: Icon, title, className = "", children }) {
+  return (
+    <section className={`${ADMIN_CARD_RICH} p-5 min-w-0 ${className}`}>
+      <h3 className="mb-5 flex items-center gap-3 font-semibold text-fg">
+        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-teal-accent/15 text-teal-accent">
+          <Icon size={18} />
+        </span>
+        {title}
+      </h3>
+      {children}
+    </section>
+  );
+}
+
+function ContactRow({ icon: Icon, label, children }) {
+  return (
+    <li className="flex min-w-0 items-center gap-3">
+      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-surface/[0.06] text-muted">
+        <Icon size={17} />
+      </span>
+      <div className="min-w-0">
+        <p className="text-xs text-muted">{label}</p>
+        <div className="break-all text-[15px]">{children}</div>
+      </div>
+    </li>
   );
 }

@@ -2,8 +2,14 @@ import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { AlertCircle, CornerUpLeft, Inbox, Search } from "lucide-react";
 import AdminMessage from "../../components/AdminMessage.jsx";
+import Avatar from "../../components/Avatar.jsx";
 import Pagination from "../../components/Pagination.jsx";
-import { ADMIN_BUTTON, ADMIN_CARD, ADMIN_INPUT } from "../../components/ui.js";
+import {
+  ADMIN_BUTTON,
+  ADMIN_CARD,
+  ADMIN_CARD_RICH,
+  ADMIN_INPUT,
+} from "../../components/ui.js";
 import { useGetMessagesQuery } from "../../api/messagesApi.js";
 import useUrlFilters, { useSearchBox } from "../../hooks/useUrlFilters.js";
 import { formatShortDateTime } from "../../utils/format.js";
@@ -58,7 +64,11 @@ export default function MessagesListPage() {
                 {count !== undefined && (
                   <span
                     className={`min-w-6 h-6 px-1.5 grid place-items-center rounded-full text-xs ${
-                      active ? "bg-page/20" : "bg-surface/[0.08]"
+                      active
+                        ? "bg-page/20"
+                        : view.id === "unread" && count > 0
+                          ? "bg-amber-400/20 text-amber-300 light:bg-amber-500/20 light:text-amber-700"
+                          : "bg-surface/[0.08]"
                     }`}
                   >
                     {count}
@@ -122,7 +132,7 @@ export default function MessagesListPage() {
           <div
             className={`transition-opacity ${isFetching ? "opacity-60" : ""}`}
           >
-            <ul className={`${ADMIN_CARD} overflow-hidden`}>
+            <ul className={`${ADMIN_CARD_RICH} overflow-hidden`}>
               {data.items.map((message) => (
                 <li
                   key={message.id}
@@ -131,21 +141,28 @@ export default function MessagesListPage() {
                   <Link
                     to={message.id}
                     state={{ listSearch: location.search }}
-                    className="flex gap-3 px-4 py-3.5 transition-colors hover:bg-surface/[0.04]"
+                    className={`flex items-center gap-3 px-4 py-3.5 transition-colors hover:bg-surface/[0.05] ${
+                      message.read ? "" : "bg-teal-accent/[0.05]"
+                    }`}
                   >
-                    <span className="mt-2 w-2 shrink-0">
-                      {!message.read && (
-                        <>
-                          <span
-                            aria-hidden="true"
-                            className="block w-2 h-2 rounded-full bg-teal-accent"
-                          />
-                          <span className="sr-only">
-                            {t("messages.unread")}
-                          </span>
-                        </>
-                      )}
-                    </span>
+                    {/* Amber bar for unread, green once replied, faint when read. */}
+                    <span
+                      aria-hidden="true"
+                      className={`h-11 w-1 shrink-0 rounded-full ${
+                        !message.read
+                          ? "bg-amber-400 light:bg-amber-500"
+                          : message.replied
+                            ? "bg-emerald-400 light:bg-emerald-500"
+                            : "bg-line/15"
+                      }`}
+                    />
+                    {!message.read && (
+                      <span className="sr-only">{t("messages.unread")}</span>
+                    )}
+                    <Avatar
+                      name={message.name}
+                      className={message.read ? "opacity-60" : ""}
+                    />
                     <span className="flex-1 min-w-0">
                       <span className="flex items-baseline gap-3">
                         <span
@@ -158,7 +175,7 @@ export default function MessagesListPage() {
                           {message.name}
                         </span>
                         {message.replied && (
-                          <span className="inline-flex shrink-0 items-center gap-1 text-xs text-muted">
+                          <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-emerald-400/15 px-2 py-0.5 text-xs text-emerald-300 light:bg-emerald-500/15 light:text-emerald-700">
                             <CornerUpLeft size={12} />
                             {t("messages.replied")}
                           </span>
