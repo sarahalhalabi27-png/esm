@@ -131,21 +131,29 @@ function findStaff(id) {
   return staff;
 }
 
-// GET /admin/staff?q&roleId&status -> { items }
+// GET /admin/staff?q&roleId&status
+// -> { items, counts: { all, active, invited, disabled } }
+// The counts follow the search and role filters but not the status one, so
+// the status tabs can show how many each would list.
 export async function listStaff({ q = "", roleId = "", status = "" } = {}) {
   await delay();
   const needle = q.trim().toLowerCase();
+  const found = adminDb.staff.filter(
+    (s) =>
+      (!roleId || s.roleId === Number(roleId)) &&
+      (!needle ||
+        s.name.toLowerCase().includes(needle) ||
+        s.email.toLowerCase().includes(needle))
+  );
+  const count = (value) => found.filter((s) => s.status === value).length;
   return copy({
-    items: adminDb.staff
-      .filter(
-        (s) =>
-          (!roleId || s.roleId === Number(roleId)) &&
-          (!status || s.status === status) &&
-          (!needle ||
-            s.name.toLowerCase().includes(needle) ||
-            s.email.toLowerCase().includes(needle))
-      )
-      .map(staffOut),
+    items: found.filter((s) => !status || s.status === status).map(staffOut),
+    counts: {
+      all: found.length,
+      active: count("active"),
+      invited: count("invited"),
+      disabled: count("disabled"),
+    },
   });
 }
 

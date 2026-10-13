@@ -16,7 +16,13 @@ import {
 import AdminMessage from "../../components/AdminMessage.jsx";
 import Can from "../../components/Can.jsx";
 import ConfirmDialog from "../../components/ConfirmDialog.jsx";
-import { ADMIN_BUTTON, ADMIN_CARD, ADMIN_INPUT } from "../../components/ui.js";
+import Avatar from "../../components/Avatar.jsx";
+import {
+  ADMIN_BUTTON,
+  ADMIN_CARD,
+  ADMIN_CARD_RICH,
+  ADMIN_INPUT,
+} from "../../components/ui.js";
 import {
   useDeleteStaffMutation,
   useGetRolesQuery,
@@ -31,7 +37,6 @@ import { selectAdminUser } from "../../store/adminSessionSlice.js";
 import { formatShortDateTime } from "../../utils/format.js";
 import Select from "../../components/Select.jsx";
 import StaffFormDialog from "./StaffFormDialog.jsx";
-import { initials } from "../../utils/people.js";
 
 const STATUSES = ["active", "invited", "disabled"];
 const STATUS_TONES = {
@@ -40,6 +45,36 @@ const STATUS_TONES = {
   invited:
     "bg-amber-400/15 text-amber-300 light:bg-amber-500/15 light:text-amber-800",
   disabled: "bg-surface/[0.08] text-muted",
+};
+// The bar beside each person, by account status.
+const STATUS_BARS = {
+  active: "bg-emerald-400 light:bg-emerald-500",
+  invited: "bg-amber-400 light:bg-amber-500",
+  disabled: "bg-line/20",
+};
+// The count on a status tab when it isn't the open one.
+const COUNT_TONES = {
+  invited:
+    "bg-amber-400/20 text-amber-300 light:bg-amber-500/20 light:text-amber-700",
+};
+// One colour per role (by its place in the roles list), for the role tag.
+const ROLE_TONES = [
+  "bg-teal-accent/15 text-teal-accent",
+  "bg-sky-400/15 text-sky-300 light:bg-sky-500/15 light:text-sky-700",
+  "bg-violet-400/15 text-violet-300 light:bg-violet-500/15 light:text-violet-700",
+  "bg-amber-400/15 text-amber-300 light:bg-amber-500/15 light:text-amber-700",
+  "bg-rose-400/15 text-rose-300 light:bg-rose-500/15 light:text-rose-700",
+  "bg-emerald-400/15 text-emerald-300 light:bg-emerald-500/15 light:text-emerald-700",
+];
+// Colour of an icon button: green for good news, amber for a pause, red for
+// a delete.
+const BUTTON_TONES = {
+  neutral: "text-fg/70 hover:bg-surface/[0.06] hover:text-fg",
+  green:
+    "bg-emerald-400/10 text-emerald-300 hover:bg-emerald-400/20 light:text-emerald-700",
+  amber:
+    "bg-amber-400/10 text-amber-300 hover:bg-amber-400/20 light:text-amber-700",
+  red: "bg-rose-400/10 text-rose-300 hover:bg-rose-400/20 light:text-rose-700",
 };
 
 // The team: who has dashboard access, with which role, and whether their
@@ -82,6 +117,44 @@ export default function StaffListPage() {
   return (
     <>
       <div className="flex flex-wrap items-center gap-3">
+        <div
+          role="tablist"
+          className="flex flex-1 gap-2 overflow-x-auto pb-1 min-w-0"
+        >
+          {["", ...STATUSES].map((view) => {
+            const active = params.status === view;
+            const count = data?.counts?.[view || "all"];
+            return (
+              <button
+                key={view || "all"}
+                type="button"
+                role="tab"
+                aria-selected={active}
+                onClick={() => update({ status: view })}
+                className={`inline-flex items-center gap-2 h-10 px-4 shrink-0 rounded-full text-sm transition-colors ${
+                  active
+                    ? "bg-teal-accent text-page font-semibold"
+                    : "border border-line/15 text-fg/75 hover:text-fg hover:bg-surface/[0.05]"
+                }`}
+              >
+                {view ? t(`staff.status.${view}`) : t("common.all")}
+                {count !== undefined && (
+                  <span
+                    className={`min-w-6 h-6 px-1.5 grid place-items-center rounded-full text-xs ${
+                      active
+                        ? "bg-page/20"
+                        : count > 0 && COUNT_TONES[view]
+                          ? COUNT_TONES[view]
+                          : "bg-surface/[0.08]"
+                    }`}
+                  >
+                    {count}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
         <label className="relative block w-full md:w-72">
           <span className="sr-only">{t("staff.searchPlaceholder")}</span>
           <Search
@@ -107,26 +180,13 @@ export default function StaffListPage() {
             })),
           ]}
           aria-label={t("staff.columns.role")}
-          wrapperClassName="w-[calc(50%-6px)] md:w-48"
-        />
-        <Select
-          value={params.status}
-          onChange={(status) => update({ status })}
-          options={[
-            { value: "", label: t("staff.allStatuses") },
-            ...STATUSES.map((status) => ({
-              value: status,
-              label: t(`staff.status.${status}`),
-            })),
-          ]}
-          aria-label={t("staff.columns.status")}
-          wrapperClassName="w-[calc(50%-6px)] md:w-40"
+          wrapperClassName="w-full md:w-48"
         />
         <Can permission={P.staff.create}>
           <button
             type="button"
             onClick={() => setDialog({ staff: null })}
-            className={`${ADMIN_BUTTON} md:ms-auto max-md:w-full`}
+            className={`${ADMIN_BUTTON} max-md:w-full`}
           >
             <UserPlus size={18} />
             {t("staff.invite")}
@@ -184,7 +244,7 @@ export default function StaffListPage() {
           </div>
         ) : (
           <ul
-            className={`${ADMIN_CARD} overflow-hidden transition-opacity ${
+            className={`${ADMIN_CARD_RICH} overflow-hidden transition-opacity ${
               isFetching ? "opacity-60" : ""
             }`}
           >
@@ -194,13 +254,16 @@ export default function StaffListPage() {
               return (
                 <li
                   key={person.id}
-                  className="flex flex-wrap items-center gap-x-4 gap-y-3 md:grid md:grid-cols-[minmax(0,1fr)_170px_110px_110px_156px] border-b border-line/[0.06] px-4 py-3.5 last:border-0"
+                  className="relative flex flex-wrap items-center gap-x-4 gap-y-3 border-b border-line/[0.06] px-4 py-3.5 max-md:ps-6 last:border-0 md:grid md:grid-cols-[4px_minmax(0,1fr)_170px_110px_110px_156px]"
                 >
+                  {/* Green bar for an active account, amber while invited. */}
+                  <span
+                    aria-hidden="true"
+                    className={`h-11 w-1 rounded-full max-md:absolute max-md:inset-y-3 max-md:start-2 max-md:h-auto ${STATUS_BARS[person.status]}`}
+                  />
                   {/* Who */}
                   <div className="flex min-w-0 flex-1 basis-60 md:basis-auto items-center gap-3">
-                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-teal-accent/15 text-sm font-semibold text-teal-accent">
-                      {initials(person.name)}
-                    </span>
+                    <Avatar name={person.name} />
                     <span className="min-w-0">
                       <span className="flex items-center gap-2">
                         <span className="truncate font-medium text-fg">
@@ -222,7 +285,20 @@ export default function StaffListPage() {
                   </div>
 
                   {/* Role, status, last sign-in */}
-                  <span className="text-sm text-fg/85">{person.role.name}</span>
+                  <span
+                    className={`grid h-7 w-[150px] max-w-full place-items-center rounded-full px-3 text-center text-[13px] font-medium leading-none ${
+                      ROLE_TONES[
+                        Math.max(
+                          0,
+                          roles.findIndex((role) => role.id === person.role.id)
+                        ) % ROLE_TONES.length
+                      ]
+                    }`}
+                  >
+                    <span className="max-w-full truncate">
+                      {person.role.name}
+                    </span>
+                  </span>
                   <span
                     className={`inline-flex h-7 w-fit items-center rounded-full px-3 text-[13px] font-medium ${STATUS_TONES[person.status]}`}
                   >
@@ -241,6 +317,7 @@ export default function StaffListPage() {
                   <div className="ms-auto flex items-center justify-end gap-1">
                     {can(P.staff.update) && person.status === "invited" && (
                       <IconButton
+                        tone="green"
                         icon={Send}
                         label={t("staff.actions.resendInvite")}
                         disabled={isResending}
@@ -256,6 +333,9 @@ export default function StaffListPage() {
                       !isSelf &&
                       person.status !== "invited" && (
                         <IconButton
+                          tone={
+                            person.status === "disabled" ? "green" : "amber"
+                          }
                           icon={person.status === "disabled" ? UserCheck : Ban}
                           label={
                             person.status === "disabled"
@@ -285,8 +365,8 @@ export default function StaffListPage() {
                     )}
                     {can(P.staff.delete) && !isSelf && (
                       <IconButton
+                        tone="red"
                         icon={Trash2}
-                        danger
                         label={t("staff.actions.delete")}
                         onClick={() => setToDelete(person)}
                       />
@@ -324,17 +404,13 @@ export default function StaffListPage() {
   );
 }
 
-function IconButton({ icon: Icon, label, danger = false, ...props }) {
+function IconButton({ icon: Icon, label, tone = "neutral", ...props }) {
   return (
     <button
       type="button"
       aria-label={label}
       title={label}
-      className={`grid h-9 w-9 place-items-center rounded-lg transition-colors disabled:opacity-40 ${
-        danger
-          ? "text-rose-400 light:text-rose-700 hover:bg-rose-500/10"
-          : "text-fg/70 hover:bg-surface/[0.06] hover:text-fg"
-      }`}
+      className={`grid h-9 w-9 place-items-center rounded-lg transition-colors disabled:opacity-40 ${BUTTON_TONES[tone]}`}
       {...props}
     >
       <Icon size={17} />
