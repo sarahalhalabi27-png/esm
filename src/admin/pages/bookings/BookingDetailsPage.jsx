@@ -4,12 +4,27 @@ import { useTranslation } from "react-i18next";
 import {
   AlertCircle,
   ArrowLeft,
+  Briefcase,
+  CalendarClock,
+  Car,
+  CircleDot,
+  Clock,
+  ListChecks,
   Loader2,
+  Mail,
+  MapPin,
   MessageCircle,
+  Phone,
+  Route,
   SearchX,
+  StickyNote,
+  Tag,
   Trash2,
+  User,
+  Users,
 } from "lucide-react";
 import AdminMessage from "../../components/AdminMessage.jsx";
+import Avatar from "../../components/Avatar.jsx";
 import Can from "../../components/Can.jsx";
 import ConfirmDialog from "../../components/ConfirmDialog.jsx";
 import EmailLink from "../../components/EmailLink.jsx";
@@ -18,6 +33,8 @@ import {
   ADMIN_BUTTON,
   ADMIN_BUTTON_GHOST,
   ADMIN_CARD,
+  ADMIN_CARD_RICH,
+  STATUS_BARS,
 } from "../../components/ui.js";
 import {
   useDeleteBookingMutation,
@@ -136,21 +153,28 @@ export default function BookingDetailsPage() {
   const actions = STATUS_ACTIONS[booking.status] ?? [];
   const phoneDigits = booking.customer.phone.replace(/\D/g, "");
 
-  const tripRows = [
-    ["service", t(`bookings.service.${booking.service}`)],
-    ["pickupLocation", booking.pickup.location],
-    [
-      "pickupAt",
-      formatDateAndTime(booking.pickup.date, booking.pickup.time, lang),
-    ],
-    ["dropOffLocation", booking.dropOff.location],
-    [
-      "dropOffAt",
-      formatDateAndTime(booking.dropOff.date, booking.dropOff.time, lang),
-    ],
-    ["car", booking.car?.name],
-    ["carType", booking.carType && value(booking.carType)],
-    ["passengers", booking.passengers],
+  // The route as a short timeline: where it starts and, when there is one,
+  // where it ends, each with its date and time.
+  const stops = [
+    {
+      key: "pickupLocation",
+      icon: CircleDot,
+      place: booking.pickup.location,
+      at: formatDateAndTime(booking.pickup.date, booking.pickup.time, lang),
+    },
+    {
+      key: "dropOffLocation",
+      icon: MapPin,
+      place: booking.dropOff.location,
+      at: formatDateAndTime(booking.dropOff.date, booking.dropOff.time, lang),
+    },
+  ].filter((stop) => stop.place);
+
+  const facts = [
+    ["service", t(`bookings.service.${booking.service}`), Briefcase],
+    ["car", booking.car?.name, Car],
+    ["carType", booking.carType && value(booking.carType), Tag],
+    ["passengers", booking.passengers, Users],
   ];
 
   const detailRows = Object.entries(booking.details ?? {}).map(([key, raw]) => [
@@ -167,53 +191,62 @@ export default function BookingDetailsPage() {
       {backLink}
 
       {/* Heading + actions */}
-      <div className="mt-4 flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-3">
-            <h2 className="text-xl font-semibold text-fg">
-              {booking.reference}
-            </h2>
-            <StatusBadge status={booking.status} />
+      <div
+        className={`${ADMIN_CARD_RICH} relative mt-4 overflow-hidden p-5 ps-7 md:p-6 md:ps-8`}
+      >
+        <span
+          aria-hidden="true"
+          className={`absolute inset-y-0 start-0 w-1.5 ${STATUS_BARS[booking.status] ?? "bg-line/20"}`}
+        />
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div className="flex flex-wrap items-center gap-3">
+              <h2 className="text-2xl font-semibold text-fg">
+                {booking.reference}
+              </h2>
+              <StatusBadge status={booking.status} />
+            </div>
+            <p className="mt-1.5 flex items-center gap-1.5 text-sm text-muted">
+              <Clock size={14} className="shrink-0" />
+              {t("bookings.createdAt", {
+                date: formatDateTime(booking.createdAt, lang),
+              })}
+            </p>
           </div>
-          <p className="mt-1 text-sm text-muted">
-            {t("bookings.createdAt", {
-              date: formatDateTime(booking.createdAt, lang),
-            })}
-          </p>
-        </div>
 
-        <div className="flex flex-wrap gap-2">
-          <Can permission={P.bookings.update}>
-            {actions.map((action, index) => {
-              const busy = isUpdating && originalArgs?.status === action.status;
-              return (
-                <button
-                  key={action.status}
-                  type="button"
-                  disabled={isUpdating}
-                  aria-busy={isUpdating}
-                  onClick={() => changeStatus(action.status)}
-                  className={
-                    index === 0 ? ADMIN_BUTTON : `${ADMIN_BUTTON_GHOST} h-11`
-                  }
-                >
-                  {busy && <Loader2 size={16} className="animate-spin" />}
-                  {t(`bookings.actions.${action.label}`)}
-                </button>
-              );
-            })}
-          </Can>
-          <Can permission={P.bookings.delete}>
-            <button
-              type="button"
-              onClick={() => setConfirmDelete(true)}
-              aria-label={t("bookings.actions.delete")}
-              title={t("bookings.actions.delete")}
-              className="grid place-items-center w-11 h-11 rounded-[10px] border border-rose-500/30 text-rose-400 light:text-rose-700 transition-colors hover:bg-rose-500/10"
-            >
-              <Trash2 size={18} />
-            </button>
-          </Can>
+          <div className="flex flex-wrap gap-2">
+            <Can permission={P.bookings.update}>
+              {actions.map((action, index) => {
+                const busy =
+                  isUpdating && originalArgs?.status === action.status;
+                return (
+                  <button
+                    key={action.status}
+                    type="button"
+                    disabled={isUpdating}
+                    aria-busy={isUpdating}
+                    onClick={() => changeStatus(action.status)}
+                    className={
+                      index === 0 ? ADMIN_BUTTON : `${ADMIN_BUTTON_GHOST} h-11`
+                    }
+                  >
+                    {busy && <Loader2 size={16} className="animate-spin" />}
+                    {t(`bookings.actions.${action.label}`)}
+                  </button>
+                );
+              })}
+            </Can>
+            <Can permission={P.bookings.delete}>
+              <button
+                type="button"
+                onClick={() => setConfirmDelete(true)}
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-[10px] border border-rose-500/40 bg-rose-500/10 px-4 text-[15px] font-medium text-rose-300 transition-colors hover:bg-rose-500/20 light:text-rose-700"
+              >
+                <Trash2 size={18} />
+                {t("bookings.actions.delete")}
+              </button>
+            </Can>
+          </div>
         </div>
       </div>
 
@@ -226,17 +259,56 @@ export default function BookingDetailsPage() {
         </p>
       )}
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-3 items-start">
+      <div className="mt-4 grid gap-4 lg:grid-cols-3 items-start">
         <div className="lg:col-span-2 flex flex-col gap-4">
-          <Section title={t("bookings.sections.trip")}>
-            <Rows rows={tripRows} />
+          <Section icon={Route} title={t("bookings.sections.trip")}>
+            <ol>
+              {stops.map((stop, index) => (
+                <li key={stop.key} className="flex gap-4">
+                  <span className="flex flex-col items-center">
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-teal-accent/15 text-teal-accent">
+                      <stop.icon size={18} />
+                    </span>
+                    {index < stops.length - 1 && (
+                      <span
+                        aria-hidden="true"
+                        className="my-1 w-px flex-1 border-s border-dashed border-line/25"
+                      />
+                    )}
+                  </span>
+                  <div
+                    className={`min-w-0 flex-1 ${index < stops.length - 1 ? "pb-5" : ""}`}
+                  >
+                    <p className="text-xs text-muted">
+                      {t(`bookings.fields.${stop.key}`)}
+                    </p>
+                    <p className="mt-0.5 text-[17px] font-medium text-fg">
+                      {stop.place}
+                    </p>
+                    {stop.at && (
+                      <p className="mt-1 flex items-center gap-1.5 text-sm text-fg/75">
+                        <CalendarClock
+                          size={14}
+                          className="shrink-0 text-muted"
+                        />
+                        {stop.at}
+                      </p>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            <Tiles rows={facts} className="mt-5 border-t border-line/10 pt-5" />
           </Section>
+
           {detailRows.length > 0 && (
-            <Section title={t("bookings.sections.details")}>
-              <Rows rows={detailRows} />
+            <Section icon={ListChecks} title={t("bookings.sections.details")}>
+              <Tiles rows={detailRows} />
             </Section>
           )}
-          <Section title={t("bookings.sections.notes")}>
+
+          <Section icon={StickyNote} title={t("bookings.sections.notes")}>
             <p
               dir="auto"
               className={booking.notes ? "text-fg/85" : "text-muted"}
@@ -246,32 +318,34 @@ export default function BookingDetailsPage() {
           </Section>
         </div>
 
-        <Section title={t("bookings.sections.customer")}>
-          <Rows
-            rows={[
-              ["name", booking.customer.name],
-              [
-                "email",
-                <EmailLink key="email" email={booking.customer.email} />,
-              ],
-              [
-                "phone",
-                <a
-                  key="phone"
-                  href={`tel:${booking.customer.phone}`}
-                  dir="ltr"
-                  className="text-teal-accent hover:underline"
-                >
-                  {booking.customer.phone}
-                </a>,
-              ],
-            ]}
-          />
+        <Section icon={User} title={t("bookings.sections.customer")}>
+          <div className="flex items-center gap-4">
+            <Avatar name={booking.customer.name} size="lg" />
+            <p className="min-w-0 break-words text-lg font-semibold text-fg">
+              {booking.customer.name}
+            </p>
+          </div>
+
+          <ul className="mt-5 flex flex-col gap-3">
+            <ContactRow icon={Mail} label={t("bookings.fields.email")}>
+              <EmailLink email={booking.customer.email} />
+            </ContactRow>
+            <ContactRow icon={Phone} label={t("bookings.fields.phone")}>
+              <a
+                href={`tel:${booking.customer.phone}`}
+                dir="ltr"
+                className="text-teal-accent hover:underline"
+              >
+                {booking.customer.phone}
+              </a>
+            </ContactRow>
+          </ul>
+
           <a
             href={`https://wa.me/${phoneDigits}`}
             target="_blank"
             rel="noreferrer"
-            className={`${ADMIN_BUTTON_GHOST} mt-4 w-full`}
+            className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-[10px] border border-emerald-500/30 bg-emerald-500/10 text-sm font-medium text-emerald-300 transition-colors hover:bg-emerald-500/20 light:text-emerald-700"
           >
             <MessageCircle size={16} />
             WhatsApp
@@ -296,10 +370,13 @@ export default function BookingDetailsPage() {
   );
 }
 
-function Section({ title, children }) {
+function Section({ icon: Icon, title, children }) {
   return (
-    <section className={`${ADMIN_CARD} p-5`}>
-      <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted">
+    <section className={`${ADMIN_CARD_RICH} p-5`}>
+      <h3 className="mb-5 flex items-center gap-3 font-semibold text-fg">
+        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-teal-accent/15 text-teal-accent">
+          <Icon size={18} />
+        </span>
         {title}
       </h3>
       {children}
@@ -307,21 +384,48 @@ function Section({ title, children }) {
   );
 }
 
-// Label / value pairs; empty values are left out.
-function Rows({ rows }) {
+// Label / value boxes, with an icon when a row brings one; empty values are
+// left out.
+function Tiles({ rows, className = "" }) {
   const { t } = useTranslation("admin");
   return (
-    <dl className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
+    <dl className={`grid gap-3 sm:grid-cols-2 ${className}`}>
       {rows
         .filter(([, rowValue]) => rowValue)
-        .map(([key, rowValue]) => (
-          <div key={key} className="min-w-0">
-            <dt className="text-xs text-muted">
-              {t(`bookings.fields.${key}`)}
-            </dt>
-            <dd className="mt-1 text-[15px] text-fg">{rowValue}</dd>
+        .map(([key, rowValue, Icon]) => (
+          <div
+            key={key}
+            className="flex min-w-0 items-center gap-3 rounded-xl border border-line/[0.07] bg-surface/[0.03] p-3"
+          >
+            {Icon && (
+              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-surface/[0.06] text-muted">
+                <Icon size={17} />
+              </span>
+            )}
+            <div className="min-w-0">
+              <dt className="text-xs text-muted">
+                {t(`bookings.fields.${key}`)}
+              </dt>
+              <dd className="mt-0.5 break-words text-[15px] text-fg">
+                {rowValue}
+              </dd>
+            </div>
           </div>
         ))}
     </dl>
+  );
+}
+
+function ContactRow({ icon: Icon, label, children }) {
+  return (
+    <li className="flex min-w-0 items-center gap-3">
+      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-surface/[0.06] text-muted">
+        <Icon size={17} />
+      </span>
+      <div className="min-w-0">
+        <p className="text-xs text-muted">{label}</p>
+        <div className="break-all text-[15px]">{children}</div>
+      </div>
+    </li>
   );
 }

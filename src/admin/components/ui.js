@@ -14,10 +14,10 @@ export const ADMIN_LABEL = "block mb-2 text-sm font-medium text-fg/80";
 export const ADMIN_INPUT =
   "w-full h-11 rounded-[10px] border border-line/15 bg-surface/[0.04] px-4 text-[15px] text-fg placeholder:text-muted/70 outline-none transition-colors focus:border-teal-accent aria-[invalid=true]:border-red-500/70";
 
-// A native date field: tighter side padding and 14px text, so the whole
-// "mm/dd/yyyy" and the calendar icon fit without overlapping (the browser
-// draws both inside the box). It follows the dark/light theme.
-export const ADMIN_DATE_INPUT = `${ADMIN_INPUT} !px-3 !text-[14px] [color-scheme:dark] light:[color-scheme:light]`;
+// The white month / day / year (hour / minute) selects inside the date and
+// time pickers, as on the website's booking pickers.
+export const ADMIN_PICKER_SELECT =
+  "h-[42px] max-md:h-[44px] min-w-0 rounded-[8px] border border-black bg-white text-center text-[15px] text-black outline-none";
 
 export const ADMIN_FIELD_ERROR =
   "mt-1.5 text-sm text-red-400 light:text-red-600";
@@ -35,3 +35,11 @@ export const ADMIN_BUTTON_GHOST =
 // Round 42px icon button, matching the site's ThemeToggle.
 export const ADMIN_ICON_BUTTON =
   "grid place-items-center w-[42px] h-[42px] shrink-0 rounded-full border border-teal-accent/40 text-teal-accent transition-colors hover:bg-teal-accent/10";
+
+// The thin coloured bar beside a booking row, by status.
+export const STATUS_BARS = {
+  new: "bg-amber-400 light:bg-amber-500",
+  confirmed: "bg-sky-400 light:bg-sky-500",
+  completed: "bg-emerald-400 light:bg-emerald-500",
+  cancelled: "bg-rose-400 light:bg-rose-500",
+};

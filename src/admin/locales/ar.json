@@ -68,6 +68,7 @@
     "next": "التالي",
     "showing": "{{from}}–{{to}} من {{total}}",
     "clearFilters": "مسح الفلاتر",
+    "clear": "مسح",
     "actionFailed": "لم تنجح العملية. حاول مرة أخرى.",
     "close": "إغلاق",
     "upload": {

@@ -68,6 +68,7 @@
     "next": "Next",
     "showing": "{{from}}–{{to}} of {{total}}",
     "clearFilters": "Clear filters",
+    "clear": "Clear",
     "actionFailed": "That didn't work. Please try again.",
     "close": "Close",
     "upload": {

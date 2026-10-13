@@ -4,11 +4,14 @@ import { AlertCircle, ArrowRight, Inbox, Search, X } from "lucide-react";
 import AdminMessage from "../../components/AdminMessage.jsx";
 import Select from "../../components/Select.jsx";
 import Pagination from "../../components/Pagination.jsx";
+import Avatar from "../../components/Avatar.jsx";
+import DatePicker from "../../components/DatePicker.jsx";
 import StatusBadge from "../../components/StatusBadge.jsx";
 import {
   ADMIN_BUTTON,
   ADMIN_CARD,
-  ADMIN_DATE_INPUT,
+  ADMIN_CARD_RICH,
+  STATUS_BARS,
   ADMIN_INPUT,
 } from "../../components/ui.js";
 import { useGetBookingsQuery } from "../../api/bookingsApi.js";
@@ -125,30 +128,30 @@ export default function BookingsListPage() {
           aria-label={t("bookings.columns.service")}
           wrapperClassName="col-span-2 md:col-span-1"
         />
-        <label className="block">
+        <div className="block">
           <span className="block mb-1 text-xs text-muted">
             {t("bookings.from")}
           </span>
-          <input
-            type="date"
+          <DatePicker
             value={params.from}
             max={params.to || undefined}
-            onChange={(event) => updateParams({ from: event.target.value })}
-            className={ADMIN_DATE_INPUT}
+            clearable
+            aria-label={t("bookings.from")}
+            onChange={(from) => updateParams({ from })}
           />
-        </label>
-        <label className="block">
+        </div>
+        <div className="block">
           <span className="block mb-1 text-xs text-muted">
             {t("bookings.to")}
           </span>
-          <input
-            type="date"
+          <DatePicker
             value={params.to}
             min={params.from || undefined}
-            onChange={(event) => updateParams({ to: event.target.value })}
-            className={ADMIN_DATE_INPUT}
+            clearable
+            aria-label={t("bookings.to")}
+            onChange={(to) => updateParams({ to })}
           />
-        </label>
+        </div>
         {hasFilters && (
           <button
             type="button"
@@ -233,10 +236,13 @@ function BookingsTable({ items, language, onOpen, listSearch }) {
 
   return (
     <>
-      <div className={`${ADMIN_CARD} hidden md:block overflow-x-auto`}>
+      <div className={`${ADMIN_CARD_RICH} hidden md:block overflow-x-auto`}>
         <table className="w-full text-[14px]">
           <thead>
             <tr className="text-start text-xs uppercase tracking-wider text-muted border-b border-line/10">
+              <th scope="col" className="w-1 ps-3 pe-0">
+                <span className="sr-only">{t("bookings.columns.status")}</span>
+              </th>
               {[
                 "reference",
                 "customer",
@@ -262,6 +268,12 @@ function BookingsTable({ items, language, onOpen, listSearch }) {
                 onClick={() => onOpen(booking.id)}
                 className="border-b border-line/[0.06] last:border-0 cursor-pointer transition-colors hover:bg-surface/[0.04]"
               >
+                <td className="w-1 ps-3 pe-0">
+                  <span
+                    aria-hidden="true"
+                    className={`block h-10 w-1 rounded-full ${STATUS_BARS[booking.status] ?? "bg-line/20"}`}
+                  />
+                </td>
                 <td className="px-4 py-3.5 whitespace-nowrap">
                   <Link
                     to={booking.id}
@@ -273,9 +285,16 @@ function BookingsTable({ items, language, onOpen, listSearch }) {
                   </Link>
                 </td>
                 <td className="px-4 py-3.5">
-                  <span className="block text-fg">{booking.customer.name}</span>
-                  <span className="block text-xs text-muted" dir="ltr">
-                    {booking.customer.phone}
+                  <span className="flex items-center gap-3">
+                    <Avatar name={booking.customer.name} />
+                    <span className="min-w-0">
+                      <span className="block text-fg">
+                        {booking.customer.name}
+                      </span>
+                      <span className="block text-xs text-muted" dir="ltr">
+                        {booking.customer.phone}
+                      </span>
+                    </span>
                   </span>
                 </td>
                 <td className="px-4 py-3.5 whitespace-nowrap text-fg/85">
@@ -306,15 +325,22 @@ function BookingsTable({ items, language, onOpen, listSearch }) {
             <Link
               to={booking.id}
               state={linkState}
-              className={`${ADMIN_CARD} block p-4 transition-colors hover:border-teal-accent/40`}
+              className={`${ADMIN_CARD_RICH} relative block overflow-hidden p-4 ps-5 transition-colors hover:border-teal-accent/40`}
             >
+              <span
+                aria-hidden="true"
+                className={`absolute inset-y-3 start-2 w-1 rounded-full ${STATUS_BARS[booking.status] ?? "bg-line/20"}`}
+              />
               <div className="flex items-center justify-between gap-3">
                 <span className="font-medium text-teal-accent">
                   {booking.reference}
                 </span>
                 <StatusBadge status={booking.status} />
               </div>
-              <p className="mt-2 text-fg">{booking.customer.name}</p>
+              <p className="mt-2 flex items-center gap-2.5 text-fg">
+                <Avatar name={booking.customer.name} />
+                {booking.customer.name}
+              </p>
               <p className="mt-0.5 text-sm text-muted">
                 {t(`bookings.service.${booking.service}`)} ·{" "}
                 {formatDateAndTime(

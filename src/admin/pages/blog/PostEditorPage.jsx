@@ -19,6 +19,7 @@ import {
 import AdminMessage from "../../components/AdminMessage.jsx";
 import Can from "../../components/Can.jsx";
 import ConfirmDialog from "../../components/ConfirmDialog.jsx";
+import DatePicker from "../../components/DatePicker.jsx";
 import ImageUpload from "../../components/ImageUpload.jsx";
 import SmallIconButton from "../../components/SmallIconButton.jsx";
 import Switch from "../../components/Switch.jsx";
@@ -26,7 +27,6 @@ import {
   ADMIN_BUTTON,
   ADMIN_BUTTON_GHOST,
   ADMIN_CARD,
-  ADMIN_DATE_INPUT,
   ADMIN_FIELD_ERROR,
   ADMIN_INPUT,
   ADMIN_LABEL,
@@ -429,11 +429,17 @@ function PostEditor({ post, backTo, backLink }) {
               <label htmlFor="post-date" className={ADMIN_LABEL}>
                 {t("blog.fields.publishedAt")}
               </label>
-              <input
-                id="post-date"
-                type="date"
-                {...register("publishedAt")}
-                className={ADMIN_DATE_INPUT}
+              <Controller
+                control={control}
+                name="publishedAt"
+                render={({ field: { value, onChange } }) => (
+                  <DatePicker
+                    id="post-date"
+                    value={value}
+                    onChange={onChange}
+                    clearable
+                  />
+                )}
               />
             </div>
             <div>

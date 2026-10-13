@@ -17,6 +17,7 @@ import {
   ADMIN_BUTTON,
   ADMIN_CARD,
   ADMIN_CARD_RICH,
+  STATUS_BARS,
 } from "../../components/ui.js";
 import { useGetBookingStatsQuery } from "../../api/bookingsApi.js";
 import { adminPath } from "../../navigation.js";
@@ -55,14 +56,6 @@ const TONES = {
     bar: "from-violet-400 light:from-violet-500",
     glow: "bg-violet-400/15",
   },
-};
-
-// The coloured bar beside each upcoming pickup, by booking status.
-const STATUS_BARS = {
-  new: "bg-amber-400 light:bg-amber-500",
-  confirmed: "bg-sky-400 light:bg-sky-500",
-  completed: "bg-emerald-400 light:bg-emerald-500",
-  cancelled: "bg-rose-400 light:bg-rose-500",
 };
 
 // A colour per service, for the ring and its legend (same order as the rows).
