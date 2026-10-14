@@ -631,8 +631,11 @@
       "twitter": "X (Twitter)",
       "notifyEmail": "Send alerts to",
       "newBooking": "A new booking request",
+      "newBookingHint": "Emailed when someone sends a booking request on the website.",
       "newMessage": "A new Contact Us message",
-      "newComment": "A new blog comment waiting for review"
+      "newMessageHint": "Emailed when someone uses the Contact Us form.",
+      "newComment": "A new blog comment waiting for review",
+      "newCommentHint": "Emailed when a blog comment is waiting to be approved."
     },
     "save": "Save settings",
     "saved": "Settings saved.",
