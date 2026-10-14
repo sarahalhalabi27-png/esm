@@ -20,7 +20,7 @@ export default function AdminLayout() {
   const can = useCan();
 
   return (
-    <div className="flex min-h-screen bg-page text-fg">
+    <div className="admin-root flex min-h-screen bg-page text-fg">
       <AdminSidebar isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
       <div className="flex-1 min-w-0 flex flex-col">
         <AdminTopbar onOpenMenu={() => setIsMenuOpen(true)} />

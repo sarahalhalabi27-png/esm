@@ -63,7 +63,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-page text-fg flex flex-col">
+    <div className="admin-root min-h-screen bg-page text-fg flex flex-col">
       <div className="flex items-center justify-between h-[72px] px-6 md:px-10">
         <BrandLogo className="w-[90px] text-[#00BFA8] light:text-[#006D5D]" />
         <div className="flex items-center gap-3">

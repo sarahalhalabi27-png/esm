@@ -151,6 +151,13 @@ html[dir="ltr"] {
   --booking-glow: 7 46 42; /* lighter teal so the dark text stays readable */
 }
 
+/* The dashboard's grey text, a notch darker in light mode (gray-600) so the
+   small captions, hints and table headings stay easy to read. Only inside the
+   dashboard; the public site keeps the lighter grey. */
+:root[data-theme="light"] .admin-root {
+  --muted: 75 85 99;
+}
+
 /* Content sitting on a surface that stays dark in both themes (e.g. the
    booking card over its video): in light mode, re-scope the tokens inside it
    so text, underlines, labels, the Send button and the date/time pickers

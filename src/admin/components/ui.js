@@ -4,10 +4,11 @@
 export const ADMIN_CARD =
   "rounded-2xl border border-line/10 bg-surface/[0.03] light:bg-surface/[0.02]";
 
-// The Overview's richer card: a faint teal wash and a soft shadow in dark
-// mode (flat in light mode, like ADMIN_CARD), and the border warms on hover.
+// The richer card used on the pages, lists and tables: a faint teal wash and a
+// soft shadow in both modes. In light mode the teal is a real teal (the brand
+// teal there is almost black) and the shadow is teal-tinted too.
 export const ADMIN_CARD_RICH =
-  "rounded-2xl border border-line/10 bg-gradient-to-br from-teal-accent/[0.08] via-surface/[0.03] to-surface/[0.015] shadow-[0_10px_30px_-14px_rgba(0,0,0,0.7)] light:bg-none light:bg-surface/[0.02] light:shadow-none";
+  "rounded-2xl border border-line/10 bg-gradient-to-br from-teal-accent/[0.08] via-surface/[0.03] to-surface/[0.015] shadow-[0_10px_30px_-14px_rgba(0,0,0,0.7)] light:from-teal-500/[0.10] light:via-teal-500/[0.03] light:to-transparent light:shadow-[0_10px_28px_-16px_rgba(15,118,110,0.45)]";
 
 export const ADMIN_LABEL = "block mb-2 text-sm font-medium text-fg/80";
 
