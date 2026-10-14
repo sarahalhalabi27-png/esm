@@ -165,6 +165,7 @@
   },
   "roles": {
     "addRole": "Add role",
+    "details": "Role details",
     "empty": "No roles yet.",
     "notFound": "This role doesn't exist or was deleted.",
     "backToList": "All roles",
@@ -246,6 +247,8 @@
       "resendInvite": "Resend invitation",
       "inviteSent": "Invitation sent.",
       "disable": "Disable account",
+      "disableTitle": "Disable {{name}}'s account?",
+      "disableBody": "They won't be able to sign in to the dashboard until the account is enabled again. Their details and history are kept.",
       "enable": "Enable account",
       "delete": "Delete account",
       "deleteTitle": "Delete {{name}}'s account?",

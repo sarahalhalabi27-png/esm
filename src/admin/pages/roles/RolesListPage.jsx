@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import {
   AlertCircle,
   Lock,
+  Pencil,
   Plus,
   ShieldCheck,
   Trash2,
@@ -12,13 +13,21 @@ import {
 import AdminMessage from "../../components/AdminMessage.jsx";
 import Can from "../../components/Can.jsx";
 import ConfirmDialog from "../../components/ConfirmDialog.jsx";
-import { ADMIN_BUTTON, ADMIN_CARD } from "../../components/ui.js";
+import {
+  ADMIN_BUTTON,
+  ADMIN_CARD,
+  ADMIN_CARD_RICH,
+} from "../../components/ui.js";
 import {
   useDeleteRoleMutation,
   useGetRolesQuery,
 } from "../../api/staffRolesApi.js";
 import useCan from "../../hooks/useCan.js";
 import { P } from "../../permissions.js";
+import { roleTone } from "../../utils/people.js";
+
+// How many section tags a card shows before "+N".
+const MAX_SECTIONS = 5;
 
 // Every role with what it's for, how many staff have it, and which sections
 // it reaches.
@@ -93,15 +102,30 @@ export default function RolesListPage() {
       ) : (
         <ul className="grid gap-4 md:grid-cols-2">
           {roles.map((role) => {
+            const tone = roleTone(roles, role.id);
             const sections = [
               ...new Set(role.permissions.map((p) => p.split(".")[0])),
             ];
             const editable = !role.system && can(P.roles.update);
+            const inUse = role.staffCount > 0;
             return (
-              <li key={role.id} className={`${ADMIN_CARD} flex flex-col p-5`}>
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <h2 className="flex items-center gap-2 font-semibold text-fg">
+              <li
+                key={role.id}
+                className={`${ADMIN_CARD_RICH} relative flex flex-col overflow-hidden p-5`}
+              >
+                <span
+                  aria-hidden="true"
+                  className={`absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r to-transparent ${tone.bar}`}
+                />
+
+                <div className="flex items-start gap-3">
+                  <span
+                    className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl ${tone.chip}`}
+                  >
+                    <ShieldCheck size={21} />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <h2 className="flex flex-wrap items-center gap-x-2 gap-y-1 font-semibold text-fg">
                       {role.name}
                       {role.system && (
                         <span className="inline-flex items-center gap-1 rounded-full bg-surface/[0.08] px-2.5 py-0.5 text-xs font-medium text-muted">
@@ -118,13 +142,16 @@ export default function RolesListPage() {
                   </div>
                 </div>
 
-                <p className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-fg/80">
+                <p className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm text-fg/80">
                   <span className="inline-flex items-center gap-1.5">
-                    <Users size={15} className="text-muted" />
+                    <Users
+                      size={15}
+                      className="text-sky-300 light:text-sky-600"
+                    />
                     {t("roles.staffCount", { count: role.staffCount })}
                   </span>
                   <span className="inline-flex items-center gap-1.5">
-                    <ShieldCheck size={15} className="text-muted" />
+                    <ShieldCheck size={15} className="text-teal-accent" />
                     {t("roles.permissionCount", {
                       count: role.permissions.length,
                     })}
@@ -132,44 +159,47 @@ export default function RolesListPage() {
                 </p>
 
                 <ul className="mt-3 flex flex-wrap gap-1.5">
-                  {sections.map((resource) => (
+                  {sections.slice(0, MAX_SECTIONS).map((resource) => (
                     <li
                       key={resource}
-                      className="rounded-md bg-teal-accent/10 px-2 py-0.5 text-xs text-teal-accent"
+                      className="rounded-md bg-surface/[0.07] px-2 py-0.5 text-xs text-fg/75"
                     >
                       {t(`roles.resources.${resource}`, {
                         defaultValue: resource,
                       })}
                     </li>
                   ))}
+                  {sections.length > MAX_SECTIONS && (
+                    <li className="rounded-md bg-surface/[0.07] px-2 py-0.5 text-xs text-muted tabular-nums">
+                      +{sections.length - MAX_SECTIONS}
+                    </li>
+                  )}
                 </ul>
 
                 <div className="mt-auto pt-4" />
-                <div className="flex items-center justify-end gap-1 border-t border-line/10 pt-3">
-                  <Link
-                    to={String(role.id)}
-                    className="h-9 px-3 inline-flex items-center rounded-lg text-sm text-teal-accent hover:bg-teal-accent/10"
-                  >
-                    {editable ? t("roles.edit") : t("roles.view")}
-                  </Link>
+                <div className="flex items-center justify-end gap-2 border-t border-line/10 pt-3">
                   {!role.system && (
                     <Can permission={P.roles.delete}>
                       <button
                         type="button"
                         onClick={() => setRoleToDelete(role)}
-                        disabled={role.staffCount > 0}
+                        disabled={inUse}
                         aria-label={`${t("roles.deleteRole")}: ${role.name}`}
-                        title={
-                          role.staffCount > 0
-                            ? t("roles.inUse")
-                            : t("roles.deleteRole")
-                        }
-                        className="grid h-9 w-9 place-items-center rounded-lg text-rose-400 light:text-rose-700 hover:bg-rose-500/10 disabled:opacity-35 disabled:hover:bg-transparent disabled:cursor-not-allowed"
+                        title={inUse ? t("roles.inUse") : t("roles.deleteRole")}
+                        className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-rose-400/10 px-3 text-sm font-medium text-rose-300 transition-colors hover:bg-rose-400/20 light:text-rose-700 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-rose-400/10"
                       >
-                        <Trash2 size={17} />
+                        <Trash2 size={15} />
+                        {t("common.delete")}
                       </button>
                     </Can>
                   )}
+                  <Link
+                    to={String(role.id)}
+                    className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-teal-accent/15 px-3 text-sm font-medium text-teal-accent transition-colors hover:bg-teal-accent/25"
+                  >
+                    {editable && <Pencil size={14} />}
+                    {editable ? t("roles.edit") : t("roles.view")}
+                  </Link>
                 </div>
               </li>
             );

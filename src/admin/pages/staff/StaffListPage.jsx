@@ -37,6 +37,7 @@ import { selectAdminUser } from "../../store/adminSessionSlice.js";
 import { formatShortDateTime } from "../../utils/format.js";
 import Select from "../../components/Select.jsx";
 import StaffFormDialog from "./StaffFormDialog.jsx";
+import { roleTone } from "../../utils/people.js";
 
 const STATUSES = ["active", "invited", "disabled"];
 const STATUS_TONES = {
@@ -57,15 +58,6 @@ const COUNT_TONES = {
   invited:
     "bg-amber-400/20 text-amber-300 light:bg-amber-500/20 light:text-amber-700",
 };
-// One colour per role (by its place in the roles list), for the role tag.
-const ROLE_TONES = [
-  "bg-teal-accent/15 text-teal-accent",
-  "bg-sky-400/15 text-sky-300 light:bg-sky-500/15 light:text-sky-700",
-  "bg-violet-400/15 text-violet-300 light:bg-violet-500/15 light:text-violet-700",
-  "bg-amber-400/15 text-amber-300 light:bg-amber-500/15 light:text-amber-700",
-  "bg-rose-400/15 text-rose-300 light:bg-rose-500/15 light:text-rose-700",
-  "bg-emerald-400/15 text-emerald-300 light:bg-emerald-500/15 light:text-emerald-700",
-];
 // Colour of an icon button: green for good news, amber for a pause, red for
 // a delete.
 const BUTTON_TONES = {
@@ -97,6 +89,7 @@ export default function StaffListPage() {
 
   const [dialog, setDialog] = useState(null); // { staff } (null staff = invite)
   const [toDelete, setToDelete] = useState(null);
+  const [toDisable, setToDisable] = useState(null);
   const [notice, setNotice] = useState(null); // { ok, text }
 
   const run = async (action, okText) => {
@@ -287,12 +280,7 @@ export default function StaffListPage() {
                   {/* Role, status, last sign-in */}
                   <span
                     className={`grid h-7 w-[150px] max-w-full place-items-center rounded-full px-3 text-center text-[13px] font-medium leading-none ${
-                      ROLE_TONES[
-                        Math.max(
-                          0,
-                          roles.findIndex((role) => role.id === person.role.id)
-                        ) % ROLE_TONES.length
-                      ]
+                      roleTone(roles, person.role.id).chip
                     }`}
                   >
                     <span className="max-w-full truncate">
@@ -344,15 +332,15 @@ export default function StaffListPage() {
                           }
                           disabled={busy}
                           onClick={() =>
-                            run(() =>
-                              updateStaff({
-                                id: person.id,
-                                status:
-                                  person.status === "disabled"
-                                    ? "active"
-                                    : "disabled",
-                              })
-                            )
+                            // Enabling is safe; disabling asks first.
+                            person.status === "disabled"
+                              ? run(() =>
+                                  updateStaff({
+                                    id: person.id,
+                                    status: "active",
+                                  })
+                                )
+                              : setToDisable(person)
                           }
                         />
                       )}
@@ -385,6 +373,23 @@ export default function StaffListPage() {
         isSelf={dialog?.staff?.id === me?.id}
         onClose={() => setDialog(null)}
       />
+
+      <Can permission={P.staff.update}>
+        <ConfirmDialog
+          open={Boolean(toDisable)}
+          title={t("staff.actions.disableTitle", { name: toDisable?.name })}
+          body={t("staff.actions.disableBody")}
+          confirmLabel={t("staff.actions.disable")}
+          busy={isUpdating}
+          onConfirm={async () => {
+            await run(() =>
+              updateStaff({ id: toDisable.id, status: "disabled" })
+            );
+            setToDisable(null);
+          }}
+          onClose={() => setToDisable(null)}
+        />
+      </Can>
 
       <Can permission={P.staff.delete}>
         <ConfirmDialog

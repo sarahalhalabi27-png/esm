@@ -4,8 +4,29 @@ import { useTranslation } from "react-i18next";
 const ACTIONS = ["view", "create", "update", "delete"];
 const key = (resource, action) => `${resource}.${action}`;
 
+// One colour per action: its dot in the column heading and its checkboxes.
+const ACTION_COLORS = {
+  view: {
+    dot: "bg-sky-400 light:bg-sky-500",
+    box: "accent-sky-400 light:accent-sky-600",
+  },
+  create: {
+    dot: "bg-emerald-400 light:bg-emerald-500",
+    box: "accent-emerald-400 light:accent-emerald-600",
+  },
+  update: {
+    dot: "bg-amber-400 light:bg-amber-500",
+    box: "accent-amber-400 light:accent-amber-600",
+  },
+  delete: {
+    dot: "bg-rose-400 light:bg-rose-500",
+    box: "accent-rose-400 light:accent-rose-600",
+  },
+};
+const ALL_BOX = "accent-[rgb(var(--accent))]";
+
 // A checkbox whose third, "some" state (indeterminate) is set from a prop.
-function Checkbox({ checked, indeterminate = false, ...props }) {
+function Checkbox({ checked, indeterminate = false, color, ...props }) {
   const ref = useRef(null);
   useEffect(() => {
     ref.current.indeterminate = indeterminate;
@@ -15,7 +36,7 @@ function Checkbox({ checked, indeterminate = false, ...props }) {
       ref={ref}
       type="checkbox"
       checked={checked}
-      className="h-[18px] w-[18px] cursor-pointer accent-[rgb(var(--accent))] disabled:cursor-not-allowed"
+      className={`h-[18px] w-[18px] cursor-pointer disabled:cursor-not-allowed ${color}`}
       {...props}
     />
   );
@@ -81,7 +102,13 @@ export default function PermissionMatrix({
                 scope="col"
                 className="w-20 py-3 text-center font-medium"
               >
-                {t(`roles.actions.${action}`)}
+                <span className="inline-flex items-center gap-1.5">
+                  <span
+                    aria-hidden="true"
+                    className={`h-2 w-2 rounded-full ${ACTION_COLORS[action].dot}`}
+                  />
+                  {t(`roles.actions.${action}`)}
+                </span>
               </th>
             ))}
             <th scope="col" className="w-16 py-3 text-center font-medium">
@@ -100,18 +127,28 @@ export default function PermissionMatrix({
             return (
               <tr
                 key={resource}
-                className="border-b border-line/[0.06] last:border-0"
+                className={`border-b border-line/[0.06] last:border-0 transition-colors ${
+                  count > 0 ? "bg-teal-accent/[0.05]" : ""
+                }`}
               >
                 <th
                   scope="row"
-                  className="py-3 pe-4 text-start font-normal text-fg"
+                  className="py-3 ps-2 pe-4 text-start font-normal text-fg"
                 >
-                  {section}
+                  <span className="flex items-center gap-2.5">
+                    {section}
+                    {count > 0 && (
+                      <span className="rounded-full bg-teal-accent/15 px-2 py-0.5 text-xs font-medium text-teal-accent tabular-nums">
+                        {count}/{actions.length}
+                      </span>
+                    )}
+                  </span>
                 </th>
                 {ACTIONS.map((action) => (
                   <td key={action} className="py-3 text-center">
                     {actions.includes(action) ? (
                       <Checkbox
+                        color={ACTION_COLORS[action].box}
                         checked={selected.has(key(resource, action))}
                         disabled={disabled}
                         onChange={(event) =>
@@ -128,6 +165,7 @@ export default function PermissionMatrix({
                 ))}
                 <td className="py-3 text-center">
                   <Checkbox
+                    color={ALL_BOX}
                     checked={count === actions.length}
                     indeterminate={count > 0 && count < actions.length}
                     disabled={disabled}

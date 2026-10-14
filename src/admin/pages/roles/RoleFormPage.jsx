@@ -9,14 +9,18 @@ import {
   AlertCircle,
   ArrowLeft,
   CheckCircle2,
+  KeyRound,
   Loader2,
   Lock,
   SearchX,
+  ShieldCheck,
+  UserCog,
 } from "lucide-react";
 import AdminMessage from "../../components/AdminMessage.jsx";
 import {
   ADMIN_BUTTON,
   ADMIN_CARD,
+  ADMIN_CARD_RICH,
   ADMIN_FIELD_ERROR,
   ADMIN_INPUT,
   ADMIN_LABEL,
@@ -25,11 +29,13 @@ import {
   useCreateRoleMutation,
   useGetPermissionCatalogQuery,
   useGetRoleQuery,
+  useGetRolesQuery,
   useUpdateRoleMutation,
 } from "../../api/staffRolesApi.js";
 import useCan from "../../hooks/useCan.js";
 import { adminPath } from "../../navigation.js";
 import { P } from "../../permissions.js";
+import { ROLE_TONES, roleTone } from "../../utils/people.js";
 import {
   fetchAdminMe,
   selectAdminUser,
@@ -131,6 +137,8 @@ function RoleForm({ role, catalog, backTo, backLink }) {
   const readOnly =
     role?.system || !can(isNew ? P.roles.create : P.roles.update);
 
+  const { data: roles = [] } = useGetRolesQuery();
+  const tone = isNew ? ROLE_TONES[0] : roleTone(roles, role.id);
   const [createRole, { isLoading: isCreating }] = useCreateRoleMutation();
   const [updateRole, { isLoading: isUpdating }] = useUpdateRoleMutation();
   const [result, setResult] = useState(null); // { ok } | { error }
@@ -176,59 +184,84 @@ function RoleForm({ role, catalog, backTo, backLink }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       {backLink}
-      <h2 className="mt-4 flex items-center gap-2 text-xl font-semibold text-fg">
-        {isNew ? t("roles.newTitle") : role.name}
-        {role?.system && <Lock size={18} className="text-muted" />}
-      </h2>
-      {role?.system && (
-        <p className="mt-2 text-sm text-muted">{t("roles.systemHint")}</p>
-      )}
+      {/* Heading card; its side bar has the role's own colour. */}
+      <div
+        className={`${ADMIN_CARD_RICH} relative mt-4 overflow-hidden p-5 ps-7 md:p-6 md:ps-8`}
+      >
+        <span
+          aria-hidden="true"
+          className={`absolute inset-y-0 start-0 w-1.5 ${tone.stripe}`}
+        />
+        <div className="flex items-center gap-4">
+          <span
+            className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl ${tone.chip}`}
+          >
+            <ShieldCheck size={24} />
+          </span>
+          <div className="min-w-0">
+            <h2 className="flex items-center gap-2 text-2xl font-semibold text-fg">
+              {isNew ? t("roles.newTitle") : role.name}
+              {role?.system && <Lock size={18} className="text-muted" />}
+            </h2>
+            {role?.system && (
+              <p className="mt-1 text-sm text-muted">{t("roles.systemHint")}</p>
+            )}
+          </div>
+        </div>
+      </div>
 
       <fieldset
         disabled={readOnly}
-        className="mt-6 flex flex-col gap-4 min-w-0"
+        className="mt-4 flex flex-col gap-4 min-w-0"
       >
-        <section className={`${ADMIN_CARD} p-5 grid gap-4 md:grid-cols-2`}>
-          <div>
-            <label htmlFor="role-name" className={ADMIN_LABEL}>
-              {t("roles.fields.name")}
-            </label>
-            <input
-              id="role-name"
-              dir="auto"
-              {...register("name")}
-              aria-invalid={errors.name ? true : undefined}
-              className={ADMIN_INPUT}
-            />
-            {errors.name && (
-              <p className={ADMIN_FIELD_ERROR}>{errors.name.message}</p>
-            )}
-          </div>
-          <div>
-            <label htmlFor="role-description" className={ADMIN_LABEL}>
-              {t("roles.fields.description")}
-            </label>
-            <input
-              id="role-description"
-              dir="auto"
-              {...register("description")}
-              placeholder={t("roles.fields.descriptionPlaceholder")}
-              className={ADMIN_INPUT}
-            />
+        <section className={`${ADMIN_CARD_RICH} p-5`}>
+          <h3 className="mb-5 flex items-center gap-3 font-semibold text-fg">
+            <IconChip icon={UserCog} />
+            {t("roles.details")}
+          </h3>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <label htmlFor="role-name" className={ADMIN_LABEL}>
+                {t("roles.fields.name")}
+              </label>
+              <input
+                id="role-name"
+                dir="auto"
+                {...register("name")}
+                aria-invalid={errors.name ? true : undefined}
+                className={ADMIN_INPUT}
+              />
+              {errors.name && (
+                <p className={ADMIN_FIELD_ERROR}>{errors.name.message}</p>
+              )}
+            </div>
+            <div>
+              <label htmlFor="role-description" className={ADMIN_LABEL}>
+                {t("roles.fields.description")}
+              </label>
+              <input
+                id="role-description"
+                dir="auto"
+                {...register("description")}
+                placeholder={t("roles.fields.descriptionPlaceholder")}
+                className={ADMIN_INPUT}
+              />
+            </div>
           </div>
         </section>
 
-        <section className={`${ADMIN_CARD} p-5 min-w-0`}>
+        <section className={`${ADMIN_CARD_RICH} p-5 min-w-0`}>
           <Controller
             control={control}
             name="permissions"
             render={({ field: { value, onChange } }) => (
               <>
-                <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="text-sm font-semibold uppercase tracking-wider text-muted">
+                <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                  <h3 className="flex items-center gap-3 font-semibold text-fg">
+                    <IconChip icon={KeyRound} />
                     {t("roles.permissions")}
                   </h3>
-                  <span className="text-sm text-muted">
+                  <span className="rounded-full bg-teal-accent/15 px-3 py-1 text-sm font-medium text-teal-accent">
                     {t("roles.selected", { count: value.length })}
                   </span>
                 </div>
@@ -284,5 +317,14 @@ function RoleForm({ role, catalog, backTo, backLink }) {
       )}
       <UnsavedChangesDialog blocker={blocker} />
     </form>
+  );
+}
+
+// The teal icon square that leads a card heading.
+function IconChip({ icon: Icon }) {
+  return (
+    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-teal-accent/15 text-teal-accent">
+      <Icon size={18} />
+    </span>
   );
 }
