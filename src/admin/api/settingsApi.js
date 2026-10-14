@@ -1,23 +1,30 @@
-import { adminApi, fromMock } from "./adminApi.js";
+import { adminApi, endpoint } from "./adminApi.js";
 import { getSettings, updateSettings } from "./mockSettings.js";
 
-// Site settings. TODO(api): replace each `queryFn` with the `query` in the
-// comment above it.
+// Site settings (mock or API, see ./config.js).
 const settingsApi = adminApi
   .enhanceEndpoints({ addTagTypes: ["Settings"] })
   .injectEndpoints({
     endpoints: (build) => ({
-      // query: () => "/settings"
-      getSettings: build.query({
-        queryFn: () => fromMock(getSettings()),
-        providesTags: ["Settings"],
-      }),
+      getSettings: build.query(
+        endpoint({
+          mock: () => getSettings(),
+          query: () => "/settings",
+          providesTags: ["Settings"],
+        })
+      ),
 
-      // query: (changes) => ({ url: "/settings", method: "PATCH", body: changes })
-      updateSettings: build.mutation({
-        queryFn: (changes) => fromMock(updateSettings(changes)),
-        invalidatesTags: ["Settings"],
-      }),
+      updateSettings: build.mutation(
+        endpoint({
+          mock: (changes) => updateSettings(changes),
+          query: (changes) => ({
+            url: "/settings",
+            method: "PATCH",
+            body: changes,
+          }),
+          invalidatesTags: ["Settings"],
+        })
+      ),
     }),
   });
 

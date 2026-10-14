@@ -26,6 +26,7 @@ import {
   selectAdminLoginStatus,
   selectAdminToken,
 } from "../store/adminSessionSlice.js";
+import { USE_MOCK } from "../api/config.js";
 import { DEMO_ACCOUNTS, DEMO_STAFF_PASSWORD } from "../api/mockAdminData.js";
 
 const defaultValues = { email: "", password: "" };
@@ -122,7 +123,7 @@ export default function AdminLoginPage() {
         </form>
 
         {/* Mock-only shortcut to try each role; goes away with the backend. */}
-        {import.meta.env.DEV && (
+        {import.meta.env.DEV && USE_MOCK && (
           <div className="mt-6 pt-5 border-t border-white/10">
             <p className="mb-3 text-sm text-white/60">
               {ta("login.demoAccounts")}

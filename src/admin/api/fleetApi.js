@@ -1,4 +1,4 @@
-import { adminApi, fromMock } from "./adminApi.js";
+import { adminApi, cleanParams, endpoint } from "./adminApi.js";
 import {
   createCar,
   createCategory,
@@ -11,78 +11,113 @@ import {
   updateCategory,
 } from "./mockFleet.js";
 
-// Fleet endpoints (cars, categories). TODO(api): replace
-// each `queryFn` with the `query` in the comment above it.
+// Fleet endpoints: cars and categories (mock or API, see ./config.js).
 const fleetApi = adminApi
   .enhanceEndpoints({ addTagTypes: ["Car", "Category"] })
   .injectEndpoints({
     endpoints: (build) => ({
-      // query: (params) => ({ url: "/fleet/cars", params })
-      getCars: build.query({
-        queryFn: (params) => fromMock(listCars(params)),
-        providesTags: (result) => [
-          { type: "Car", id: "LIST" },
-          ...(result?.items ?? []).map(({ id }) => ({ type: "Car", id })),
-        ],
-      }),
+      getCars: build.query(
+        endpoint({
+          mock: (params) => listCars(params),
+          query: (params) => ({
+            url: "/fleet/cars",
+            params: cleanParams(params),
+          }),
+          providesTags: (result) => [
+            { type: "Car", id: "LIST" },
+            ...(result?.items ?? []).map(({ id }) => ({ type: "Car", id })),
+          ],
+        })
+      ),
 
-      // query: (id) => `/fleet/cars/${id}`
-      getCar: build.query({
-        queryFn: (id) => fromMock(getCar(id)),
-        providesTags: (result, error, id) => [{ type: "Car", id }],
-      }),
+      getCar: build.query(
+        endpoint({
+          mock: (id) => getCar(id),
+          query: (id) => `/fleet/cars/${id}`,
+          providesTags: (result, error, id) => [{ type: "Car", id }],
+        })
+      ),
 
-      // query: (car) => ({ url: "/fleet/cars", method: "POST", body: car })
-      createCar: build.mutation({
-        queryFn: (car) => fromMock(createCar(car)),
-        invalidatesTags: [
-          { type: "Car", id: "LIST" },
-          { type: "Category", id: "LIST" },
-        ],
-      }),
+      createCar: build.mutation(
+        endpoint({
+          mock: (car) => createCar(car),
+          query: (car) => ({ url: "/fleet/cars", method: "POST", body: car }),
+          invalidatesTags: [
+            { type: "Car", id: "LIST" },
+            { type: "Category", id: "LIST" },
+          ],
+        })
+      ),
 
-      // query: ({ id, ...changes }) => ({ url: `/fleet/cars/${id}`, method: "PATCH", body: changes })
-      updateCar: build.mutation({
-        queryFn: (args) => fromMock(updateCar(args)),
-        invalidatesTags: (result, error, { id }) => [
-          { type: "Car", id },
-          { type: "Car", id: "LIST" },
-          { type: "Category", id: "LIST" },
-        ],
-      }),
+      updateCar: build.mutation(
+        endpoint({
+          mock: (args) => updateCar(args),
+          query: ({ id, ...changes }) => ({
+            url: `/fleet/cars/${id}`,
+            method: "PATCH",
+            body: changes,
+          }),
+          invalidatesTags: (result, error, { id }) => [
+            { type: "Car", id },
+            { type: "Car", id: "LIST" },
+            { type: "Category", id: "LIST" },
+          ],
+        })
+      ),
 
-      // query: (id) => ({ url: `/fleet/cars/${id}`, method: "DELETE" })
-      deleteCar: build.mutation({
-        queryFn: (id) => fromMock(deleteCar(id)),
-        invalidatesTags: [
-          { type: "Car", id: "LIST" },
-          { type: "Category", id: "LIST" },
-        ],
-      }),
+      deleteCar: build.mutation(
+        endpoint({
+          mock: (id) => deleteCar(id),
+          query: (id) => ({ url: `/fleet/cars/${id}`, method: "DELETE" }),
+          invalidatesTags: [
+            { type: "Car", id: "LIST" },
+            { type: "Category", id: "LIST" },
+          ],
+        })
+      ),
 
-      // query: () => "/fleet/categories"
-      getCategories: build.query({
-        queryFn: () => fromMock(listCategories()),
-        providesTags: [{ type: "Category", id: "LIST" }],
-      }),
+      getCategories: build.query(
+        endpoint({
+          mock: () => listCategories(),
+          query: () => "/fleet/categories",
+          providesTags: [{ type: "Category", id: "LIST" }],
+        })
+      ),
 
-      // query: (category) => ({ url: "/fleet/categories", method: "POST", body: category })
-      createCategory: build.mutation({
-        queryFn: (category) => fromMock(createCategory(category)),
-        invalidatesTags: [{ type: "Category", id: "LIST" }],
-      }),
+      createCategory: build.mutation(
+        endpoint({
+          mock: (category) => createCategory(category),
+          query: (category) => ({
+            url: "/fleet/categories",
+            method: "POST",
+            body: category,
+          }),
+          invalidatesTags: [{ type: "Category", id: "LIST" }],
+        })
+      ),
 
-      // query: ({ id, ...changes }) => ({ url: `/fleet/categories/${id}`, method: "PATCH", body: changes })
-      updateCategory: build.mutation({
-        queryFn: (args) => fromMock(updateCategory(args)),
-        invalidatesTags: [{ type: "Category", id: "LIST" }],
-      }),
+      updateCategory: build.mutation(
+        endpoint({
+          mock: (args) => updateCategory(args),
+          query: ({ id, ...changes }) => ({
+            url: `/fleet/categories/${id}`,
+            method: "PATCH",
+            body: changes,
+          }),
+          invalidatesTags: [{ type: "Category", id: "LIST" }],
+        })
+      ),
 
-      // query: (id) => ({ url: `/fleet/categories/${id}`, method: "DELETE" })
-      deleteCategory: build.mutation({
-        queryFn: (id) => fromMock(deleteCategory(id)),
-        invalidatesTags: [{ type: "Category", id: "LIST" }],
-      }),
+      deleteCategory: build.mutation(
+        endpoint({
+          mock: (id) => deleteCategory(id),
+          query: (id) => ({
+            url: `/fleet/categories/${id}`,
+            method: "DELETE",
+          }),
+          invalidatesTags: [{ type: "Category", id: "LIST" }],
+        })
+      ),
     }),
   });
 

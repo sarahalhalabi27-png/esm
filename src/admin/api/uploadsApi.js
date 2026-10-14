@@ -1,13 +1,10 @@
-import { adminApi, fromMock } from "./adminApi.js";
+import { adminApi, endpoint } from "./adminApi.js";
 
-// Image uploads, shared by every screen with photos (fleet, blog, ...).
-// TODO(api): replace `queryFn` with:
-//   query: (file) => { const body = new FormData(); body.append("file", file);
-//     return { url: "/uploads", method: "POST", body }; }
-// POST /admin/uploads (multipart "file") -> { url }
+// Image uploads, shared by every screen with photos (fleet, blog, ...), as
+// POST /admin/uploads (multipart "file") -> { url } (mock or API, see
+// ./config.js). The mock keeps the image in memory as a data URL.
 
 async function readAsDataUrl(file) {
-  // The mock keeps the image in memory as a data URL.
   await new Promise((resolve) => setTimeout(resolve, 500));
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -23,9 +20,16 @@ async function readAsDataUrl(file) {
 
 const uploadsApi = adminApi.injectEndpoints({
   endpoints: (build) => ({
-    uploadImage: build.mutation({
-      queryFn: (file) => fromMock(readAsDataUrl(file)),
-    }),
+    uploadImage: build.mutation(
+      endpoint({
+        mock: (file) => readAsDataUrl(file),
+        query: (file) => {
+          const body = new FormData();
+          body.append("file", file);
+          return { url: "/uploads", method: "POST", body };
+        },
+      })
+    ),
   }),
 });
 

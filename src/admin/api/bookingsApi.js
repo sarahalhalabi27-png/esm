@@ -1,4 +1,4 @@
-import { adminApi, fromMock } from "./adminApi.js";
+import { adminApi, cleanParams, endpoint } from "./adminApi.js";
 import {
   deleteBooking,
   getBooking,
@@ -7,46 +7,59 @@ import {
   updateBooking,
 } from "./mockBookings.js";
 
-// Bookings endpoints. TODO(api): replace each `queryFn` with the `query`
-// in the comment above it.
+// Bookings endpoints (mock or API, see ./config.js).
 export const bookingsApi = adminApi.injectEndpoints({
   endpoints: (build) => ({
-    // query: (params) => ({ url: "/bookings", params })
-    getBookings: build.query({
-      queryFn: (params) => fromMock(listBookings(params)),
-      providesTags: (result) => [
-        { type: "Booking", id: "LIST" },
-        ...(result?.items ?? []).map(({ id }) => ({ type: "Booking", id })),
-      ],
-    }),
+    getBookings: build.query(
+      endpoint({
+        mock: (params) => listBookings(params),
+        query: (params) => ({ url: "/bookings", params: cleanParams(params) }),
+        providesTags: (result) => [
+          { type: "Booking", id: "LIST" },
+          ...(result?.items ?? []).map(({ id }) => ({ type: "Booking", id })),
+        ],
+      })
+    ),
 
-    // query: () => "/bookings/stats"
     // Refetched after any booking change (it provides the LIST tag).
-    getBookingStats: build.query({
-      queryFn: () => fromMock(getBookingStats()),
-      providesTags: [{ type: "Booking", id: "LIST" }],
-    }),
+    getBookingStats: build.query(
+      endpoint({
+        mock: () => getBookingStats(),
+        query: () => "/bookings/stats",
+        providesTags: [{ type: "Booking", id: "LIST" }],
+      })
+    ),
 
-    // query: (id) => `/bookings/${id}`
-    getBooking: build.query({
-      queryFn: (id) => fromMock(getBooking(id)),
-      providesTags: (result, error, id) => [{ type: "Booking", id }],
-    }),
+    getBooking: build.query(
+      endpoint({
+        mock: (id) => getBooking(id),
+        query: (id) => `/bookings/${id}`,
+        providesTags: (result, error, id) => [{ type: "Booking", id }],
+      })
+    ),
 
-    // query: ({ id, ...changes }) => ({ url: `/bookings/${id}`, method: "PATCH", body: changes })
-    updateBooking: build.mutation({
-      queryFn: (args) => fromMock(updateBooking(args)),
-      invalidatesTags: (result, error, { id }) => [
-        { type: "Booking", id },
-        { type: "Booking", id: "LIST" },
-      ],
-    }),
+    updateBooking: build.mutation(
+      endpoint({
+        mock: (args) => updateBooking(args),
+        query: ({ id, ...changes }) => ({
+          url: `/bookings/${id}`,
+          method: "PATCH",
+          body: changes,
+        }),
+        invalidatesTags: (result, error, { id }) => [
+          { type: "Booking", id },
+          { type: "Booking", id: "LIST" },
+        ],
+      })
+    ),
 
-    // query: (id) => ({ url: `/bookings/${id}`, method: "DELETE" })
-    deleteBooking: build.mutation({
-      queryFn: (id) => fromMock(deleteBooking(id)),
-      invalidatesTags: [{ type: "Booking", id: "LIST" }],
-    }),
+    deleteBooking: build.mutation(
+      endpoint({
+        mock: (id) => deleteBooking(id),
+        query: (id) => ({ url: `/bookings/${id}`, method: "DELETE" }),
+        invalidatesTags: [{ type: "Booking", id: "LIST" }],
+      })
+    ),
   }),
 });
 

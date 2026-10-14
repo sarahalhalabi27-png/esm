@@ -1,4 +1,4 @@
-import { adminApi, fromMock } from "./adminApi.js";
+import { adminApi, cleanParams, endpoint } from "./adminApi.js";
 import {
   createPost,
   deletePost,
@@ -10,69 +10,98 @@ import {
   updatePost,
 } from "./mockBlog.js";
 
-// Blog posts and comment moderation. TODO(api): replace each `queryFn`
-// with the `query` in the comment above it.
+// Blog posts and comment moderation (mock or API, see ./config.js).
 const blogApi = adminApi
   .enhanceEndpoints({ addTagTypes: ["Post", "Comment"] })
   .injectEndpoints({
     endpoints: (build) => ({
-      // query: (params) => ({ url: "/blog/posts", params })
-      getPosts: build.query({
-        queryFn: (params) => fromMock(listPosts(params)),
-        providesTags: [{ type: "Post", id: "LIST" }],
-      }),
+      getPosts: build.query(
+        endpoint({
+          mock: (params) => listPosts(params),
+          query: (params) => ({
+            url: "/blog/posts",
+            params: cleanParams(params),
+          }),
+          providesTags: [{ type: "Post", id: "LIST" }],
+        })
+      ),
 
-      // query: (id) => `/blog/posts/${id}`
-      getPost: build.query({
-        queryFn: (id) => fromMock(getPost(id)),
-        providesTags: (result, error, id) => [{ type: "Post", id }],
-      }),
+      getPost: build.query(
+        endpoint({
+          mock: (id) => getPost(id),
+          query: (id) => `/blog/posts/${id}`,
+          providesTags: (result, error, id) => [{ type: "Post", id }],
+        })
+      ),
 
-      // query: (post) => ({ url: "/blog/posts", method: "POST", body: post })
-      createPost: build.mutation({
-        queryFn: (post) => fromMock(createPost(post)),
-        invalidatesTags: [{ type: "Post", id: "LIST" }],
-      }),
+      createPost: build.mutation(
+        endpoint({
+          mock: (post) => createPost(post),
+          query: (post) => ({
+            url: "/blog/posts",
+            method: "POST",
+            body: post,
+          }),
+          invalidatesTags: [{ type: "Post", id: "LIST" }],
+        })
+      ),
 
-      // query: ({ id, ...changes }) => ({ url: `/blog/posts/${id}`, method: "PATCH", body: changes })
-      updatePost: build.mutation({
-        queryFn: (args) => fromMock(updatePost(args)),
-        invalidatesTags: (result, error, { id }) => [
-          { type: "Post", id },
-          { type: "Post", id: "LIST" },
-          { type: "Comment", id: "LIST" },
-        ],
-      }),
+      updatePost: build.mutation(
+        endpoint({
+          mock: (args) => updatePost(args),
+          query: ({ id, ...changes }) => ({
+            url: `/blog/posts/${id}`,
+            method: "PATCH",
+            body: changes,
+          }),
+          invalidatesTags: (result, error, { id }) => [
+            { type: "Post", id },
+            { type: "Post", id: "LIST" },
+            { type: "Comment", id: "LIST" },
+          ],
+        })
+      ),
 
-      // query: (id) => ({ url: `/blog/posts/${id}`, method: "DELETE" })
-      deletePost: build.mutation({
-        queryFn: (id) => fromMock(deletePost(id)),
-        invalidatesTags: [
-          { type: "Post", id: "LIST" },
-          { type: "Comment", id: "LIST" },
-        ],
-      }),
+      deletePost: build.mutation(
+        endpoint({
+          mock: (id) => deletePost(id),
+          query: (id) => ({ url: `/blog/posts/${id}`, method: "DELETE" }),
+          invalidatesTags: [
+            { type: "Post", id: "LIST" },
+            { type: "Comment", id: "LIST" },
+          ],
+        })
+      ),
 
-      // query: (params) => ({ url: "/comments", params })
-      getComments: build.query({
-        queryFn: (params) => fromMock(listComments(params)),
-        providesTags: [{ type: "Comment", id: "LIST" }],
-      }),
+      getComments: build.query(
+        endpoint({
+          mock: (params) => listComments(params),
+          query: (params) => ({
+            url: "/comments",
+            params: cleanParams(params),
+          }),
+          providesTags: [{ type: "Comment", id: "LIST" }],
+        })
+      ),
 
-      // query: () => "/comments/stats"
-      getCommentStats: build.query({
-        queryFn: () => fromMock(getCommentStats()),
-        providesTags: [{ type: "Comment", id: "LIST" }],
-      }),
+      getCommentStats: build.query(
+        endpoint({
+          mock: () => getCommentStats(),
+          query: () => "/comments/stats",
+          providesTags: [{ type: "Comment", id: "LIST" }],
+        })
+      ),
 
-      // query: (body) => ({ url: "/comments/bulk", method: "POST", body })
-      moderateComments: build.mutation({
-        queryFn: (body) => fromMock(moderateComments(body)),
-        invalidatesTags: [
-          { type: "Comment", id: "LIST" },
-          { type: "Post", id: "LIST" },
-        ],
-      }),
+      moderateComments: build.mutation(
+        endpoint({
+          mock: (body) => moderateComments(body),
+          query: (body) => ({ url: "/comments/bulk", method: "POST", body }),
+          invalidatesTags: [
+            { type: "Comment", id: "LIST" },
+            { type: "Post", id: "LIST" },
+          ],
+        })
+      ),
     }),
   });
 

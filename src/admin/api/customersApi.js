@@ -1,4 +1,4 @@
-import { adminApi, fromMock } from "./adminApi.js";
+import { adminApi, cleanParams, endpoint } from "./adminApi.js";
 import {
   deleteCustomer,
   getCustomer,
@@ -6,45 +6,59 @@ import {
   updateCustomer,
 } from "./mockCustomers.js";
 
-// Customer accounts. TODO(api): replace each `queryFn` with the `query`
-// in the comment above it.
+// Customer accounts (mock or API, see ./config.js).
 const customersApi = adminApi
   .enhanceEndpoints({ addTagTypes: ["Customer"] })
   .injectEndpoints({
     endpoints: (build) => ({
-      // query: (params) => ({ url: "/customers", params })
-      getCustomers: build.query({
-        queryFn: (params) => fromMock(listCustomers(params)),
-        providesTags: [
-          { type: "Customer", id: "LIST" },
-          { type: "Booking", id: "LIST" },
-        ],
-      }),
+      getCustomers: build.query(
+        endpoint({
+          mock: (params) => listCustomers(params),
+          query: (params) => ({
+            url: "/customers",
+            params: cleanParams(params),
+          }),
+          providesTags: [
+            { type: "Customer", id: "LIST" },
+            { type: "Booking", id: "LIST" },
+          ],
+        })
+      ),
 
-      // query: (id) => `/customers/${id}`
       // Also refetched after booking changes, for its booking numbers.
-      getCustomer: build.query({
-        queryFn: (id) => fromMock(getCustomer(id)),
-        providesTags: (result, error, id) => [
-          { type: "Customer", id },
-          { type: "Booking", id: "LIST" },
-        ],
-      }),
+      getCustomer: build.query(
+        endpoint({
+          mock: (id) => getCustomer(id),
+          query: (id) => `/customers/${id}`,
+          providesTags: (result, error, id) => [
+            { type: "Customer", id },
+            { type: "Booking", id: "LIST" },
+          ],
+        })
+      ),
 
-      // query: ({ id, ...changes }) => ({ url: `/customers/${id}`, method: "PATCH", body: changes })
-      updateCustomer: build.mutation({
-        queryFn: (args) => fromMock(updateCustomer(args)),
-        invalidatesTags: (result, error, { id }) => [
-          { type: "Customer", id },
-          { type: "Customer", id: "LIST" },
-        ],
-      }),
+      updateCustomer: build.mutation(
+        endpoint({
+          mock: (args) => updateCustomer(args),
+          query: ({ id, ...changes }) => ({
+            url: `/customers/${id}`,
+            method: "PATCH",
+            body: changes,
+          }),
+          invalidatesTags: (result, error, { id }) => [
+            { type: "Customer", id },
+            { type: "Customer", id: "LIST" },
+          ],
+        })
+      ),
 
-      // query: (id) => ({ url: `/customers/${id}`, method: "DELETE" })
-      deleteCustomer: build.mutation({
-        queryFn: (id) => fromMock(deleteCustomer(id)),
-        invalidatesTags: [{ type: "Customer", id: "LIST" }],
-      }),
+      deleteCustomer: build.mutation(
+        endpoint({
+          mock: (id) => deleteCustomer(id),
+          query: (id) => ({ url: `/customers/${id}`, method: "DELETE" }),
+          invalidatesTags: [{ type: "Customer", id: "LIST" }],
+        })
+      ),
     }),
   });
 

@@ -1,4 +1,4 @@
-import { adminApi, fromMock } from "./adminApi.js";
+import { adminApi, cleanParams, endpoint } from "./adminApi.js";
 import {
   createRole,
   deleteRole,
@@ -17,90 +17,124 @@ import {
 // refuse changes to your own account.
 const actorId = (getState) => getState().adminSession.user?.id;
 
-// Staff, roles and the permission catalog. TODO(api): replace each
-// `queryFn` with the `query` in the comment above it (and drop actorId).
+// Staff, roles and the permission catalog (mock or API, see ./config.js).
 const staffRolesApi = adminApi
   .enhanceEndpoints({ addTagTypes: ["Role", "Staff"] })
   .injectEndpoints({
     endpoints: (build) => ({
-      // query: () => "/permissions"
-      getPermissionCatalog: build.query({
-        queryFn: () => fromMock(listPermissions()),
-      }),
+      getPermissionCatalog: build.query(
+        endpoint({
+          mock: () => listPermissions(),
+          query: () => "/permissions",
+        })
+      ),
 
-      // query: () => "/roles"
-      getRoles: build.query({
-        queryFn: () => fromMock(listRoles()),
-        providesTags: [{ type: "Role", id: "LIST" }],
-      }),
+      getRoles: build.query(
+        endpoint({
+          mock: () => listRoles(),
+          query: () => "/roles",
+          providesTags: [{ type: "Role", id: "LIST" }],
+        })
+      ),
 
-      // query: (id) => `/roles/${id}`
-      getRole: build.query({
-        queryFn: (id) => fromMock(getRole(id)),
-        providesTags: (result, error, id) => [{ type: "Role", id: Number(id) }],
-      }),
+      getRole: build.query(
+        endpoint({
+          mock: (id) => getRole(id),
+          query: (id) => `/roles/${id}`,
+          providesTags: (result, error, id) => [
+            { type: "Role", id: Number(id) },
+          ],
+        })
+      ),
 
-      // query: (role) => ({ url: "/roles", method: "POST", body: role })
-      createRole: build.mutation({
-        queryFn: (role) => fromMock(createRole(role)),
-        invalidatesTags: [{ type: "Role", id: "LIST" }],
-      }),
+      createRole: build.mutation(
+        endpoint({
+          mock: (role) => createRole(role),
+          query: (role) => ({ url: "/roles", method: "POST", body: role }),
+          invalidatesTags: [{ type: "Role", id: "LIST" }],
+        })
+      ),
 
-      // query: ({ id, ...changes }) => ({ url: `/roles/${id}`, method: "PATCH", body: changes })
-      updateRole: build.mutation({
-        queryFn: (args) => fromMock(updateRole(args)),
-        invalidatesTags: (result, error, { id }) => [
-          { type: "Role", id: Number(id) },
-          { type: "Role", id: "LIST" },
-          { type: "Staff", id: "LIST" },
-        ],
-      }),
+      updateRole: build.mutation(
+        endpoint({
+          mock: (args) => updateRole(args),
+          query: ({ id, ...changes }) => ({
+            url: `/roles/${id}`,
+            method: "PATCH",
+            body: changes,
+          }),
+          invalidatesTags: (result, error, { id }) => [
+            { type: "Role", id: Number(id) },
+            { type: "Role", id: "LIST" },
+            { type: "Staff", id: "LIST" },
+          ],
+        })
+      ),
 
-      // query: (id) => ({ url: `/roles/${id}`, method: "DELETE" })
-      deleteRole: build.mutation({
-        queryFn: (id) => fromMock(deleteRole(id)),
-        invalidatesTags: [{ type: "Role", id: "LIST" }],
-      }),
+      deleteRole: build.mutation(
+        endpoint({
+          mock: (id) => deleteRole(id),
+          query: (id) => ({ url: `/roles/${id}`, method: "DELETE" }),
+          invalidatesTags: [{ type: "Role", id: "LIST" }],
+        })
+      ),
 
-      // query: (params) => ({ url: "/staff", params })
-      getStaff: build.query({
-        queryFn: (params) => fromMock(listStaff(params)),
-        providesTags: [{ type: "Staff", id: "LIST" }],
-      }),
+      getStaff: build.query(
+        endpoint({
+          mock: (params) => listStaff(params),
+          query: (params) => ({ url: "/staff", params: cleanParams(params) }),
+          providesTags: [{ type: "Staff", id: "LIST" }],
+        })
+      ),
 
-      // query: (staff) => ({ url: "/staff", method: "POST", body: staff })
-      inviteStaff: build.mutation({
-        queryFn: (staff) => fromMock(inviteStaff(staff)),
-        invalidatesTags: [
-          { type: "Staff", id: "LIST" },
-          { type: "Role", id: "LIST" },
-        ],
-      }),
+      inviteStaff: build.mutation(
+        endpoint({
+          mock: (staff) => inviteStaff(staff),
+          query: (staff) => ({ url: "/staff", method: "POST", body: staff }),
+          invalidatesTags: [
+            { type: "Staff", id: "LIST" },
+            { type: "Role", id: "LIST" },
+          ],
+        })
+      ),
 
-      // query: ({ id, ...changes }) => ({ url: `/staff/${id}`, method: "PATCH", body: changes })
-      updateStaff: build.mutation({
-        queryFn: (args, { getState }) =>
-          fromMock(updateStaff({ ...args, actorId: actorId(getState) })),
-        invalidatesTags: [
-          { type: "Staff", id: "LIST" },
-          { type: "Role", id: "LIST" },
-        ],
-      }),
+      updateStaff: build.mutation(
+        endpoint({
+          mock: (args, { getState }) =>
+            updateStaff({ ...args, actorId: actorId(getState) }),
+          query: ({ id, ...changes }) => ({
+            url: `/staff/${id}`,
+            method: "PATCH",
+            body: changes,
+          }),
+          invalidatesTags: [
+            { type: "Staff", id: "LIST" },
+            { type: "Role", id: "LIST" },
+          ],
+        })
+      ),
 
-      // query: (id) => ({ url: `/staff/${id}/resend-invite`, method: "POST" })
-      resendInvite: build.mutation({
-        queryFn: (id) => fromMock(resendInvite(id)),
-      }),
+      resendInvite: build.mutation(
+        endpoint({
+          mock: (id) => resendInvite(id),
+          query: (id) => ({
+            url: `/staff/${id}/resend-invite`,
+            method: "POST",
+          }),
+        })
+      ),
 
-      // query: (id) => ({ url: `/staff/${id}`, method: "DELETE" })
-      deleteStaff: build.mutation({
-        queryFn: (id, { getState }) =>
-          fromMock(deleteStaff({ id, actorId: actorId(getState) })),
-        invalidatesTags: [
-          { type: "Staff", id: "LIST" },
-          { type: "Role", id: "LIST" },
-        ],
-      }),
+      deleteStaff: build.mutation(
+        endpoint({
+          mock: (id, { getState }) =>
+            deleteStaff({ id, actorId: actorId(getState) }),
+          query: (id) => ({ url: `/staff/${id}`, method: "DELETE" }),
+          invalidatesTags: [
+            { type: "Staff", id: "LIST" },
+            { type: "Role", id: "LIST" },
+          ],
+        })
+      ),
     }),
   });
 

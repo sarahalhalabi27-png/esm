@@ -1,5 +1,6 @@
-// Mock staff auth API for the dashboard. There is no backend yet, so these
-// read mockAdminData.js and answer after a short delay, the way the API will.
+// Staff auth for the dashboard. With VITE_ADMIN_MOCK on (the default, see
+// ./config.js) these read mockAdminData.js and answer after a short delay;
+// with it set to "false" they call the real API below.
 //
 // Contract the backend should follow:
 //   POST /admin/auth/login  { email, password }
@@ -13,9 +14,10 @@
 // (hasn't set a password yet), UNAUTHORIZED.
 import { DEMO_STAFF_PASSWORD, adminDb } from "./mockAdminData.js";
 import { BASE_URL } from "../../api/apiClient.js";
+import { USE_MOCK } from "./config.js";
 
-// For the real API: a JSON request to /admin/auth/... that throws an Error
-// whose message is the backend's error code, like the mocks below.
+// A JSON request to /admin/auth/... that throws an Error whose message is the
+// backend's error code, like the mocks below.
 export async function authRequest(path, { token, body, method = "GET" } = {}) {
   const response = await fetch(`${BASE_URL}/admin/auth${path}`, {
     method,
@@ -53,9 +55,11 @@ function sessionFor(staff) {
   });
 }
 
-// TODO(api): swap for POST /admin/auth/login.
+// POST /admin/auth/login
 export async function adminLoginRequest({ email, password }) {
-  // return authRequest("/login", { method: "POST", body: { email, password } });
+  if (!USE_MOCK) {
+    return authRequest("/login", { method: "POST", body: { email, password } });
+  }
   await delay();
   const staff = adminDb.staff.find(
     (s) => s.email === email.trim().toLowerCase()
@@ -69,9 +73,9 @@ export async function adminLoginRequest({ email, password }) {
   return { token: `${TOKEN_PREFIX}${staff.id}`, ...sessionFor(staff) };
 }
 
-// TODO(api): swap for GET /admin/auth/me.
+// GET /admin/auth/me
 export async function getAdminMeRequest(token) {
-  // return authRequest("/me", { token });
+  if (!USE_MOCK) return authRequest("/me", { token });
   await delay();
   const id = Number(token?.slice(TOKEN_PREFIX.length));
   const staff = adminDb.staff.find((s) => s.id === id);
@@ -81,9 +85,9 @@ export async function getAdminMeRequest(token) {
   return sessionFor(staff);
 }
 
-// TODO(api): swap for POST /admin/auth/logout.
-export async function adminLogoutRequest() {
-  // return authRequest("/logout", { method: "POST", token });
+// POST /admin/auth/logout
+export async function adminLogoutRequest(token) {
+  if (!USE_MOCK) return authRequest("/logout", { method: "POST", token });
   await delay(150);
   return { success: true };
 }

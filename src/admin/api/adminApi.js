@@ -1,14 +1,16 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../api/apiClient.js";
 import { sessionExpired } from "../store/adminSessionSlice.js";
+import { USE_MOCK } from "./config.js";
 
 // The dashboard's data layer (RTK Query): caching, loading states and
 // refetching after changes. Each tab adds its endpoints with
 // adminApi.injectEndpoints (see e.g. bookingsApi.js).
 //
-// Until the backend exists, endpoints answer from mock services through
-// `queryFn`; switching one to the API means replacing its `queryFn` with a
-// `query` (the URL and method are noted next to each).
+// Each endpoint is declared with `endpoint({ mock, query, ... })`: `mock` is
+// the mock service call and `query` the real request (see docs/admin-api.md).
+// Which one runs is decided once, by VITE_ADMIN_MOCK (see ./config.js), so
+// connecting the backend needs no change to the screens.
 
 const rawBaseQuery = fetchBaseQuery({
   baseUrl: `${BASE_URL}/admin`,
@@ -53,4 +55,24 @@ export async function fromMock(promise) {
       error: { status: error.status ?? "MOCK_ERROR", message: error.message },
     };
   }
+}
+
+// Query parameters without the empty ones: the filters use "" for "off", and
+// the backend should get nothing at all for them.
+export function cleanParams(params = {}) {
+  return Object.fromEntries(
+    Object.entries(params).filter(
+      ([, value]) => value !== "" && value !== undefined && value !== null
+    )
+  );
+}
+
+// An endpoint's definition, either from the mock service or from the API:
+//   mock:  (arg, api) => Promise   a mock service call (api has getState)
+//   query: (arg) => request        what to send to the backend
+// Anything else (tags, polling, ...) passes straight through.
+export function endpoint({ mock, query, ...options }) {
+  return USE_MOCK
+    ? { queryFn: (arg, api) => fromMock(mock(arg, api)), ...options }
+    : { query, ...options };
 }

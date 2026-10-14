@@ -1,4 +1,4 @@
-import { adminApi, fromMock } from "./adminApi.js";
+import { adminApi, cleanParams, endpoint } from "./adminApi.js";
 import {
   deleteMessage,
   getMessage,
@@ -7,47 +7,63 @@ import {
   updateMessage,
 } from "./mockMessages.js";
 
-// Contact Us messages. TODO(api): replace each `queryFn` with the `query`
-// in the comment above it.
+// Contact Us messages (mock or API, see ./config.js).
 const messagesApi = adminApi
   .enhanceEndpoints({ addTagTypes: ["Message"] })
   .injectEndpoints({
     endpoints: (build) => ({
-      // query: (params) => ({ url: "/messages", params })
-      getMessages: build.query({
-        queryFn: (params) => fromMock(listMessages(params)),
-        providesTags: (result) => [
-          { type: "Message", id: "LIST" },
-          ...(result?.items ?? []).map(({ id }) => ({ type: "Message", id })),
-        ],
-      }),
+      getMessages: build.query(
+        endpoint({
+          mock: (params) => listMessages(params),
+          query: (params) => ({
+            url: "/messages",
+            params: cleanParams(params),
+          }),
+          providesTags: (result) => [
+            { type: "Message", id: "LIST" },
+            ...(result?.items ?? []).map(({ id }) => ({ type: "Message", id })),
+          ],
+        })
+      ),
 
-      // query: () => "/messages/stats"
-      getMessageStats: build.query({
-        queryFn: () => fromMock(getMessageStats()),
-        providesTags: [{ type: "Message", id: "LIST" }],
-      }),
+      getMessageStats: build.query(
+        endpoint({
+          mock: () => getMessageStats(),
+          query: () => "/messages/stats",
+          providesTags: [{ type: "Message", id: "LIST" }],
+        })
+      ),
 
-      // query: (id) => `/messages/${id}`
-      getMessage: build.query({
-        queryFn: (id) => fromMock(getMessage(id)),
-        providesTags: (result, error, id) => [{ type: "Message", id }],
-      }),
+      getMessage: build.query(
+        endpoint({
+          mock: (id) => getMessage(id),
+          query: (id) => `/messages/${id}`,
+          providesTags: (result, error, id) => [{ type: "Message", id }],
+        })
+      ),
 
-      // query: ({ id, ...changes }) => ({ url: `/messages/${id}`, method: "PATCH", body: changes })
-      updateMessage: build.mutation({
-        queryFn: (args) => fromMock(updateMessage(args)),
-        invalidatesTags: (result, error, { id }) => [
-          { type: "Message", id },
-          { type: "Message", id: "LIST" },
-        ],
-      }),
+      updateMessage: build.mutation(
+        endpoint({
+          mock: (args) => updateMessage(args),
+          query: ({ id, ...changes }) => ({
+            url: `/messages/${id}`,
+            method: "PATCH",
+            body: changes,
+          }),
+          invalidatesTags: (result, error, { id }) => [
+            { type: "Message", id },
+            { type: "Message", id: "LIST" },
+          ],
+        })
+      ),
 
-      // query: (id) => ({ url: `/messages/${id}`, method: "DELETE" })
-      deleteMessage: build.mutation({
-        queryFn: (id) => fromMock(deleteMessage(id)),
-        invalidatesTags: [{ type: "Message", id: "LIST" }],
-      }),
+      deleteMessage: build.mutation(
+        endpoint({
+          mock: (id) => deleteMessage(id),
+          query: (id) => ({ url: `/messages/${id}`, method: "DELETE" }),
+          invalidatesTags: [{ type: "Message", id: "LIST" }],
+        })
+      ),
     }),
   });
 

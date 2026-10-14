@@ -2,9 +2,37 @@
 
 What the staff dashboard (`/admin`, code in `src/admin/`) expects from the
 backend. Every screen already works against mock services that follow this
-contract exactly (`src/admin/api/mock*.js`); switching to the real API means
-replacing each endpoint's `queryFn` with the `query` written next to it in
-`src/admin/api/*Api.js`.
+contract exactly (`src/admin/api/mock*.js`).
+
+## Connecting the backend
+
+The dashboard is ready to connect; nothing in the screens has to change.
+
+1. Build the endpoints below (and the invitation flow, see *Auth*).
+2. In `.env` set `VITE_API_BASE_URL` to the API's address and
+   `VITE_ADMIN_MOCK=false`, then restart the dev server (or rebuild).
+3. Every screen and the staff sign-in now call the API instead of the mocks.
+   The sign-in page also stops offering the demo accounts.
+
+How it works: each endpoint in `src/admin/api/*Api.js` is declared once with
+both its `mock` call and its real `query` (the URL, method and body written
+in this document); `VITE_ADMIN_MOCK` (`src/admin/api/config.js`) picks which
+one runs. The sign-in, session check and sign-out
+(`adminAuthService.js`) follow the same switch. To change what a request
+sends, edit its `query`; to change an answer's shape, change it here, in the
+mock and in the screen together.
+
+A short checklist when connecting:
+
+- **CORS:** the dashboard's origin must be allowed, with the `Authorization`
+  header.
+- **Empty filters are not sent.** `status=` never reaches the backend: a
+  filter that is "off" is simply absent from the query string.
+- **Errors** answer `{ "code": "..." }` (see *Errors*); the dashboard shows
+  its own translated text for the codes it knows.
+- **Read the signed-in user from the token**, never from the request: the
+  mock needs an `actorId`, the backend does not.
+- Check each permission on every request, not just in the dashboard.
 
 ## Conventions
 
@@ -119,7 +147,7 @@ Used by the fleet, blog, offer banner and partner logos.
 | Method & path | Permission | Notes |
 | --- | --- | --- |
 | `GET /bookings?page&pageSize&status&service&q&from&to` | view | Newest first. `q` searches reference, name, email, phone. `from`/`to` filter the pickup date (inclusive). `counts`: `{ all, new, confirmed, completed, cancelled }` |
-| `GET /bookings/stats` | view | `{ todayPickups, newRequests, nextSevenDays, receivedThisMonth, upcoming: [booking ×6], byService: [{ service, count }] }`. "Today" is Dubai time. `byService` covers the last 30 days |
+| `GET /bookings/stats` | view | `{ todayPickups, newRequests, nextSevenDays, receivedThisMonth, receivedLastMonth, upcoming: [booking ×6], byService: [{ service, count }] }`. "Today" is Dubai time. `receivedLastMonth` is the whole previous month (the Overview compares it with `receivedThisMonth`). `byService` covers the last 30 days |
 | `GET /bookings/:id` | view | |
 | `PATCH /bookings/:id` | update | `{ status }` |
 | `DELETE /bookings/:id` | delete | |
@@ -236,7 +264,7 @@ backend should only store `http(s)://` addresses (the dashboard only links those
 
 | Method & path | Permission | Notes |
 | --- | --- | --- |
-| `GET /staff?q&roleId&status` | view | `{ items }` |
+| `GET /staff?q&roleId&status` | view | `{ items, counts }`. `counts`: `{ all, active, invited, disabled }`, computed with `q` and `roleId` applied but not `status` (they're the status tabs' numbers) |
 | `POST /staff` | create | `{ name, email, roleId }` → creates an `invited` account and emails the invitation. 409 `EMAIL_TAKEN` |
 | `PATCH /staff/:id` | update | `{ name?, roleId?, status? ("active" \| "disabled") }` |
 | `POST /staff/:id/resend-invite` | update | 409 `NOT_INVITED` if already active |
