@@ -27,9 +27,9 @@ export const CUSTOMER_STATUS_BARS = {
 // (a gradient start for a top line) and `stripe` (a solid side bar).
 export const ROLE_TONES = [
   {
-    chip: "bg-teal-accent/15 text-teal-accent",
-    bar: "from-teal-accent",
-    stripe: "bg-teal-accent",
+    chip: "bg-teal-accent/15 text-teal-accent light:bg-teal-500/15 light:text-teal-700",
+    bar: "from-teal-accent light:from-teal-500",
+    stripe: "bg-teal-accent light:bg-teal-500",
   },
   {
     chip: "bg-sky-400/15 text-sky-300 light:bg-sky-500/15 light:text-sky-700",
@@ -42,7 +42,7 @@ export const ROLE_TONES = [
     stripe: "bg-violet-400 light:bg-violet-500",
   },
   {
-    chip: "bg-amber-400/15 text-amber-300 light:bg-amber-500/15 light:text-amber-700",
+    chip: "bg-amber-400/15 text-amber-300 light:bg-amber-500/15 light:text-amber-800",
     bar: "from-amber-400 light:from-amber-500",
     stripe: "bg-amber-400 light:bg-amber-500",
   },

@@ -55,30 +55,30 @@ const STATS = [
   {
     key: "total",
     icon: CalendarDays,
-    chip: "bg-teal-accent/15 text-teal-accent",
-    bar: "from-teal-accent",
-    glow: "bg-teal-accent/20",
+    chip: "bg-teal-accent/15 text-teal-accent light:bg-teal-500/15 light:text-teal-700",
+    bar: "from-teal-accent light:from-teal-500",
+    glow: "bg-teal-accent/20 light:bg-teal-500/[0.14]",
   },
   {
     key: "upcoming",
     icon: CalendarClock,
     chip: "bg-sky-400/15 text-sky-300 light:bg-sky-500/15 light:text-sky-700",
     bar: "from-sky-400 light:from-sky-500",
-    glow: "bg-sky-400/15",
+    glow: "bg-sky-400/20 light:bg-sky-500/[0.16]",
   },
   {
     key: "completed",
     icon: CheckCircle2,
     chip: "bg-emerald-400/15 text-emerald-300 light:bg-emerald-500/15 light:text-emerald-700",
     bar: "from-emerald-400 light:from-emerald-500",
-    glow: "bg-emerald-400/15",
+    glow: "bg-emerald-400/20 light:bg-emerald-500/[0.16]",
   },
   {
     key: "cancelled",
     icon: XCircle,
     chip: "bg-rose-400/15 text-rose-300 light:bg-rose-500/15 light:text-rose-700",
     bar: "from-rose-400 light:from-rose-500",
-    glow: "bg-rose-400/15",
+    glow: "bg-rose-400/20 light:bg-rose-500/[0.16]",
   },
 ];
 
@@ -276,7 +276,7 @@ export default function CustomerDetailsPage() {
             />
             <span
               aria-hidden="true"
-              className={`pointer-events-none absolute -top-8 -end-8 h-24 w-24 rounded-full blur-2xl light:opacity-50 ${glow}`}
+              className={`pointer-events-none absolute -top-10 -end-10 h-32 w-32 rounded-full blur-2xl ${glow}`}
             />
             <span
               className={`relative grid h-9 w-9 place-items-center rounded-xl ${chip}`}

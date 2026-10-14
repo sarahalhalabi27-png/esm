@@ -311,7 +311,7 @@ function SettingsForm({ settings }) {
                           <span className="block text-[15px] font-medium text-fg">
                             {t(`settings.fields.${key}`)}
                           </span>
-                          <span className="mt-0.5 block text-sm text-muted">
+                          <span className="mt-0.5 block text-sm text-muted light:text-fg/65">
                             {t(`settings.fields.${key}Hint`)}
                           </span>
                         </span>

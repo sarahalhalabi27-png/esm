@@ -12,7 +12,7 @@ export const ADMIN_CARD_RICH =
 export const ADMIN_LABEL = "block mb-2 text-sm font-medium text-fg/80";
 
 export const ADMIN_INPUT =
-  "w-full h-11 rounded-[10px] border border-line/15 bg-surface/[0.04] px-4 text-[15px] text-fg placeholder:text-muted/70 outline-none transition-colors focus:border-teal-accent aria-[invalid=true]:border-red-500/70";
+  "w-full h-11 rounded-[10px] border border-line/15 bg-surface/[0.04] px-4 text-[15px] text-fg placeholder:text-muted/70 light:placeholder:text-muted outline-none transition-colors focus:border-teal-accent aria-[invalid=true]:border-red-500/70";
 
 // The white month / day / year (hour / minute) selects inside the date and
 // time pickers, as on the website's booking pickers.
@@ -38,7 +38,7 @@ export const ADMIN_ICON_BUTTON =
 
 // The thin coloured bar beside a booking row, by status.
 export const STATUS_BARS = {
-  new: "bg-amber-400 light:bg-amber-500",
+  new: "bg-amber-400 light:bg-yellow-400",
   confirmed: "bg-sky-400 light:bg-sky-500",
   completed: "bg-emerald-400 light:bg-emerald-500",
   cancelled: "bg-rose-400 light:bg-rose-500",

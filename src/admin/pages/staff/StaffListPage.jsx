@@ -45,7 +45,7 @@ const STATUS_TONES = {
     "bg-emerald-400/15 text-emerald-300 light:bg-emerald-500/15 light:text-emerald-800",
   invited:
     "bg-amber-400/15 text-amber-300 light:bg-amber-500/15 light:text-amber-800",
-  disabled: "bg-surface/[0.08] text-muted",
+  disabled: "bg-surface/[0.08] text-muted light:text-fg/70",
 };
 // The bar beside each person, by account status.
 const STATUS_BARS = {
@@ -56,7 +56,7 @@ const STATUS_BARS = {
 // The count on a status tab when it isn't the open one.
 const COUNT_TONES = {
   invited:
-    "bg-amber-400/20 text-amber-300 light:bg-amber-500/20 light:text-amber-700",
+    "bg-amber-400/20 text-amber-300 light:bg-amber-500/20 light:text-amber-800",
 };
 // Colour of an icon button: green for good news, amber for a pause, red for
 // a delete.

@@ -28,7 +28,7 @@ export default function TimePicker({
         aria-haspopup="dialog"
         aria-label={ariaLabel}
         onClick={() => setOpen(true)}
-        className={`${ADMIN_INPUT} flex items-center justify-between gap-2 !px-3 !text-[14px] text-start tabular-nums ${value ? "text-fg" : "text-muted/70"}`}
+        className={`${ADMIN_INPUT} flex items-center justify-between gap-2 !px-3 !text-[14px] text-start tabular-nums ${value ? "text-fg" : "text-muted"}`}
       >
         <span className="truncate">
           {value || (placeholder ?? t("booking.selectTime"))}

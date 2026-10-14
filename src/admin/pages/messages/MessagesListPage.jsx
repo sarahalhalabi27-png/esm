@@ -67,7 +67,7 @@ export default function MessagesListPage() {
                       active
                         ? "bg-page/20"
                         : view.id === "unread" && count > 0
-                          ? "bg-amber-400/20 text-amber-300 light:bg-amber-500/20 light:text-amber-700"
+                          ? "bg-amber-400/20 text-amber-300 light:bg-amber-500/20 light:text-amber-800"
                           : "bg-surface/[0.08]"
                     }`}
                   >
@@ -180,7 +180,7 @@ export default function MessagesListPage() {
                             {t("messages.replied")}
                           </span>
                         )}
-                        <span className="ms-auto shrink-0 text-xs text-muted tabular-nums">
+                        <span className="ms-auto shrink-0 text-xs text-muted light:text-fg/65 tabular-nums">
                           {formatShortDateTime(
                             message.createdAt,
                             i18n.language
@@ -197,7 +197,7 @@ export default function MessagesListPage() {
                       </span>
                       <span
                         dir="auto"
-                        className="block truncate text-sm text-muted"
+                        className="block truncate text-sm text-muted light:text-fg/65"
                       >
                         {message.message}
                       </span>

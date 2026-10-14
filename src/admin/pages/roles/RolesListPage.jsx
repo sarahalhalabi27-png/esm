@@ -128,7 +128,7 @@ export default function RolesListPage() {
                     <h2 className="flex flex-wrap items-center gap-x-2 gap-y-1 font-semibold text-fg">
                       {role.name}
                       {role.system && (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-surface/[0.08] px-2.5 py-0.5 text-xs font-medium text-muted">
+                        <span className="inline-flex items-center gap-1 rounded-full bg-surface/[0.08] px-2.5 py-0.5 text-xs font-medium text-muted light:text-fg/70">
                           <Lock size={12} />
                           {t("roles.system")}
                         </span>
@@ -170,7 +170,7 @@ export default function RolesListPage() {
                     </li>
                   ))}
                   {sections.length > MAX_SECTIONS && (
-                    <li className="rounded-md bg-surface/[0.07] px-2 py-0.5 text-xs text-muted tabular-nums">
+                    <li className="rounded-md bg-surface/[0.07] px-2 py-0.5 text-xs text-muted light:text-fg/70 tabular-nums">
                       +{sections.length - MAX_SECTIONS}
                     </li>
                   )}

@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 const TONES = {
-  new: "bg-amber-400/15 text-amber-300 light:bg-amber-500/15 light:text-amber-800",
+  new: "bg-amber-400/15 text-amber-300 light:bg-yellow-300/60 light:text-yellow-900",
   confirmed:
     "bg-sky-400/15 text-sky-300 light:bg-sky-500/15 light:text-sky-800",
   completed:

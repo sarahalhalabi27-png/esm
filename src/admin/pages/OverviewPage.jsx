@@ -27,11 +27,11 @@ export default function OverviewPage() {
 
   return (
     <>
-      <section className="relative overflow-hidden rounded-2xl border border-teal-accent/25 bg-gradient-to-br from-teal-accent/25 via-teal-accent/[0.07] to-transparent p-6 md:p-8 light:from-teal-accent/10 light:via-teal-accent/[0.04]">
+      <section className="relative overflow-hidden rounded-2xl border border-teal-accent/25 bg-gradient-to-br from-teal-accent/25 via-teal-accent/[0.07] to-transparent p-6 md:p-8 light:border-teal-500/25 light:from-teal-500/15 light:via-teal-500/[0.05]">
         {/* A soft glow in the corner, purely decorative. */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute -top-24 -end-16 h-64 w-64 rounded-full bg-teal-accent/20 blur-3xl light:bg-teal-accent/10"
+          className="pointer-events-none absolute -top-24 -end-16 h-64 w-64 rounded-full bg-teal-accent/20 blur-3xl light:bg-teal-500/15"
         />
         <div className="relative flex flex-wrap items-center justify-between gap-5">
           <div className="min-w-0">

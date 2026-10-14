@@ -34,38 +34,59 @@ const bookingsPath = (query = "") =>
   `${adminPath("bookings")}${query ? `?${query}` : ""}`;
 
 // One accent per headline number: its icon chip, the line along the card's
-// top and the glow in its corner.
+// top and the glow in its corner. Teal is a real teal in light mode (the brand
+// teal there is almost black, which looks grey next to the other colours).
+// On white a light colour needs a stronger glow than a deep one to look as
+// strong, so the light-mode strengths differ per colour.
 const TONES = {
   teal: {
-    chip: "bg-teal-accent/15 text-teal-accent",
-    bar: "from-teal-accent",
-    glow: "bg-teal-accent/20",
+    chip: "bg-teal-accent/15 text-teal-accent light:bg-teal-500/15 light:text-teal-700",
+    bar: "from-teal-accent light:from-teal-500",
+    glow: "bg-teal-accent/20 light:bg-teal-500/[0.14]",
   },
   amber: {
     chip: "bg-amber-400/15 text-amber-300 light:bg-amber-500/15 light:text-amber-700",
     bar: "from-amber-400 light:from-amber-500",
-    glow: "bg-amber-400/15",
+    glow: "bg-amber-400/20 light:bg-amber-500/[0.24]",
   },
-  sky: {
-    chip: "bg-sky-400/15 text-sky-300 light:bg-sky-500/15 light:text-sky-700",
-    bar: "from-sky-400 light:from-sky-500",
-    glow: "bg-sky-400/15",
+  blue: {
+    chip: "bg-blue-400/15 text-blue-300 light:bg-blue-500/15 light:text-blue-700",
+    bar: "from-blue-400 light:from-blue-500",
+    glow: "bg-blue-400/20 light:bg-blue-500/[0.16]",
   },
   violet: {
     chip: "bg-violet-400/15 text-violet-300 light:bg-violet-500/15 light:text-violet-700",
     bar: "from-violet-400 light:from-violet-500",
-    glow: "bg-violet-400/15",
+    glow: "bg-violet-400/20 light:bg-violet-500/[0.16]",
   },
 };
 
 // A colour per service, for the ring and its legend (same order as the rows).
 const SERVICE_COLORS = [
-  { dot: "bg-teal-accent", stroke: "stroke-teal-accent" },
-  { dot: "bg-sky-400 light:bg-sky-500", stroke: "stroke-sky-400 light:stroke-sky-500" },
-  { dot: "bg-violet-400 light:bg-violet-500", stroke: "stroke-violet-400 light:stroke-violet-500" },
-  { dot: "bg-amber-400 light:bg-amber-500", stroke: "stroke-amber-400 light:stroke-amber-500" },
-  { dot: "bg-rose-400 light:bg-rose-500", stroke: "stroke-rose-400 light:stroke-rose-500" },
-  { dot: "bg-emerald-400 light:bg-emerald-500", stroke: "stroke-emerald-400 light:stroke-emerald-500" },
+  {
+    dot: "bg-teal-accent light:bg-teal-500",
+    stroke: "stroke-teal-accent light:stroke-teal-500",
+  },
+  {
+    dot: "bg-sky-400 light:bg-sky-500",
+    stroke: "stroke-sky-400 light:stroke-sky-500",
+  },
+  {
+    dot: "bg-violet-400 light:bg-violet-500",
+    stroke: "stroke-violet-400 light:stroke-violet-500",
+  },
+  {
+    dot: "bg-amber-400 light:bg-amber-500",
+    stroke: "stroke-amber-400 light:stroke-amber-500",
+  },
+  {
+    dot: "bg-rose-400 light:bg-rose-500",
+    stroke: "stroke-rose-400 light:stroke-rose-500",
+  },
+  {
+    dot: "bg-emerald-400 light:bg-emerald-500",
+    stroke: "stroke-emerald-400 light:stroke-emerald-500",
+  },
 ];
 
 // The Overview's bookings part: four headline numbers, the next pickups and
@@ -95,27 +116,27 @@ export default function BookingsSummary() {
   const tiles = [
     {
       id: "todayPickups",
+      tone: "teal",
       to: bookingsPath(`from=${today}&to=${today}`),
       icon: CalendarCheck,
-      tone: "teal",
       hint: nextToday
         ? t("overview.stats.nextPickup", { time: nextToday.pickup.time })
         : t("overview.stats.noPickupsToday"),
     },
     {
       id: "newRequests",
+      tone: "amber",
       to: bookingsPath("status=new"),
       icon: Inbox,
-      tone: "amber",
       hint: data?.newRequests
         ? t("overview.stats.newRequestsHint")
         : t("overview.stats.allCaughtUp"),
     },
     {
       id: "nextSevenDays",
+      tone: "blue",
       to: bookingsPath(`from=${today}&to=${isoDay(6)}`),
       icon: CalendarRange,
-      tone: "sky",
       hint: t("overview.stats.range", {
         from: formatDayMonth(today, i18n.language),
         to: formatDayMonth(isoDay(6), i18n.language),
@@ -123,10 +144,12 @@ export default function BookingsSummary() {
     },
     {
       id: "receivedThisMonth",
+      tone: "violet",
       to: bookingsPath(),
       icon: TrendingUp,
-      tone: "violet",
-      delta: data ? change(data.receivedThisMonth, data.receivedLastMonth) : null,
+      delta: data
+        ? change(data.receivedThisMonth, data.receivedLastMonth)
+        : null,
       hint: t("overview.vsLastMonth"),
     },
   ];
@@ -187,7 +210,7 @@ function StatTile({ tile, value, isLoading }) {
       />
       <span
         aria-hidden="true"
-        className={`pointer-events-none absolute -top-10 -end-10 h-28 w-28 rounded-full blur-2xl light:opacity-50 ${colors.glow}`}
+        className={`pointer-events-none absolute -top-12 -end-12 h-36 w-36 rounded-full blur-2xl ${colors.glow}`}
       />
 
       <span className="relative flex items-center justify-between">
@@ -211,7 +234,10 @@ function StatTile({ tile, value, isLoading }) {
           value
         )}
       </span>
-      <span title={label} className="relative mt-2 block truncate text-sm text-fg/80">
+      <span
+        title={label}
+        className="relative mt-2 block truncate text-sm text-fg/80"
+      >
         {label}
       </span>
 
@@ -293,7 +319,8 @@ function UpcomingPickups({ items, isLoading, className }) {
           {items.map((booking, index) => {
             // The date shows once per day; a line sets each new day apart.
             const newDay =
-              index === 0 || items[index - 1].pickup.date !== booking.pickup.date;
+              index === 0 ||
+              items[index - 1].pickup.date !== booking.pickup.date;
             return (
               <li
                 key={booking.id}
@@ -416,7 +443,9 @@ function ServiceBreakdown({ rows, isLoading, className }) {
                     strokeLinecap="butt"
                     strokeDasharray={`${Math.max(0, length - gap)} ${RING_LENGTH}`}
                     strokeDashoffset={-start}
-                    className={SERVICE_COLORS[index % SERVICE_COLORS.length].stroke}
+                    className={
+                      SERVICE_COLORS[index % SERVICE_COLORS.length].stroke
+                    }
                   />
                 );
               })}

@@ -175,7 +175,7 @@ export default function Select({
         {selected ? (
           <span className="truncate">{selected.label}</span>
         ) : (
-          <span className="truncate text-muted/70">{placeholder}</span>
+          <span className="truncate text-muted">{placeholder}</span>
         )}
       </button>
       <ChevronDown

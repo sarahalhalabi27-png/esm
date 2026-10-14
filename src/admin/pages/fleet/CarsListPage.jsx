@@ -40,10 +40,10 @@ import CategoriesDialog from "./CategoriesDialog.jsx";
 // dot on the category's tab.
 const TONES = [
   {
-    bar: "from-teal-accent",
-    wash: "from-teal-accent/20",
-    chip: "bg-teal-accent/15 text-teal-accent",
-    dot: "bg-teal-accent",
+    bar: "from-teal-accent light:from-teal-500",
+    wash: "from-teal-accent/20 light:from-teal-500/20",
+    chip: "bg-teal-accent/15 text-teal-accent light:bg-teal-500/15 light:text-teal-700",
+    dot: "bg-teal-accent light:bg-teal-500",
   },
   {
     bar: "from-sky-400 light:from-sky-500",
