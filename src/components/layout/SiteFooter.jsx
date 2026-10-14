@@ -48,11 +48,15 @@ export default function SiteFooter() {
         <img
           src={cityArt}
           alt=""
+          loading="lazy"
+          decoding="async"
           className="dark-only pointer-events-none absolute left-[772px] top-10 w-[640px] h-[542px] object-cover opacity-20 z-0 scale-[1.4]"
         />
         <img
           src={cityArtLight}
           alt=""
+          loading="lazy"
+          decoding="async"
           className="light-only pointer-events-none absolute left-[809px] top-[20px] w-[504px] h-[431px] object-contain origin-[283px_168px] z-0 scale-[1.4]"
         />
       </div>

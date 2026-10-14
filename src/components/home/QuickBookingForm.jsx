@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import LazyVideo from "../common/LazyVideo.jsx";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -90,15 +91,10 @@ export default function QuickBookingForm() {
             "linear-gradient(to bottom, transparent 0, #000 var(--video-fade), #000 calc(100% - var(--video-fade)), transparent 100%)",
         }}
       >
-        <video
+        <LazyVideo
           key={videoSrc}
           className="absolute top-0 left-0 w-full h-auto z-0 max-md:h-full max-md:object-cover md:max-xl:h-full md:max-xl:object-cover md:max-xl:object-left"
           src={videoSrc}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
         />
       </div>
 

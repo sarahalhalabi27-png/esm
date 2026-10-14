@@ -44,6 +44,8 @@ export default function FleetShowcaseCard({ car }) {
       <img
         src={smokeBg}
         alt=""
+        loading="lazy"
+        decoding="async"
         className="absolute top-[calc(100%+9px)] start-[30px] w-[579px] h-[334px] max-w-none origin-top-left -rotate-90 opacity-[0.14] z-0"
       />
 
@@ -57,6 +59,8 @@ export default function FleetShowcaseCard({ car }) {
           <img
             src={car.image || lexus}
             alt={car.name}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-contain"
           />
         </div>
