@@ -1,15 +1,16 @@
 import { fleetCategories, findCarById } from "../data/fleetData.js";
+import { apiRequest } from "./apiClient.js";
+import { USE_MOCK } from "./config.js";
 
-// TODO(api): swap the static fallbacks below for real apiRequest calls
-// once GET /fleet and GET /fleet/:carId exist. Signatures are kept
-// stable on purpose so pages don't need to change.
+// GET /fleet and GET /fleet/:carId. Signatures are kept stable on purpose so
+// pages don't need to change.
 
 export async function getFleetCategories() {
-  // return apiRequest("/fleet");
-  return Promise.resolve(fleetCategories);
+  if (!USE_MOCK) return apiRequest("/fleet");
+  return fleetCategories;
 }
 
 export async function getCarById(carId) {
-  // return apiRequest(`/fleet/${carId}`);
-  return Promise.resolve(findCarById(carId));
+  if (!USE_MOCK) return apiRequest(`/fleet/${carId}`);
+  return findCarById(carId);
 }

@@ -1,0 +1,717 @@
+{
+  "brand": "Dashboard",
+  "nav": {
+    "groups": {
+      "operations": "Operations",
+      "content": "Content",
+      "people": "People",
+      "system": "System"
+    },
+    "overview": "Overview",
+    "bookings": "Bookings",
+    "fleet": "Fleet",
+    "messages": "Messages",
+    "blog": "Blog",
+    "comments": "Comments",
+    "siteContent": "Site Content",
+    "customers": "Customers",
+    "staff": "Staff",
+    "roles": "Roles & Permissions",
+    "settings": "Settings",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "backToSite": "Back to website"
+  },
+  "pages": {
+    "overview": {
+      "description": "Today at a glance"
+    },
+    "bookings": {
+      "description": "Every booking request from the website"
+    },
+    "fleet": {
+      "description": "Cars, categories and photos"
+    },
+    "messages": {
+      "description": "Messages from the Contact Us form"
+    },
+    "blog": {
+      "description": "Articles and their authors"
+    },
+    "comments": {
+      "description": "Review readers' comments"
+    },
+    "siteContent": {
+      "description": "FAQ, offers, partners and legal pages"
+    },
+    "customers": {
+      "description": "Accounts registered on the website"
+    },
+    "staff": {
+      "description": "Dashboard accounts and their roles"
+    },
+    "roles": {
+      "description": "Roles and what each one can do"
+    },
+    "settings": {
+      "description": "Contact details and general settings"
+    }
+  },
+  "common": {
+    "all": "All",
+    "loading": "Loading…",
+    "loadFailed": "Couldn't load the data.",
+    "retry": "Try again",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "previous": "Previous",
+    "next": "Next",
+    "showing": "{{from}}–{{to}} of {{total}}",
+    "clearFilters": "Clear filters",
+    "clear": "Clear",
+    "actionFailed": "That didn't work. Please try again.",
+    "close": "Close",
+    "upload": {
+      "add": "Upload photo",
+      "replace": "Replace",
+      "remove": "Remove photo",
+      "uploading": "Uploading…",
+      "tooLarge": "Photos must be under 5 MB.",
+      "notImage": "Choose an image file (JPG, PNG or WebP).",
+      "failed": "The photo couldn't be uploaded."
+    }
+  },
+  "bookings": {
+    "searchPlaceholder": "Search by reference, name, email or phone",
+    "allServices": "All services",
+    "from": "From",
+    "to": "To",
+    "empty": "No bookings match these filters.",
+    "notFound": "This booking doesn't exist or was deleted.",
+    "backToList": "All bookings",
+    "createdAt": "Received {{date}}",
+    "columns": {
+      "reference": "Reference",
+      "customer": "Customer",
+      "service": "Service",
+      "pickup": "Pickup",
+      "route": "Route",
+      "status": "Status"
+    },
+    "status": {
+      "new": "New",
+      "confirmed": "Confirmed",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "service": {
+      "pointToPoint": "Point-To-Point",
+      "hourly": "Hourly",
+      "airportTransfer": "Airport Transfer",
+      "cityTour": "City Tour",
+      "carReservation": "Car Reservation",
+      "quickRequest": "Quick Request"
+    },
+    "actions": {
+      "confirm": "Confirm",
+      "complete": "Mark as completed",
+      "cancel": "Cancel booking",
+      "reopen": "Reopen",
+      "delete": "Delete booking",
+      "deleteTitle": "Delete booking {{reference}}?",
+      "deleteBody": "It will be removed for good. To keep a record, cancel it instead."
+    },
+    "sections": {
+      "customer": "Customer",
+      "trip": "Trip",
+      "details": "Service details",
+      "notes": "Notes"
+    },
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "service": "Service",
+      "pickupLocation": "Pickup location",
+      "pickupAt": "Pickup date & time",
+      "dropOffLocation": "Drop-off location",
+      "dropOffAt": "Drop-off date & time",
+      "car": "Car",
+      "carType": "Car type",
+      "passengers": "Passengers",
+      "hours": "Hours",
+      "stops": "Stops",
+      "transferType": "Transfer type",
+      "airport": "Airport",
+      "flightNumber": "Flight number",
+      "duration": "Duration",
+      "places": "Places to visit",
+      "bookingDuration": "Rental period"
+    },
+    "values": {
+      "toAirport": "To the airport",
+      "fromAirport": "From the airport",
+      "halfDay": "Half day",
+      "fullDay": "Full day",
+      "hourly": "Hourly",
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "businessClass": "Business Class",
+      "businessVan": "Business Van",
+      "sprinterClass": "Sprinter Class"
+    },
+    "noNotes": "No notes."
+  },
+  "roles": {
+    "addRole": "Add role",
+    "details": "Role details",
+    "empty": "No roles yet.",
+    "notFound": "This role doesn't exist or was deleted.",
+    "backToList": "All roles",
+    "system": "System role",
+    "systemHint": "This role always has full access and can't be changed.",
+    "edit": "Edit",
+    "view": "View",
+    "newTitle": "New role",
+    "fields": {
+      "name": "Role name",
+      "description": "Description",
+      "descriptionPlaceholder": "What is this role for?"
+    },
+    "permissions": "Permissions",
+    "permissionsHint": "Giving create, edit or delete also gives view, since you can't work on what you can't see.",
+    "allOfSection": "All of {{section}}",
+    "selected": "{{count}} selected",
+    "resources": {
+      "dashboard": "Overview",
+      "bookings": "Bookings",
+      "fleet": "Fleet",
+      "messages": "Messages",
+      "blog": "Blog",
+      "comments": "Comments",
+      "content": "Site Content",
+      "customers": "Customers",
+      "staff": "Staff",
+      "roles": "Roles & Permissions",
+      "settings": "Settings"
+    },
+    "actions": {
+      "view": "View",
+      "create": "Create",
+      "update": "Edit",
+      "delete": "Delete"
+    },
+    "save": "Save role",
+    "create": "Add role",
+    "saved": "Role saved.",
+    "deleteRole": "Delete role",
+    "deleteTitle": "Delete the {{name}} role?",
+    "deleteBody": "This can't be undone.",
+    "inUse": "Move its staff to another role before deleting it.",
+    "errors": {
+      "NAME_TAKEN": "A role with this name already exists.",
+      "SYSTEM_ROLE": "System roles can't be changed.",
+      "ROLE_IN_USE": "Move its staff to another role before deleting it."
+    },
+    "validation": {
+      "nameRequired": "Give the role a name.",
+      "permissionsRequired": "Choose at least one permission."
+    },
+    "staffCount_one": "1 staff member",
+    "staffCount_other": "{{count}} staff",
+    "permissionCount_one": "1 permission",
+    "permissionCount_other": "{{count}} permissions"
+  },
+  "staff": {
+    "invite": "Invite staff member",
+    "searchPlaceholder": "Search by name or email",
+    "allRoles": "All roles",
+    "allStatuses": "All statuses",
+    "empty": "No staff match these filters.",
+    "you": "You",
+    "columns": {
+      "name": "Name",
+      "role": "Role",
+      "status": "Status",
+      "lastLogin": "Last sign-in"
+    },
+    "status": {
+      "active": "Active",
+      "invited": "Invited",
+      "disabled": "Disabled"
+    },
+    "never": "Never",
+    "actions": {
+      "edit": "Edit",
+      "resendInvite": "Resend invitation",
+      "inviteSent": "Invitation sent.",
+      "disable": "Disable account",
+      "disableTitle": "Disable {{name}}'s account?",
+      "disableBody": "They won't be able to sign in to the dashboard until the account is enabled again. Their details and history are kept.",
+      "enable": "Enable account",
+      "delete": "Delete account",
+      "deleteTitle": "Delete {{name}}'s account?",
+      "deleteBody": "They'll lose access straight away. To keep their history, disable the account instead."
+    },
+    "form": {
+      "inviteTitle": "Invite a staff member",
+      "inviteHint": "They'll get an email with a link to choose their own password.",
+      "editTitle": "Edit {{name}}",
+      "name": "Full name",
+      "email": "Work email",
+      "role": "Role",
+      "chooseRole": "Choose a role",
+      "send": "Send invitation",
+      "save": "Save",
+      "selfNote": "You can't change your own role or disable your own account."
+    },
+    "errors": {
+      "EMAIL_TAKEN": "Someone on the team already uses this email.",
+      "CANNOT_CHANGE_SELF": "You can't change your own role or account."
+    },
+    "validation": {
+      "nameRequired": "Enter their name.",
+      "roleRequired": "Choose a role.",
+      "emailRequired": "Enter their work email.",
+      "emailInvalid": "Enter a valid email address."
+    }
+  },
+  "messages": {
+    "views": {
+      "inbox": "Inbox",
+      "unread": "Unread",
+      "archived": "Archived"
+    },
+    "searchPlaceholder": "Search by name, email or text",
+    "empty": "No messages here.",
+    "notFound": "This message doesn't exist or was deleted.",
+    "backToList": "All messages",
+    "noSubject": "(No subject)",
+    "unread": "Unread",
+    "replied": "Replied",
+    "archivedBadge": "Archived",
+    "receivedAt": "Received {{date}}",
+    "from": "From",
+    "fields": {
+      "email": "Email",
+      "phone": "Phone"
+    },
+    "actions": {
+      "replyByEmail": "Reply by email",
+      "markReplied": "Mark as replied",
+      "markNotReplied": "Mark as not replied",
+      "markUnread": "Mark as unread",
+      "archive": "Archive",
+      "unarchive": "Move to inbox",
+      "delete": "Delete message",
+      "deleteTitle": "Delete this message from {{name}}?",
+      "deleteBody": "It will be removed for good. To keep it out of the way, archive it instead.",
+      "markRead": "Mark as read"
+    },
+    "replySubject": "Re: {{subject}}",
+    "replySubjectDefault": "Your message to ESM Limo",
+    "message": "Message"
+  },
+  "fleet": {
+    "addCar": "Add car",
+    "manageCategories": "Categories",
+    "searchPlaceholder": "Search cars",
+    "empty": "No cars here yet.",
+    "notFound": "This car doesn't exist or was deleted.",
+    "backToList": "All cars",
+    "published": "On the website",
+    "hidden": "Hidden",
+    "perHour": "{{price}} AED / hour",
+    "units": {
+      "price": "AED",
+      "passengers": "pax",
+      "luggage": "bags"
+    },
+    "specs": "{{passengers}} passengers · {{luggage}} luggage",
+    "noPhoto": "No photo",
+    "edit": "Edit",
+    "view": "View",
+    "showOnSite": "Show on the website",
+    "deleteCar": "Delete car",
+    "deleteTitle": "Delete {{name}}?",
+    "deleteBody": "It will be removed from the website and the dashboard for good. To keep it, hide it instead.",
+    "newTitle": "New car",
+    "sections": {
+      "basics": "Basic information",
+      "pricing": "Price & capacity",
+      "features": "Features shown on the website",
+      "description": "Description",
+      "photos": "Photos",
+      "visibility": "Visibility"
+    },
+    "fields": {
+      "name": "Car name",
+      "category": "Category",
+      "chooseCategory": "Choose a category",
+      "modelYear": "Model year",
+      "fuel": "Fuel",
+      "pricePerHour": "Price per hour (AED)",
+      "passengers": "Passengers",
+      "luggage": "Luggage",
+      "descriptionEn": "English",
+      "descriptionAr": "Arabic",
+      "descriptionHint": "Leave empty to use the website's shared description.",
+      "mainImage": "Main photo",
+      "interiorImages": "Interior photos",
+      "interiorHint": "Up to {{max}} photos, shown in the Car Interior gallery.",
+      "published": "Show this car on the website",
+      "publishedHint": "Hidden cars stay in the dashboard but don't appear on the website.",
+      "rating": "Rating",
+      "ratingValue": "{{rating}} / 5 from {{count}} reviews"
+    },
+    "fuels": {
+      "petrol": "Petrol",
+      "hybrid": "Hybrid",
+      "electric": "Electric"
+    },
+    "features": {
+      "wifi": "WiFi",
+      "fuel": "Fuel type",
+      "model": "Model year",
+      "passengers": "Passengers",
+      "luggage": "Luggage",
+      "climate": "Climate control"
+    },
+    "save": "Save changes",
+    "create": "Add car",
+    "saving": "Saving…",
+    "saved": "Changes saved.",
+    "validation": {
+      "required": "This field is required.",
+      "positive": "Enter a number above 0.",
+      "whole": "Enter a whole number.",
+      "year": "Enter a year between 1990 and {{max}}."
+    },
+    "categories": {
+      "title": "Car categories",
+      "nameEn": "Name (English)",
+      "nameAr": "Name (Arabic)",
+      "add": "Add category",
+      "save": "Save",
+      "delete": "Delete category",
+      "notEmpty": "Move or delete its cars first.",
+      "close": "Close",
+      "carCount_one": "1 car",
+      "carCount_other": "{{count}} cars"
+    }
+  },
+  "overview": {
+    "welcome": "Welcome back, {{name}}",
+    "subtitle": "Here's what's happening today.",
+    "stats": {
+      "todayPickups": "Pickups today",
+      "newRequests": "New requests",
+      "newRequestsHint": "Waiting for the team",
+      "nextSevenDays": "Next 7 days",
+      "receivedThisMonth": "Received this month",
+      "nextPickup": "Next pickup at {{time}}",
+      "noPickupsToday": "No pickups today",
+      "allCaughtUp": "All caught up",
+      "range": "{{from}} – {{to}}"
+    },
+    "upcoming": "Upcoming pickups",
+    "noUpcoming": "No upcoming pickups.",
+    "byService": "Bookings by service",
+    "last30Days": "Last 30 days",
+    "bookingsTotal": "bookings",
+    "vsLastMonth": "vs last month",
+    "quickRequests": "Review new requests",
+    "quickMessages": "Open unread messages",
+    "noBookings": "No bookings yet.",
+    "viewAll": "View all",
+    "unreadMessages": "Unread messages",
+    "noUnread": "All caught up — no unread messages."
+  },
+  "comingSoon": {
+    "title": "This section is being built",
+    "body": "It will appear here soon."
+  },
+  "access": {
+    "forbiddenTitle": "You don't have access to this page",
+    "forbiddenBody": "Your role doesn't include this section. Ask an admin if you need it.",
+    "noAccessTitle": "No sections yet",
+    "noAccessBody": "Your role doesn't include any section yet. Ask an admin to update it.",
+    "notFoundTitle": "Page not found",
+    "notFoundBody": "This page doesn't exist in the dashboard.",
+    "goHome": "Go to dashboard"
+  },
+  "session": {
+    "loading": "Loading your account…",
+    "loadFailed": "Couldn't load your account.",
+    "retry": "Try again",
+    "logout": "Log out"
+  },
+  "login": {
+    "title": "Staff sign in",
+    "subtitle": "Sign in to manage ESM Limo",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "demoAccounts": "Demo accounts (mock data)",
+    "errors": {
+      "INVALID_CREDENTIALS": "Wrong email or password.",
+      "ACCOUNT_DISABLED": "This account is disabled.",
+      "INVITE_PENDING": "This account isn't set up yet. Use the link in your invitation email to choose a password.",
+      "default": "Couldn't sign in. Please try again."
+    }
+  },
+  "blog": {
+    "newPost": "New post",
+    "searchPlaceholder": "Search posts",
+    "views": {
+      "all": "All",
+      "published": "Published",
+      "draft": "Drafts"
+    },
+    "status": {
+      "published": "Published",
+      "draft": "Draft"
+    },
+    "empty": "No posts here yet.",
+    "notFound": "This post doesn't exist or was deleted.",
+    "backToList": "All posts",
+    "untitled": "(Untitled)",
+    "updated": "Updated {{date}}",
+    "viewOnSite": "View on the website",
+    "edit": "Edit",
+    "view": "View",
+    "deletePost": "Delete post",
+    "deleteTitle": "Delete this post?",
+    "deleteBody": "It will be removed from the website with its comments. To take it down but keep it, switch it to draft instead.",
+    "newTitle": "New post",
+    "languages": {
+      "en": "English",
+      "ar": "Arabic"
+    },
+    "arabicHint": "Leave Arabic fields empty to show the English text on the Arabic website.",
+    "sections": {
+      "content": "Content",
+      "publishing": "Publishing",
+      "images": "Images"
+    },
+    "fields": {
+      "title": "Title",
+      "titleHint": "A line break in the title is kept on the blog cards.",
+      "accents": "Highlighted words",
+      "accentsHint": "Words shown in teal, separated by commas.",
+      "excerpt": "Short summary",
+      "excerptHint": "Shown under the title on the blog cards.",
+      "sectionsLabel": "Sections",
+      "heading": "Heading",
+      "body": "Text",
+      "addSection": "Add section",
+      "removeSection": "Remove section",
+      "moveUp": "Move up",
+      "moveDown": "Move down",
+      "sectionNumber": "Section {{number}}",
+      "published": "Published on the website",
+      "publishedHint": "Drafts are only visible here in the dashboard.",
+      "publishedAt": "Publish date",
+      "author": "Author",
+      "slug": "Link",
+      "slugHint": "Made from the English title if left empty. It can't change once the post exists.",
+      "image": "Card photo",
+      "heroImage": "Header photo",
+      "heroImageHint": "Shown at the top of the post. The card photo is used if empty.",
+      "imageHint": "Shown on the blog cards."
+    },
+    "save": "Save post",
+    "create": "Create post",
+    "saved": "Post saved.",
+    "errors": {
+      "SLUG_TAKEN": "Another post already uses this link."
+    },
+    "validation": {
+      "titleRequired": "Give the post an English title."
+    },
+    "comments_one": "1 comment",
+    "comments_other": "{{count}} comments"
+  },
+  "comments": {
+    "views": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "spam": "Spam"
+    },
+    "searchPlaceholder": "Search by name, email or text",
+    "empty": "No comments here.",
+    "onPost": "On",
+    "allPosts": "All posts",
+    "website": "Website",
+    "selectAll": "Select all on this page",
+    "select": "Select comment from {{name}}",
+    "selected": "{{count}} selected",
+    "actions": {
+      "approve": "Approve",
+      "unapprove": "Unapprove",
+      "spam": "Spam",
+      "notSpam": "Not spam",
+      "delete": "Delete",
+      "deleteBody": "They'll be removed for good.",
+      "deleteTitle_one": "Delete this comment?",
+      "deleteTitle_other": "Delete {{count}} comments?"
+    },
+    "done_one": "1 comment updated.",
+    "done_other": "{{count}} comments updated."
+  },
+  "customers": {
+    "searchPlaceholder": "Search by name, email or phone",
+    "views": {
+      "all": "All",
+      "active": "Active",
+      "blocked": "Blocked"
+    },
+    "status": {
+      "active": "Active",
+      "blocked": "Blocked"
+    },
+    "empty": "No customers match these filters.",
+    "notFound": "This customer doesn't exist or was deleted.",
+    "backToList": "All customers",
+    "columns": {
+      "customer": "Customer",
+      "phone": "Phone",
+      "bookings": "Bookings",
+      "joined": "Joined",
+      "status": "Status"
+    },
+    "noPhone": "—",
+    "verified": "Email verified",
+    "notVerified": "Email not verified",
+    "joined": "Joined {{date}}",
+    "lastLogin": "Last sign-in {{date}}",
+    "contact": "Contact",
+    "bookingStats": {
+      "total": "Bookings",
+      "upcoming": "Upcoming",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "bookingsTitle": "Bookings",
+    "noBookings": "No bookings yet.",
+    "viewAllBookings": "View all in Bookings",
+    "actions": {
+      "block": "Block account",
+      "unblock": "Unblock account",
+      "blockTitle": "Block {{name}}?",
+      "blockBody": "They won't be able to sign in to the website until the account is unblocked. Their bookings stay as they are.",
+      "delete": "Delete account",
+      "deleteTitle": "Delete {{name}}'s account?",
+      "deleteBody": "Their account and profile are removed for good. Their bookings stay, as records of the trips."
+    }
+  },
+  "settings": {
+    "sections": {
+      "contact": "Contact details",
+      "contactHint": "Shown in the website's footer and on the Contact page.",
+      "socials": "Social media",
+      "socialsHint": "Full links to your pages. Leave a field empty to hide its icon.",
+      "notifications": "Notifications",
+      "notificationsHint": "Where the team is told about new activity on the website."
+    },
+    "fields": {
+      "phone": "Main phone",
+      "secondaryPhone": "Second phone",
+      "whatsapp": "WhatsApp number",
+      "email": "Email",
+      "addressEn": "Address (English)",
+      "addressAr": "Address (Arabic)",
+      "hoursEn": "Working hours (English)",
+      "hoursAr": "Working hours (Arabic)",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "twitter": "X (Twitter)",
+      "notifyEmail": "Send alerts to",
+      "newBooking": "A new booking request",
+      "newBookingHint": "Emailed when someone sends a booking request on the website.",
+      "newMessage": "A new Contact Us message",
+      "newMessageHint": "Emailed when someone uses the Contact Us form.",
+      "newComment": "A new blog comment waiting for review",
+      "newCommentHint": "Emailed when a blog comment is waiting to be approved."
+    },
+    "save": "Save settings",
+    "saved": "Settings saved.",
+    "lastUpdated": "Last updated {{date}}",
+    "validation": {
+      "required": "This field is required.",
+      "phone": "Enter a phone number (digits, spaces, + and - only).",
+      "email": "Enter a valid email address.",
+      "url": "Enter a full link starting with https://"
+    }
+  },
+  "content": {
+    "tabs": {
+      "faq": "FAQ",
+      "promo": "Offer banner",
+      "partners": "Partners",
+      "terms": "Terms",
+      "privacy": "Privacy",
+      "disclaimer": "Disclaimer"
+    },
+    "lastUpdated": "Last updated {{date}}",
+    "english": "English",
+    "arabic": "Arabic",
+    "arabicFallback": "Leave Arabic empty to show the English text on the Arabic website.",
+    "save": "Save changes",
+    "saved": "Changes saved.",
+    "required": "Required in English.",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "remove": "Remove",
+    "removeTitle": "Delete “{{title}}”?",
+    "removeBody": "It will be removed from the website once you save your changes.",
+    "faq": {
+      "hint": "Questions shown on the FAQ page, in this order.",
+      "question": "Question",
+      "answer": "Answer",
+      "item": "Question {{number}}",
+      "add": "Add question",
+      "empty": "No questions yet."
+    },
+    "promo": {
+      "hint": "The special-offer banner on the home page.",
+      "enabled": "Show the offer banner on the home page",
+      "eyebrow": "Small heading",
+      "heading": "Heading",
+      "headingAccent": "Highlighted part of the heading",
+      "headingAccentHint": "Must match words in the heading exactly; shown in teal.",
+      "description": "Description",
+      "cta": "Button text",
+      "image": "Car photo"
+    },
+    "partners": {
+      "hint": "Logos in the scrolling Partners strip on the home page, in this order.",
+      "name": "Name",
+      "logo": "Logo",
+      "url": "Website (optional)",
+      "item": "Partner {{number}}",
+      "add": "Add partner",
+      "empty": "No partners yet.",
+      "logoRequired": "Upload the partner's logo.",
+      "urlInvalid": "Enter a full link starting with https://"
+    },
+    "legal": {
+      "hint": "The {{page}} page. Each section is a numbered heading with its text; separate paragraphs with an empty line.",
+      "title": "Page title",
+      "intro": "Introduction",
+      "heading": "Section heading",
+      "body": "Section text",
+      "section": "Section {{number}}",
+      "add": "Add section"
+    }
+  },
+  "unsaved": {
+    "title": "Leave without saving?",
+    "body": "Your changes on this page will be lost.",
+    "leave": "Leave",
+    "stay": "Stay"
+  }
+}

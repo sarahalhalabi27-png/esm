@@ -31,11 +31,26 @@ npm run dev
 ```
 
 ## Wiring up a real API
+There is no backend yet (it will be built in Laravel). The website and the
+dashboard answer from built-in demo data while `VITE_API_MOCK` /
+`VITE_ADMIN_MOCK` are not `"false"` (see `.env.example`).
+
 1. Set `VITE_API_BASE_URL` in a `.env` file.
-2. In each `src/api/*Service.js` file, uncomment the `apiRequest(...)` line and
-   remove the static fallback import/return.
-3. Components already call these service functions through `useEffect`, so no
-   further changes are needed once the service functions return live data.
+2. Set `VITE_API_MOCK=false` (website) and `VITE_ADMIN_MOCK=false` (dashboard).
+3. The backend contract is in [docs/admin-api.md](docs/admin-api.md). The
+   frontend does **not** match it yet; see *Frontend changes still pending* in
+   that file before connecting.
+
+## Staff dashboard (`/admin`)
+- Code in `src/admin/` (its own store, routes and translations, loaded only
+  when `/admin` opens). Tabs and buttons follow the permissions the backend
+  gives each staff member; no roles are hardcoded.
+- Runs on mock services for now (`src/admin/api/mock*.js`); in development
+  the login page offers demo accounts for each role.
+- The API contract for release 1 is [docs/admin-api.md](docs/admin-api.md).
+  The dashboard code still follows the previous contract in places (booking
+  statuses, assignment, pricing, payments, fleet fields), so it is **not ready
+  to connect** until the pending frontend changes listed there are done.
 
 ## Notes
 - Car and blog photography are placeholders (SVG line art / icons) to avoid

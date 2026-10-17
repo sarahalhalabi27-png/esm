@@ -20,6 +20,8 @@ export default function UserAvatar({ user, size = 40, className = "" }) {
       <img
         src={user.photo}
         alt=""
+        loading="lazy"
+        decoding="async"
         style={box}
         className={`shrink-0 rounded-full object-cover ${className}`}
       />

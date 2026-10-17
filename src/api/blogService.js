@@ -3,15 +3,17 @@ import {
   blogPostDetailFallback,
   findBlogPostById,
 } from "../data/blogPostsData.js";
+import { apiRequest } from "./apiClient.js";
+import { USE_MOCK } from "./config.js";
 
-// TODO(api): swap for GET /blog-posts and GET /blog-posts/:postId
+// GET /blog-posts and GET /blog-posts/:postId
 export async function getBlogPosts() {
-  // return apiRequest("/blog-posts");
-  return Promise.resolve(blogPosts);
+  if (!USE_MOCK) return apiRequest("/blog-posts");
+  return blogPosts;
 }
 
 export async function getBlogPostById(postId) {
-  // return apiRequest(`/blog-posts/${postId}`);
+  if (!USE_MOCK) return apiRequest(`/blog-posts/${postId}`);
   const post = findBlogPostById(postId);
   if (!post) return null; // not found
   // The list entry overrides the shared detail content; translations merge
@@ -20,5 +22,5 @@ export async function getBlogPostById(postId) {
   for (const [lang, fields] of Object.entries(post.translations ?? {})) {
     translations[lang] = { ...translations[lang], ...fields };
   }
-  return Promise.resolve({ ...blogPostDetailFallback, ...post, translations });
+  return { ...blogPostDetailFallback, ...post, translations };
 }

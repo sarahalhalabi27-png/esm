@@ -1,0 +1,711 @@
+{
+  "brand": "لوحة التحكم",
+  "nav": {
+    "groups": {
+      "operations": "العمليات",
+      "content": "المحتوى",
+      "people": "الأشخاص",
+      "system": "النظام"
+    },
+    "overview": "الرئيسية",
+    "bookings": "الحجوزات",
+    "fleet": "الأسطول",
+    "messages": "الرسائل",
+    "blog": "المدونة",
+    "comments": "التعليقات",
+    "siteContent": "محتوى الموقع",
+    "customers": "الزبائن",
+    "staff": "الموظفون",
+    "roles": "الأدوار والصلاحيات",
+    "settings": "الإعدادات",
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة",
+    "backToSite": "العودة إلى الموقع"
+  },
+  "pages": {
+    "overview": {
+      "description": "نظرة سريعة على اليوم"
+    },
+    "bookings": {
+      "description": "كل طلبات الحجز من الموقع"
+    },
+    "fleet": {
+      "description": "السيارات والفئات والصور"
+    },
+    "messages": {
+      "description": "رسائل نموذج تواصل معنا"
+    },
+    "blog": {
+      "description": "المقالات وكتّابها"
+    },
+    "comments": {
+      "description": "مراجعة تعليقات القرّاء"
+    },
+    "siteContent": {
+      "description": "الأسئلة الشائعة والعروض والشركاء والصفحات القانونية"
+    },
+    "customers": {
+      "description": "الحسابات المسجلة في الموقع"
+    },
+    "staff": {
+      "description": "حسابات لوحة التحكم وأدوارها"
+    },
+    "roles": {
+      "description": "الأدوار وصلاحيات كل دور"
+    },
+    "settings": {
+      "description": "معلومات التواصل والإعدادات العامة"
+    }
+  },
+  "common": {
+    "all": "الكل",
+    "loading": "جارٍ التحميل…",
+    "loadFailed": "تعذّر تحميل البيانات.",
+    "retry": "إعادة المحاولة",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "previous": "السابق",
+    "next": "التالي",
+    "showing": "{{from}}–{{to}} من {{total}}",
+    "clearFilters": "مسح الفلاتر",
+    "clear": "مسح",
+    "actionFailed": "لم تنجح العملية. حاول مرة أخرى.",
+    "close": "إغلاق",
+    "upload": {
+      "add": "رفع صورة",
+      "replace": "استبدال",
+      "remove": "حذف الصورة",
+      "uploading": "جارٍ الرفع…",
+      "tooLarge": "يجب أن يكون حجم الصورة أقل من 5 ميغابايت.",
+      "notImage": "اختر ملف صورة (JPG أو PNG أو WebP).",
+      "failed": "تعذّر رفع الصورة."
+    }
+  },
+  "bookings": {
+    "searchPlaceholder": "ابحث برقم الحجز أو الاسم أو البريد أو الهاتف",
+    "allServices": "كل الخدمات",
+    "from": "من",
+    "to": "إلى",
+    "empty": "لا توجد حجوزات تطابق هذه الفلاتر.",
+    "notFound": "هذا الحجز غير موجود أو تم حذفه.",
+    "backToList": "كل الحجوزات",
+    "createdAt": "استُلم في {{date}}",
+    "columns": {
+      "reference": "رقم الحجز",
+      "customer": "الزبون",
+      "service": "الخدمة",
+      "pickup": "موعد الانطلاق",
+      "route": "المسار",
+      "status": "الحالة"
+    },
+    "status": {
+      "new": "جديد",
+      "confirmed": "مؤكد",
+      "completed": "منجز",
+      "cancelled": "ملغي"
+    },
+    "service": {
+      "pointToPoint": "من نقطة إلى نقطة",
+      "hourly": "بالساعة",
+      "airportTransfer": "توصيل المطار",
+      "cityTour": "جولة في المدينة",
+      "carReservation": "حجز سيارة",
+      "quickRequest": "طلب سريع"
+    },
+    "actions": {
+      "confirm": "تأكيد",
+      "complete": "تحديد كمنجز",
+      "cancel": "إلغاء الحجز",
+      "reopen": "إعادة فتح",
+      "delete": "حذف الحجز",
+      "deleteTitle": "حذف الحجز {{reference}}؟",
+      "deleteBody": "سيُحذف نهائياً. للاحتفاظ بسجلّه، ألغِه بدلاً من ذلك."
+    },
+    "sections": {
+      "customer": "الزبون",
+      "trip": "الرحلة",
+      "details": "تفاصيل الخدمة",
+      "notes": "الملاحظات"
+    },
+    "fields": {
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "service": "الخدمة",
+      "pickupLocation": "مكان الانطلاق",
+      "pickupAt": "تاريخ ووقت الانطلاق",
+      "dropOffLocation": "مكان الوصول",
+      "dropOffAt": "تاريخ ووقت التسليم",
+      "car": "السيارة",
+      "carType": "فئة السيارة",
+      "passengers": "عدد الركاب",
+      "hours": "عدد الساعات",
+      "stops": "التوقفات",
+      "transferType": "نوع التوصيل",
+      "airport": "المطار",
+      "flightNumber": "رقم الرحلة",
+      "duration": "المدة",
+      "places": "الأماكن المراد زيارتها",
+      "bookingDuration": "مدة الإيجار"
+    },
+    "values": {
+      "toAirport": "إلى المطار",
+      "fromAirport": "من المطار",
+      "halfDay": "نصف يوم",
+      "fullDay": "يوم كامل",
+      "hourly": "بالساعة",
+      "daily": "يومي",
+      "weekly": "أسبوعي",
+      "monthly": "شهري",
+      "businessClass": "درجة رجال الأعمال",
+      "businessVan": "فان رجال الأعمال",
+      "sprinterClass": "سبرينتر"
+    },
+    "noNotes": "لا توجد ملاحظات."
+  },
+  "roles": {
+    "addRole": "إضافة دور",
+    "details": "بيانات الدور",
+    "empty": "لا توجد أدوار بعد.",
+    "notFound": "هذا الدور غير موجود أو تم حذفه.",
+    "backToList": "كل الأدوار",
+    "system": "دور النظام",
+    "systemHint": "هذا الدور يملك كل الصلاحيات دائماً ولا يمكن تعديله.",
+    "staffCount": "{{count}} موظفين",
+    "permissionCount": "{{count}} صلاحيات",
+    "edit": "تعديل",
+    "view": "عرض",
+    "newTitle": "دور جديد",
+    "fields": {
+      "name": "اسم الدور",
+      "description": "الوصف",
+      "descriptionPlaceholder": "ما الغرض من هذا الدور؟"
+    },
+    "permissions": "الصلاحيات",
+    "permissionsHint": "منح الإضافة أو التعديل أو الحذف يمنح العرض أيضاً، فلا يمكن العمل على ما لا يمكن رؤيته.",
+    "allOfSection": "كل صلاحيات {{section}}",
+    "selected": "{{count}} محددة",
+    "resources": {
+      "dashboard": "الرئيسية",
+      "bookings": "الحجوزات",
+      "fleet": "الأسطول",
+      "messages": "الرسائل",
+      "blog": "المدونة",
+      "comments": "التعليقات",
+      "content": "محتوى الموقع",
+      "customers": "الزبائن",
+      "staff": "الموظفون",
+      "roles": "الأدوار والصلاحيات",
+      "settings": "الإعدادات"
+    },
+    "actions": {
+      "view": "عرض",
+      "create": "إضافة",
+      "update": "تعديل",
+      "delete": "حذف"
+    },
+    "save": "حفظ الدور",
+    "create": "إضافة الدور",
+    "saved": "تم حفظ الدور.",
+    "deleteRole": "حذف الدور",
+    "deleteTitle": "حذف دور {{name}}؟",
+    "deleteBody": "لا يمكن التراجع عن ذلك.",
+    "inUse": "انقل موظفيه إلى دور آخر قبل حذفه.",
+    "errors": {
+      "NAME_TAKEN": "يوجد دور بهذا الاسم مسبقاً.",
+      "SYSTEM_ROLE": "لا يمكن تعديل أدوار النظام.",
+      "ROLE_IN_USE": "انقل موظفيه إلى دور آخر قبل حذفه."
+    },
+    "validation": {
+      "nameRequired": "أعطِ الدور اسماً.",
+      "permissionsRequired": "اختر صلاحية واحدة على الأقل."
+    }
+  },
+  "staff": {
+    "invite": "دعوة موظف",
+    "searchPlaceholder": "ابحث بالاسم أو البريد",
+    "allRoles": "كل الأدوار",
+    "allStatuses": "كل الحالات",
+    "empty": "لا يوجد موظفون يطابقون هذه الفلاتر.",
+    "you": "أنت",
+    "columns": {
+      "name": "الاسم",
+      "role": "الدور",
+      "status": "الحالة",
+      "lastLogin": "آخر دخول"
+    },
+    "status": {
+      "active": "نشط",
+      "invited": "مدعو",
+      "disabled": "معطّل"
+    },
+    "never": "أبداً",
+    "actions": {
+      "edit": "تعديل",
+      "resendInvite": "إعادة إرسال الدعوة",
+      "inviteSent": "تم إرسال الدعوة.",
+      "disable": "تعطيل الحساب",
+      "disableTitle": "تعطيل حساب {{name}}؟",
+      "disableBody": "لن يستطيع تسجيل الدخول إلى لوحة التحكم حتى يُفعَّل الحساب مرة أخرى. تبقى بياناته وسجلّه محفوظة.",
+      "enable": "تفعيل الحساب",
+      "delete": "حذف الحساب",
+      "deleteTitle": "حذف حساب {{name}}؟",
+      "deleteBody": "سيفقد الوصول فوراً. للاحتفاظ بسجلّه، عطّل الحساب بدلاً من ذلك."
+    },
+    "form": {
+      "inviteTitle": "دعوة موظف",
+      "inviteHint": "سيصله بريد فيه رابط لاختيار كلمة مروره بنفسه.",
+      "editTitle": "تعديل {{name}}",
+      "name": "الاسم الكامل",
+      "email": "بريد العمل",
+      "role": "الدور",
+      "chooseRole": "اختر دوراً",
+      "send": "إرسال الدعوة",
+      "save": "حفظ",
+      "selfNote": "لا يمكنك تغيير دورك أو تعطيل حسابك."
+    },
+    "errors": {
+      "EMAIL_TAKEN": "يستخدم أحد أعضاء الفريق هذا البريد مسبقاً.",
+      "CANNOT_CHANGE_SELF": "لا يمكنك تغيير دورك أو حسابك."
+    },
+    "validation": {
+      "nameRequired": "أدخل الاسم.",
+      "roleRequired": "اختر دوراً.",
+      "emailRequired": "أدخل بريد العمل.",
+      "emailInvalid": "أدخل بريداً إلكترونياً صحيحاً."
+    }
+  },
+  "messages": {
+    "views": {
+      "inbox": "الوارد",
+      "unread": "غير المقروءة",
+      "archived": "المؤرشفة"
+    },
+    "searchPlaceholder": "ابحث بالاسم أو البريد أو النص",
+    "empty": "لا توجد رسائل هنا.",
+    "notFound": "هذه الرسالة غير موجودة أو تم حذفها.",
+    "backToList": "كل الرسائل",
+    "noSubject": "(بدون موضوع)",
+    "unread": "غير مقروءة",
+    "replied": "تم الرد",
+    "archivedBadge": "مؤرشفة",
+    "receivedAt": "استُلمت في {{date}}",
+    "from": "من",
+    "fields": {
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف"
+    },
+    "actions": {
+      "replyByEmail": "الرد بالبريد",
+      "markReplied": "تحديد كمُجاب",
+      "markNotReplied": "إلغاء تحديد الرد",
+      "markUnread": "تحديد كغير مقروءة",
+      "archive": "أرشفة",
+      "unarchive": "نقل إلى الوارد",
+      "delete": "حذف الرسالة",
+      "deleteTitle": "حذف هذه الرسالة من {{name}}؟",
+      "deleteBody": "ستُحذف نهائياً. لإبعادها عن الوارد، أرشفها بدلاً من ذلك.",
+      "markRead": "تحديد كمقروءة"
+    },
+    "replySubject": "رد: {{subject}}",
+    "replySubjectDefault": "رسالتك إلى ESM Limo",
+    "message": "الرسالة"
+  },
+  "fleet": {
+    "addCar": "إضافة سيارة",
+    "manageCategories": "الفئات",
+    "searchPlaceholder": "ابحث عن سيارة",
+    "empty": "لا توجد سيارات هنا بعد.",
+    "notFound": "هذه السيارة غير موجودة أو تم حذفها.",
+    "backToList": "كل السيارات",
+    "published": "ظاهرة في الموقع",
+    "hidden": "مخفية",
+    "perHour": "{{price}} درهم / ساعة",
+    "units": {
+      "price": "درهم",
+      "passengers": "راكب",
+      "luggage": "حقيبة"
+    },
+    "specs": "{{passengers}} ركاب · {{luggage}} حقائب",
+    "noPhoto": "لا توجد صورة",
+    "edit": "تعديل",
+    "view": "عرض",
+    "showOnSite": "إظهار في الموقع",
+    "deleteCar": "حذف السيارة",
+    "deleteTitle": "حذف {{name}}؟",
+    "deleteBody": "ستُحذف نهائياً من الموقع ولوحة التحكم. للاحتفاظ بها، أخفِها بدلاً من ذلك.",
+    "newTitle": "سيارة جديدة",
+    "sections": {
+      "basics": "المعلومات الأساسية",
+      "pricing": "السعر والسعة",
+      "features": "المزايا المعروضة في الموقع",
+      "description": "الوصف",
+      "photos": "الصور",
+      "visibility": "الظهور"
+    },
+    "fields": {
+      "name": "اسم السيارة",
+      "category": "الفئة",
+      "chooseCategory": "اختر فئة",
+      "modelYear": "سنة الصنع",
+      "fuel": "نوع الوقود",
+      "pricePerHour": "السعر بالساعة (درهم)",
+      "passengers": "عدد الركاب",
+      "luggage": "عدد الحقائب",
+      "descriptionEn": "بالإنجليزية",
+      "descriptionAr": "بالعربية",
+      "descriptionHint": "اتركه فارغاً لاستخدام الوصف العام في الموقع.",
+      "mainImage": "الصورة الرئيسية",
+      "interiorImages": "صور الداخل",
+      "interiorHint": "حتى {{max}} صور، تظهر في معرض داخل السيارة.",
+      "published": "إظهار هذه السيارة في الموقع",
+      "publishedHint": "السيارات المخفية تبقى في لوحة التحكم ولا تظهر في الموقع.",
+      "rating": "التقييم",
+      "ratingValue": "{{rating}} / 5 من {{count}} تقييم"
+    },
+    "fuels": {
+      "petrol": "بنزين",
+      "hybrid": "هجين",
+      "electric": "كهربائي"
+    },
+    "features": {
+      "wifi": "واي فاي",
+      "fuel": "نوع الوقود",
+      "model": "سنة الصنع",
+      "passengers": "عدد الركاب",
+      "luggage": "عدد الحقائب",
+      "climate": "التحكم بالمناخ"
+    },
+    "save": "حفظ التغييرات",
+    "create": "إضافة السيارة",
+    "saving": "جارٍ الحفظ…",
+    "saved": "تم حفظ التغييرات.",
+    "validation": {
+      "required": "هذا الحقل مطلوب.",
+      "positive": "أدخل رقماً أكبر من 0.",
+      "whole": "أدخل رقماً صحيحاً.",
+      "year": "أدخل سنة بين 1990 و{{max}}."
+    },
+    "categories": {
+      "title": "فئات السيارات",
+      "nameEn": "الاسم (بالإنجليزية)",
+      "nameAr": "الاسم (بالعربية)",
+      "add": "إضافة فئة",
+      "save": "حفظ",
+      "carCount": "{{count}} سيارات",
+      "delete": "حذف الفئة",
+      "notEmpty": "انقل سياراتها أو احذفها أولاً.",
+      "close": "إغلاق"
+    }
+  },
+  "overview": {
+    "welcome": "أهلاً بعودتك، {{name}}",
+    "subtitle": "هذا ما يحدث اليوم.",
+    "stats": {
+      "todayPickups": "رحلات اليوم",
+      "newRequests": "طلبات جديدة",
+      "newRequestsHint": "بانتظار الفريق",
+      "nextSevenDays": "الأيام السبعة القادمة",
+      "receivedThisMonth": "المستلمة هذا الشهر",
+      "nextPickup": "أقرب رحلة الساعة {{time}}",
+      "noPickupsToday": "لا رحلات اليوم",
+      "allCaughtUp": "لا شيء بالانتظار",
+      "range": "{{from}} – {{to}}"
+    },
+    "upcoming": "الرحلات القادمة",
+    "noUpcoming": "لا توجد رحلات قادمة.",
+    "byService": "الحجوزات حسب الخدمة",
+    "last30Days": "آخر 30 يوماً",
+    "bookingsTotal": "حجز",
+    "vsLastMonth": "عن الشهر الماضي",
+    "quickRequests": "مراجعة الطلبات الجديدة",
+    "quickMessages": "فتح الرسائل غير المقروءة",
+    "noBookings": "لا توجد حجوزات بعد.",
+    "viewAll": "عرض الكل",
+    "unreadMessages": "رسائل غير مقروءة",
+    "noUnread": "لا توجد رسائل غير مقروءة."
+  },
+  "comingSoon": {
+    "title": "هذا القسم قيد البناء",
+    "body": "سيظهر هنا قريباً."
+  },
+  "access": {
+    "forbiddenTitle": "لا تملك صلاحية الوصول إلى هذه الصفحة",
+    "forbiddenBody": "دورك لا يشمل هذا القسم. تواصل مع المدير إذا كنت تحتاجه.",
+    "noAccessTitle": "لا توجد أقسام بعد",
+    "noAccessBody": "دورك لا يشمل أي قسم حتى الآن. اطلب من المدير تحديثه.",
+    "notFoundTitle": "الصفحة غير موجودة",
+    "notFoundBody": "هذه الصفحة غير موجودة في لوحة التحكم.",
+    "goHome": "الذهاب إلى لوحة التحكم"
+  },
+  "session": {
+    "loading": "جارٍ تحميل حسابك…",
+    "loadFailed": "تعذّر تحميل حسابك.",
+    "retry": "إعادة المحاولة",
+    "logout": "تسجيل الخروج"
+  },
+  "login": {
+    "title": "دخول الموظفين",
+    "subtitle": "سجّل الدخول لإدارة ESM Limo",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "submit": "تسجيل الدخول",
+    "submitting": "جارٍ تسجيل الدخول…",
+    "demoAccounts": "حسابات تجريبية (بيانات وهمية)",
+    "errors": {
+      "INVALID_CREDENTIALS": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+      "ACCOUNT_DISABLED": "هذا الحساب معطّل.",
+      "INVITE_PENDING": "هذا الحساب غير مفعّل بعد. استخدم الرابط في بريد الدعوة لاختيار كلمة مرور.",
+      "default": "تعذّر تسجيل الدخول. حاول مرة أخرى."
+    }
+  },
+  "blog": {
+    "newPost": "مقال جديد",
+    "searchPlaceholder": "ابحث في المقالات",
+    "views": {
+      "all": "الكل",
+      "published": "المنشورة",
+      "draft": "المسودات"
+    },
+    "status": {
+      "published": "منشور",
+      "draft": "مسودة"
+    },
+    "empty": "لا توجد مقالات هنا بعد.",
+    "notFound": "هذا المقال غير موجود أو تم حذفه.",
+    "backToList": "كل المقالات",
+    "untitled": "(بدون عنوان)",
+    "updated": "حُدّث في {{date}}",
+    "comments": "{{count}} تعليقات",
+    "viewOnSite": "عرض في الموقع",
+    "edit": "تعديل",
+    "view": "عرض",
+    "deletePost": "حذف المقال",
+    "deleteTitle": "حذف هذا المقال؟",
+    "deleteBody": "سيُحذف من الموقع مع تعليقاته. لإخفائه مع الاحتفاظ به، حوّله إلى مسودة بدلاً من ذلك.",
+    "newTitle": "مقال جديد",
+    "languages": {
+      "en": "الإنجليزية",
+      "ar": "العربية"
+    },
+    "arabicHint": "اترك الحقول العربية فارغة لعرض النص الإنجليزي في الموقع العربي.",
+    "sections": {
+      "content": "المحتوى",
+      "publishing": "النشر",
+      "images": "الصور"
+    },
+    "fields": {
+      "title": "العنوان",
+      "titleHint": "سطر جديد في العنوان يظهر كما هو في بطاقات المدونة.",
+      "accents": "الكلمات المميّزة",
+      "accentsHint": "كلمات تظهر باللون الفيروزي، افصل بينها بفواصل.",
+      "excerpt": "ملخص قصير",
+      "excerptHint": "يظهر تحت العنوان في بطاقات المدونة.",
+      "sectionsLabel": "الفقرات",
+      "heading": "العنوان الفرعي",
+      "body": "النص",
+      "addSection": "إضافة فقرة",
+      "removeSection": "حذف الفقرة",
+      "moveUp": "نقل لأعلى",
+      "moveDown": "نقل لأسفل",
+      "sectionNumber": "الفقرة {{number}}",
+      "published": "منشور في الموقع",
+      "publishedHint": "المسودات تظهر هنا في لوحة التحكم فقط.",
+      "publishedAt": "تاريخ النشر",
+      "author": "الكاتب",
+      "slug": "الرابط",
+      "slugHint": "يُنشأ من العنوان الإنجليزي إذا تُرك فارغاً، ولا يمكن تغييره بعد إنشاء المقال.",
+      "image": "صورة البطاقة",
+      "heroImage": "صورة الغلاف",
+      "heroImageHint": "تظهر أعلى المقال. تُستخدم صورة البطاقة إذا كانت فارغة.",
+      "imageHint": "تظهر في بطاقات المدونة."
+    },
+    "save": "حفظ المقال",
+    "create": "إنشاء المقال",
+    "saved": "تم حفظ المقال.",
+    "errors": {
+      "SLUG_TAKEN": "يستخدم مقال آخر هذا الرابط مسبقاً."
+    },
+    "validation": {
+      "titleRequired": "أعطِ المقال عنواناً بالإنجليزية."
+    }
+  },
+  "comments": {
+    "views": {
+      "pending": "بانتظار المراجعة",
+      "approved": "الموافَق عليها",
+      "spam": "مزعجة"
+    },
+    "searchPlaceholder": "ابحث بالاسم أو البريد أو النص",
+    "empty": "لا توجد تعليقات هنا.",
+    "onPost": "على",
+    "allPosts": "كل المقالات",
+    "website": "الموقع الإلكتروني",
+    "selectAll": "تحديد الكل في هذه الصفحة",
+    "select": "تحديد تعليق {{name}}",
+    "selected": "{{count}} محددة",
+    "actions": {
+      "approve": "موافقة",
+      "unapprove": "إلغاء الموافقة",
+      "spam": "مزعج",
+      "notSpam": "ليس مزعجاً",
+      "delete": "حذف",
+      "deleteTitle": "حذف {{count}} تعليقات؟",
+      "deleteBody": "ستُحذف نهائياً."
+    },
+    "done": "تم تحديث {{count}} تعليقات."
+  },
+  "customers": {
+    "searchPlaceholder": "ابحث بالاسم أو البريد أو الهاتف",
+    "views": {
+      "all": "الكل",
+      "active": "النشطون",
+      "blocked": "المحظورون"
+    },
+    "status": {
+      "active": "نشط",
+      "blocked": "محظور"
+    },
+    "empty": "لا يوجد زبائن يطابقون هذه الفلاتر.",
+    "notFound": "هذا الزبون غير موجود أو تم حذفه.",
+    "backToList": "كل الزبائن",
+    "columns": {
+      "customer": "الزبون",
+      "phone": "الهاتف",
+      "bookings": "الحجوزات",
+      "joined": "تاريخ التسجيل",
+      "status": "الحالة"
+    },
+    "noPhone": "—",
+    "verified": "البريد مؤكَّد",
+    "notVerified": "البريد غير مؤكَّد",
+    "joined": "سجّل في {{date}}",
+    "lastLogin": "آخر دخول {{date}}",
+    "contact": "التواصل",
+    "bookingStats": {
+      "total": "الحجوزات",
+      "upcoming": "القادمة",
+      "completed": "المنجزة",
+      "cancelled": "الملغاة"
+    },
+    "bookingsTitle": "الحجوزات",
+    "noBookings": "لا توجد حجوزات بعد.",
+    "viewAllBookings": "عرض الكل في الحجوزات",
+    "actions": {
+      "block": "حظر الحساب",
+      "unblock": "إلغاء الحظر",
+      "blockTitle": "حظر {{name}}؟",
+      "blockBody": "لن يتمكن من تسجيل الدخول إلى الموقع حتى يُلغى الحظر. تبقى حجوزاته كما هي.",
+      "delete": "حذف الحساب",
+      "deleteTitle": "حذف حساب {{name}}؟",
+      "deleteBody": "سيُحذف حسابه وملفه نهائياً. تبقى حجوزاته كسجلّ للرحلات."
+    }
+  },
+  "settings": {
+    "sections": {
+      "contact": "معلومات التواصل",
+      "contactHint": "تظهر في أسفل الموقع وفي صفحة تواصل معنا.",
+      "socials": "وسائل التواصل الاجتماعي",
+      "socialsHint": "روابط كاملة لصفحاتكم. اترك الحقل فارغاً لإخفاء أيقونته.",
+      "notifications": "الإشعارات",
+      "notificationsHint": "أين يُبلَّغ الفريق بالنشاط الجديد في الموقع."
+    },
+    "fields": {
+      "phone": "الهاتف الرئيسي",
+      "secondaryPhone": "هاتف ثانٍ",
+      "whatsapp": "رقم واتساب",
+      "email": "البريد الإلكتروني",
+      "addressEn": "العنوان (بالإنجليزية)",
+      "addressAr": "العنوان (بالعربية)",
+      "hoursEn": "ساعات العمل (بالإنجليزية)",
+      "hoursAr": "ساعات العمل (بالعربية)",
+      "instagram": "إنستغرام",
+      "facebook": "فيسبوك",
+      "linkedin": "لينكدإن",
+      "twitter": "إكس (تويتر)",
+      "notifyEmail": "إرسال الإشعارات إلى",
+      "newBooking": "طلب حجز جديد",
+      "newBookingHint": "يصلك بريد عند وصول طلب حجز جديد من الموقع.",
+      "newMessage": "رسالة جديدة من تواصل معنا",
+      "newMessageHint": "يصلك بريد عند وصول رسالة من نموذج تواصل معنا.",
+      "newComment": "تعليق جديد بانتظار المراجعة",
+      "newCommentHint": "يصلك بريد عند وجود تعليق جديد بانتظار الموافقة."
+    },
+    "save": "حفظ الإعدادات",
+    "saved": "تم حفظ الإعدادات.",
+    "lastUpdated": "آخر تحديث {{date}}",
+    "validation": {
+      "required": "هذا الحقل مطلوب.",
+      "phone": "أدخل رقم هاتف (أرقام ومسافات و+ و- فقط).",
+      "email": "أدخل بريداً إلكترونياً صحيحاً.",
+      "url": "أدخل رابطاً كاملاً يبدأ بـ https://"
+    }
+  },
+  "content": {
+    "tabs": {
+      "faq": "الأسئلة الشائعة",
+      "promo": "شريط العرض",
+      "partners": "الشركاء",
+      "terms": "الشروط",
+      "privacy": "الخصوصية",
+      "disclaimer": "إخلاء المسؤولية"
+    },
+    "lastUpdated": "آخر تحديث {{date}}",
+    "english": "الإنجليزية",
+    "arabic": "العربية",
+    "arabicFallback": "اترك العربية فارغة لعرض النص الإنجليزي في الموقع العربي.",
+    "save": "حفظ التغييرات",
+    "saved": "تم حفظ التغييرات.",
+    "required": "مطلوب بالإنجليزية.",
+    "moveUp": "نقل لأعلى",
+    "moveDown": "نقل لأسفل",
+    "remove": "حذف",
+    "removeTitle": "حذف «{{title}}»؟",
+    "removeBody": "سيُحذف من الموقع بعد حفظ التغييرات.",
+    "faq": {
+      "hint": "الأسئلة المعروضة في صفحة الأسئلة الشائعة، بهذا الترتيب.",
+      "question": "السؤال",
+      "answer": "الجواب",
+      "item": "السؤال {{number}}",
+      "add": "إضافة سؤال",
+      "empty": "لا توجد أسئلة بعد."
+    },
+    "promo": {
+      "hint": "شريط العرض الخاص في الصفحة الرئيسية.",
+      "enabled": "إظهار شريط العرض في الصفحة الرئيسية",
+      "eyebrow": "العنوان الصغير",
+      "heading": "العنوان",
+      "headingAccent": "الجزء المميّز من العنوان",
+      "headingAccentHint": "يجب أن يطابق كلمات من العنوان تماماً؛ يظهر باللون الفيروزي.",
+      "description": "الوصف",
+      "cta": "نص الزر",
+      "image": "صورة السيارة"
+    },
+    "partners": {
+      "hint": "الشعارات في شريط الشركاء المتحرك في الصفحة الرئيسية، بهذا الترتيب.",
+      "name": "الاسم",
+      "logo": "الشعار",
+      "url": "الموقع الإلكتروني (اختياري)",
+      "item": "الشريك {{number}}",
+      "add": "إضافة شريك",
+      "empty": "لا يوجد شركاء بعد.",
+      "logoRequired": "ارفع شعار الشريك.",
+      "urlInvalid": "أدخل رابطاً كاملاً يبدأ بـ https://"
+    },
+    "legal": {
+      "hint": "صفحة {{page}}. كل قسم عنوان مرقّم مع نصه؛ افصل بين الفقرات بسطر فارغ.",
+      "title": "عنوان الصفحة",
+      "intro": "المقدمة",
+      "heading": "عنوان القسم",
+      "body": "نص القسم",
+      "section": "القسم {{number}}",
+      "add": "إضافة قسم"
+    }
+  },
+  "unsaved": {
+    "title": "المغادرة بدون حفظ؟",
+    "body": "ستضيع تغييراتك في هذه الصفحة.",
+    "leave": "مغادرة",
+    "stay": "البقاء"
+  }
+}

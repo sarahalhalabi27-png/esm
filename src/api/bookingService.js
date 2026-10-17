@@ -1,6 +1,10 @@
-// TODO(api): swap for POST /bookings once the backend is ready.
+import { apiRequest } from "./apiClient.js";
+import { USE_MOCK } from "./config.js";
+
+// POST /bookings
 export async function submitBookingRequest(payload) {
-  // return apiRequest("/bookings", { method: "POST", body: JSON.stringify(payload) });
+  if (!USE_MOCK)
+    return apiRequest("/bookings", { method: "POST", body: payload });
   console.info("Booking request (mock submit):", payload);
-  return Promise.resolve({ success: true, payload });
+  return { success: true, payload };
 }
